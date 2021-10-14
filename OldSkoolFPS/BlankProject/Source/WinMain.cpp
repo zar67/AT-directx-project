@@ -6,6 +6,8 @@ WCHAR		WindowTitle[MAX_NAME_STRING];
 INT			WindowWidth;
 INT			WindowHeight;
 
+HICON		hIcon;
+
 LRESULT CALLBACK WindowProcess(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam) // Params: Window Instance, Message, Message Arguments, ??
 {
 	switch (message)
@@ -28,6 +30,8 @@ int CALLBACK WinMain(HINSTANCE, HINSTANCE, LPSTR, INT)
 	WindowWidth = 1366;
 	WindowHeight = 768;
 
+	hIcon = LoadIcon(HInstance(), MAKEINTRESOURCE(IDI_MAINICON));
+
 	/* Create Window Class */
 
 	WNDCLASSEX wcex;
@@ -40,9 +44,9 @@ int CALLBACK WinMain(HINSTANCE, HINSTANCE, LPSTR, INT)
 	wcex.hCursor = LoadCursor(nullptr, IDC_ARROW); // Set to default cursor.
 	wcex.hbrBackground = (HBRUSH)GetStockObject(NULL_BRUSH); // Set background to while (NULL_BRUSH).
 
-	// Set program icon to default application icon.
-	wcex.hIcon = LoadIcon(0, IDI_APPLICATION);
-	wcex.hIconSm = LoadIcon(0, IDI_APPLICATION);
+	// Set program icon to custom application icon.
+	wcex.hIcon = hIcon;
+	wcex.hIconSm = hIcon;
 
 	wcex.lpszClassName = WindowClassName; // Set the window's class name.
 	wcex.lpszMenuName = nullptr; // No need for a menu in a game.

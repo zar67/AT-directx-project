@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="Source">
       <UniqueIdentifier>{b6460128-b0ff-46d0-a812-ab4edaef4601}</UniqueIdentifier>
     </Filter>
@@ -19,6 +15,13 @@
     <Filter Include="Source\pch">
       <UniqueIdentifier>{b90c457f-a88a-4e3f-ba5b-d92b7b5e0e67}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Resources\Icons">
+      <UniqueIdentifier>{39e8c4ce-e0e7-4f9c-a0d6-7cb45da90fde}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\WinMain.cpp">
@@ -32,5 +35,18 @@
     <ClInclude Include="Source\pch.h">
       <Filter>Source\pch</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="BlankProject.rc">
+      <Filter>Resources</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\Icons\doom-icon.ico">
+      <Filter>Resources\Icons</Filter>
+    </Image>
   </ItemGroup>
 </Project>
