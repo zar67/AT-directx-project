@@ -14,12 +14,31 @@ Window::Window(int width, int height, const int name, const int icon)
 
 	CreateWindowClass();
 	InitialiseWindow();
-	HandleWindowsMessages();
 }
 
 Window::~Window()
 {
 	UnregisterClass(wndClassName, hInst);
+}
+
+std::optional<int> Window::ProcessMessages()
+{
+	MSG msg;
+
+	// If there are any messages then process them.
+	// PeekMessage is a non-blocking command so we can run other code while checking for messages.
+	while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
+	{
+		if (msg.message == WM_QUIT)
+		{
+			return msg.wParam;
+		}
+
+		TranslateMessage(&msg);
+		DispatchMessage(&msg);
+	}
+
+	return {};
 }
 
 LRESULT Window::HandleMessageSetup(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam)
@@ -123,20 +142,4 @@ VOID Window::InitialiseWindow()
 
 	/* Show the Window */
 	ShowWindow(hWnd, SW_SHOW); // Params: Window Handle, Bitflag to Show Window.
-}
-
-VOID Window::HandleWindowsMessages()
-{
-	/* Listen for Message Events */
-	MSG msg = { 0 };
-	while (msg.message != WM_QUIT)
-	{
-		// If there are any messages then process them.
-		// PeekMessage is a non-blocking command so we can run other code while checking for messages.
-		if (PeekMessage(&msg, 0, 0, 0, PM_REMOVE))
-		{
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
-		}
-	}
 }

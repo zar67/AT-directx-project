@@ -1,6 +1,7 @@
 #pragma once
 #include <Windows.h>
 #include "resource.h"
+#include <optional>
 
 #define MAX_NAME_STRING 256
 
@@ -11,6 +12,9 @@ public:
 	~Window();
 	Window(const Window&) = delete;
 	Window& operator=(const Window&) = delete;
+
+	static std::optional<int> ProcessMessages();
+
 private:
 	static LRESULT CALLBACK HandleMessageSetup(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam);
 	static LRESULT CALLBACK HandleMessageThunk(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam);
@@ -19,7 +23,6 @@ private:
 
 	VOID CreateWindowClass();
 	VOID InitialiseWindow();
-	VOID HandleWindowsMessages();
 
 	WCHAR wndClassName[MAX_NAME_STRING];
 	WCHAR wndTitle[MAX_NAME_STRING];

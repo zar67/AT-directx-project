@@ -8,6 +8,7 @@
 #include <Windows.h>
 #include "../Window.h"
 #include "../resource.h"
+#include "../Game.h"
 
 // CALLBACK: Tells C++ to use __stdcall instead of the usual calling method.
 // This function hasn't changed since Windows 3.1.
@@ -17,8 +18,5 @@
 // nCmdShow: Bitflag to indicate how the window should be shown on startup.
 int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, INT nCmdShow)
 {
-	Window wnd = Window(1080, 720, IDS_GAMENAME, IDI_MAINICON);
-
-	// Returns an exit code.
-	return 0;
+	return Game{}.Run();
 }
