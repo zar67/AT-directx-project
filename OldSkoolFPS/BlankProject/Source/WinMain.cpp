@@ -1,7 +1,4 @@
-#include <windows.h>
-
-#define MAX_NAME_STRING 256
-#define HInstance() GetModuleHandle(NULL) // Macro to access the program instance.
+#include "pch.h"
 
 WCHAR		WindowClassName[MAX_NAME_STRING];
 WCHAR		WindowTitle[MAX_NAME_STRING];
