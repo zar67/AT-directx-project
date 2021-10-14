@@ -1,9 +1,10 @@
-#include "pch.h"
 /* ------------------------------------------------- */
 /* Filename: WinMain.cpp                             */
 /* Author: Zoe Rowbotham                             */
-/* Description: Main entry point to the program      */
+/* Description: Main entry file for the program,     */
+/* initialises the window and important things...    */
 /* ------------------------------------------------- */
+#include "pch.h"
 
 #pragma region GlobalVariables
 /* ------------------------------------------------- */
@@ -40,13 +41,20 @@ LRESULT CALLBACK WindowProcess(HWND hWnd, UINT message, WPARAM wparam, LPARAM lp
 /* Operations                                        */
 /* ------------------------------------------------- */
 
-int CALLBACK WinMain(HINSTANCE, HINSTANCE, LPSTR, INT)
+// CALLBACK: Tells C++ to use __stdcall instead of the usual calling method.
+// This function hasn't changed since Windows 3.1.
+// hInstance: The instance of the program and can always be found through GetModuleHandle(NULL).
+// hPrevInstance: The previous instance and will always return null - it's no longer used.
+// lpCmdLine: The command line input string.
+// nCmdShow: Bitflag to indicate how the window should be shown on startup.
+int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, INT nCmdShow)
 {
 	InitialiseGlobalVariables();
 	CreateWindowClass();
 	InitialiseWindow();
 	HandleWindowsMessages();
 
+	// Returns an exit code.
 	return 0;
 }
 
@@ -59,6 +67,7 @@ LRESULT CALLBACK WindowProcess(HWND hWnd, UINT message, WPARAM wparam, LPARAM lp
 		break;
 	}
 
+	// Still need to call the Default Window Process to handle any messages we don't need to.
 	return DefWindowProc(hWnd, message, wparam, lparam);
 }
 /* ------------------------------------------------- */
@@ -81,17 +90,21 @@ VOID InitialiseGlobalVariables()
 	hIcon = LoadIcon(HInstance(), MAKEINTRESOURCE(IDI_MAINICON));
 }
 
+// The windows class defines lots of the information about the window.
+// Once you have a windows class you can create one of more instances of the class.
+// This is not done through C++ classes, this is done through the Windows API.
 VOID CreateWindowClass()
 {
+	// EX means extended (it's the newer version).
 	WNDCLASSEX wcex;
 
-	wcex.cbSize = sizeof(WNDCLASSEX); // The size of the class (initialises).
+	wcex.cbSize = sizeof(WNDCLASSEX); // The size of the structure (initialises).
 	wcex.style = CS_HREDRAW | CS_VREDRAW; // Want a horizontal and vertical redraw.
 	wcex.cbClsExtra = 0; // Used to add extra memory at run time.
 	wcex.cbWndExtra = 0; // Used to add extra memory at run time.
 
 	wcex.hCursor = LoadCursor(nullptr, IDC_ARROW); // Set to default cursor.
-	wcex.hbrBackground = (HBRUSH)GetStockObject(NULL_BRUSH); // Set background to while (NULL_BRUSH).
+	wcex.hbrBackground = (HBRUSH)GetStockObject(NULL_BRUSH); // Set background to white (NULL_BRUSH).
 
 	// Set program icon to custom application icon.
 	wcex.hIcon = hIcon;
@@ -102,7 +115,7 @@ VOID CreateWindowClass()
 
 	wcex.hInstance = HInstance(); // Set the program instance.
 
-	wcex.lpfnWndProc = WindowProcess; // Custom Window Process.
+	wcex.lpfnWndProc = WindowProcess; // Custom Window Process for behaviour and look of the window.
 
 	RegisterClassEx(&wcex);
 }
@@ -110,9 +123,20 @@ VOID CreateWindowClass()
 VOID InitialiseWindow()
 {
 	/* Create the Window */
-
-	HWND hWnd = CreateWindow(WindowClassName, WindowTitle, WS_OVERLAPPEDWINDOW, // Params: Class, Title, Window Style
-		CW_USEDEFAULT, 0, WindowWidth, WindowHeight, nullptr, nullptr, HInstance(), nullptr); // Params: X, Y, Width, Height, Parent, Menu, Instance, ??
+	HWND hWnd = CreateWindowEx(
+		0,						// Extended Window Style
+		WindowClassName,		// Window Class Name
+		WindowTitle,			// Window Title
+		WS_OVERLAPPEDWINDOW,	// Window Style
+		CW_USEDEFAULT,			// X
+		0,						// Y
+		WindowWidth,			// Width
+		WindowHeight,			// Height
+		nullptr,				// Parent Window
+		nullptr,				// Menu
+		HInstance(),			// Instance
+		nullptr					// Message for Created Window
+	);
 
 	if (!hWnd) // If the window hasn't been created properly, don't continue and show an error.
 	{
@@ -121,13 +145,12 @@ VOID InitialiseWindow()
 	}
 
 	/* Show the Window */
-	ShowWindow(hWnd, SW_SHOW); // Params: Window Handle, Bool to Show Window
+	ShowWindow(hWnd, SW_SHOW); // Params: Window Handle, Bitflag to Show Window.
 }
 
 VOID HandleWindowsMessages()
 {
 	/* Listen for Message Events */
-
 	MSG msg = { 0 };
 	while (msg.message != WM_QUIT)
 	{
