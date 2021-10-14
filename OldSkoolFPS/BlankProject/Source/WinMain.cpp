@@ -1,13 +1,25 @@
 #include <windows.h>
 
 #define MAX_NAME_STRING 256
-#define HInstance() GetModuleHandle(NULL)
+#define HInstance() GetModuleHandle(NULL) // Macro to access the program instance.
 
 WCHAR		WindowClassName[MAX_NAME_STRING];
 WCHAR		WindowTitle[MAX_NAME_STRING];
 
 INT			WindowWidth;
 INT			WindowHeight;
+
+LRESULT CALLBACK WindowProcess(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam) // Params: Window Instance, Message, Message Arguments, ??
+{
+	switch (message)
+	{
+		case WM_DESTROY: // Recieved at the end of a close window request.
+			PostQuitMessage(0);
+			break;
+	}
+
+	return DefWindowProc(hWnd, message, wparam, lparam);
+}
 
 int CALLBACK WinMain(HINSTANCE, HINSTANCE, LPSTR, INT)
 {
@@ -35,18 +47,19 @@ int CALLBACK WinMain(HINSTANCE, HINSTANCE, LPSTR, INT)
 	wcex.hIcon = LoadIcon(0, IDI_APPLICATION);
 	wcex.hIconSm = LoadIcon(0, IDI_APPLICATION);
 
-	wcex.lpszClassName = WindowClassName;
-	wcex.lpszMenuName = nullptr;
+	wcex.lpszClassName = WindowClassName; // Set the window's class name.
+	wcex.lpszMenuName = nullptr; // No need for a menu in a game.
 
-	wcex.hInstance = HInstance();
-	wcex.lpfnWndProc = DefWindowProc; // Default Windows Process.
+	wcex.hInstance = HInstance(); // Set the program instance.
+
+	wcex.lpfnWndProc = WindowProcess; // Custom Window Process.
 
 	RegisterClassEx(&wcex);
 
 	/* Create the Window */
 
-	HWND hWnd = CreateWindow(WindowClassName, WindowTitle, WS_OVERLAPPEDWINDOW, // Class, Title, Window Style
-		CW_USEDEFAULT, 0, WindowWidth, WindowHeight, nullptr, nullptr, HInstance(), nullptr); // X, Y, Width, Height, Parent, Menu, Instance, ??
+	HWND hWnd = CreateWindow(WindowClassName, WindowTitle, WS_OVERLAPPEDWINDOW, // Params: Class, Title, Window Style
+		CW_USEDEFAULT, 0, WindowWidth, WindowHeight, nullptr, nullptr, HInstance(), nullptr); // Params: X, Y, Width, Height, Parent, Menu, Instance, ??
 
 	if (!hWnd) // If the window hasn't been created properly, don't continue and show an error.
 	{
@@ -55,7 +68,7 @@ int CALLBACK WinMain(HINSTANCE, HINSTANCE, LPSTR, INT)
 	}
 
 	/* Show the Window */
-	ShowWindow(hWnd, SW_SHOW); // Window Handle, Bool to Show Window
+	ShowWindow(hWnd, SW_SHOW); // Params: Window Handle, Bool to Show Window
 
 	/* Listen for Message Events */
 
