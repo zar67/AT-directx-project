@@ -23,5 +23,6 @@ int Game::Run()
 
 void Game::Update()
 {
-
+	m_window.GetGraphics().ClearBuffer(0.92f, 0.86f, 0.32f);
+	m_window.GetGraphics().EndFrame();
 }

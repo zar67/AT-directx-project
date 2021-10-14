@@ -30,6 +30,9 @@
     <ClCompile Include="Game.cpp">
       <Filter>Source\Private</Filter>
     </ClCompile>
+    <ClCompile Include="Graphics.cpp">
+      <Filter>Source\Private</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -39,6 +42,9 @@
       <Filter>Source\Public</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
+      <Filter>Source\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics.h">
       <Filter>Source\Public</Filter>
     </ClInclude>
   </ItemGroup>

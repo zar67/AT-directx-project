@@ -41,6 +41,11 @@ std::optional<int> Window::ProcessMessages()
 	return {};
 }
 
+Graphics& Window::GetGraphics()
+{
+	return *m_pGraphics;
+}
+
 LRESULT Window::HandleMessageSetup(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam)
 {
 	if (message == WM_NCCREATE) // Sent when a window is first created.
@@ -88,7 +93,7 @@ LRESULT Window::HandleMessage(HWND hWnd, UINT message, WPARAM wparam, LPARAM lpa
 	return DefWindowProc(hWnd, message, wparam, lparam);
 }
 
-VOID Window::CreateWindowClass()
+void Window::CreateWindowClass()
 {
 	WNDCLASSEX wcex;
 
@@ -99,7 +104,7 @@ VOID Window::CreateWindowClass()
 	wcex.hInstance = hInst;
 
 	wcex.hCursor = LoadCursor(nullptr, IDC_ARROW); // Set to default cursor.
-	wcex.hbrBackground = (HBRUSH)GetStockObject(NULL_BRUSH); // Set background to white (NULL_BRUSH).
+	wcex.hbrBackground = nullptr;
 
 	// Set program icon to custom application icon.
 	wcex.hIcon = hIcon;
@@ -115,7 +120,7 @@ VOID Window::CreateWindowClass()
 	RegisterClassEx(&wcex);
 }
 
-VOID Window::InitialiseWindow()
+void Window::InitialiseWindow()
 {
 	INT offset = 100;
 
@@ -142,4 +147,6 @@ VOID Window::InitialiseWindow()
 
 	/* Show the Window */
 	ShowWindow(hWnd, SW_SHOW); // Params: Window Handle, Bitflag to Show Window.
+
+	m_pGraphics = std::make_unique<Graphics>(hWnd);
 }
