@@ -24,8 +24,8 @@ int CALLBACK WinMain(HINSTANCE, HINSTANCE, LPSTR, INT)
 {
 	/* Initialize Global Variables */
 
-	wcscpy_s(WindowClassName, TEXT("OldSkoolFPS"));
-	wcscpy_s(WindowTitle, TEXT("Doom But Better"));
+	LoadString(HInstance(), IDS_WINDOWCLASSNAME, WindowClassName, MAX_NAME_STRING);
+	LoadString(HInstance(), IDS_GAMENAME, WindowTitle, MAX_NAME_STRING);
 
 	WindowWidth = 1366;
 	WindowHeight = 768;
