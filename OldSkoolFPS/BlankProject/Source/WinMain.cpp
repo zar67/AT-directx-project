@@ -1,4 +1,14 @@
 #include "pch.h"
+/* ------------------------------------------------- */
+/* Filename: WinMain.cpp                             */
+/* Author: Zoe Rowbotham                             */
+/* Description: Main entry point to the program      */
+/* ------------------------------------------------- */
+
+#pragma region GlobalVariables
+/* ------------------------------------------------- */
+/* Global Variables                                  */
+/* ------------------------------------------------- */
 
 WCHAR		WindowClassName[MAX_NAME_STRING];
 WCHAR		WindowTitle[MAX_NAME_STRING];
@@ -8,22 +18,60 @@ INT			WindowHeight;
 
 HICON		hIcon;
 
+/* ------------------------------------------------- */
+#pragma endregion
+
+#pragma region Pre-Declarations
+/* ------------------------------------------------- */
+/* Pre-Declarations                                  */
+/* ------------------------------------------------- */
+
+VOID InitialiseGlobalVariables();
+VOID CreateWindowClass();
+VOID InitialiseWindow();
+VOID HandleWindowsMessages();
+LRESULT CALLBACK WindowProcess(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam);
+
+/* ------------------------------------------------- */
+#pragma endregion
+
+#pragma region Operations
+/* ------------------------------------------------- */
+/* Operations                                        */
+/* ------------------------------------------------- */
+
+int CALLBACK WinMain(HINSTANCE, HINSTANCE, LPSTR, INT)
+{
+	InitialiseGlobalVariables();
+	CreateWindowClass();
+	InitialiseWindow();
+	HandleWindowsMessages();
+
+	return 0;
+}
+
 LRESULT CALLBACK WindowProcess(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam) // Params: Window Instance, Message, Message Arguments, ??
 {
 	switch (message)
 	{
-		case WM_DESTROY: // Recieved at the end of a close window request.
-			PostQuitMessage(0);
-			break;
+	case WM_DESTROY: // Recieved at the end of a close window request.
+		PostQuitMessage(0);
+		break;
 	}
 
 	return DefWindowProc(hWnd, message, wparam, lparam);
 }
+/* ------------------------------------------------- */
+#pragma endregion
 
-int CALLBACK WinMain(HINSTANCE, HINSTANCE, LPSTR, INT)
+#pragma region Functions
+/* ------------------------------------------------- */
+/* Functions                                         */
+/* ------------------------------------------------- */
+
+VOID InitialiseGlobalVariables()
 {
 	/* Initialize Global Variables */
-
 	LoadString(HInstance(), IDS_WINDOWCLASSNAME, WindowClassName, MAX_NAME_STRING);
 	LoadString(HInstance(), IDS_GAMENAME, WindowTitle, MAX_NAME_STRING);
 
@@ -31,9 +79,10 @@ int CALLBACK WinMain(HINSTANCE, HINSTANCE, LPSTR, INT)
 	WindowHeight = 768;
 
 	hIcon = LoadIcon(HInstance(), MAKEINTRESOURCE(IDI_MAINICON));
+}
 
-	/* Create Window Class */
-
+VOID CreateWindowClass()
+{
 	WNDCLASSEX wcex;
 
 	wcex.cbSize = sizeof(WNDCLASSEX); // The size of the class (initialises).
@@ -56,7 +105,10 @@ int CALLBACK WinMain(HINSTANCE, HINSTANCE, LPSTR, INT)
 	wcex.lpfnWndProc = WindowProcess; // Custom Window Process.
 
 	RegisterClassEx(&wcex);
+}
 
+VOID InitialiseWindow()
+{
 	/* Create the Window */
 
 	HWND hWnd = CreateWindow(WindowClassName, WindowTitle, WS_OVERLAPPEDWINDOW, // Params: Class, Title, Window Style
@@ -65,12 +117,15 @@ int CALLBACK WinMain(HINSTANCE, HINSTANCE, LPSTR, INT)
 	if (!hWnd) // If the window hasn't been created properly, don't continue and show an error.
 	{
 		MessageBox(0, L"Failed to Create Window!", 0, 0);
-		return 0;
+		PostQuitMessage(0);
 	}
 
 	/* Show the Window */
 	ShowWindow(hWnd, SW_SHOW); // Params: Window Handle, Bool to Show Window
+}
 
+VOID HandleWindowsMessages()
+{
 	/* Listen for Message Events */
 
 	MSG msg = { 0 };
@@ -84,6 +139,7 @@ int CALLBACK WinMain(HINSTANCE, HINSTANCE, LPSTR, INT)
 			DispatchMessage(&msg);
 		}
 	}
-
-	return 0;
 }
+
+/* ------------------------------------------------- */
+#pragma endregion
