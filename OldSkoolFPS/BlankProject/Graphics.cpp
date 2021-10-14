@@ -55,3 +55,13 @@ void Graphics::ClearBuffer(float r, float g, float b)
 	const float color[] = { r, g, b, 1.0f };
 	m_pContext->ClearRenderTargetView(m_pTarget.Get(), color);
 }
+
+ID3D11Device* Graphics::GetDevice()
+{
+	return m_pDevice.Get();
+}
+
+ID3D11DeviceContext* Graphics::GetContext()
+{
+	return m_pContext.Get();
+}

@@ -13,6 +13,9 @@ public:
 	void EndFrame();
 	void ClearBuffer(float r, float g, float b);
 
+	ID3D11Device* GetDevice();
+	ID3D11DeviceContext* GetContext();
+
 private:
 	Microsoft::WRL::ComPtr<ID3D11Device> m_pDevice = nullptr;
 	Microsoft::WRL::ComPtr<IDXGISwapChain> m_pSwapChain = nullptr;
