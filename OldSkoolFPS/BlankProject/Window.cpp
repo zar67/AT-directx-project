@@ -1,16 +1,24 @@
+/* ------------------------------------------------- */
+/* Filename: Window.cpp                              */
+/* Author: Zoe Rowbotham                             */
+/* Description: Includes function declarations for   */
+/* the Window class.                                 */
+/* ------------------------------------------------- */
+
 #include <stdexcept>
 #include "Window.h"
+#include "ErrorLogger.h"
 
 Window::Window(int width, int height, const int name, const int icon)
 {
-	hInst = GetModuleHandle(nullptr);
+	m_instance = GetModuleHandle(nullptr);
 
-	LoadString(hInst, IDS_WINDOWCLASSNAME, wndClassName, MAX_NAME_STRING);
-	LoadString(hInst, name, wndTitle, MAX_NAME_STRING);
-	hIcon = LoadIcon(hInst, MAKEINTRESOURCE(icon));
+	LoadString(m_instance, IDS_WINDOWCLASSNAME, m_windowClassName, MAX_WINDOW_NAME_STRING);
+	LoadString(m_instance, name, m_windowTitle, MAX_WINDOW_NAME_STRING);
+	m_icon = LoadIcon(m_instance, MAKEINTRESOURCE(icon));
 
-	wndWidth = width;
-	wndHeight = height;
+	m_windowWidth = width;
+	m_windowHeight = height;
 
 	CreateWindowClass();
 	InitialiseWindow();
@@ -18,14 +26,14 @@ Window::Window(int width, int height, const int name, const int icon)
 
 Window::~Window()
 {
-	UnregisterClass(wndClassName, hInst);
+	UnregisterClass(m_windowClassName, m_instance);
 }
 
-std::optional<int> Window::ProcessMessages()
+std::optional<int> Window::ProcessWindowsMessages()
 {
 	MSG msg;
+	ZeroMemory(&msg, sizeof(MSG));
 
-	// If there are any messages then process them.
 	// PeekMessage is a non-blocking command so we can run other code while checking for messages.
 	while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
 	{
@@ -50,10 +58,11 @@ LRESULT Window::HandleMessageSetup(HWND hWnd, UINT message, WPARAM wparam, LPARA
 {
 	if (message == WM_NCCREATE) // Sent when a window is first created.
 	{
+		// We cannot directly subscribe a member function to lpfnWndProc, so we use a
+		// static function instead, get the instance, then call the member function.
+
 		// Due to the 'this' in the CreateWindow function, lparam is the Window class 
 		// instance we need to subscribe the HandleMessage function to.
-		// We cannot directly subscribe a member function to lpfnWndProc, so we use a
-		// static function instead.
 
 		// Get the actual Window instance pointer.
 		const CREATESTRUCTW* const pCreate = reinterpret_cast<CREATESTRUCT*>(lparam);
@@ -63,7 +72,7 @@ LRESULT Window::HandleMessageSetup(HWND hWnd, UINT message, WPARAM wparam, LPARA
 		SetWindowLongPtr(hWnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pWnd));
 
 		// Set the windows process to the HandleMessageThunk now we are setup correctly. 
-		SetWindowLongPtr(hWnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(&Window::HandleMessageThunk));
+		SetWindowLongPtr(hWnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(&Window::HandleMessageBridge));
 
 		return pWnd->HandleMessage(hWnd, message, wparam, lparam);
 	}
@@ -71,9 +80,9 @@ LRESULT Window::HandleMessageSetup(HWND hWnd, UINT message, WPARAM wparam, LPARA
 	return DefWindowProc(hWnd, message, wparam, lparam);
 }
 
-LRESULT Window::HandleMessageThunk(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam)
+LRESULT Window::HandleMessageBridge(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam)
 {
-	// Get the window instance pointer we stored to the user data in setup.
+	// Get the window instance pointer we stored to the user data in HandleMessageSetup.
 	Window* const pWnd = reinterpret_cast<Window*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
 
 	// Call the HandleMessage function on the Window instance.
@@ -84,69 +93,73 @@ LRESULT Window::HandleMessage(HWND hWnd, UINT message, WPARAM wparam, LPARAM lpa
 {
 	switch (message)
 	{
-	case WM_DESTROY: // Recieved at the end of a close window request.
+	case WM_CLOSE:
 		PostQuitMessage(0);
-		break;
+
+		// If we don't do this, DefWindowProc will destroy the window twice.
+		return 0;
 	}
 
-	// Still need to call the Default Window Process to handle any messages we don't need to.
+	// Still need to call the Default Window Process to handle any messages we don't.
 	return DefWindowProc(hWnd, message, wparam, lparam);
 }
 
 void Window::CreateWindowClass()
 {
-	WNDCLASSEX wcex;
+	WNDCLASSEX windowClass;
 
-	wcex.cbSize = sizeof(WNDCLASSEX); // The size of the structure (initialises).
-	wcex.style = CS_HREDRAW | CS_VREDRAW; // Want a horizontal and vertical redraw.
-	wcex.cbClsExtra = 0; // Used to add extra memory at run time.
-	wcex.cbWndExtra = 0; // Used to add extra memory at run time.
-	wcex.hInstance = hInst;
+	windowClass.cbSize = sizeof(WNDCLASSEX); // The size of the structure (initialises).
+	windowClass.style = CS_HREDRAW | CS_VREDRAW; // Want a horizontal and vertical redraw.
+	windowClass.cbClsExtra = 0; // Used to add extra memory at run time.
+	windowClass.cbWndExtra = 0; // Used to add extra memory at run time.
+	windowClass.hInstance = m_instance;
 
-	wcex.hCursor = LoadCursor(nullptr, IDC_ARROW); // Set to default cursor.
-	wcex.hbrBackground = nullptr;
+	windowClass.hCursor = LoadCursor(nullptr, IDC_ARROW);
+	windowClass.hbrBackground = nullptr;
 
 	// Set program icon to custom application icon.
-	wcex.hIcon = hIcon;
-	wcex.hIconSm = hIcon;
+	windowClass.hIcon = m_icon;
+	windowClass.hIconSm = m_icon;
 
-	wcex.lpszClassName = wndClassName; // Set the window's class name.
-	wcex.lpszMenuName = nullptr; // No need for a menu in a game.
+	windowClass.lpszClassName = m_windowClassName; // Set the window's class name.
+	windowClass.lpszMenuName = nullptr; // No need for a menu in a game.
 
-	wcex.hInstance = hInst; // Set the program instance.
+	windowClass.hInstance = m_instance;
 
-	wcex.lpfnWndProc = HandleMessageSetup; // Custom Window Process for behaviour and look of the window.
+	windowClass.lpfnWndProc = HandleMessageSetup; // Custom Window Process for behaviour and look of the window.
 
-	RegisterClassEx(&wcex);
+	RegisterClassEx(&windowClass);
 }
 
 void Window::InitialiseWindow()
 {
-	INT offset = 100;
+	int offset = 100;
 
-	RECT wndRect;
-	wndRect.left = offset;
-	wndRect.right = wndWidth + offset;
-	wndRect.top = offset;
-	wndRect.bottom = wndHeight + offset;
+	RECT windowRect;
+	windowRect.left = offset;
+	windowRect.right = m_windowWidth + offset;
+	windowRect.top = offset;
+	windowRect.bottom = m_windowHeight + offset;
 
-	AdjustWindowRect(&wndRect, WS_OVERLAPPEDWINDOW, FALSE);
+	AdjustWindowRect(&windowRect, WS_OVERLAPPEDWINDOW, FALSE);
 
-	/* Create the Window */
-	HWND hWnd = CreateWindowEx(
-		0, wndClassName, wndTitle, WS_OVERLAPPEDWINDOW,
-		CW_USEDEFAULT, CW_USEDEFAULT, wndWidth, wndHeight,
-		nullptr, nullptr, hInst, this
+	// Create the Window
+	HWND window = CreateWindowEx(
+		0, m_windowClassName, m_windowTitle, WS_OVERLAPPEDWINDOW,
+		CW_USEDEFAULT, CW_USEDEFAULT, m_windowWidth, m_windowHeight,
+		nullptr, nullptr, m_instance, this
 	);
 
-	if (!hWnd) // If the window hasn't been created properly, don't continue and show an error.
+	if (!window) // If the window hasn't been created properly, don't continue and show an error.
 	{
 		MessageBox(0, L"Failed to Create Window!", 0, 0);
+		ErrorLogger::Log(GetLastError(), "InitialiseWindow Failed");
 		PostQuitMessage(0);
 	}
 
-	/* Show the Window */
-	ShowWindow(hWnd, SW_SHOW); // Params: Window Handle, Bitflag to Show Window.
+	// Show the Window
+	ShowWindow(window, SW_SHOW);
 
-	m_pGraphics = std::make_unique<Graphics>(hWnd);
+	// Initialise the graphics.
+	m_pGraphics = std::make_unique<Graphics>(window);
 }

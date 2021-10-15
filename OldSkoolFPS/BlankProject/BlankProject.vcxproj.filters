@@ -19,6 +19,27 @@
     <Filter Include="Resources\Icons">
       <UniqueIdentifier>{39e8c4ce-e0e7-4f9c-a0d6-7cb45da90fde}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Private\ErrorLogging">
+      <UniqueIdentifier>{1409c587-67b2-4dfb-a160-5c1bad4a7624}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Public\ErrorLogging">
+      <UniqueIdentifier>{ece8906e-3fe5-4d33-ab6b-1ae127ae8597}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Private\Graphics">
+      <UniqueIdentifier>{a131dca0-5a8c-4be5-8d50-d66c868b09d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Public\Graphics">
+      <UniqueIdentifier>{91a5a566-0b38-412b-a8ca-4b1856872711}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Shaders">
+      <UniqueIdentifier>{19f6a1d9-5a71-4e43-9ce4-daea45e3aef0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Private\Graphics\Shaders">
+      <UniqueIdentifier>{476d6057-f5af-4834-84cb-a8075859e504}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Public\Graphics\Shaders">
+      <UniqueIdentifier>{6b31951d-7a2f-40df-a607-610b42e13625}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\WinMain.cpp">
@@ -30,8 +51,17 @@
     <ClCompile Include="Game.cpp">
       <Filter>Source\Private</Filter>
     </ClCompile>
+    <ClCompile Include="ErrorLogger.cpp">
+      <Filter>Source\Private\ErrorLogging</Filter>
+    </ClCompile>
     <ClCompile Include="Graphics.cpp">
-      <Filter>Source\Private</Filter>
+      <Filter>Source\Private\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Vertex.cpp">
+      <Filter>Source\Private\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexShader.cpp">
+      <Filter>Source\Private\Graphics\Shaders</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -44,8 +74,17 @@
     <ClInclude Include="Game.h">
       <Filter>Source\Public</Filter>
     </ClInclude>
+    <ClInclude Include="ErrorLogger.h">
+      <Filter>Source\Public\ErrorLogging</Filter>
+    </ClInclude>
     <ClInclude Include="Graphics.h">
-      <Filter>Source\Public</Filter>
+      <Filter>Source\Public\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertex.h">
+      <Filter>Source\Public\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexShader.h">
+      <Filter>Source\Public\Graphics\Shaders</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -57,5 +96,10 @@
     <Image Include="Assets\Icons\doom-icon.ico">
       <Filter>Resources\Icons</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="VertexShader.hlsl">
+      <Filter>Resources\Shaders</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>
