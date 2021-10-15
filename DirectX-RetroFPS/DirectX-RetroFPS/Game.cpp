@@ -47,5 +47,5 @@ void Game::Render()
 
 	// Render things...
 
-	m_window.GetGraphics().EndFrame();
+	m_window.GetGraphics().RenderFrame();
 }

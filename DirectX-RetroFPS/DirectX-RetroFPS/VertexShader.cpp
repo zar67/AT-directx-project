@@ -1,8 +1,8 @@
 /* ------------------------------------------------- */
-/* Filename: Shaders.cpp                             */
+/* Filename: VertexShader.cpp                        */
 /* Author: Zoe Rowbotham                             */
 /* Description: Includes function declarations for   */
-/* the Shaders class.                                */
+/* the VertexShader class.                           */
 /* ------------------------------------------------- */
 
 #include "VertexShader.h"

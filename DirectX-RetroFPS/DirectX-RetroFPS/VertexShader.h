@@ -1,7 +1,7 @@
 /* ------------------------------------------------- */
-/* Filename: Shaders.h                               */
+/* Filename: VertexShader.h                          */
 /* Author: Zoe Rowbotham                             */
-/* Description: Header of the Shaders class.         */
+/* Description: Header of the VertexShader class     */
 /* ------------------------------------------------- */
 
 #pragma once

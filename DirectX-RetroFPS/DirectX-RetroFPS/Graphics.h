@@ -11,6 +11,8 @@
 #include <d3d11.h>
 #include <wrl.h>
 #include "VertexShader.h"
+#include "PixelShader.h"
+#include "Vertex.h"
 
 class Graphics
 {
@@ -20,7 +22,7 @@ public:
 	Graphics& operator=(const Graphics&) = delete;
 	~Graphics() = default;
 
-	void EndFrame();
+	void RenderFrame();
 	void ClearBuffer(float r, float g, float b);
 
 	ID3D11Device* GetDevice();
@@ -29,6 +31,7 @@ public:
 private:
 	void InitialiseDirectX(HWND window, int width, int height);
 	void InitialiseShaders();
+	void InitialiseScene();
 
 	std::wstring GetShaderFolder();
 
@@ -38,4 +41,7 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11RenderTargetView> m_pRenderTargetView = nullptr;
 
 	VertexShader m_vertexShader;
+	PixelShader m_pixelShader;
+
+	Microsoft::WRL::ComPtr<ID3D11Buffer> m_vertexBuffer = nullptr;
 };

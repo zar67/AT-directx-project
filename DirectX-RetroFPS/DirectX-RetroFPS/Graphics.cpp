@@ -14,10 +14,23 @@ Graphics::Graphics(HWND window, int width, int height)
 {
 	InitialiseDirectX(window, width, height);
 	InitialiseShaders();
+	InitialiseScene();
 }
 
-void Graphics::EndFrame()
+void Graphics::RenderFrame()
 {
+	m_pDeviceContext->IASetInputLayout(m_vertexShader.GetInputLayout());
+	m_pDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_POINTLIST);
+
+	m_pDeviceContext->VSSetShader(m_vertexShader.GetShader(), NULL, 0);
+	m_pDeviceContext->PSSetShader(m_pixelShader.GetShader(), NULL, 0);
+
+	UINT stride = sizeof(Vertex);
+	UINT offset = 0;
+	m_pDeviceContext->IASetVertexBuffers(0, 1, m_vertexBuffer.GetAddressOf(), &stride, &offset);
+
+	m_pDeviceContext->Draw(1, 0);
+
 	m_pSwapChain->Present(1u, 0u);
 }
 
@@ -120,6 +133,44 @@ void Graphics::InitialiseShaders()
 
 	if (!m_vertexShader.Initialise(m_pDevice, GetShaderFolder() + L"VertexShader.cso", layout, numElements))
 	{
+		return;
+	}
+
+	if (!m_pixelShader.Initialise(m_pDevice, GetShaderFolder() + L"PixelShader.cso"))
+	{
+		return;
+	}
+}
+
+void Graphics::InitialiseScene()
+{
+	Vertex verticies[]
+	{
+		Vertex(0, 0),
+	};
+
+	D3D11_BUFFER_DESC vertexBufferDescription;
+	ZeroMemory(&vertexBufferDescription, sizeof(vertexBufferDescription));
+
+	vertexBufferDescription.Usage = D3D11_USAGE_DEFAULT;
+	vertexBufferDescription.ByteWidth = sizeof(Vertex) * ARRAYSIZE(verticies);
+	vertexBufferDescription.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	vertexBufferDescription.CPUAccessFlags = 0;
+	vertexBufferDescription.MiscFlags = 0;
+
+	D3D11_SUBRESOURCE_DATA vertexBufferData;
+	ZeroMemory(&vertexBufferData, sizeof(vertexBufferData));
+
+	vertexBufferData.pSysMem = verticies;
+
+	HRESULT hResult = m_pDevice->CreateBuffer(
+		&vertexBufferDescription, &vertexBufferData, 
+		m_vertexBuffer.GetAddressOf()
+	);
+
+	if (FAILED(hResult))
+	{
+		ErrorLogger::Log(hResult, "Failed to Create Vertex Buffer");
 		return;
 	}
 }
