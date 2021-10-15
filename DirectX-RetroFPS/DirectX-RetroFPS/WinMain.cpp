@@ -6,9 +6,9 @@
 /* ------------------------------------------------- */
 
 #include <Windows.h>
-#include "../Window.h"
-#include "../resource.h"
-#include "../Game.h"
+#include "Window.h"
+#include "resource.h"
+#include "Game.h"
 
 int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, INT nCmdShow)
 {

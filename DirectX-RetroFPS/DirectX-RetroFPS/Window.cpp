@@ -152,7 +152,6 @@ void Window::InitialiseWindow()
 
 	if (!window) // If the window hasn't been created properly, don't continue and show an error.
 	{
-		MessageBox(0, L"Failed to Create Window!", 0, 0);
 		ErrorLogger::Log(GetLastError(), "InitialiseWindow Failed");
 		PostQuitMessage(0);
 	}

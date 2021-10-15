@@ -131,9 +131,9 @@ std::wstring Graphics::GetShaderFolder()
 	if (IsDebuggerPresent() == TRUE)
 	{
 #ifdef _DEBUG
-		shaderFolder = L"..\\Build\\BlankProject\\Debug\\";
+		shaderFolder = L"..\\x64\\Debug\\";
 #else
-		shaderFolder = L"..\\Build\\BlankProject\\Release\\";
+		shaderFolder = L"..\\x64\\Release\\";
 #endif
 	}
 
