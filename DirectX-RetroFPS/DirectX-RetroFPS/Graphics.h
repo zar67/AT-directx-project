@@ -44,4 +44,5 @@ private:
 	PixelShader m_pixelShader;
 
 	Microsoft::WRL::ComPtr<ID3D11Buffer> m_vertexBuffer = nullptr;
+	Microsoft::WRL::ComPtr<ID3D11RasterizerState> m_rasterizerState = nullptr;
 };
