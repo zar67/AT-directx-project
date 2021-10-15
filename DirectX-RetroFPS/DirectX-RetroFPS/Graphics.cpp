@@ -20,7 +20,7 @@ Graphics::Graphics(HWND window, int width, int height)
 void Graphics::RenderFrame()
 {
 	m_pDeviceContext->IASetInputLayout(m_vertexShader.GetInputLayout());
-	m_pDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_POINTLIST);
+	m_pDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	m_pDeviceContext->VSSetShader(m_vertexShader.GetShader(), NULL, 0);
 	m_pDeviceContext->PSSetShader(m_pixelShader.GetShader(), NULL, 0);
@@ -29,7 +29,7 @@ void Graphics::RenderFrame()
 	UINT offset = 0;
 	m_pDeviceContext->IASetVertexBuffers(0, 1, m_vertexBuffer.GetAddressOf(), &stride, &offset);
 
-	m_pDeviceContext->Draw(1, 0);
+	m_pDeviceContext->Draw(3, 1);
 
 	m_pSwapChain->Present(1u, 0u);
 }
@@ -146,7 +146,10 @@ void Graphics::InitialiseScene()
 {
 	Vertex verticies[]
 	{
-		Vertex(0, 0),
+		Vertex(0.0f, 0.0f),
+		Vertex(-0.5f, 0.0f),
+		Vertex(0.0f, 0.8f),
+		Vertex(0.5f, 0.0f),
 	};
 
 	D3D11_BUFFER_DESC vertexBufferDescription;
