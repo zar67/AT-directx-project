@@ -15,7 +15,7 @@
 class Graphics
 {
 public:
-	Graphics(HWND window);
+	Graphics(HWND window, int width, int height);
 	Graphics(const Graphics&) = delete;
 	Graphics& operator=(const Graphics&) = delete;
 	~Graphics() = default;
@@ -27,7 +27,7 @@ public:
 	ID3D11DeviceContext* GetDeviceContext();
 
 private:
-	void InitialiseDirectX(HWND window);
+	void InitialiseDirectX(HWND window, int width, int height);
 	void InitialiseShaders();
 
 	std::wstring GetShaderFolder();
@@ -36,8 +36,6 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11DeviceContext> m_pDeviceContext = nullptr;
 	Microsoft::WRL::ComPtr<IDXGISwapChain> m_pSwapChain = nullptr;
 	Microsoft::WRL::ComPtr<ID3D11RenderTargetView> m_pRenderTargetView = nullptr;
-
-	Microsoft::WRL::ComPtr<ID3D11InputLayout> m_pInputLayout = nullptr;
 
 	VertexShader m_vertexShader;
 };

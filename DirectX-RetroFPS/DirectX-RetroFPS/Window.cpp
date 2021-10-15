@@ -21,7 +21,7 @@ Window::Window(int width, int height, const int name, const int icon)
 	m_windowHeight = height;
 
 	CreateWindowClass();
-	InitialiseWindow();
+	InitialiseWindow(width, height);
 }
 
 Window::~Window()
@@ -131,7 +131,7 @@ void Window::CreateWindowClass()
 	RegisterClassEx(&windowClass);
 }
 
-void Window::InitialiseWindow()
+void Window::InitialiseWindow(int width, int height)
 {
 	int offset = 100;
 
@@ -160,5 +160,5 @@ void Window::InitialiseWindow()
 	ShowWindow(window, SW_SHOW);
 
 	// Initialise the graphics.
-	m_pGraphics = std::make_unique<Graphics>(window);
+	m_pGraphics = std::make_unique<Graphics>(window, width, height);
 }

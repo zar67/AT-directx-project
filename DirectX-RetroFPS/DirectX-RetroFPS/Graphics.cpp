@@ -10,9 +10,9 @@
 
 #pragma comment(lib, "d3d11.lib")
 
-Graphics::Graphics(HWND window)
+Graphics::Graphics(HWND window, int width, int height)
 {
-	InitialiseDirectX(window);
+	InitialiseDirectX(window, width, height);
 	InitialiseShaders();
 }
 
@@ -37,7 +37,7 @@ ID3D11DeviceContext* Graphics::GetDeviceContext()
 	return m_pDeviceContext.Get();
 }
 
-void Graphics::InitialiseDirectX(HWND window)
+void Graphics::InitialiseDirectX(HWND window, int width, int height)
 {
 	DXGI_SWAP_CHAIN_DESC swapChainDescription = {};
 	swapChainDescription.BufferDesc.Width = 0;
@@ -95,15 +95,22 @@ void Graphics::InitialiseDirectX(HWND window)
 	}
 
 	m_pDeviceContext->OMSetRenderTargets(1, m_pRenderTargetView.GetAddressOf(), NULL);
+
+	// Create the Viewport
+	D3D11_VIEWPORT viewport;
+	ZeroMemory(&viewport, sizeof(D3D11_VIEWPORT));
+
+	viewport.TopLeftX = 0;
+	viewport.TopLeftY = 0;
+	viewport.Width = width;
+	viewport.Height = height;
+
+	//Set the Viewport
+	m_pDeviceContext->RSSetViewports(1, &viewport);
 }
 
 void Graphics::InitialiseShaders()
 {
-	if (!m_vertexShader.Initialise(m_pDevice, GetShaderFolder() + L"VertexShader.cso"))
-	{
-		return;
-	}
-
 	D3D11_INPUT_ELEMENT_DESC layout[] =
 	{
 		{"POSITION", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0}
@@ -111,15 +118,8 @@ void Graphics::InitialiseShaders()
 
 	int numElements = ARRAYSIZE(layout);
 
-	HRESULT hResult = m_pDevice->CreateInputLayout(
-		layout, numElements, 
-		m_vertexShader.GetBuffer()->GetBufferPointer(), m_vertexShader.GetBuffer()->GetBufferSize(),
-		m_pInputLayout.GetAddressOf()
-	);
-
-	if (FAILED(hResult))
+	if (!m_vertexShader.Initialise(m_pDevice, GetShaderFolder() + L"VertexShader.cso", layout, numElements))
 	{
-		ErrorLogger::Log(hResult, "Failed to Create Input Layout");
 		return;
 	}
 }

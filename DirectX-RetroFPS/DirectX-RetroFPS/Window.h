@@ -34,7 +34,7 @@ private:
 	LRESULT HandleMessage(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam);
 
 	void CreateWindowClass();
-	void InitialiseWindow();
+	void InitialiseWindow(int width, int height);
 
 	std::unique_ptr<Graphics> m_pGraphics;
 
