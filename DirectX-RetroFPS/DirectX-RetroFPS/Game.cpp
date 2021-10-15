@@ -43,7 +43,7 @@ void Game::Update()
 
 void Game::Render()
 {
-	m_window.GetGraphics().ClearBuffer(0.92f, 0.86f, 0.32f);
+	m_window.GetGraphics().ClearBuffer(0.0f, 0.0f, 0.0f);
 
 	// Render things...
 

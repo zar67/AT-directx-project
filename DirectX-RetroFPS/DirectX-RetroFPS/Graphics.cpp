@@ -29,7 +29,7 @@ void Graphics::RenderFrame()
 	UINT offset = 0;
 	m_pDeviceContext->IASetVertexBuffers(0, 1, m_vertexBuffer.GetAddressOf(), &stride, &offset);
 
-	m_pDeviceContext->Draw(3, 1);
+	m_pDeviceContext->Draw(3, 0);
 
 	m_pSwapChain->Present(1u, 0u);
 }
@@ -126,7 +126,8 @@ void Graphics::InitialiseShaders()
 {
 	D3D11_INPUT_ELEMENT_DESC layout[] =
 	{
-		{"POSITION", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0}
+		{"POSITION", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
+		{"COLOUR", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0}
 	};
 
 	int numElements = ARRAYSIZE(layout);
@@ -146,10 +147,9 @@ void Graphics::InitialiseScene()
 {
 	Vertex verticies[]
 	{
-		Vertex(0.0f, 0.0f),
-		Vertex(-0.5f, 0.0f),
-		Vertex(0.0f, 0.8f),
-		Vertex(0.5f, 0.0f),
+		Vertex(-0.5f, -0.5f, 1.0f, 0.0f, 0.0f),
+		Vertex(0.0f, 0.5f, 0.0f, 1.0f, 0.0f),
+		Vertex(0.5f, -0.5f, 0.0f, 0.0f, 1.0f),
 	};
 
 	D3D11_BUFFER_DESC vertexBufferDescription;
