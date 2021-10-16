@@ -5,55 +5,39 @@
 /* the VertexShader class.                           */
 /* ------------------------------------------------- */
 
-#include "VertexShader.h"
+#pragma comment(lib, "D3DCompiler.lib")
 
-bool VertexShader::Initialise(Microsoft::WRL::ComPtr<ID3D11Device>& device, std::wstring shaderPath, D3D11_INPUT_ELEMENT_DESC* inputElementDescription, int numElements)
+#include "VertexShader.h"
+#include <d3dcompiler.h>
+
+VertexShader::VertexShader(Graphics& graphics, std::wstring shaderPath)
 {
-	HRESULT hResult = D3DReadFileToBlob(shaderPath.c_str(), m_pShaderBuffer.GetAddressOf());
+	m_shaderPath = shaderPath;
+
+	HRESULT hResult = D3DReadFileToBlob(m_shaderPath.c_str(), m_pShaderByteCode.GetAddressOf());
 	if (FAILED(hResult))
 	{
-		std::wstring errorMessage = L"Failed to Load Shader: " + shaderPath;
+		std::wstring errorMessage = L"Failed to Load Shader: " + m_shaderPath;
 		ErrorLogger::Log(hResult, errorMessage);
-		return false;
 	}
 
-	hResult = device->CreateVertexShader(
-		m_pShaderBuffer->GetBufferPointer(), m_pShaderBuffer->GetBufferSize(), 
+	hResult = graphics.GetDevice()->CreateVertexShader(
+		m_pShaderByteCode->GetBufferPointer(), m_pShaderByteCode->GetBufferSize(),
 		NULL, m_pShader.GetAddressOf());
 
 	if (FAILED(hResult))
 	{
-		std::wstring errorMessage = L"Failed to Create Vertex Shader: " + shaderPath;
+		std::wstring errorMessage = L"Failed to Create Vertex Shader: " + m_shaderPath;
 		ErrorLogger::Log(hResult, errorMessage);
-		return false;
 	}
-
-	hResult = device->CreateInputLayout(
-		inputElementDescription, numElements,
-		m_pShaderBuffer->GetBufferPointer(), m_pShaderBuffer->GetBufferSize(),
-		m_pInputLayout.GetAddressOf()
-	);
-
-	if (FAILED(hResult))
-	{
-		ErrorLogger::Log(hResult, "Failed to Create Input Layout");
-		return false;
-	}
-
-	return true;
 }
 
-ID3D11VertexShader* VertexShader::GetShader()
+void VertexShader::Bind(Graphics& graphics)
 {
-	return m_pShader.Get();
+	graphics.GetDeviceContext()->VSSetShader(m_pShader.Get(), NULL, 0);
 }
 
-ID3D10Blob* VertexShader::GetBuffer()
+ID3D10Blob* VertexShader::GetByteCode()
 {
-	return m_pShaderBuffer.Get();
-}
-
-ID3D11InputLayout* VertexShader::GetInputLayout()
-{
-	return m_pInputLayout.Get();
+	return m_pShaderByteCode.Get();
 }

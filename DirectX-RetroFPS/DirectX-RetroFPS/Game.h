@@ -8,6 +8,7 @@
 
 #pragma once
 #include "Window.h"
+#include "Box.h"
 
 class Game
 {
@@ -20,5 +21,5 @@ private:
 	void Render();
 
 	Window m_window;
+	std::unique_ptr<Box> m_box;
 };
-

@@ -5,20 +5,19 @@
 /* ------------------------------------------------- */
 
 #pragma once
-#pragma comment(lib, "D3DCompiler.lib")
-#include <d3d11.h>
-#include <wrl.h>
-#include <d3dcompiler.h>
-#include "ErrorLogger.h"
+#include "Bindable.h"
 
-class PixelShader
+class PixelShader : public Bindable
 {
 public:
-	bool Initialise(Microsoft::WRL::ComPtr<ID3D11Device>& device, std::wstring shaderPath);
-	ID3D11PixelShader* GetShader();
-	ID3D10Blob* GetBuffer();
+	PixelShader(Graphics& graphics, std::wstring shaderPath);
+	virtual ~PixelShader() = default;
 
-private:
+	virtual void Bind(Graphics& graphics) override;
+
+protected:
+	std::wstring m_shaderPath;
+
 	Microsoft::WRL::ComPtr<ID3D11PixelShader> m_pShader = nullptr;
 	Microsoft::WRL::ComPtr<ID3D10Blob> m_pShaderBuffer = nullptr;
 };

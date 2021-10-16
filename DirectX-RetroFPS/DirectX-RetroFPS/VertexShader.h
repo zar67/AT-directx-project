@@ -5,22 +5,21 @@
 /* ------------------------------------------------- */
 
 #pragma once
-#pragma comment(lib, "D3DCompiler.lib")
-#include <d3d11.h>
-#include <wrl.h>
-#include <d3dcompiler.h>
-#include "ErrorLogger.h"
+#include "Bindable.h"
 
-class VertexShader
+class VertexShader : public Bindable
 {
 public:
-	bool Initialise(Microsoft::WRL::ComPtr<ID3D11Device>& device, std::wstring shaderPath, D3D11_INPUT_ELEMENT_DESC* inputDescription, int numElements);
-	ID3D11VertexShader* GetShader();
-	ID3D10Blob* GetBuffer();
-	ID3D11InputLayout* GetInputLayout();
+	VertexShader(Graphics& graphics, std::wstring shaderPath);
+	virtual ~VertexShader() = default;
 
-private:
+	virtual void Bind(Graphics & graphics) override;
+
+	ID3D10Blob* GetByteCode();
+
+protected:
+	std::wstring m_shaderPath;
+
 	Microsoft::WRL::ComPtr<ID3D11VertexShader> m_pShader = nullptr;
-	Microsoft::WRL::ComPtr<ID3D10Blob> m_pShaderBuffer = nullptr;
-	Microsoft::WRL::ComPtr<ID3D11InputLayout> m_pInputLayout = nullptr;
+	Microsoft::WRL::ComPtr<ID3D10Blob> m_pShaderByteCode = nullptr;
 };

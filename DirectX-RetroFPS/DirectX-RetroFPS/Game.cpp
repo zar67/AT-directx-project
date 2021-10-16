@@ -10,7 +10,7 @@
 Game::Game() :
 	m_window(800, 600, IDS_GAMENAME, IDI_MAINICON)
 {
-
+	m_box = std::make_unique<Box>(m_window.GetGraphics());
 }
 
 int Game::Run()
@@ -46,6 +46,7 @@ void Game::Render()
 	m_window.GetGraphics().ClearBuffer(0.0f, 0.0f, 0.0f);
 
 	// Render things...
+	m_box->Draw(m_window.GetGraphics());
 
 	m_window.GetGraphics().RenderFrame();
 }

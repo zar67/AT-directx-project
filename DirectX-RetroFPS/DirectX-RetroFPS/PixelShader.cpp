@@ -5,36 +5,34 @@
 /* the PixelShader class.                            */
 /* ------------------------------------------------- */
 
-#include "PixelShader.h"
+#pragma comment(lib, "D3DCompiler.lib")
 
-bool PixelShader::Initialise(Microsoft::WRL::ComPtr<ID3D11Device>& device, std::wstring shaderPath)
+#include "PixelShader.h"
+#include <d3dcompiler.h>
+
+PixelShader::PixelShader(Graphics& graphics, std::wstring shaderPath)
 {
-	HRESULT hResult = D3DReadFileToBlob(shaderPath.c_str(), m_pShaderBuffer.GetAddressOf());
+	m_shaderPath = shaderPath;
+
+	HRESULT hResult = D3DReadFileToBlob(m_shaderPath.c_str(), m_pShaderBuffer.GetAddressOf());
 	if (FAILED(hResult))
 	{
-		std::wstring errorMessage = L"Failed to Load Shader: " + shaderPath;
+		std::wstring errorMessage = L"Failed to Load Shader: " + m_shaderPath;
 		ErrorLogger::Log(hResult, errorMessage);
-		return false;
 	}
 
-	hResult = device->CreatePixelShader(
+	hResult = graphics.GetDevice()->CreatePixelShader(
 		m_pShaderBuffer->GetBufferPointer(), m_pShaderBuffer->GetBufferSize(),
 		NULL, m_pShader.GetAddressOf());
 
 	if (FAILED(hResult))
 	{
-		std::wstring errorMessage = L"Failed to Create Vertex Shader: " + shaderPath;
+		std::wstring errorMessage = L"Failed to Create Vertex Shader: " + m_shaderPath;
 		ErrorLogger::Log(hResult, errorMessage);
-		return false;
 	}
 }
 
-ID3D11PixelShader* PixelShader::GetShader()
+void PixelShader::Bind(Graphics& graphics)
 {
-	return m_pShader.Get();
-}
-
-ID3D10Blob* PixelShader::GetBuffer()
-{
-	return m_pShaderBuffer.Get();
+	graphics.GetDeviceContext()->PSSetShader(m_pShader.Get(), NULL, 0);
 }
