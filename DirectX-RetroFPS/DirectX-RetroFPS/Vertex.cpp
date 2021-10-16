@@ -7,8 +7,8 @@
 
 #include "Vertex.h"
 
-Vertex::Vertex(float x, float y, float r, float g, float b) :
-	Position(x, y),
+Vertex::Vertex(float x, float y, float z, float r, float g, float b) :
+	Position(x, y, z),
 	Colour(r, g, b)
 {
 

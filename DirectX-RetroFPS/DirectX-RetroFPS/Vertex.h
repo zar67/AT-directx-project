@@ -9,8 +9,8 @@
 
 struct Vertex
 {
-	Vertex(float x, float y, float r, float g, float b);
+	Vertex(float x, float y, float z, float r, float g, float b);
 
-	DirectX::XMFLOAT2 Position;
+	DirectX::XMFLOAT3 Position;
 	DirectX::XMFLOAT3 Colour;
 };

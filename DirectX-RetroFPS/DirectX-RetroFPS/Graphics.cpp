@@ -24,6 +24,8 @@ void Graphics::RenderFrame()
 
 	m_pDeviceContext->RSSetState(m_rasterizerState.Get());
 
+	m_pDeviceContext->OMSetDepthStencilState(m_pDepthStencilState.Get(), 0);
+
 	m_pDeviceContext->VSSetShader(m_vertexShader.GetShader(), NULL, 0);
 	m_pDeviceContext->PSSetShader(m_pixelShader.GetShader(), NULL, 0);
 
@@ -40,6 +42,7 @@ void Graphics::ClearBuffer(float r, float g, float b)
 {
 	const float color[] = { r, g, b, 1.0f };
 	m_pDeviceContext->ClearRenderTargetView(m_pRenderTargetView.Get(), color);
+	m_pDeviceContext->ClearDepthStencilView(m_pDepthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 }
 
 ID3D11Device* Graphics::GetDevice()
@@ -109,7 +112,50 @@ void Graphics::InitialiseDirectX(HWND window, int width, int height)
 		return;
 	}
 
-	m_pDeviceContext->OMSetRenderTargets(1, m_pRenderTargetView.GetAddressOf(), NULL);
+	// Create Depth/Stencil Buffer
+	D3D11_TEXTURE2D_DESC depthBufferDescription;
+	depthBufferDescription.Width = width;
+	depthBufferDescription.Height = height;
+	depthBufferDescription.MipLevels = 1;
+	depthBufferDescription.ArraySize = 1;
+	depthBufferDescription.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+	depthBufferDescription.SampleDesc.Count = 1;
+	depthBufferDescription.SampleDesc.Quality = 0;
+	depthBufferDescription.Usage = D3D11_USAGE_DEFAULT;
+	depthBufferDescription.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+	depthBufferDescription.CPUAccessFlags = 0;
+	depthBufferDescription.MiscFlags = 0;
+
+	hResult = m_pDevice->CreateTexture2D(&depthBufferDescription, NULL, m_pDepthStencilBuffer.GetAddressOf());
+	if (FAILED(hResult))
+	{
+		ErrorLogger::Log(hResult, "Failed to Create Depth Stencil Buffer");
+		return;
+	}
+
+	hResult = m_pDevice->CreateDepthStencilView(m_pDepthStencilBuffer.Get(), NULL, m_pDepthStencilView.GetAddressOf());
+	if (FAILED(hResult))
+	{
+		ErrorLogger::Log(hResult, "Failed to Create Depth Stencil View");
+		return;
+	}
+
+	m_pDeviceContext->OMSetRenderTargets(1, m_pRenderTargetView.GetAddressOf(), m_pDepthStencilView.Get());
+
+	// Create Depth Stencil State
+	D3D11_DEPTH_STENCIL_DESC depthStencilDescription;
+	ZeroMemory(&depthStencilDescription, sizeof(D3D11_DEPTH_STENCIL_DESC));
+
+	depthStencilDescription.DepthEnable = true;
+	depthStencilDescription.DepthWriteMask = D3D11_DEPTH_WRITE_MASK::D3D11_DEPTH_WRITE_MASK_ALL;
+	depthStencilDescription.DepthFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_LESS_EQUAL;
+
+	hResult = m_pDevice->CreateDepthStencilState(&depthStencilDescription, m_pDepthStencilState.GetAddressOf());
+	if (FAILED(hResult))
+	{
+		ErrorLogger::Log(hResult, "Failed to Create Depth Stencil View");
+		return;
+	}
 
 	// Create the Viewport
 	D3D11_VIEWPORT viewport;
@@ -119,6 +165,8 @@ void Graphics::InitialiseDirectX(HWND window, int width, int height)
 	viewport.TopLeftY = 0;
 	viewport.Width = width;
 	viewport.Height = height;
+	viewport.MinDepth = 0.0f;
+	viewport.MaxDepth = 1.0f;
 
 	// Set the Viewport
 	m_pDeviceContext->RSSetViewports(1, &viewport);
@@ -141,7 +189,7 @@ void Graphics::InitialiseShaders()
 {
 	D3D11_INPUT_ELEMENT_DESC layout[] =
 	{
-		{"POSITION", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
+		{"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
 		{"COLOUR", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0}
 	};
 
@@ -162,9 +210,9 @@ void Graphics::InitialiseScene()
 {
 	Vertex verticies[]
 	{
-		Vertex(-0.5f, -0.5f, 1.0f, 0.0f, 0.0f),
-		Vertex(0.0f, 0.5f, 0.0f, 1.0f, 0.0f),
-		Vertex(0.5f, -0.5f, 0.0f, 0.0f, 1.0f),
+		Vertex(-0.5f, -0.5f, 1.0f, 1.0f, 0.0f, 0.0f),
+		Vertex(0.0f, 0.5f, 1.0f, 0.0f, 1.0f, 0.0f),
+		Vertex(0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 1.0f),
 	};
 
 	D3D11_BUFFER_DESC vertexBufferDescription;
