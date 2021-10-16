@@ -44,6 +44,7 @@ private:
 	PixelShader m_pixelShader;
 
 	Microsoft::WRL::ComPtr<ID3D11Buffer> m_vertexBuffer = nullptr;
+	Microsoft::WRL::ComPtr<ID3D11Buffer> m_indexBuffer = nullptr;
 
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilView> m_pDepthStencilView = nullptr;
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> m_pDepthStencilState = nullptr;

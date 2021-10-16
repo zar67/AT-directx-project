@@ -33,7 +33,9 @@ void Graphics::RenderFrame()
 	UINT offset = 0;
 	m_pDeviceContext->IASetVertexBuffers(0, 1, m_vertexBuffer.GetAddressOf(), &stride, &offset);
 
-	m_pDeviceContext->Draw(3, 0);
+	m_pDeviceContext->IASetIndexBuffer(m_indexBuffer.Get(), DXGI_FORMAT_R16_UINT, 0);
+
+	m_pDeviceContext->DrawIndexed(12, 0, 0);
 
 	m_pSwapChain->Present(1u, 0u);
 }
@@ -209,10 +211,13 @@ void Graphics::InitialiseShaders()
 void Graphics::InitialiseScene()
 {
 	Vertex verticies[]
-	{
-		Vertex(-0.5f, -0.5f, 1.0f, 1.0f, 0.0f, 0.0f),
-		Vertex(0.0f, 0.5f, 1.0f, 0.0f, 1.0f, 0.0f),
-		Vertex(0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 1.0f),
+	{ 
+		Vertex(0.0f, 0.5f, 1.0f, 1.0f, 0.0f, 0.0f),
+		Vertex(0.5f, -0.5f, 1.0f, 0.0f, 1.0f, 0.0f),
+		Vertex(-0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 1.0f),
+		Vertex(-0.3f, 0.3f, 1.0f, 0.0f, 1.0f, 0.0f),
+		Vertex(0.3f, 0.3f, 1.0f, 0.0f, 0.0f, 1.0f),
+		Vertex(0.0f, -0.8f, 1.0f, 0.0f, 1.0f, 0.0f)
 	};
 
 	D3D11_BUFFER_DESC vertexBufferDescription;
@@ -237,6 +242,40 @@ void Graphics::InitialiseScene()
 	if (FAILED(hResult))
 	{
 		ErrorLogger::Log(hResult, "Failed to Create Vertex Buffer");
+		return;
+	}
+
+	// Create Index Buffer
+	const unsigned short indices[] =
+	{
+		0, 1, 2,
+		0, 2, 3,
+		0, 4, 1,
+		2, 1, 5
+	};
+
+	D3D11_BUFFER_DESC indexBufferDescription;
+	ZeroMemory(&indexBufferDescription, sizeof(D3D11_BUFFER_DESC));
+
+	indexBufferDescription.Usage = D3D11_USAGE_DEFAULT;
+	indexBufferDescription.ByteWidth = sizeof(indices);
+	indexBufferDescription.BindFlags = D3D11_BIND_INDEX_BUFFER;
+	indexBufferDescription.CPUAccessFlags = 0;
+	indexBufferDescription.MiscFlags = 0;
+
+	D3D11_SUBRESOURCE_DATA indexBufferData;
+	ZeroMemory(&indexBufferData, sizeof(D3D11_SUBRESOURCE_DATA));
+
+	indexBufferData.pSysMem = indices;
+
+	hResult = m_pDevice->CreateBuffer(
+		&indexBufferDescription, &indexBufferData,
+		m_indexBuffer.GetAddressOf()
+	);
+
+	if (FAILED(hResult))
+	{
+		ErrorLogger::Log(hResult, "Failed to Create Index Buffer");
 		return;
 	}
 }
