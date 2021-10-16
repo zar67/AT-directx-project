@@ -8,7 +8,7 @@
 #include "Game.h"
 
 Game::Game() :
-	m_window(1080, 720, IDS_GAMENAME, IDI_MAINICON)
+	m_window(800, 600, IDS_GAMENAME, IDI_MAINICON)
 {
 
 }

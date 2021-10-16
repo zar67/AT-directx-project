@@ -133,13 +133,14 @@ void Window::CreateWindowClass()
 
 void Window::InitialiseWindow(int width, int height)
 {
-	int offset = 100;
+	int screenCenterX = GetSystemMetrics(SM_CXSCREEN) / 2 - width / 2;
+	int screenCenterY = GetSystemMetrics(SM_CYSCREEN) / 2 - height / 2;
 
 	RECT windowRect;
-	windowRect.left = offset;
-	windowRect.right = m_windowWidth + offset;
-	windowRect.top = offset;
-	windowRect.bottom = m_windowHeight + offset;
+	windowRect.left = screenCenterX;
+	windowRect.right = m_windowWidth + windowRect.left;
+	windowRect.top = screenCenterY;
+	windowRect.bottom = m_windowHeight + windowRect.top;
 
 	AdjustWindowRect(&windowRect, WS_OVERLAPPEDWINDOW, FALSE);
 
