@@ -146,7 +146,7 @@ void Window::InitialiseWindow(int width, int height)
 	// Create the Window
 	HWND window = CreateWindowEx(
 		0, m_windowClassName, m_windowTitle, WS_OVERLAPPEDWINDOW,
-		CW_USEDEFAULT, CW_USEDEFAULT, m_windowWidth, m_windowHeight,
+		windowRect.left, windowRect.top, windowRect.right - windowRect.left, windowRect.bottom - windowRect.top,
 		nullptr, nullptr, m_instance, this
 	);
 
