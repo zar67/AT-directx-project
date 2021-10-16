@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{facfb809-3691-44ce-9ecb-d96b19f8dc25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source\Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source\Source Files\ErrorLogging">
+      <UniqueIdentifier>{f52a003d-770a-4043-9393-0919751e4cad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Header Files\ErrorLogging">
+      <UniqueIdentifier>{3bf04ef9-e7ae-4646-94a4-087c0cfe71a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Header Files\Graphics">
+      <UniqueIdentifier>{25bfce5a-8216-4275-adaa-2bc83612c979}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Header Files\Graphics\Shaders">
+      <UniqueIdentifier>{1daa154c-28ad-4591-9fc6-011252125182}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Source Files\Graphics">
+      <UniqueIdentifier>{e6ff5a43-1f54-4ee5-b0f8-663d4c2d9a65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Source Files\Graphics\Shaders">
+      <UniqueIdentifier>{31d76cf9-6f55-4b27-a62d-ed243532a19f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Icons">
+      <UniqueIdentifier>{ea87e77d-ed62-443e-8447-21241fa735cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Shaders">
+      <UniqueIdentifier>{bf7d5adc-4d3a-40ef-bd3c-376e8964f82b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="WinMain.cpp">
+      <Filter>Source\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ErrorLogger.cpp">
+      <Filter>Source\Source Files\ErrorLogging</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics.cpp">
+      <Filter>Source\Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Vertex.cpp">
+      <Filter>Source\Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexShader.cpp">
+      <Filter>Source\Source Files\Graphics\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>Source\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PixelShader.cpp">
+      <Filter>Source\Source Files\Graphics\Shaders</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ErrorLogger.h">
+      <Filter>Source\Header Files\ErrorLogging</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics.h">
+      <Filter>Source\Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertex.h">
+      <Filter>Source\Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexShader.h">
+      <Filter>Source\Header Files\Graphics\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PixelShader.h">
+      <Filter>Source\Header Files\Graphics\Shaders</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DirectX-RetroFPS.rc">
+      <Filter>Resources</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\Icons\doom-icon.ico">
+      <Filter>Resources\Icons</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="VertexShader.hlsl">
+      <Filter>Resources\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="PixelShader.hlsl">
+      <Filter>Resources\Shaders</Filter>
+    </FxCompile>
+  </ItemGroup>
+</Project>
