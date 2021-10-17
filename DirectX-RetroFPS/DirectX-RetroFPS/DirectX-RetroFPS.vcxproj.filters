@@ -84,10 +84,13 @@
     <ClCompile Include="VertexBuffer.cpp">
       <Filter>Source\Source Files\Graphics\Bindable</Filter>
     </ClCompile>
-    <ClCompile Include="Drawable.cpp">
+    <ClCompile Include="DrawableBase.cpp">
       <Filter>Source\Source Files\Graphics\Drawable</Filter>
     </ClCompile>
     <ClCompile Include="Box.cpp">
+      <Filter>Source\Source Files\Graphics\Drawable</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawable.cpp">
       <Filter>Source\Source Files\Graphics\Drawable</Filter>
     </ClCompile>
   </ItemGroup>
@@ -137,10 +140,16 @@
     <ClInclude Include="VertexBuffer.h">
       <Filter>Source\Header Files\Graphics\Bindable</Filter>
     </ClInclude>
-    <ClInclude Include="Drawable.h">
+    <ClInclude Include="DrawableBase.h">
       <Filter>Source\Header Files\Graphics\Drawable</Filter>
     </ClInclude>
     <ClInclude Include="Box.h">
+      <Filter>Source\Header Files\Graphics\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawable.h">
       <Filter>Source\Header Files\Graphics\Drawable</Filter>
     </ClInclude>
   </ItemGroup>

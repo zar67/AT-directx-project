@@ -7,6 +7,18 @@
 
 Box::Box(Graphics& graphics)
 {
+	if (IsStaticInitialized())
+	{
+		SetIndexFromStatic();
+	}
+	else
+	{ 
+		InitialiseStatic(graphics);
+	}
+}
+
+void Box::InitialiseStatic(Graphics& graphics)
+{
 	std::vector<Vertex> vertices
 	{
 		Vertex(0.0f, 0.5f, 1.0f, 1.0f, 0.0f, 0.0f),
@@ -26,14 +38,14 @@ Box::Box(Graphics& graphics)
 		2, 1, 5
 	};
 
-	AddBindable(std::make_unique<VertexBuffer>(graphics, vertices));
+	AddStaticBindable(std::make_unique<VertexBuffer>(graphics, vertices));
 
 	auto pvs = std::make_unique<VertexShader>(graphics, graphics.GetShaderFolder() + L"VertexShader.cso");
 	auto pvsbc = pvs->GetByteCode();
-	AddBindable(std::move(pvs));
+	AddStaticBindable(std::move(pvs));
 
-	AddBindable(std::make_unique<PixelShader>(graphics, graphics.GetShaderFolder() + L"PixelShader.cso"));
-	AddIndexBuffer(std::make_unique<IndexBuffer>(graphics, indices));
+	AddStaticBindable(std::make_unique<PixelShader>(graphics, graphics.GetShaderFolder() + L"PixelShader.cso"));
+	AddStaticIndexBuffer(std::make_unique<IndexBuffer>(graphics, indices));
 
 	std::vector<D3D11_INPUT_ELEMENT_DESC> layout
 	{
@@ -41,5 +53,5 @@ Box::Box(Graphics& graphics)
 		{"COLOUR", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0}
 	};
 
-	AddBindable(std::make_unique<InputLayout>(graphics, layout, pvsbc));
+	AddStaticBindable(std::make_unique<InputLayout>(graphics, layout, pvsbc));
 }

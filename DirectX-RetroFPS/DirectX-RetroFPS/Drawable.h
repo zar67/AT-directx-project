@@ -1,26 +1,49 @@
-/* ------------------------------------------------- */
-/* Filename: Drawable.h                              */
-/* Author: Zoe Rowbotham                             */
-/* Description: Header of the Drawable class         */
-/* ------------------------------------------------- */
-
 #pragma once
-#include "Graphics.h"
-#include "Bindable.h"
-#include "IndexBuffer.h"
+#include "DrawableBase.h"
 
-class Drawable
+template<class T>
+class Drawable : public DrawableBase
 {
-public:
-	virtual ~Drawable() = default;
-
-	void Draw(Graphics& graphics);
-	virtual void Update(float deltaTime);
-
-	void AddIndexBuffer(std::unique_ptr<IndexBuffer> indexBuffer);
-	void AddBindable(std::unique_ptr<Bindable> bindable);
-
 protected:
-	IndexBuffer* m_pIndexBuffer = nullptr;
-	std::vector<std::unique_ptr<Bindable>> m_bindables;
+	static bool IsStaticInitialized() 
+	{
+		return !m_staticBindables.empty();
+	}
+
+	static void AddStaticBindable(std::unique_ptr<Bindable> bindable) 
+	{
+		assert("Must use AddStaticIndexBuffer to bind IndexBuffer" && typeid(*bindable) != typeid(IndexBuffer));
+		m_staticBindables.push_back(std::move(bindable));
+	}
+
+	void AddStaticIndexBuffer(std::unique_ptr<IndexBuffer> indexBuffer)
+	{
+		assert("Cannot add move than one IndexBuffer" && m_pIndexBuffer == nullptr);
+		m_pIndexBuffer = indexBuffer.get();
+		m_staticBindables.push_back(std::move(indexBuffer));
+	}
+
+	void SetIndexFromStatic()
+	{
+		assert("Cannot add move than one IndexBuffer" && m_pIndexBuffer == nullptr);
+		for (const auto& b : m_staticBindables)
+		{
+			if (const auto p = dynamic_cast<IndexBuffer*>(b.get()))
+			{
+				m_pIndexBuffer = p;
+				return;
+			}
+		}
+		assert("Failed to find IndexBuffer in static binds" && m_pIndexBuffer != nullptr);
+	}
+
+	const std::vector<std::unique_ptr<Bindable>>& GetStaticBinds() const override
+	{
+		return m_staticBindables;
+	}
+private:
+	static std::vector<std::unique_ptr<Bindable>> m_staticBindables;
 };
+
+template<class T>
+std::vector<std::unique_ptr<Bindable>> Drawable<T>::m_staticBindables;
