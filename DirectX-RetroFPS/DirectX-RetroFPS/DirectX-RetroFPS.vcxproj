@@ -84,7 +84,6 @@
   <ItemGroup>
     <ClCompile Include="Bindable.cpp" />
     <ClCompile Include="RotatingBox.cpp" />
-    <ClCompile Include="Drawable.cpp" />
     <ClCompile Include="DrawableBase.cpp" />
     <ClCompile Include="ErrorLogger.cpp" />
     <ClCompile Include="Game.cpp" />

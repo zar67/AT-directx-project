@@ -96,9 +96,6 @@
     <ClCompile Include="RotatingBox.cpp">
       <Filter>Source\Source Files\Graphics\Drawable</Filter>
     </ClCompile>
-    <ClCompile Include="Drawable.cpp">
-      <Filter>Source\Source Files\Graphics\Drawable</Filter>
-    </ClCompile>
     <ClCompile Include="Timer.cpp">
       <Filter>Source\Source Files</Filter>
     </ClCompile>

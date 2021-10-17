@@ -8,6 +8,6 @@ TransformConstantBuffer::TransformConstantBuffer(Graphics& graphics, DrawableBas
 
 void TransformConstantBuffer::Bind(Graphics& graphics)
 {
-	m_pConstantBuffer->Update(graphics, m_parent.GetTransform().TransposeMatrix());
+	m_pConstantBuffer->Update(graphics, m_parent.GetTransform()->TransposeMatrix());
 	m_pConstantBuffer->Bind(graphics);
 }

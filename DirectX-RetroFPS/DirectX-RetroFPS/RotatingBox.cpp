@@ -19,6 +19,8 @@ RotatingBox::RotatingBox(Graphics& graphics, float pitchRotateSpeed, float yawRo
 	{ 
 		InitialiseStatic(graphics);
 	}
+
+	AddBindable(std::make_unique<TransformConstantBuffer>(graphics, *this));
 }
 
 void RotatingBox::Update(float deltaTime)
@@ -32,21 +34,25 @@ void RotatingBox::InitialiseStatic(Graphics& graphics)
 {
 	std::vector<Vertex> vertices
 	{
-		Vertex(0.0f, 0.5f, 1.0f, 1.0f, 0.0f, 0.0f),
-		Vertex(0.5f, -0.5f, 1.0f, 0.0f, 1.0f, 0.0f),
-		Vertex(-0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 1.0f),
-		Vertex(-0.3f, 0.3f, 1.0f, 0.0f, 1.0f, 0.0f),
-		Vertex(0.3f, 0.3f, 1.0f, 0.0f, 0.0f, 1.0f),
-		Vertex(0.0f, -1.0f, 1.0f, 0.0f, 1.0f, 0.0f)
+		Vertex(-1.0f, -1.0f, -1.0f, 1.0f, 0.0f, 0.0f),
+		Vertex(1.0f, -1.0f, -1.0f, 0.0f, 1.0f, 0.0f),
+		Vertex(-1.0f, 1.0f, -1.0f, 0.0f, 0.0f, 1.0f),
+		Vertex(1.0f, 1.0f, -1.0f, 0.0f, 1.0f, 0.0f),
+		Vertex(-1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 1.0f),
+		Vertex(1.0f, -1.0f, 1.0f, 0.0f, 1.0f, 0.0f),
+		Vertex(-1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f),
+		Vertex(1.0, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f)
 	};
 
 	// Create Index Buffer
 	const std::vector<unsigned short> indices =
 	{
-		0, 1, 2,
-		0, 2, 3,
-		0, 4, 1,
-		2, 1, 5
+		0,2,1, 2,3,1,
+		1,3,5, 3,7,5,
+		2,6,3, 3,6,7,
+		4,5,7, 4,7,6,
+		0,4,2, 2,4,6,
+		0,1,4, 1,5,4
 	};
 
 	AddStaticBindable(std::make_unique<VertexBuffer>(graphics, vertices));
@@ -65,6 +71,4 @@ void RotatingBox::InitialiseStatic(Graphics& graphics)
 	};
 
 	AddStaticBindable(std::make_unique<InputLayout>(graphics, layout, pvsbc));
-
-	AddBindable(std::make_unique<TransformConstantBuffer>(graphics, *this));
 }

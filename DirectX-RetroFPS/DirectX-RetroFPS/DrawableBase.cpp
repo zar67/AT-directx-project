@@ -41,7 +41,7 @@ void DrawableBase::AddBindable(std::unique_ptr<Bindable> bindable)
 	m_bindables.push_back(std::move(bindable));
 }
 
-Transform DrawableBase::GetTransform()
+Transform* DrawableBase::GetTransform()
 {
-	return m_transform;
+	return &m_transform;
 }

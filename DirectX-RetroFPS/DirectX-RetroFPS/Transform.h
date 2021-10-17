@@ -51,9 +51,19 @@ struct Transform
 	DirectX::XMMATRIX TransposeMatrix()
 	{
 		return DirectX::XMMatrixTranspose(
+			DirectX::XMMatrixRotationX(Rotation.Pitch) *
+			DirectX::XMMatrixRotationY(Rotation.Yaw) *
+			DirectX::XMMatrixRotationZ(Rotation.Roll) *
 			DirectX::XMMatrixTranslation(Position.X, Position.Y, Position.Z) *
-			DirectX::XMMatrixRotationRollPitchYaw(Rotation.Pitch, Rotation.Yaw, Rotation.Roll) *
-			DirectX::XMMatrixScaling(Scale.X * (3.0f / 4.0f), Scale.Y, Scale.Z)
+			DirectX::XMMatrixScaling(Scale.X, Scale.Y, Scale.Z) * 
+			DirectX::XMMatrixPerspectiveLH(1.0f, 3.0f/4.0f, 0.5, 10.0f)
 		);
+	}
+
+	void Move(float x, float y, float z)
+	{
+		Position.X += x;
+		Position.Y += y;
+		Position.Z += z;
 	}
 };

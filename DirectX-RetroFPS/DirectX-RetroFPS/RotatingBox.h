@@ -4,7 +4,7 @@
 class RotatingBox : public Drawable<RotatingBox>
 {
 public:
-	RotatingBox();
+	RotatingBox() = default;
 	RotatingBox(Graphics& graphics, float pitchRotateSpeed, float yawRotateSpeed, float rollRotateSpeed);
 
 	virtual void Update(float deltaTime) override;

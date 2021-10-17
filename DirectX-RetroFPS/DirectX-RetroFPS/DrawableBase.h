@@ -21,7 +21,7 @@ public:
 	void AddIndexBuffer(std::unique_ptr<IndexBuffer> indexBuffer);
 	void AddBindable(std::unique_ptr<Bindable> bindable);
 
-	Transform GetTransform();
+	Transform* GetTransform();
 
 protected:
 	virtual const std::vector<std::unique_ptr<Bindable>>& GetStaticBinds() const = 0;

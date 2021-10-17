@@ -10,7 +10,8 @@
 Game::Game() :
 	m_window(800, 600, IDS_GAMENAME, IDI_MAINICON)
 {
-	m_box = std::make_unique<RotatingBox>(m_window.GetGraphics(), 0, 0, 1.5f);
+	m_box = std::make_unique<RotatingBox>(m_window.GetGraphics(), 0.3f, 0.3f, 0.3f);
+	m_box->GetTransform()->Move(0.0f, 0.0f, 4.0f);
 }
 
 int Game::Run()
