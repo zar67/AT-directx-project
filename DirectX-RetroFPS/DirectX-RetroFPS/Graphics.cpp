@@ -159,7 +159,7 @@ void Graphics::InitialiseDirectX(HWND window, int width, int height)
 
 	// Create Rasterizer State
 	D3D11_RASTERIZER_DESC rasterizerDescription;
-	ZeroMemory(&rasterizerDescription, sizeof(rasterizerDescription));
+	ZeroMemory(&rasterizerDescription, sizeof(D3D11_RASTERIZER_DESC));
 
 	rasterizerDescription.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
 	rasterizerDescription.CullMode = D3D11_CULL_MODE::D3D11_CULL_BACK;

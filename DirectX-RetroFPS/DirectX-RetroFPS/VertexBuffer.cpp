@@ -11,16 +11,17 @@ VertexBuffer::VertexBuffer(Graphics& graphics, const std::vector<Vertex>& vertic
 {
 	m_stride = sizeof(Vertex);
 	D3D11_BUFFER_DESC vertexBufferDescription;
-	ZeroMemory(&vertexBufferDescription, sizeof(vertexBufferDescription));
+	ZeroMemory(&vertexBufferDescription, sizeof(D3D11_BUFFER_DESC));
 
 	vertexBufferDescription.Usage = D3D11_USAGE_DEFAULT;
 	vertexBufferDescription.ByteWidth = sizeof(Vertex) * vertices.size();
+	vertexBufferDescription.StructureByteStride = sizeof(Vertex);
 	vertexBufferDescription.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 	vertexBufferDescription.CPUAccessFlags = 0;
 	vertexBufferDescription.MiscFlags = 0;
 
 	D3D11_SUBRESOURCE_DATA vertexBufferData;
-	ZeroMemory(&vertexBufferData, sizeof(vertexBufferData));
+	ZeroMemory(&vertexBufferData, sizeof(D3D11_SUBRESOURCE_DATA));
 
 	vertexBufferData.pSysMem = vertices.data();
 
