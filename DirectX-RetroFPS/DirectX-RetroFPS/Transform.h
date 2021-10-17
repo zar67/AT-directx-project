@@ -53,7 +53,7 @@ struct Transform
 		return DirectX::XMMatrixTranspose(
 			DirectX::XMMatrixTranslation(Position.X, Position.Y, Position.Z) *
 			DirectX::XMMatrixRotationRollPitchYaw(Rotation.Pitch, Rotation.Yaw, Rotation.Roll) *
-			DirectX::XMMatrixScaling(Scale.X, Scale.Y, Scale.Z)
+			DirectX::XMMatrixScaling(Scale.X * (3.0f / 4.0f), Scale.Y, Scale.Z)
 		);
 	}
 };
