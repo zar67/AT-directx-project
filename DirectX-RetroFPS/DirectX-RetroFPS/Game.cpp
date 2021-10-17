@@ -10,7 +10,7 @@
 Game::Game() :
 	m_window(800, 600, IDS_GAMENAME, IDI_MAINICON)
 {
-	m_box = std::make_unique<Box>(m_window.GetGraphics());
+	m_box = std::make_unique<RotatingBox>(m_window.GetGraphics(), 0, 0, 3.1415f);
 }
 
 int Game::Run()
@@ -19,12 +19,14 @@ int Game::Run()
 
 	while (true)
 	{
+		float deltaTime = m_timer.Mark();
+
 		if (const auto ecode = Window::ProcessWindowsMessages())
 		{
 			return *ecode;
 		}
 
-		Update();
+		Update(deltaTime);
 		Render();
 	}
 
@@ -36,9 +38,9 @@ void Game::Init()
 
 }
 
-void Game::Update()
+void Game::Update(float deltaTime)
 {
-
+	m_box->Update(deltaTime);
 }
 
 void Game::Render()

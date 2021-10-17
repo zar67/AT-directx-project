@@ -40,3 +40,8 @@ void DrawableBase::AddBindable(std::unique_ptr<Bindable> bindable)
 	assert("Must use AddIndexBuffer to add an IndexBuffer" && typeid(*bindable) != typeid(IndexBuffer));
 	m_bindables.push_back(std::move(bindable));
 }
+
+Transform DrawableBase::GetTransform()
+{
+	return m_transform;
+}

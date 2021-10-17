@@ -8,7 +8,8 @@
 
 #pragma once
 #include "Window.h"
-#include "Box.h"
+#include "RotatingBox.h"
+#include "Timer.h"
 
 class Game
 {
@@ -17,9 +18,11 @@ public:
 	int Run();
 private:
 	void Init();
-	void Update();
+	void Update(float deltaTime);
 	void Render();
 
 	Window m_window;
-	std::unique_ptr<Box> m_box;
+	Timer m_timer;
+
+	std::unique_ptr<RotatingBox> m_box;
 };

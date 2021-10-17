@@ -1,11 +1,15 @@
-#include "Box.h"
+#include "RotatingBox.h"
 #include "PixelShader.h"
 #include "VertexShader.h"
 #include "VertexBuffer.h"
 #include "InputLayout.h"
 #include "Vertex.h"
+#include "TransformConstantBuffer.h"
 
-Box::Box(Graphics& graphics)
+RotatingBox::RotatingBox(Graphics& graphics, float pitchRotateSpeed, float yawRotateSpeed, float rollRotateSpeed) :
+	m_pitchRotateSpeed(pitchRotateSpeed),
+	m_yawRotateSpeed(yawRotateSpeed),
+	m_rollRotateSpeed(rollRotateSpeed)
 {
 	if (IsStaticInitialized())
 	{
@@ -17,7 +21,14 @@ Box::Box(Graphics& graphics)
 	}
 }
 
-void Box::InitialiseStatic(Graphics& graphics)
+void RotatingBox::Update(float deltaTime)
+{
+	m_transform.Rotation.Pitch += m_pitchRotateSpeed * deltaTime;
+	m_transform.Rotation.Yaw += m_yawRotateSpeed * deltaTime;
+	m_transform.Rotation.Roll += m_rollRotateSpeed * deltaTime;
+}
+
+void RotatingBox::InitialiseStatic(Graphics& graphics)
 {
 	std::vector<Vertex> vertices
 	{
@@ -54,4 +65,6 @@ void Box::InitialiseStatic(Graphics& graphics)
 	};
 
 	AddStaticBindable(std::make_unique<InputLayout>(graphics, layout, pvsbc));
+
+	AddBindable(std::make_unique<TransformConstantBuffer>(graphics, *this));
 }

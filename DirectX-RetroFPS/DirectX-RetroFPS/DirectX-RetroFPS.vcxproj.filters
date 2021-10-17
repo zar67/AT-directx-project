@@ -46,6 +46,12 @@
     <Filter Include="Source\Source Files\Graphics\Drawable">
       <UniqueIdentifier>{ba6f0f9e-97b7-47bd-915d-61548e45d1e2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Source Files\Graphics\Bindable\ConstantBuffers">
+      <UniqueIdentifier>{7f42942d-bb22-4cf5-afa2-6e4da621e176}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Header Files\Graphics\Bindable\ConstantBuffers">
+      <UniqueIdentifier>{86dee250-73f7-440f-adcf-c804fae7eeea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -87,11 +93,17 @@
     <ClCompile Include="DrawableBase.cpp">
       <Filter>Source\Source Files\Graphics\Drawable</Filter>
     </ClCompile>
-    <ClCompile Include="Box.cpp">
+    <ClCompile Include="RotatingBox.cpp">
       <Filter>Source\Source Files\Graphics\Drawable</Filter>
     </ClCompile>
     <ClCompile Include="Drawable.cpp">
       <Filter>Source\Source Files\Graphics\Drawable</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Source\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformConstantBuffer.cpp">
+      <Filter>Source\Source Files\Graphics\Bindable\ConstantBuffers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -143,13 +155,31 @@
     <ClInclude Include="DrawableBase.h">
       <Filter>Source\Header Files\Graphics\Drawable</Filter>
     </ClInclude>
-    <ClInclude Include="Box.h">
+    <ClInclude Include="RotatingBox.h">
       <Filter>Source\Header Files\Graphics\Drawable</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Source\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Drawable.h">
+      <Filter>Source\Header Files\Graphics\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexConstantBuffer.h">
+      <Filter>Source\Header Files\Graphics\Bindable\ConstantBuffers</Filter>
+    </ClInclude>
+    <ClInclude Include="PixelConstantBuffer.h">
+      <Filter>Source\Header Files\Graphics\Bindable\ConstantBuffers</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformConstantBuffer.h">
+      <Filter>Source\Header Files\Graphics\Bindable\ConstantBuffers</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
       <Filter>Source\Header Files\Graphics\Drawable</Filter>
     </ClInclude>
   </ItemGroup>
