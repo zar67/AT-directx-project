@@ -7,12 +7,18 @@
 /* and the swap-chain.                               */
 /* ------------------------------------------------- */
 
+#pragma comment(lib, "D3DCompiler.lib")
+#pragma comment(lib, "d3d11.lib")
+
 #pragma once
 #include <d3d11.h>
 #include <wrl.h>
-#include "VertexShader.h"
-#include "PixelShader.h"
-#include "Vertex.h"
+#include <vector>
+#include <d3dcompiler.h>
+#include <DirectXMath.h>
+#include <memory>
+#include <random>
+#include "ErrorLogger.h"
 
 class Graphics
 {
@@ -28,23 +34,15 @@ public:
 	ID3D11Device* GetDevice();
 	ID3D11DeviceContext* GetDeviceContext();
 
+	std::wstring GetShaderFolder();
+
 private:
 	void InitialiseDirectX(HWND window, int width, int height);
-	void InitialiseShaders();
-	void InitialiseScene();
-
-	std::wstring GetShaderFolder();
 
 	Microsoft::WRL::ComPtr<ID3D11Device> m_pDevice = nullptr;
 	Microsoft::WRL::ComPtr<ID3D11DeviceContext> m_pDeviceContext = nullptr;
 	Microsoft::WRL::ComPtr<IDXGISwapChain> m_pSwapChain = nullptr;
 	Microsoft::WRL::ComPtr<ID3D11RenderTargetView> m_pRenderTargetView = nullptr;
-
-	VertexShader m_vertexShader;
-	PixelShader m_pixelShader;
-
-	Microsoft::WRL::ComPtr<ID3D11Buffer> m_vertexBuffer = nullptr;
-	Microsoft::WRL::ComPtr<ID3D11Buffer> m_indexBuffer = nullptr;
 
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilView> m_pDepthStencilView = nullptr;
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> m_pDepthStencilState = nullptr;

@@ -25,20 +25,32 @@
     <Filter Include="Source\Header Files\Graphics">
       <UniqueIdentifier>{25bfce5a-8216-4275-adaa-2bc83612c979}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Header Files\Graphics\Shaders">
-      <UniqueIdentifier>{1daa154c-28ad-4591-9fc6-011252125182}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Source Files\Graphics">
       <UniqueIdentifier>{e6ff5a43-1f54-4ee5-b0f8-663d4c2d9a65}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Source Files\Graphics\Shaders">
-      <UniqueIdentifier>{31d76cf9-6f55-4b27-a62d-ed243532a19f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resources\Icons">
       <UniqueIdentifier>{ea87e77d-ed62-443e-8447-21241fa735cf}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resources\Shaders">
       <UniqueIdentifier>{bf7d5adc-4d3a-40ef-bd3c-376e8964f82b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Header Files\Graphics\Bindable">
+      <UniqueIdentifier>{829b9ace-e24c-4eda-9479-5a8ca0ec2bc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Source Files\Graphics\Bindable">
+      <UniqueIdentifier>{e017076b-2dba-463a-b469-52f513ebdd05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Header Files\Graphics\Drawable">
+      <UniqueIdentifier>{a4f7f927-06bf-4d0c-8aab-3e1359b23e17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Source Files\Graphics\Drawable">
+      <UniqueIdentifier>{ba6f0f9e-97b7-47bd-915d-61548e45d1e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Source Files\Graphics\Bindable\ConstantBuffers">
+      <UniqueIdentifier>{7f42942d-bb22-4cf5-afa2-6e4da621e176}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Header Files\Graphics\Bindable\ConstantBuffers">
+      <UniqueIdentifier>{86dee250-73f7-440f-adcf-c804fae7eeea}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -57,14 +69,38 @@
     <ClCompile Include="Vertex.cpp">
       <Filter>Source\Source Files\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="VertexShader.cpp">
-      <Filter>Source\Source Files\Graphics\Shaders</Filter>
-    </ClCompile>
     <ClCompile Include="Window.cpp">
       <Filter>Source\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Bindable.cpp">
+      <Filter>Source\Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="InputLayout.cpp">
+      <Filter>Source\Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
     <ClCompile Include="PixelShader.cpp">
-      <Filter>Source\Source Files\Graphics\Shaders</Filter>
+      <Filter>Source\Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexShader.cpp">
+      <Filter>Source\Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="IndexBuffer.cpp">
+      <Filter>Source\Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexBuffer.cpp">
+      <Filter>Source\Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawableBase.cpp">
+      <Filter>Source\Source Files\Graphics\Drawable</Filter>
+    </ClCompile>
+    <ClCompile Include="RotatingBox.cpp">
+      <Filter>Source\Source Files\Graphics\Drawable</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Source\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformConstantBuffer.cpp">
+      <Filter>Source\Source Files\Graphics\Bindable\ConstantBuffers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -80,9 +116,6 @@
     <ClInclude Include="Vertex.h">
       <Filter>Source\Header Files\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="VertexShader.h">
-      <Filter>Source\Header Files\Graphics\Shaders</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Resources</Filter>
     </ClInclude>
@@ -95,8 +128,56 @@
     <ClInclude Include="resource.h">
       <Filter>Source\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Bindable.h">
+      <Filter>Source\Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="InputLayout.h">
+      <Filter>Source\Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
     <ClInclude Include="PixelShader.h">
-      <Filter>Source\Header Files\Graphics\Shaders</Filter>
+      <Filter>Source\Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexShader.h">
+      <Filter>Source\Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="IndexBuffer.h">
+      <Filter>Source\Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexBuffer.h">
+      <Filter>Source\Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawableBase.h">
+      <Filter>Source\Header Files\Graphics\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="RotatingBox.h">
+      <Filter>Source\Header Files\Graphics\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawable.h">
+      <Filter>Source\Header Files\Graphics\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexConstantBuffer.h">
+      <Filter>Source\Header Files\Graphics\Bindable\ConstantBuffers</Filter>
+    </ClInclude>
+    <ClInclude Include="PixelConstantBuffer.h">
+      <Filter>Source\Header Files\Graphics\Bindable\ConstantBuffers</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformConstantBuffer.h">
+      <Filter>Source\Header Files\Graphics\Bindable\ConstantBuffers</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Source\Header Files\Graphics\Drawable</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
