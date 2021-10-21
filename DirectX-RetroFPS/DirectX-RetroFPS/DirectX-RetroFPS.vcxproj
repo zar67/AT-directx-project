@@ -15,7 +15,7 @@
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{be84b7cb-88ee-4027-8e31-db460f73f2c4}</ProjectGuid>
     <RootNamespace>DirectXRetroFPS</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
@@ -91,6 +91,9 @@
     <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="InputLayout.cpp" />
     <ClCompile Include="PixelShader.cpp" />
+    <ClCompile Include="Sampler.cpp" />
+    <ClCompile Include="StringConversion.cpp" />
+    <ClCompile Include="TextureBindable.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TransformConstantBuffer.cpp" />
     <ClCompile Include="Vertex.cpp" />
@@ -113,6 +116,9 @@
     <ClInclude Include="PixelShader.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Sampler.h" />
+    <ClInclude Include="StringConversion.h" />
+    <ClInclude Include="TextureBindable.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="TransformConstantBuffer.h" />
@@ -142,7 +148,17 @@
   <ItemGroup>
     <Image Include="Assets\Icons\doom-icon.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\directxtex_desktop_win10.2021.8.2.1\build\native\directxtex_desktop_win10.targets" Condition="Exists('..\packages\directxtex_desktop_win10.2021.8.2.1\build\native\directxtex_desktop_win10.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\directxtex_desktop_win10.2021.8.2.1\build\native\directxtex_desktop_win10.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\directxtex_desktop_win10.2021.8.2.1\build\native\directxtex_desktop_win10.targets'))" />
+  </Target>
 </Project>

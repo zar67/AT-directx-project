@@ -5,6 +5,8 @@
 #include "InputLayout.h"
 #include "Vertex.h"
 #include "TransformConstantBuffer.h"
+#include "Sampler.h"
+#include "TextureBindable.h"
 
 RotatingBox::RotatingBox(Graphics& graphics, float pitchRotateSpeed, float yawRotateSpeed, float rollRotateSpeed) :
 	m_pitchRotateSpeed(pitchRotateSpeed),
@@ -34,14 +36,14 @@ void RotatingBox::InitialiseStatic(Graphics& graphics)
 {
 	std::vector<Vertex> vertices
 	{
-		Vertex(-1.0f, -1.0f, -1.0f, 1.0f, 0.0f, 0.0f),
-		Vertex(1.0f, -1.0f, -1.0f, 0.0f, 1.0f, 0.0f),
-		Vertex(-1.0f, 1.0f, -1.0f, 0.0f, 0.0f, 1.0f),
-		Vertex(1.0f, 1.0f, -1.0f, 0.0f, 1.0f, 0.0f),
-		Vertex(-1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 1.0f),
-		Vertex(1.0f, -1.0f, 1.0f, 0.0f, 1.0f, 0.0f),
-		Vertex(-1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f),
-		Vertex(1.0, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f)
+		Vertex(DirectX::XMFLOAT3(-1.0f, -1.0f, -1.0f), DirectX::XMFLOAT2(0, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)),
+		Vertex(DirectX::XMFLOAT3(1.0f, -1.0f, -1.0f), DirectX::XMFLOAT2(1, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)),
+		Vertex(DirectX::XMFLOAT3(-1.0f, 1.0f, -1.0f), DirectX::XMFLOAT2(0, 1), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)),
+		Vertex(DirectX::XMFLOAT3(1.0f, 1.0f, -1.0f), DirectX::XMFLOAT2(1, 1), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)),
+		Vertex(DirectX::XMFLOAT3(-1.0f, -1.0f, 1.0f), DirectX::XMFLOAT2(1, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)),
+		Vertex(DirectX::XMFLOAT3(1.0f, -1.0f, 1.0f), DirectX::XMFLOAT2(0, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)),
+		Vertex(DirectX::XMFLOAT3(-1.0f, 1.0f, 1.0f), DirectX::XMFLOAT2(1, 1), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)),
+		Vertex(DirectX::XMFLOAT3(1.0, 1.0f, 1.0f), DirectX::XMFLOAT2(0, 1), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f))
 	};
 
 	// Create Index Buffer
@@ -67,8 +69,13 @@ void RotatingBox::InitialiseStatic(Graphics& graphics)
 	std::vector<D3D11_INPUT_ELEMENT_DESC> layout
 	{
 		{"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
+		{"TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0},
 		{"COLOUR", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0}
 	};
 
 	AddStaticBindable(std::make_unique<InputLayout>(graphics, layout, pvsbc));
+
+	AddStaticBindable(std::make_unique<Sampler>(graphics));
+
+	AddStaticBindable(std::make_unique<TextureBindable>(graphics, "Assets\\cube.png"));
 }

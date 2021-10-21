@@ -6,11 +6,15 @@
 
 #pragma once
 #include <DirectXMath.h>
+#include "Transform.h"
 
 struct Vertex
 {
-	Vertex(float x, float y, float z, float r, float g, float b);
+	Vertex(DirectX::XMFLOAT3 position, DirectX::XMFLOAT3 colour);
+	Vertex(DirectX::XMFLOAT3 position, DirectX::XMFLOAT2 textureCoords);
+	Vertex(DirectX::XMFLOAT3 position, DirectX::XMFLOAT2 textureCoords, DirectX::XMFLOAT3 colour);
 
 	DirectX::XMFLOAT3 Position;
+	DirectX::XMFLOAT2 TextureCoords;
 	DirectX::XMFLOAT3 Colour;
 };

@@ -37,7 +37,12 @@ public:
 	std::wstring GetShaderFolder();
 
 private:
-	void InitialiseDirectX(HWND window, int width, int height);
+	void CreateDeviceAndSwapChain(HWND window);
+	void CreateRenderTargetView();
+	void CreateDepthStencilBuffer(int width, int height);
+	void CreateDepthStencilState();
+	void CreateViewport(int width, int height);
+	void CreateRasterizerState();
 
 	Microsoft::WRL::ComPtr<ID3D11Device> m_pDevice = nullptr;
 	Microsoft::WRL::ComPtr<ID3D11DeviceContext> m_pDeviceContext = nullptr;
@@ -48,5 +53,5 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> m_pDepthStencilState = nullptr;
 	Microsoft::WRL::ComPtr<ID3D11Texture2D> m_pDepthStencilBuffer = nullptr;
 
-	Microsoft::WRL::ComPtr<ID3D11RasterizerState> m_rasterizerState = nullptr;
+	Microsoft::WRL::ComPtr<ID3D11RasterizerState> m_pRasterizerState = nullptr;
 };

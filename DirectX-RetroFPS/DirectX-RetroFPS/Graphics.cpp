@@ -10,14 +10,19 @@
 
 Graphics::Graphics(HWND window, int width, int height)
 {
-	InitialiseDirectX(window, width, height);
+	CreateDeviceAndSwapChain(window);
+	CreateRenderTargetView();
+	CreateDepthStencilBuffer(width, height);
+	CreateDepthStencilState();
+	CreateViewport(width, height);
+	CreateRasterizerState();
 }
 
 void Graphics::RenderFrame()
 {
 	m_pDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-	m_pDeviceContext->RSSetState(m_rasterizerState.Get());
+	m_pDeviceContext->RSSetState(m_pRasterizerState.Get());
 
 	m_pDeviceContext->OMSetDepthStencilState(m_pDepthStencilState.Get(), 0);
 
@@ -41,7 +46,23 @@ ID3D11DeviceContext* Graphics::GetDeviceContext()
 	return m_pDeviceContext.Get();
 }
 
-void Graphics::InitialiseDirectX(HWND window, int width, int height)
+std::wstring Graphics::GetShaderFolder()
+{
+	std::wstring shaderFolder = L"";
+
+	if (IsDebuggerPresent() == TRUE)
+	{
+#ifdef _DEBUG
+		shaderFolder = L"..\\x64\\Debug\\";
+#else
+		shaderFolder = L"..\\x64\\Release\\";
+#endif
+	}
+
+	return shaderFolder;
+}
+
+void Graphics::CreateDeviceAndSwapChain(HWND window)
 {
 	DXGI_SWAP_CHAIN_DESC swapChainDescription = {};
 	swapChainDescription.BufferDesc.Width = 0;
@@ -80,9 +101,12 @@ void Graphics::InitialiseDirectX(HWND window, int width, int height)
 		ErrorLogger::Log(hResult, "Failed to Create Device and Swap Chain");
 		return;
 	}
+}
 
+void Graphics::CreateRenderTargetView()
+{
 	Microsoft::WRL::ComPtr<ID3D11Resource> pBackBuffer = nullptr;
-	hResult = m_pSwapChain->GetBuffer(0, __uuidof(ID3D11Resource), &pBackBuffer);
+	HRESULT hResult = m_pSwapChain->GetBuffer(0, __uuidof(ID3D11Resource), &pBackBuffer);
 
 	if (FAILED(hResult))
 	{
@@ -97,8 +121,10 @@ void Graphics::InitialiseDirectX(HWND window, int width, int height)
 		ErrorLogger::Log(hResult, "Failed to Create Render Target View");
 		return;
 	}
+}
 
-	// Create Depth/Stencil Buffer
+void Graphics::CreateDepthStencilBuffer(int width, int height)
+{
 	D3D11_TEXTURE2D_DESC depthBufferDescription;
 	depthBufferDescription.Width = width;
 	depthBufferDescription.Height = height;
@@ -112,7 +138,7 @@ void Graphics::InitialiseDirectX(HWND window, int width, int height)
 	depthBufferDescription.CPUAccessFlags = 0;
 	depthBufferDescription.MiscFlags = 0;
 
-	hResult = m_pDevice->CreateTexture2D(&depthBufferDescription, NULL, m_pDepthStencilBuffer.GetAddressOf());
+	HRESULT hResult = m_pDevice->CreateTexture2D(&depthBufferDescription, NULL, m_pDepthStencilBuffer.GetAddressOf());
 	if (FAILED(hResult))
 	{
 		ErrorLogger::Log(hResult, "Failed to Create Depth Stencil Buffer");
@@ -127,8 +153,10 @@ void Graphics::InitialiseDirectX(HWND window, int width, int height)
 	}
 
 	m_pDeviceContext->OMSetRenderTargets(1, m_pRenderTargetView.GetAddressOf(), m_pDepthStencilView.Get());
+}
 
-	// Create Depth Stencil State
+void Graphics::CreateDepthStencilState()
+{
 	D3D11_DEPTH_STENCIL_DESC depthStencilDescription;
 	ZeroMemory(&depthStencilDescription, sizeof(D3D11_DEPTH_STENCIL_DESC));
 
@@ -136,53 +164,40 @@ void Graphics::InitialiseDirectX(HWND window, int width, int height)
 	depthStencilDescription.DepthWriteMask = D3D11_DEPTH_WRITE_MASK::D3D11_DEPTH_WRITE_MASK_ALL;
 	depthStencilDescription.DepthFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_LESS_EQUAL;
 
-	hResult = m_pDevice->CreateDepthStencilState(&depthStencilDescription, m_pDepthStencilState.GetAddressOf());
+	HRESULT hResult = m_pDevice->CreateDepthStencilState(&depthStencilDescription, m_pDepthStencilState.GetAddressOf());
 	if (FAILED(hResult))
 	{
 		ErrorLogger::Log(hResult, "Failed to Create Depth Stencil View");
 		return;
 	}
+}
 
-	// Create the Viewport
+void Graphics::CreateViewport(int width, int height)
+{
 	D3D11_VIEWPORT viewport;
 	ZeroMemory(&viewport, sizeof(D3D11_VIEWPORT));
 
 	viewport.TopLeftX = 0;
 	viewport.TopLeftY = 0;
-	viewport.Width = width;
-	viewport.Height = height;
+	viewport.Width = (float)width;
+	viewport.Height = (float)height;
 	viewport.MinDepth = 0.0f;
 	viewport.MaxDepth = 1.0f;
 
-	// Set the Viewport
 	m_pDeviceContext->RSSetViewports(1, &viewport);
+}
 
-	// Create Rasterizer State
+void Graphics::CreateRasterizerState()
+{
 	D3D11_RASTERIZER_DESC rasterizerDescription;
 	ZeroMemory(&rasterizerDescription, sizeof(D3D11_RASTERIZER_DESC));
 
 	rasterizerDescription.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
 	rasterizerDescription.CullMode = D3D11_CULL_MODE::D3D11_CULL_BACK;
-	hResult = m_pDevice->CreateRasterizerState(&rasterizerDescription, m_rasterizerState.GetAddressOf());
+	HRESULT hResult = m_pDevice->CreateRasterizerState(&rasterizerDescription, m_pRasterizerState.GetAddressOf());
 	if (FAILED(hResult))
 	{
 		ErrorLogger::Log(hResult, "Failed to Create Rasterizer State");
 		return;
 	}
-}
-
-std::wstring Graphics::GetShaderFolder()
-{
-	std::wstring shaderFolder = L"";
-
-	if (IsDebuggerPresent() == TRUE)
-	{
-#ifdef _DEBUG
-		shaderFolder = L"..\\x64\\Debug\\";
-#else
-		shaderFolder = L"..\\x64\\Release\\";
-#endif
-	}
-
-	return shaderFolder;
 }
