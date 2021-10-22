@@ -1,9 +1,3 @@
-/* ------------------------------------------------- */
-/* Filename: IndexBuffer.h                           */
-/* Author: Zoe Rowbotham                             */
-/* Description: Header of the IndexBuffer class      */
-/* ------------------------------------------------- */
-
 #pragma once
 #include "Bindable.h"
 
@@ -21,5 +15,5 @@ public:
 
 protected:
 	UINT m_count = 0;
-	Microsoft::WRL::ComPtr<ID3D11Buffer> m_indexBuffer = nullptr;
+	Microsoft::WRL::ComPtr<ID3D11Buffer> m_pIndexBuffer = nullptr;
 };

@@ -1,9 +1,3 @@
-/* ------------------------------------------------- */
-/* Filename: VertexBuffer.h                          */
-/* Author: Zoe Rowbotham                             */
-/* Description: Header of the VertexBuffer class     */
-/* ------------------------------------------------- */
-
 #pragma once
 #include "Bindable.h"
 #include "Vertex.h"
@@ -19,5 +13,5 @@ public:
 protected:
 	UINT m_stride;
 
-	Microsoft::WRL::ComPtr<ID3D11Buffer> m_vertexBuffer = nullptr;
+	Microsoft::WRL::ComPtr<ID3D11Buffer> m_pVertexBuffer = nullptr;
 };

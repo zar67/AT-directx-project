@@ -117,13 +117,16 @@
     <ClCompile Include="TextureBindable.cpp">
       <Filter>Source\Source Files\Graphics\Bindable</Filter>
     </ClCompile>
+    <ClCompile Include="Topology.cpp">
+      <Filter>Source\Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="RasterizerState.cpp">
+      <Filter>Source\Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ErrorLogger.h">
       <Filter>Source\Header Files\Utilities\ErrorLogging</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Source\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Graphics.h">
       <Filter>Source\Header Files\Graphics</Filter>
@@ -208,6 +211,15 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Topology.h">
+      <Filter>Source\Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="RasterizerState.h">
+      <Filter>Source\Header Files\Graphics\Bindable</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

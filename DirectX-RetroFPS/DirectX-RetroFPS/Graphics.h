@@ -1,12 +1,3 @@
-/* ------------------------------------------------- */
-/* Filename: Graphics.h                              */
-/* Author: Zoe Rowbotham                             */
-/* Description: Header of the Graphics class.        */
-/* The Graphics class initalises DirectX and handles */
-/* DirectX functionality like the render pipeline    */
-/* and the swap-chain.                               */
-/* ------------------------------------------------- */
-
 #pragma comment(lib, "D3DCompiler.lib")
 #pragma comment(lib, "d3d11.lib")
 
@@ -42,7 +33,6 @@ private:
 	void CreateDepthStencilBuffer(int width, int height);
 	void CreateDepthStencilState();
 	void CreateViewport(int width, int height);
-	void CreateRasterizerState();
 
 	Microsoft::WRL::ComPtr<ID3D11Device> m_pDevice = nullptr;
 	Microsoft::WRL::ComPtr<ID3D11DeviceContext> m_pDeviceContext = nullptr;
@@ -52,6 +42,4 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilView> m_pDepthStencilView = nullptr;
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> m_pDepthStencilState = nullptr;
 	Microsoft::WRL::ComPtr<ID3D11Texture2D> m_pDepthStencilBuffer = nullptr;
-
-	Microsoft::WRL::ComPtr<ID3D11RasterizerState> m_pRasterizerState = nullptr;
 };

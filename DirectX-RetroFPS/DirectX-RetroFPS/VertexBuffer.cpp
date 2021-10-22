@@ -27,7 +27,7 @@ VertexBuffer::VertexBuffer(Graphics& graphics, const std::vector<Vertex>& vertic
 
 	HRESULT hResult = graphics.GetDevice()->CreateBuffer(
 		&vertexBufferDescription, &vertexBufferData,
-		m_vertexBuffer.GetAddressOf()
+		m_pVertexBuffer.GetAddressOf()
 	);
 
 	if (FAILED(hResult))
@@ -40,5 +40,5 @@ VertexBuffer::VertexBuffer(Graphics& graphics, const std::vector<Vertex>& vertic
 void VertexBuffer::Bind(Graphics& graphics)
 {
 	UINT offset = 0;
-	graphics.GetDeviceContext()->IASetVertexBuffers(0, 1, m_vertexBuffer.GetAddressOf(), &m_stride, &offset);
+	graphics.GetDeviceContext()->IASetVertexBuffers(0, 1, m_pVertexBuffer.GetAddressOf(), &m_stride, &offset);
 }
