@@ -206,6 +206,9 @@
     <ClInclude Include="TextureBindable.h">
       <Filter>Source\Header Files\Graphics\Bindable</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX-RetroFPS.rc">
