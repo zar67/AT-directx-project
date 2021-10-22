@@ -28,7 +28,7 @@ IndexBuffer::IndexBuffer(Graphics& graphics, const std::vector<unsigned short>& 
 
 	HRESULT hResult = graphics.GetDevice()->CreateBuffer(
 		&indexBufferDescription, &indexBufferData,
-		m_indexBuffer.GetAddressOf()
+		m_pIndexBuffer.GetAddressOf()
 	);
 
 	if (FAILED(hResult))
@@ -39,7 +39,7 @@ IndexBuffer::IndexBuffer(Graphics& graphics, const std::vector<unsigned short>& 
 
 void IndexBuffer::Bind(Graphics& graphics)
 {
-	graphics.GetDeviceContext()->IASetIndexBuffer(m_indexBuffer.Get(), DXGI_FORMAT_R16_UINT, 0);
+	graphics.GetDeviceContext()->IASetIndexBuffer(m_pIndexBuffer.Get(), DXGI_FORMAT_R16_UINT, 0);
 }
 
 UINT IndexBuffer::GetCount()

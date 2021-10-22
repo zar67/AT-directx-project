@@ -7,9 +7,19 @@
 
 #include "Vertex.h"
 
-Vertex::Vertex(float x, float y, float z, float r, float g, float b) :
-	Position(x, y, z),
-	Colour(r, g, b)
+Vertex::Vertex(DirectX::XMFLOAT3 position, DirectX::XMFLOAT3 colour)
 {
+	Vertex(position, DirectX::XMFLOAT2(0, 0), colour);
+}
 
+Vertex::Vertex(DirectX::XMFLOAT3 position, DirectX::XMFLOAT2 textureCoords)
+{
+	Vertex(position, textureCoords, DirectX::XMFLOAT3(1, 1, 1));
+}
+
+Vertex::Vertex(DirectX::XMFLOAT3 position, DirectX::XMFLOAT2 textureCoords, DirectX::XMFLOAT3 colour)
+{
+	Position = position;
+	TextureCoords = textureCoords;
+	Colour = colour;
 }

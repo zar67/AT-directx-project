@@ -15,6 +15,4 @@ public:
 	static void Log(std::string message);
 	static void Log(HRESULT hResult, std::string message);
 	static void Log(HRESULT hResult, std::wstring message);
-private:
-	static std::wstring StringToWide(std::string str);
 };

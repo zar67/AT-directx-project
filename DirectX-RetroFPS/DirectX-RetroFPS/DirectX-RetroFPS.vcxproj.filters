@@ -16,12 +16,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source\Source Files\ErrorLogging">
-      <UniqueIdentifier>{f52a003d-770a-4043-9393-0919751e4cad}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Header Files\ErrorLogging">
-      <UniqueIdentifier>{3bf04ef9-e7ae-4646-94a4-087c0cfe71a5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Header Files\Graphics">
       <UniqueIdentifier>{25bfce5a-8216-4275-adaa-2bc83612c979}</UniqueIdentifier>
     </Filter>
@@ -52,13 +46,25 @@
     <Filter Include="Source\Header Files\Graphics\Bindable\ConstantBuffers">
       <UniqueIdentifier>{86dee250-73f7-440f-adcf-c804fae7eeea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Source Files\Utilities">
+      <UniqueIdentifier>{9977189e-c232-4265-9d16-0c30fca1ca2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Source Files\Utilities\ErrorLogging">
+      <UniqueIdentifier>{f52a003d-770a-4043-9393-0919751e4cad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Header Files\Utilities">
+      <UniqueIdentifier>{be8f7544-ef9f-43ef-985b-18524ecd8501}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Header Files\Utilities\ErrorLogging">
+      <UniqueIdentifier>{3bf04ef9-e7ae-4646-94a4-087c0cfe71a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
       <Filter>Source\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ErrorLogger.cpp">
-      <Filter>Source\Source Files\ErrorLogging</Filter>
+      <Filter>Source\Source Files\Utilities\ErrorLogging</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Source\Source Files</Filter>
@@ -96,19 +102,31 @@
     <ClCompile Include="RotatingBox.cpp">
       <Filter>Source\Source Files\Graphics\Drawable</Filter>
     </ClCompile>
-    <ClCompile Include="Timer.cpp">
-      <Filter>Source\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TransformConstantBuffer.cpp">
       <Filter>Source\Source Files\Graphics\Bindable\ConstantBuffers</Filter>
+    </ClCompile>
+    <ClCompile Include="Sampler.cpp">
+      <Filter>Source\Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="StringConversion.cpp">
+      <Filter>Source\Source Files\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Source\Source Files\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureBindable.cpp">
+      <Filter>Source\Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="Topology.cpp">
+      <Filter>Source\Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="RasterizerState.cpp">
+      <Filter>Source\Source Files\Graphics\Bindable</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ErrorLogger.h">
-      <Filter>Source\Header Files\ErrorLogging</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Source\Header Files</Filter>
+      <Filter>Source\Header Files\Utilities\ErrorLogging</Filter>
     </ClInclude>
     <ClInclude Include="Graphics.h">
       <Filter>Source\Header Files\Graphics</Filter>
@@ -164,9 +182,6 @@
     <ClInclude Include="resource.h">
       <Filter>Source\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Timer.h">
-      <Filter>Source\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="VertexConstantBuffer.h">
       <Filter>Source\Header Files\Graphics\Bindable\ConstantBuffers</Filter>
     </ClInclude>
@@ -178,6 +193,33 @@
     </ClInclude>
     <ClInclude Include="Transform.h">
       <Filter>Source\Header Files\Graphics\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sampler.h">
+      <Filter>Source\Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Source\Header Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="StringConversion.h">
+      <Filter>Source\Header Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureBindable.h">
+      <Filter>Source\Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Topology.h">
+      <Filter>Source\Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="RasterizerState.h">
+      <Filter>Source\Header Files\Graphics\Bindable</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -197,5 +239,8 @@
     <FxCompile Include="PixelShader.hlsl">
       <Filter>Resources\Shaders</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

@@ -1,9 +1,3 @@
-/* ------------------------------------------------- */
-/* Filename: PixelShader.h                           */
-/* Author: Zoe Rowbotham                             */
-/* Description: Header of the PixelShader class      */
-/* ------------------------------------------------- */
-
 #pragma once
 #include "Bindable.h"
 
