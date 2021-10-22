@@ -15,17 +15,11 @@ Graphics::Graphics(HWND window, int width, int height)
 	CreateDepthStencilBuffer(width, height);
 	CreateDepthStencilState();
 	CreateViewport(width, height);
-	CreateRasterizerState();
 }
 
 void Graphics::RenderFrame()
 {
-	m_pDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
-	m_pDeviceContext->RSSetState(m_pRasterizerState.Get());
-
 	m_pDeviceContext->OMSetDepthStencilState(m_pDepthStencilState.Get(), 0);
-
 	m_pSwapChain->Present(1u, 0u);
 }
 
@@ -185,19 +179,4 @@ void Graphics::CreateViewport(int width, int height)
 	viewport.MaxDepth = 1.0f;
 
 	m_pDeviceContext->RSSetViewports(1, &viewport);
-}
-
-void Graphics::CreateRasterizerState()
-{
-	D3D11_RASTERIZER_DESC rasterizerDescription;
-	ZeroMemory(&rasterizerDescription, sizeof(D3D11_RASTERIZER_DESC));
-
-	rasterizerDescription.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
-	rasterizerDescription.CullMode = D3D11_CULL_MODE::D3D11_CULL_BACK;
-	HRESULT hResult = m_pDevice->CreateRasterizerState(&rasterizerDescription, m_pRasterizerState.GetAddressOf());
-	if (FAILED(hResult))
-	{
-		ErrorLogger::Log(hResult, "Failed to Create Rasterizer State");
-		return;
-	}
 }
