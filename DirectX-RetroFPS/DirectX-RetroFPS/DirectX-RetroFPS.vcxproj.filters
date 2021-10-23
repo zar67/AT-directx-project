@@ -58,6 +58,12 @@
     <Filter Include="Source\Header Files\Utilities\ErrorLogging">
       <UniqueIdentifier>{3bf04ef9-e7ae-4646-94a4-087c0cfe71a5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Source Files\Input">
+      <UniqueIdentifier>{3d9edf75-96bc-49ec-9cfd-e79ddb1f7ca3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Header Files\Input">
+      <UniqueIdentifier>{327bc9ce-fdaa-4c85-b67d-6d1976e27a87}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -125,6 +131,15 @@
     </ClCompile>
     <ClCompile Include="Window.cpp">
       <Filter>Source\Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Source\Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyboardEvent.cpp">
+      <Filter>Source\Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Keyboard.cpp">
+      <Filter>Source\Source Files\Input</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -229,6 +244,18 @@
     </ClInclude>
     <ClInclude Include="Window.h">
       <Filter>Source\Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Source\Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardEvent.h">
+      <Filter>Source\Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Keyboard.h">
+      <Filter>Source\Header Files\Input</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,7 @@
 #pragma once
 #include <DirectXMath.h>
+#include "Input.h"
+#include "Window.h"
 
 class Camera
 {
@@ -10,6 +12,8 @@ public:
 
 	const DirectX::XMMATRIX& GetViewMatrix() const;
 	const DirectX::XMMATRIX& GetProjectionMatrix() const;
+
+	void Update(float deltaTime, float movementSpeed, Input& input);
 
 	void SetPosition(float x, float y, float z);
 	void AdjustPosition(float x, float y, float z);

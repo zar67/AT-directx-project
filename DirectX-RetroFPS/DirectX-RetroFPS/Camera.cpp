@@ -24,6 +24,20 @@ const DirectX::XMMATRIX& Camera::GetProjectionMatrix() const
 	return m_projectionMatrix;
 }
 
+void Camera::Update(float deltaTime, float movementSpeed, Input& input)
+{
+	// Update Camera Movement
+	float forwardMovement = input.GetKeyboard()->IsKeyPressed('W') ? movementSpeed : 0.0f;
+	float backwardMovement = input.GetKeyboard()->IsKeyPressed('S') ? -movementSpeed : 0.0f;
+	float leftMovement = input.GetKeyboard()->IsKeyPressed('A') ? -movementSpeed : 0.0f;
+	float rightMovement = input.GetKeyboard()->IsKeyPressed('D') ? movementSpeed : 0.0f;
+
+	float xMovement = (leftMovement + rightMovement) * deltaTime;
+	float zMovement = (forwardMovement + backwardMovement) * deltaTime;
+
+	AdjustPosition(xMovement, 0.0f, zMovement);
+}
+
 void Camera::SetPosition(float x, float y, float z)
 {
 	m_position.x = x;
@@ -35,9 +49,18 @@ void Camera::SetPosition(float x, float y, float z)
 
 void Camera::AdjustPosition(float x, float y, float z)
 {
-	m_position.x += x;
-	m_position.y += y;
-	m_position.z += z;
+	DirectX::XMFLOAT3 translation = DirectX::XMFLOAT3(x, y, z);
+
+	DirectX::XMStoreFloat3(
+		&translation,
+		DirectX::XMVector3Transform(
+			DirectX::XMLoadFloat3(&translation),
+			DirectX::XMMatrixRotationRollPitchYaw(m_rotation.x, m_rotation.y, m_rotation.z)
+		));
+
+	m_position.x += translation.x;
+	m_position.y += translation.y;
+	m_position.z += translation.z;
 
 	UpdateViewMatrix();
 }

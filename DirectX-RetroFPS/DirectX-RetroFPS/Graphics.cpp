@@ -16,7 +16,8 @@ Graphics::Graphics(HWND window, int width, int height)
 	CreateDepthStencilState();
 	CreateViewport(width, height);
 
-	m_camera.SetPosition(0, 0, -2);
+	m_camera.SetPosition(0, 0, 0);
+	m_camera.SetRotation(0, 0, 5);
 	m_camera.SetProjectionValues(90, static_cast<float>(width) / static_cast<float>(height), 0.1f, 1000.0f);
 }
 
