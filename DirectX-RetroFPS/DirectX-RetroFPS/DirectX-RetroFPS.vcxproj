@@ -83,6 +83,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bindable.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="RasterizerState.cpp" />
     <ClCompile Include="RotatingBox.cpp" />
     <ClCompile Include="DrawableBase.cpp" />
@@ -106,6 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bindable.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="RasterizerState.h" />
     <ClInclude Include="RotatingBox.h" />
     <ClInclude Include="Drawable.h" />

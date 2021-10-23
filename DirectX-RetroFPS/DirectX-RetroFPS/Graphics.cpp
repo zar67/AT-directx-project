@@ -15,6 +15,9 @@ Graphics::Graphics(HWND window, int width, int height)
 	CreateDepthStencilBuffer(width, height);
 	CreateDepthStencilState();
 	CreateViewport(width, height);
+
+	m_camera.SetPosition(0, 0, -2);
+	m_camera.SetProjectionValues(90, static_cast<float>(width) / static_cast<float>(height), 0.1f, 1000.0f);
 }
 
 void Graphics::RenderFrame()
@@ -38,6 +41,11 @@ ID3D11Device* Graphics::GetDevice()
 ID3D11DeviceContext* Graphics::GetDeviceContext()
 {
 	return m_pDeviceContext.Get();
+}
+
+Camera* Graphics::GetCamera()
+{
+	return &m_camera;
 }
 
 std::wstring Graphics::GetShaderFolder()
