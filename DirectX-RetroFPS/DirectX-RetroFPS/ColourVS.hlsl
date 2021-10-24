@@ -10,15 +10,16 @@ struct VS_OUTPUT
     float3 Colour : COLOUR;
 };
 
-cbuffer CONSTANT_BUFFER
+cbuffer TRANSFORM_BUFFER
 {
     matrix Transform;
+    matrix ViewProjectionTransform;
 };
 
 VS_OUTPUT main(VS_INPUT input)
 {
     VS_OUTPUT output;
-    output.Position = mul(float4(input.Position, 1.0f), Transform);
+    output.Position = mul(float4(input.Position, 1.0f), ViewProjectionTransform);
     output.Colour = input.Colour;
 	
     return output;

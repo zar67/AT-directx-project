@@ -6,9 +6,9 @@ Game::Game() :
 	m_box = std::make_unique<RotatingBox>(m_window.GetGraphics(), 0.3f, 0.3f, 0.3f);
 	m_box->GetTransform()->ApplyTranslation(0.0f, 0.0f, 4.0f);
 
-	m_cube = std::make_unique<SolidCube>(m_window.GetGraphics());
-	m_cube->GetTransform()->ApplyScalar(0.2f, 0.2f, 0.2f);
-	m_cube->GetTransform()->ApplyTranslation(12.0f, 0.0f, 12.0f);
+	m_light = std::make_unique<Light>(m_window.GetGraphics());
+	m_light->GetTransform()->ApplyScalar(0.2f, 0.2f, 0.2f);
+	m_light->GetTransform()->ApplyTranslation(12.0f, 0.0f, 12.0f);
 }
 
 int Game::Run()
@@ -47,9 +47,11 @@ void Game::Render()
 {
 	m_window.GetGraphics().ClearBuffer(0.0f, 0.0f, 0.0f);
 
+	m_light->Update(m_window.GetGraphics());
+
 	// Render things...
 	m_box->Draw(m_window.GetGraphics());
-	m_cube->Draw(m_window.GetGraphics());
+	m_light->Draw(m_window.GetGraphics());
 
 	m_window.GetGraphics().RenderFrame();
 }

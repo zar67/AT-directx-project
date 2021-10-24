@@ -1,10 +1,3 @@
-/* ------------------------------------------------- */
-/* Filename: Drawable.cpp                            */
-/* Author: Zoe Rowbotham                             */
-/* Description: Includes function declarations for   */
-/* the Drawable class.                               */
-/* ------------------------------------------------- */
-
 #include "DrawableBase.h"
 #include "IndexBuffer.h"
 

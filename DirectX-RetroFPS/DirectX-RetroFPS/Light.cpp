@@ -1,4 +1,4 @@
-#include "SolidCube.h"
+#include "Light.h"
 #include "TransformConstantBuffer.h"
 #include "PixelShader.h"
 #include "RasterizerState.h"
@@ -7,7 +7,8 @@
 #include "Topology.h"
 #include "VertexBuffer.h"
 
-SolidCube::SolidCube(Graphics& graphics)
+Light::Light(Graphics& graphics) :
+	m_constantBuffer(graphics)
 {
 	if (IsStaticInitialized())
 	{
@@ -21,7 +22,24 @@ SolidCube::SolidCube(Graphics& graphics)
 	AddBindable(std::make_unique<TransformConstantBuffer>(graphics, *this));
 }
 
-void SolidCube::InitialiseStatic(Graphics& graphics)
+void Light::Update(Graphics& graphics)
+{
+	BufferData data = { m_transform.Position, m_lightStrength, m_lightColour };
+	m_constantBuffer.Update(graphics, data);
+	m_constantBuffer.Bind(graphics);
+}
+
+void Light::SetStrength(float strength)
+{
+	m_lightStrength = strength;
+}
+
+void Light::SetColour(float r, float g, float b)
+{
+	m_lightColour = DirectX::XMFLOAT3(r, g, b);
+}
+
+void Light::InitialiseStatic(Graphics& graphics)
 {
 	struct Vertex
 	{

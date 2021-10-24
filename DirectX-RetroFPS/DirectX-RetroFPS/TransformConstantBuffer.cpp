@@ -3,11 +3,16 @@
 TransformConstantBuffer::TransformConstantBuffer(Graphics& graphics, DrawableBase& parent) :
 	m_parent(parent)
 {
-	m_pConstantBuffer = std::make_unique<VertexConstantBuffer<DirectX::XMMATRIX>>(graphics);
+	m_pConstantBuffer = std::make_unique<VertexConstantBuffer<BufferData>>(graphics);
 }
 
 void TransformConstantBuffer::Bind(Graphics& graphics)
 {
-	m_pConstantBuffer->Update(graphics, m_parent.GetTransform()->TransposeMatrix(graphics));
+	BufferData data = {
+		   DirectX::XMMatrixTranspose(m_parent.GetTransform()->GetTransformMatrix()),
+		   DirectX::XMMatrixTranspose(m_parent.GetTransform()->GetViewProjectionTransformMatrix(graphics))
+	};
+
+	m_pConstantBuffer->Update(graphics, data);
 	m_pConstantBuffer->Bind(graphics);
 }

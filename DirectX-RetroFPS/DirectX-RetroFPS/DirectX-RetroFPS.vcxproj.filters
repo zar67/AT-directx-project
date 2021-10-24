@@ -64,6 +64,12 @@
     <Filter Include="Source\Header Files\Input">
       <UniqueIdentifier>{327bc9ce-fdaa-4c85-b67d-6d1976e27a87}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Header Files\Graphics\Lighting">
+      <UniqueIdentifier>{70978364-1b50-4f71-8f07-16670d43482a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Source Files\Graphics\Lighting">
+      <UniqueIdentifier>{14a1edb9-b14c-4654-ad87-f7ab0f7cc2c7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -135,8 +141,8 @@
     <ClCompile Include="Keyboard.cpp">
       <Filter>Source\Source Files\Input</Filter>
     </ClCompile>
-    <ClCompile Include="SolidCube.cpp">
-      <Filter>Source\Source Files\Graphics\Drawable</Filter>
+    <ClCompile Include="Light.cpp">
+      <Filter>Source\Source Files\Graphics\Lighting</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -254,8 +260,11 @@
     <ClInclude Include="resource.h">
       <Filter>Source\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SolidCube.h">
-      <Filter>Source\Header Files\Graphics\Drawable</Filter>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>Source\Header Files\Graphics\Lighting</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

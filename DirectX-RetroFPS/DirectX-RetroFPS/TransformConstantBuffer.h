@@ -10,8 +10,13 @@ public:
 	virtual ~TransformConstantBuffer() = default;
 
 	virtual void Bind(Graphics & graphics) override;
-
+protected:
+	struct BufferData
+	{
+		DirectX::XMMATRIX Transform;
+		DirectX::XMMATRIX ViewProjectionMatrix;
+	};
 protected:
 	DrawableBase& m_parent;
-	std::unique_ptr<VertexConstantBuffer<DirectX::XMMATRIX>> m_pConstantBuffer;
+	std::unique_ptr<VertexConstantBuffer<BufferData>> m_pConstantBuffer;
 };

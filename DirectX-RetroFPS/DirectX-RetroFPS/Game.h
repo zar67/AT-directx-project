@@ -2,7 +2,7 @@
 #include "Window.h"
 #include "Timer.h"
 #include "RotatingBox.h"
-#include "SolidCube.h"
+#include "Light.h"
 
 class Game
 {
@@ -18,5 +18,5 @@ private:
 	Timer m_timer;
 
 	std::unique_ptr<RotatingBox> m_box;
-	std::unique_ptr<SolidCube> m_cube;
+	std::unique_ptr<Light> m_light;
 };

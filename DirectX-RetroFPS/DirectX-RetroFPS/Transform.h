@@ -22,17 +22,24 @@ struct Transform
 		Scale.z = 1;
 	}
 
-	DirectX::XMMATRIX TransposeMatrix(Graphics& graphics)
+	DirectX::XMMATRIX GetTransformMatrix()
 	{
-		return DirectX::XMMatrixTranspose(
-			DirectX::XMMatrixRotationX(Rotation.x) *
+		return DirectX::XMMatrixRotationX(Rotation.x) *
 			DirectX::XMMatrixRotationY(Rotation.y) *
 			DirectX::XMMatrixRotationZ(Rotation.z) *
 			DirectX::XMMatrixTranslation(Position.x, Position.y, Position.z) *
-			DirectX::XMMatrixScaling(Scale.x, Scale.y, Scale.z) * 
+			DirectX::XMMatrixScaling(Scale.x, Scale.y, Scale.z);
+	}
+
+	DirectX::XMMATRIX GetViewProjectionTransformMatrix(Graphics& graphics)
+	{
+		return DirectX::XMMatrixRotationX(Rotation.x) *
+			DirectX::XMMatrixRotationY(Rotation.y) *
+			DirectX::XMMatrixRotationZ(Rotation.z) *
+			DirectX::XMMatrixTranslation(Position.x, Position.y, Position.z) *
+			DirectX::XMMatrixScaling(Scale.x, Scale.y, Scale.z) *
 			graphics.GetCamera()->GetViewMatrix() *
-			graphics.GetCamera()->GetProjectionMatrix()
-		);
+			graphics.GetCamera()->GetProjectionMatrix();
 	}
 
 	void ApplyTranslation(float x, float y, float z)
