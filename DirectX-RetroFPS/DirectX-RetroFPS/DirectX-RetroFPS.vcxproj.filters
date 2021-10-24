@@ -78,9 +78,6 @@
     <ClCompile Include="Graphics.cpp">
       <Filter>Source\Source Files\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Vertex.cpp">
-      <Filter>Source\Source Files\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="Bindable.cpp">
       <Filter>Source\Source Files\Graphics\Bindable</Filter>
     </ClCompile>
@@ -94,9 +91,6 @@
       <Filter>Source\Source Files\Graphics\Bindable</Filter>
     </ClCompile>
     <ClCompile Include="IndexBuffer.cpp">
-      <Filter>Source\Source Files\Graphics\Bindable</Filter>
-    </ClCompile>
-    <ClCompile Include="VertexBuffer.cpp">
       <Filter>Source\Source Files\Graphics\Bindable</Filter>
     </ClCompile>
     <ClCompile Include="DrawableBase.cpp">
@@ -141,15 +135,15 @@
     <ClCompile Include="Keyboard.cpp">
       <Filter>Source\Source Files\Input</Filter>
     </ClCompile>
+    <ClCompile Include="SolidCube.cpp">
+      <Filter>Source\Source Files\Graphics\Drawable</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ErrorLogger.h">
       <Filter>Source\Header Files\Utilities\ErrorLogging</Filter>
     </ClInclude>
     <ClInclude Include="Graphics.h">
-      <Filter>Source\Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Vertex.h">
       <Filter>Source\Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
@@ -257,6 +251,12 @@
     <ClInclude Include="Keyboard.h">
       <Filter>Source\Header Files\Input</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SolidCube.h">
+      <Filter>Source\Header Files\Graphics\Drawable</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX-RetroFPS.rc">
@@ -269,10 +269,16 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="VertexShader.hlsl">
+    <FxCompile Include="TexturePS.hlsl">
       <Filter>Resources\Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="PixelShader.hlsl">
+    <FxCompile Include="TextureVS.hlsl">
+      <Filter>Resources\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="ColourPS.hlsl">
+      <Filter>Resources\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="ColourVS.hlsl">
       <Filter>Resources\Shaders</Filter>
     </FxCompile>
   </ItemGroup>

@@ -1,10 +1,3 @@
-/* ------------------------------------------------- */
-/* Filename: Game.cpp                                */
-/* Author: Zoe Rowbotham                             */
-/* Description: Includes function declarations for   */
-/* the Game class.                                   */
-/* ------------------------------------------------- */
-
 #include "Game.h"
 
 Game::Game() :
@@ -12,6 +5,9 @@ Game::Game() :
 {
 	m_box = std::make_unique<RotatingBox>(m_window.GetGraphics(), 0.3f, 0.3f, 0.3f);
 	m_box->GetTransform()->Move(0.0f, 0.0f, 4.0f);
+
+	m_cube = std::make_unique<SolidCube>(m_window.GetGraphics());
+	m_cube->GetTransform()->Move(4.0f, 0.0f, 4.0f);
 }
 
 int Game::Run()
@@ -52,6 +48,7 @@ void Game::Render()
 
 	// Render things...
 	m_box->Draw(m_window.GetGraphics());
+	m_cube->Draw(m_window.GetGraphics());
 
 	m_window.GetGraphics().RenderFrame();
 }

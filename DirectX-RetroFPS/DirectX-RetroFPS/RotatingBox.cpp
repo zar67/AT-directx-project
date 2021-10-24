@@ -3,7 +3,6 @@
 #include "VertexShader.h"
 #include "VertexBuffer.h"
 #include "InputLayout.h"
-#include "Vertex.h"
 #include "TransformConstantBuffer.h"
 #include "Sampler.h"
 #include "TextureBindable.h"
@@ -34,25 +33,32 @@ void RotatingBox::Update(float deltaTime)
 
 void RotatingBox::InitialiseStatic(Graphics& graphics)
 {
+	struct Vertex
+	{
+		DirectX::XMFLOAT3 Position;
+		DirectX::XMFLOAT2 TextureCoords;
+		DirectX::XMFLOAT3 Colour;
+	};
+
 	std::vector<Vertex> vertices
 	{
-		Vertex(DirectX::XMFLOAT3(-1.0f, -1.0f, -1.0f), DirectX::XMFLOAT2(0, 1), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)),
-		Vertex(DirectX::XMFLOAT3(1.0f, -1.0f, -1.0f), DirectX::XMFLOAT2(0.5f, 1), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)),
-		Vertex(DirectX::XMFLOAT3(-1.0f, 1.0f, -1.0f), DirectX::XMFLOAT2(0, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)),
-		Vertex(DirectX::XMFLOAT3(1.0f, 1.0f, -1.0f), DirectX::XMFLOAT2(0.5f, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)),
-		Vertex(DirectX::XMFLOAT3(-1.0f, -1.0f, 1.0f), DirectX::XMFLOAT2(0.5f, 1), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)),
-		Vertex(DirectX::XMFLOAT3(1.0f, -1.0f, 1.0f), DirectX::XMFLOAT2(0, 1), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)),
-		Vertex(DirectX::XMFLOAT3(-1.0f, 1.0f, 1.0f), DirectX::XMFLOAT2(0.5f, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)),
-		Vertex(DirectX::XMFLOAT3(1.0, 1.0f, 1.0f), DirectX::XMFLOAT2(0, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)),
+		{DirectX::XMFLOAT3(-1.0f, -1.0f, -1.0f), DirectX::XMFLOAT2(0, 1), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(1.0f, -1.0f, -1.0f), DirectX::XMFLOAT2(0.5f, 1), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(-1.0f, 1.0f, -1.0f), DirectX::XMFLOAT2(0, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(1.0f, 1.0f, -1.0f), DirectX::XMFLOAT2(0.5f, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(-1.0f, -1.0f, 1.0f), DirectX::XMFLOAT2(0.5f, 1), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(1.0f, -1.0f, 1.0f), DirectX::XMFLOAT2(0, 1), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(-1.0f, 1.0f, 1.0f), DirectX::XMFLOAT2(0.5f, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(1.0, 1.0f, 1.0f), DirectX::XMFLOAT2(0, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
 
-		Vertex(DirectX::XMFLOAT3(-1.0f, -1.0f, -1.0f), DirectX::XMFLOAT2(0.5f, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)),
-		Vertex(DirectX::XMFLOAT3(1.0f, -1.0f, -1.0f), DirectX::XMFLOAT2(1, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)),
-		Vertex(DirectX::XMFLOAT3(-1.0f, 1.0f, -1.0f), DirectX::XMFLOAT2(0.5f, 1), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)),
-		Vertex(DirectX::XMFLOAT3(1.0f, 1.0f, -1.0f), DirectX::XMFLOAT2(1, 1), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)),
-		Vertex(DirectX::XMFLOAT3(-1.0f, -1.0f, 1.0f), DirectX::XMFLOAT2(0.5f, 1), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)),
-		Vertex(DirectX::XMFLOAT3(1.0f, -1.0f, 1.0f), DirectX::XMFLOAT2(1, 1), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)),
-		Vertex(DirectX::XMFLOAT3(-1.0f, 1.0f, 1.0f), DirectX::XMFLOAT2(0.5f, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)),
-		Vertex(DirectX::XMFLOAT3(1.0, 1.0f, 1.0f), DirectX::XMFLOAT2(1, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)),
+		{DirectX::XMFLOAT3(-1.0f, -1.0f, -1.0f), DirectX::XMFLOAT2(0.5f, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(1.0f, -1.0f, -1.0f), DirectX::XMFLOAT2(1, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(-1.0f, 1.0f, -1.0f), DirectX::XMFLOAT2(0.5f, 1), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(1.0f, 1.0f, -1.0f), DirectX::XMFLOAT2(1, 1), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(-1.0f, -1.0f, 1.0f), DirectX::XMFLOAT2(0.5f, 1), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(1.0f, -1.0f, 1.0f), DirectX::XMFLOAT2(1, 1), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(-1.0f, 1.0f, 1.0f), DirectX::XMFLOAT2(0.5f, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(1.0, 1.0f, 1.0f), DirectX::XMFLOAT2(1, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)}
 	};
 
 	// Create Index Buffer
@@ -66,12 +72,12 @@ void RotatingBox::InitialiseStatic(Graphics& graphics)
 		8,9,12,		9,13,12
 	};
 
-	AddStaticBindable(std::make_unique<VertexBuffer>(graphics, vertices));
+	AddStaticBindable(std::make_unique<VertexBuffer<Vertex>>(graphics, vertices));
 	AddStaticIndexBuffer(std::make_unique<IndexBuffer>(graphics, indices));
 
 	AddStaticBindable(std::make_unique<Topology>(graphics, D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 
-	auto vertexShader = std::make_unique<VertexShader>(graphics, graphics.GetShaderFolder() + L"VertexShader.cso");
+	auto vertexShader = std::make_unique<VertexShader>(graphics, graphics.GetShaderFolder() + L"TextureVS.cso");
 	auto vertexShaderByteCode = vertexShader->GetByteCode();
 	AddStaticBindable(std::move(vertexShader));
 
@@ -86,7 +92,7 @@ void RotatingBox::InitialiseStatic(Graphics& graphics)
 
 	AddStaticBindable(std::make_unique<RasterizerState>(graphics));
 
-	AddStaticBindable(std::make_unique<PixelShader>(graphics, graphics.GetShaderFolder() + L"PixelShader.cso"));
+	AddStaticBindable(std::make_unique<PixelShader>(graphics, graphics.GetShaderFolder() + L"TexturePS.cso"));
 
 	AddStaticBindable(std::make_unique<Sampler>(graphics));
 

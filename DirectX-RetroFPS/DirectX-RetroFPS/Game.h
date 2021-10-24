@@ -1,15 +1,8 @@
-/* ------------------------------------------------- */
-/* Filename: Game.h                                  */
-/* Author: Zoe Rowbotham                             */
-/* Description: Header file for the Game class.      */
-/* The Game class handles the update loop of the     */
-/* game and hold any data about the game.            */
-/* ------------------------------------------------- */
-
 #pragma once
 #include "Window.h"
-#include "RotatingBox.h"
 #include "Timer.h"
+#include "RotatingBox.h"
+#include "SolidCube.h"
 
 class Game
 {
@@ -25,4 +18,5 @@ private:
 	Timer m_timer;
 
 	std::unique_ptr<RotatingBox> m_box;
+	std::unique_ptr<SolidCube> m_cube;
 };

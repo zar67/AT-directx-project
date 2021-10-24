@@ -1,9 +1,3 @@
-/* ------------------------------------------------- */
-/* Filename: Drawable.h                              */
-/* Author: Zoe Rowbotham                             */
-/* Description: Header of the Drawable class         */
-/* ------------------------------------------------- */
-
 #pragma once
 #include "Graphics.h"
 #include "Bindable.h"
