@@ -35,21 +35,21 @@ struct Transform
 		);
 	}
 
-	void Move(float x, float y, float z)
+	void ApplyTranslation(float x, float y, float z)
 	{
 		Position.x += x;
 		Position.y += y;
 		Position.z += z;
 	}
 
-	void Rotate(float x, float y, float z)
+	void ApplyRotation(float x, float y, float z)
 	{
 		Rotation.x += x;
 		Rotation.y += y;
 		Rotation.z += z;
 	}
 
-	void Expand(float x, float y, float z)
+	void ApplyScalar(float x, float y, float z)
 	{
 		Scale.x *= x;
 		Scale.y *= y;

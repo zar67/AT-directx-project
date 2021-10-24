@@ -28,7 +28,7 @@ RotatingBox::RotatingBox(Graphics& graphics, float pitchRotateSpeed, float yawRo
 
 void RotatingBox::Update(float deltaTime)
 {
-	m_transform.Rotate(m_pitchRotateSpeed * deltaTime, m_yawRotateSpeed * deltaTime, m_rollRotateSpeed * deltaTime);
+	m_transform.ApplyRotation(m_pitchRotateSpeed * deltaTime, m_yawRotateSpeed * deltaTime, m_rollRotateSpeed * deltaTime);
 }
 
 void RotatingBox::InitialiseStatic(Graphics& graphics)
