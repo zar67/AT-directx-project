@@ -9,6 +9,7 @@ public:
 	Light(Graphics & graphics);
 
 	virtual void Update(float deltaTime) override;
+	void UpdateTest(float deltaTime, Input& input);
 	virtual void Bind(Graphics & graphics);
 
 	void SetStrength(float strength);

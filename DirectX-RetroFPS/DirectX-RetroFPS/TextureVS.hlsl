@@ -26,7 +26,7 @@ VS_OUTPUT main(VS_INPUT input)
 	VS_OUTPUT output;
     output.Position = mul(float4(input.Position, 1.0f), ViewProjectionTransform);
     output.WorldPosition = mul(float4(input.Position, 1.0f), Transform);
-    output.Normal = normalize(mul(float4(input.Normal, 0.0f), Transform));
+    output.Normal = normalize(mul(input.Normal, (float3x3)Transform));
     output.TextureCoord = input.TextureCoord;
 	output.Colour = input.Colour;
 	

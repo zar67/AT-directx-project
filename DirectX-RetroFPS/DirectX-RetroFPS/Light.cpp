@@ -38,6 +38,19 @@ void Light::Update(float deltaTime)
 	m_transform.ApplyTranslation(-1.0f * deltaTime, 0, 0);
 }
 
+void Light::UpdateTest(float deltaTime, Input& input)
+{
+	float forwardMovement = input.GetKeyboard()->IsKeyPressed('W') ? 1.5f : 0.0f;
+	float backwardMovement = input.GetKeyboard()->IsKeyPressed('S') ? -1.5f : 0.0f;
+	float leftMovement = input.GetKeyboard()->IsKeyPressed('A') ? -1.5f : 0.0f;
+	float rightMovement = input.GetKeyboard()->IsKeyPressed('D') ? 1.5f : 0.0f;
+
+	float xMovement = (leftMovement + rightMovement) * deltaTime;
+	float zMovement = (forwardMovement + backwardMovement) * deltaTime;
+
+	m_transform.ApplyTranslation(xMovement, 0.0f, zMovement);
+}
+
 void Light::Bind(Graphics& graphics)
 {
 	m_bufferData.Position = m_transform.Position;
@@ -66,23 +79,23 @@ void Light::InitialiseStatic(Graphics& graphics)
 
 	std::vector<Vertex> vertices
 	{
-		{DirectX::XMFLOAT3(-1.0f, -1.0f, -1.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(1.0f, -1.0f, -1.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(-1.0f, 1.0f, -1.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(1.0f, 1.0f, -1.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(-1.0f, -1.0f, 1.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(1.0f, -1.0f, 1.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(-1.0f, 1.0f, 1.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(1.0, 1.0f, 1.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(-0.2f, -0.2f, -0.2f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(0.2f, -0.2f, -0.2f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(-0.2f, 0.2f, -0.2f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(0.2f, 0.2f, -0.2f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(-0.2f, -0.2f, 0.2f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(0.2f, -0.2f, 0.2f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(-0.2f, 0.2f, 0.2f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(0.2f, 0.2f, 0.2f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
 
-		{DirectX::XMFLOAT3(-1.0f, -1.0f, -1.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(1.0f, -1.0f, -1.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(-1.0f, 1.0f, -1.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(1.0f, 1.0f, -1.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(-1.0f, -1.0f, 1.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(1.0f, -1.0f, 1.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(-1.0f, 1.0f, 1.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(1.0, 1.0f, 1.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)}
+		{DirectX::XMFLOAT3(-0.2f, -0.2f, -0.2f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(0.2f, -0.2f, -0.2f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(-0.2f, 0.2f, -0.2f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(0.2f, 0.2f, -0.2f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(-0.2f, -0.2f, 0.2f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(0.2f, -0.2f, 0.2f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(-0.2f, 0.2f, 0.2f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(0.2f, 0.2f, 0.2f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)}
 	};
 
 	// Create Index Buffer

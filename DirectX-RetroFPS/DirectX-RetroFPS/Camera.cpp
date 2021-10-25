@@ -26,16 +26,16 @@ const DirectX::XMMATRIX& Camera::GetProjectionMatrix() const
 
 void Camera::Update(float deltaTime, float movementSpeed, Input& input)
 {
-	// Update Camera Movement
-	float forwardMovement = input.GetKeyboard()->IsKeyPressed('W') ? movementSpeed : 0.0f;
-	float backwardMovement = input.GetKeyboard()->IsKeyPressed('S') ? -movementSpeed : 0.0f;
-	float leftMovement = input.GetKeyboard()->IsKeyPressed('A') ? -movementSpeed : 0.0f;
-	float rightMovement = input.GetKeyboard()->IsKeyPressed('D') ? movementSpeed : 0.0f;
+	//// Update Camera Movement
+	//float forwardMovement = input.GetKeyboard()->IsKeyPressed('W') ? movementSpeed : 0.0f;
+	//float backwardMovement = input.GetKeyboard()->IsKeyPressed('S') ? -movementSpeed : 0.0f;
+	//float leftMovement = input.GetKeyboard()->IsKeyPressed('A') ? -movementSpeed : 0.0f;
+	//float rightMovement = input.GetKeyboard()->IsKeyPressed('D') ? movementSpeed : 0.0f;
 
-	float xMovement = (leftMovement + rightMovement) * deltaTime;
-	float zMovement = (forwardMovement + backwardMovement) * deltaTime;
+	//float xMovement = (leftMovement + rightMovement) * deltaTime;
+	//float zMovement = (forwardMovement + backwardMovement) * deltaTime;
 
-	AdjustPosition(xMovement, 0.0f, zMovement);
+	//AdjustPosition(xMovement, 0.0f, zMovement);
 }
 
 void Camera::SetPosition(float x, float y, float z)

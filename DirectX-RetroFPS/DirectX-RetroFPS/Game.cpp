@@ -7,8 +7,7 @@ Game::Game() :
 	m_box->GetTransform()->ApplyTranslation(-2.0f, 0.0f, 4.0f);
 
 	m_light = std::make_unique<Light>(m_window.GetGraphics());
-	m_light->GetTransform()->ApplyScalar(0.2f, 0.2f, 0.2f);
-	m_light->GetTransform()->ApplyTranslation(12.0f, 0.0f, 4.0f);
+	m_light->GetTransform()->ApplyTranslation(4.0f, 0.0f, 2.0f);
 }
 
 int Game::Run()
@@ -41,7 +40,8 @@ void Game::Update(float deltaTime)
 	m_window.GetGraphics().GetCamera()->Update(deltaTime, 1.5f, m_window.GetInput());
 	m_window.GetInput().Update();
 	m_box->Update(deltaTime);
-	m_light->Update(deltaTime);
+	//m_light->Update(deltaTime);
+	m_light->UpdateTest(deltaTime, m_window.GetInput());
 }
 
 void Game::Render()

@@ -26,7 +26,7 @@ float4 main(PS_INPUT input) : SV_TARGET
     float3 sampleColour = shaderTexture.Sample(samplerState, input.TextureCoord);
     sampleColour *= input.Colour;
     
-    float3 vectorToLight = normalize(LightPosition - input.WorldPosition);
+    float3 vectorToLight = LightPosition - input.WorldPosition;
     float distanceToLight = length(vectorToLight);
     float3 directionToLight = vectorToLight / distanceToLight;
     
@@ -35,7 +35,7 @@ float4 main(PS_INPUT input) : SV_TARGET
     
     float3 diffuseLight = diffuseLightIntensity * diffuseAttenuation * LightColour * LightStrength;
     
-    float3 finalColour = sampleColour * saturate(diffuseLight + AmbientColour);
+    float3 finalColour = saturate(sampleColour * (diffuseLight + AmbientColour));
     
     return float4(finalColour, 1.0f);
 }

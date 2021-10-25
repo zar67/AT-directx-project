@@ -44,9 +44,18 @@ struct Transform
 
 	void ApplyTranslation(float x, float y, float z)
 	{
-		Position.x += x;
-		Position.y += y;
-		Position.z += z;
+		DirectX::XMFLOAT3 translation = DirectX::XMFLOAT3(x, y, z);
+
+		DirectX::XMStoreFloat3(
+			&translation,
+			DirectX::XMVector3Transform(
+				DirectX::XMLoadFloat3(&translation),
+				DirectX::XMMatrixRotationRollPitchYaw(Rotation.x, Rotation.y, Rotation.z)
+			));
+
+		Position.x += translation.x;
+		Position.y += translation.y;
+		Position.z += translation.z;
 	}
 
 	void ApplyRotation(float x, float y, float z)
