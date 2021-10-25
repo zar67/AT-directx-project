@@ -12,12 +12,14 @@ cbuffer LIGHT_BUFFER : register(b0)
     float3 LightPosition;
     float LightStrength;
     float3 LightColour;
+    float AttenuationConstant;
+    float3 AmbientColour;
+    float AttenuationLinear;
+    float AttenuationQuadratic;
 }
 
 Texture2D shaderTexture : TEXTURE : register(t0);
 SamplerState samplerState : SAMPLER : register(s0);
-
-static const float3 ambient = { 0.15f, 0.15f, 0.15f };
 
 float4 main(PS_INPUT input) : SV_TARGET
 {
@@ -28,12 +30,12 @@ float4 main(PS_INPUT input) : SV_TARGET
     float distanceToLight = length(vectorToLight);
     float3 directionToLight = vectorToLight / distanceToLight;
     
-    float diffuseAttenuation = distanceToLight * distanceToLight * directionToLight;
+    float diffuseAttenuation = 1.0f / (AttenuationConstant + AttenuationLinear * distanceToLight + AttenuationQuadratic * (distanceToLight * directionToLight));
     float3 diffuseLightIntensity = max(0, dot(directionToLight, input.Normal));
     
     float3 diffuseLight = diffuseLightIntensity * diffuseAttenuation * LightColour * LightStrength;
     
-    float3 finalColour = sampleColour * saturate(diffuseLight + ambient);
+    float3 finalColour = sampleColour * saturate(diffuseLight + AmbientColour);
     
     return float4(finalColour, 1.0f);
 }

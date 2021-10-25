@@ -20,23 +20,40 @@ Light::Light(Graphics& graphics) :
 	}
 
 	AddBindable(std::make_unique<TransformConstantBuffer>(graphics, *this));
+
+	m_bufferData = 
+	{
+		DirectX::XMFLOAT3(0, 0, 0),
+		1.0f,
+		DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f),
+		1.0f,
+		DirectX::XMFLOAT3(0.15f, 0.15f, 0.15f),
+		0.045f,
+		0.0075f
+	};
 }
 
-void Light::Update(Graphics& graphics)
+void Light::Update(float deltaTime)
 {
-	BufferData data = { m_transform.Position, m_lightStrength, m_lightColour };
-	m_constantBuffer.Update(graphics, data);
+	m_transform.ApplyTranslation(-1.0f * deltaTime, 0, 0);
+}
+
+void Light::Bind(Graphics& graphics)
+{
+	m_bufferData.Position = m_transform.Position;
+
+	m_constantBuffer.Update(graphics, m_bufferData);
 	m_constantBuffer.Bind(graphics);
 }
 
 void Light::SetStrength(float strength)
 {
-	m_lightStrength = strength;
+	m_bufferData.Strength = strength;
 }
 
 void Light::SetColour(float r, float g, float b)
 {
-	m_lightColour = DirectX::XMFLOAT3(r, g, b);
+	m_bufferData.Colour = DirectX::XMFLOAT3(r, g, b);
 }
 
 void Light::InitialiseStatic(Graphics& graphics)
