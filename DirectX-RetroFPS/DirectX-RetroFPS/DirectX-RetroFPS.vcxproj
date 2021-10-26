@@ -98,6 +98,7 @@
     <ClCompile Include="PixelShader.cpp" />
     <ClCompile Include="Sampler.cpp" />
     <ClCompile Include="Light.cpp" />
+    <ClCompile Include="SolidColourBox.cpp" />
     <ClCompile Include="StringConversion.cpp" />
     <ClCompile Include="TextureBindable.cpp" />
     <ClCompile Include="Timer.cpp" />
@@ -128,6 +129,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="Sampler.h" />
     <ClInclude Include="Light.h" />
+    <ClInclude Include="SolidColourBox.h" />
     <ClInclude Include="StringConversion.h" />
     <ClInclude Include="TextureBindable.h" />
     <ClInclude Include="Timer.h" />
