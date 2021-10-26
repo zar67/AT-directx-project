@@ -1,6 +1,7 @@
 #pragma once
 #include <DirectXMath.h>
 #include "Input.h"
+#include "Transform.h"
 
 class Camera
 {
@@ -23,8 +24,7 @@ public:
 private:
 	void UpdateViewMatrix();
 
-	DirectX::XMFLOAT3 m_position;
-	DirectX::XMFLOAT3 m_rotation;
+	Transform m_transform;
 
 	DirectX::XMMATRIX m_viewMatrix;
 	DirectX::XMMATRIX m_projectionMatrix;

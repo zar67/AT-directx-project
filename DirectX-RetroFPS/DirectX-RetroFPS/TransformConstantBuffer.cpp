@@ -10,7 +10,11 @@ void TransformConstantBuffer::Bind(Graphics& graphics)
 {
 	BufferData data = {
 		   DirectX::XMMatrixTranspose(m_parent.GetTransform()->GetTransformMatrix()),
-		   DirectX::XMMatrixTranspose(m_parent.GetTransform()->GetViewProjectionTransformMatrix(graphics))
+		   DirectX::XMMatrixTranspose(
+			   m_parent.GetTransform()->GetTransformMatrix() * 
+			   graphics.GetCamera()->GetViewMatrix() * 
+			   graphics.GetCamera()->GetProjectionMatrix()
+		   )
 	};
 
 	m_pConstantBuffer->Update(graphics, data);
