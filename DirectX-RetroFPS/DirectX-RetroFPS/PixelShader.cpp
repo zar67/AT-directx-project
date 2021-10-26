@@ -1,10 +1,3 @@
-/* ------------------------------------------------- */
-/* Filename: PixelShader.cpp                         */
-/* Author: Zoe Rowbotham                             */
-/* Description: Includes function declarations for   */
-/* the PixelShader class.                            */
-/* ------------------------------------------------- */
-
 #pragma comment(lib, "D3DCompiler.lib")
 
 #include "PixelShader.h"

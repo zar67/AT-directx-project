@@ -1,69 +1,62 @@
 #pragma once
 
-struct Position
-{
-	float X;
-	float Y;
-	float Z;
-
-	Position()
-	{
-		X = 0;
-		Y = 0;
-		Z = 0;
-	}
-};
-
-struct Rotation
-{
-	float Pitch;
-	float Yaw;
-	float Roll;
-
-	Rotation()
-	{
-		Pitch = 0;
-		Yaw = 0;
-		Roll = 0;
-	}
-};
-
-struct Scale
-{
-	float X;
-	float Y;
-	float Z;
-
-	Scale()
-	{
-		X = 1;
-		Y = 1;
-		Z = 1;
-	}
-};
-
 struct Transform
 {
-	Position Position;
-	Rotation Rotation;
-	Scale Scale;
+	DirectX::XMFLOAT3 Position;
+	DirectX::XMFLOAT3 Rotation;
+	DirectX::XMFLOAT3 Scale;
 
-	DirectX::XMMATRIX TransposeMatrix()
+	Transform()
 	{
-		return DirectX::XMMatrixTranspose(
-			DirectX::XMMatrixRotationX(Rotation.Pitch) *
-			DirectX::XMMatrixRotationY(Rotation.Yaw) *
-			DirectX::XMMatrixRotationZ(Rotation.Roll) *
-			DirectX::XMMatrixTranslation(Position.X, Position.Y, Position.Z) *
-			DirectX::XMMatrixScaling(Scale.X, Scale.Y, Scale.Z) * 
-			DirectX::XMMatrixPerspectiveLH(1.0f, 3.0f/4.0f, 0.5, 10.0f)
-		);
+		Position.x = 0;
+		Position.y = 0;
+		Position.z = 0;
+
+		Rotation.x = 0;
+		Rotation.y = 0;
+		Rotation.z = 0;
+
+		Scale.x = 1;
+		Scale.y = 1;
+		Scale.z = 1;
 	}
 
-	void Move(float x, float y, float z)
+	DirectX::XMMATRIX GetTransformMatrix()
 	{
-		Position.X += x;
-		Position.Y += y;
-		Position.Z += z;
+		return DirectX::XMMatrixRotationX(Rotation.x) *
+			DirectX::XMMatrixRotationY(Rotation.y) *
+			DirectX::XMMatrixRotationZ(Rotation.z) *
+			DirectX::XMMatrixTranslation(Position.x, Position.y, Position.z) *
+			DirectX::XMMatrixScaling(Scale.x, Scale.y, Scale.z);
+	}
+
+	void ApplyTranslation(float x, float y, float z)
+	{
+		DirectX::XMFLOAT3 translation = DirectX::XMFLOAT3(x, y, z);
+
+		DirectX::XMStoreFloat3(
+			&translation,
+			DirectX::XMVector3Transform(
+				DirectX::XMLoadFloat3(&translation),
+				DirectX::XMMatrixRotationRollPitchYaw(Rotation.x, Rotation.y, Rotation.z)
+			));
+
+		Position.x += translation.x;
+		Position.y += translation.y;
+		Position.z += translation.z;
+	}
+
+	void ApplyRotation(float x, float y, float z)
+	{
+		Rotation.x += x;
+		Rotation.y += y;
+		Rotation.z += z;
+	}
+
+	void ApplyScalar(float x, float y, float z)
+	{
+		Scale.x *= x;
+		Scale.y *= y;
+		Scale.z *= z;
 	}
 };

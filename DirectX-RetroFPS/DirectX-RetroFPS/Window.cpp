@@ -54,6 +54,11 @@ Graphics& Window::GetGraphics()
 	return *m_pGraphics;
 }
 
+Input& Window::GetInput()
+{
+	return *m_pInput;
+}
+
 LRESULT Window::HandleMessageSetup(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam)
 {
 	if (message == WM_NCCREATE) // Sent when a window is first created.
@@ -93,11 +98,41 @@ LRESULT Window::HandleMessage(HWND hWnd, UINT message, WPARAM wparam, LPARAM lpa
 {
 	switch (message)
 	{
-	case WM_CLOSE:
-		PostQuitMessage(0);
+		case WM_CLOSE:
+		{
+			PostQuitMessage(0);
 
-		// If we don't do this, DefWindowProc will destroy the window twice.
-		return 0;
+			// If we don't do this, DefWindowProc will destroy the window twice.
+			return 0;
+		}
+		case WM_KEYUP:
+		{
+			unsigned char keycode = static_cast<unsigned char>(wparam);
+			m_pInput->GetKeyboard()->OnKeyReleased(keycode);
+			break;
+		}
+		case WM_KEYDOWN:
+		{
+			unsigned char keycode = static_cast<unsigned char>(wparam);
+			const bool wasPressed = lparam & 0x40000000;
+
+			if (wasPressed)
+			{
+				m_pInput->GetKeyboard()->OnKeyHeld(keycode);
+			}
+			else
+			{
+				m_pInput->GetKeyboard()->OnKeyPressed(keycode);
+			}
+
+			break;
+		}
+		case WM_CHAR:
+		{
+			unsigned char keycode = static_cast<unsigned char>(wparam);
+			m_pInput->GetKeyboard()->OnCharacter(keycode);
+			break;
+		}
 	}
 
 	// Still need to call the Default Window Process to handle any messages we don't.
@@ -162,4 +197,6 @@ void Window::InitialiseWindow(int width, int height)
 
 	// Initialise the graphics.
 	m_pGraphics = std::make_unique<Graphics>(window, width, height);
+
+	m_pInput = std::make_unique<Input>();
 }

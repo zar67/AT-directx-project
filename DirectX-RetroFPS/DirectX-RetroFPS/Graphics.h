@@ -10,6 +10,7 @@
 #include <memory>
 #include <random>
 #include "ErrorLogger.h"
+#include "Camera.h"
 
 class Graphics
 {
@@ -24,6 +25,7 @@ public:
 
 	ID3D11Device* GetDevice();
 	ID3D11DeviceContext* GetDeviceContext();
+	Camera* GetCamera();
 
 	std::wstring GetShaderFolder();
 
@@ -33,6 +35,8 @@ private:
 	void CreateDepthStencilBuffer(int width, int height);
 	void CreateDepthStencilState();
 	void CreateViewport(int width, int height);
+
+	Camera m_camera;
 
 	Microsoft::WRL::ComPtr<ID3D11Device> m_pDevice = nullptr;
 	Microsoft::WRL::ComPtr<ID3D11DeviceContext> m_pDeviceContext = nullptr;
