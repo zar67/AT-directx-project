@@ -70,20 +70,10 @@ void Level::GenerateDataFromFile(Graphics& graphics, std::string filename)
 				{
 					int index = line.find(':') + 1;
 					std::string subString = line.substr(index, line.size() - 1);
+
 					float degrees = std::stof(subString);
 					float radians = degrees * (3.14f / 180);
 					m_startLookRotation =  radians;
-
-					for (int z = m_depth * (UNIT_SIZE * 2); z > 0; z -= UNIT_SIZE * 2)
-					{
-						for (int x = 0; x < m_width * (UNIT_SIZE * 2); x += UNIT_SIZE * 2)
-						{
-							std::unique_ptr<RotatingBox> pCube = std::make_unique<RotatingBox>(graphics, 0.3f, 0.3f, 0.3f);
-							pCube->GetTransform()->ApplyTranslation(x, yPosition, z);
-							pCube->GetTransform()->ApplyScalar(UNIT_SIZE, UNIT_SIZE, UNIT_SIZE);
-							m_geometry.emplace_back(std::move(pCube));
-						}
-					}
 
 					yPosition += UNIT_SIZE * 2;
 					break;
@@ -103,17 +93,6 @@ void Level::GenerateDataFromFile(Graphics& graphics, std::string filename)
 			}
 
 			count++;
-		}
-
-		for (int z = m_depth * (UNIT_SIZE * 2); z > 0; z -= UNIT_SIZE * 2)
-		{
-			for (int x = 0; x < m_width * (UNIT_SIZE * 2); x += UNIT_SIZE * 2)
-			{
-				std::unique_ptr<RotatingBox> pCube = std::make_unique<RotatingBox>(graphics, 0.3f, 0.3f, 0.3f);
-				pCube->GetTransform()->ApplyTranslation(x, yPosition, z);
-				pCube->GetTransform()->ApplyScalar(UNIT_SIZE, UNIT_SIZE, UNIT_SIZE);
-				m_geometry.emplace_back(std::move(pCube));
-			}
 		}
 	}
 
