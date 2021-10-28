@@ -87,6 +87,8 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="KeyboardEvent.cpp" />
+    <ClCompile Include="Level.cpp" />
+    <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="RasterizerState.cpp" />
     <ClCompile Include="RotatingBox.cpp" />
     <ClCompile Include="DrawableBase.cpp" />
@@ -114,6 +116,8 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="KeyboardEvent.h" />
+    <ClInclude Include="Level.h" />
+    <ClInclude Include="LevelManager.h" />
     <ClInclude Include="RasterizerState.h" />
     <ClInclude Include="RotatingBox.h" />
     <ClInclude Include="Drawable.h" />

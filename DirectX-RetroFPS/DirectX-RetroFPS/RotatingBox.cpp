@@ -22,7 +22,7 @@ RotatingBox::RotatingBox(Graphics& graphics, float pitchRotateSpeed, float yawRo
 	{ 
 		InitialiseStatic(graphics);
 	}
-
+	
 	AddBindable(std::make_unique<TransformConstantBuffer>(graphics, *this));
 }
 

@@ -27,7 +27,7 @@ Light::Light(Graphics& graphics) :
 		1.0f,
 		DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f),
 		1.0f,
-		DirectX::XMFLOAT3(0.15f, 0.15f, 0.15f),
+		DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f),
 		0.045f,
 		0.0075f
 	};
