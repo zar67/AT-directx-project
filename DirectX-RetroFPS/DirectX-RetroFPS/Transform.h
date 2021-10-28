@@ -23,11 +23,9 @@ struct Transform
 
 	DirectX::XMMATRIX GetTransformMatrix()
 	{
-		return DirectX::XMMatrixRotationX(Rotation.x) *
-			DirectX::XMMatrixRotationY(Rotation.y) *
-			DirectX::XMMatrixRotationZ(Rotation.z) *
-			DirectX::XMMatrixTranslation(Position.x, Position.y, Position.z) *
-			DirectX::XMMatrixScaling(Scale.x, Scale.y, Scale.z);
+		return DirectX::XMMatrixScaling(Scale.x, Scale.y, Scale.z) *
+			DirectX::XMMatrixRotationRollPitchYaw(Rotation.x, Rotation.y, Rotation.z) *
+			DirectX::XMMatrixTranslation(Position.x, Position.y, Position.z);
 	}
 
 	void ApplyTranslation(float x, float y, float z)

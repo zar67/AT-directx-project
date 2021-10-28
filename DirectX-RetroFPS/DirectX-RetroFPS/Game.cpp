@@ -10,6 +10,7 @@ Game::Game() :
 	m_colourBox->GetTransform()->ApplyTranslation(2.0f, 0.0f, 4.0f);
 
 	m_light = std::make_unique<Light>(m_window.GetGraphics());
+	m_light->GetTransform()->ApplyScalar(0.3f, 0.3f, 0.3f);
 	m_light->GetTransform()->ApplyTranslation(4.0f, 0.0f, 2.0f);
 }
 
