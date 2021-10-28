@@ -32,10 +32,14 @@ void Camera::Update(float deltaTime, float movementSpeed, Input& input)
 	float leftMovement = input.GetKeyboard()->IsKeyPressed('A') ? -movementSpeed : 0.0f;
 	float rightMovement = input.GetKeyboard()->IsKeyPressed('D') ? movementSpeed : 0.0f;
 
+	float upMovement = input.GetKeyboard()->IsKeyPressed('E') ? movementSpeed : 0.0f;
+	float downMovement = input.GetKeyboard()->IsKeyPressed('Q') ? -movementSpeed : 0.0f;
+
 	float xMovement = (leftMovement + rightMovement) * deltaTime;
+	float yMovement = (upMovement + downMovement) * deltaTime;
 	float zMovement = (forwardMovement + backwardMovement) * deltaTime;
 
-	AdjustPosition(xMovement, 0.0f, zMovement);
+	AdjustPosition(xMovement, yMovement, zMovement);
 }
 
 void Camera::SetPosition(float x, float y, float z)
