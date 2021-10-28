@@ -2,18 +2,18 @@
 #include <fstream>
 #include "RotatingBox.h"
 
-Level::Level(std::string filename)
+Level::Level(Graphics& graphics, std::string filename)
 {
 	m_startingPosition = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
 	m_zLookRotation = 0;
 
-	GenerateDataFromFile(filename);
+	GenerateDataFromFile(graphics, filename);
 }
 
 void Level::Initialise(Graphics& graphics)
 {
 	graphics.GetCamera()->SetPosition(m_startingPosition.x, m_startingPosition.y, m_startingPosition.z);
-	graphics.GetCamera()->SetRotation(0.0f, 0.0f, 0.0f);
+	graphics.GetCamera()->SetRotation(0.0f, 0.0f, m_zLookRotation);
 }
 
 void Level::Draw(Graphics& graphics)
@@ -24,7 +24,7 @@ void Level::Draw(Graphics& graphics)
 	}
 }
 
-void Level::GenerateDataFromFile(std::string filename)
+void Level::GenerateDataFromFile(Graphics& graphics, std::string filename)
 {
 	std::ifstream file(filename);
 
@@ -38,9 +38,12 @@ void Level::GenerateDataFromFile(std::string filename)
 			std::string line;
 			std::getline(file, line);
 
-			if (count > 3 && line == "")
+			if (line == "")
 			{
-				yPosition++;
+				if (count > 3)
+				{
+					yPosition++;
+				}
 				continue;
 			}
 
@@ -72,7 +75,7 @@ void Level::GenerateDataFromFile(std::string filename)
 					int xPosition = 0;
 					for (char character : line)
 					{
-						ParseLevelDataCharacter(character, xPosition, yPosition, zPosition);
+						ParseLevelDataCharacter(graphics, character, xPosition, yPosition, zPosition);
 						xPosition++;
 					}
 
@@ -88,16 +91,15 @@ void Level::GenerateDataFromFile(std::string filename)
 	file.close();
 }
 
-void Level::ParseLevelDataCharacter(char character, int xPosition, int yPosition, int zPosition)
+void Level::ParseLevelDataCharacter(Graphics& graphics, char character, int xPosition, int yPosition, int zPosition)
 {
 	switch (character)
 	{
 		case '#': // Wall
 		{
-			std::unique_ptr<RotatingBox> pCube = std::make_unique<RotatingBox>();
+			std::unique_ptr<RotatingBox> pCube = std::make_unique<RotatingBox>(graphics, 0, 0, 0);
 			pCube->GetTransform()->ApplyTranslation(xPosition, yPosition, zPosition);
 			pCube->GetTransform()->ApplyScalar(0.5f, 0.5f, 0.5f);
-
 			m_geometry.emplace_back(std::move(pCube));
 			break;
 		}

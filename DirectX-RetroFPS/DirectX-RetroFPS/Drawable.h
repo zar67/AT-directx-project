@@ -51,7 +51,7 @@ protected:
 		}
 		assert("Failed to find IndexBuffer in static binds" && m_pIndexBuffer != nullptr);
 	}
-private:
+protected:
 	static std::vector<std::unique_ptr<Bindable>> m_staticBindables;
 };
 

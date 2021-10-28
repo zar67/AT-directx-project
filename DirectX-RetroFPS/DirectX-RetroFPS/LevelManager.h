@@ -4,13 +4,14 @@
 class LevelManager
 {
 public:
-	LevelManager();
+	LevelManager(Graphics& graphics);
 	~LevelManager() = default;
 
 	void LoadLevel(Graphics& graphics, int levelIndex);
 	void LoadNextLevel(Graphics& graphics);
-	Level GetCurrentLevel();
+	void DrawCurrentLevel(Graphics& graphics);
+
 private:
 	int m_currentLevelIndex = 0;
-	std::vector<Level> m_levels;
+	std::vector<std::unique_ptr<Level>> m_levels;
 };

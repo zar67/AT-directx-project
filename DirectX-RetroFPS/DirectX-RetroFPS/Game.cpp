@@ -1,7 +1,8 @@
 #include "Game.h"
 
 Game::Game() :
-	m_window(800, 600, IDS_GAMENAME, IDI_MAINICON)
+	m_window(800, 600, IDS_GAMENAME, IDI_MAINICON),
+	m_levelManager(m_window.GetGraphics())
 {
 
 }
@@ -41,7 +42,7 @@ void Game::Render()
 {
 	m_window.GetGraphics().ClearBuffer(0.0f, 0.0f, 0.0f);
 
-	m_levelManager.GetCurrentLevel().Draw(m_window.GetGraphics());
+	m_levelManager.DrawCurrentLevel(m_window.GetGraphics());
 
 	m_window.GetGraphics().RenderFrame();
 }

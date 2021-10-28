@@ -5,15 +5,15 @@
 class Level
 {
 public:
-	Level(std::string filename);
+	Level(Graphics& graphics, std::string filename);
 	~Level() = default;
 
 	void Initialise(Graphics& graphics);
 	void Draw(Graphics& graphics);
 
 private:
-	void GenerateDataFromFile(std::string filename);
-	void ParseLevelDataCharacter(char character, int xPosition, int yPosition, int zPosition);
+	void GenerateDataFromFile(Graphics& graphics, std::string filename);
+	void ParseLevelDataCharacter(Graphics& graphics, char character, int xPosition, int yPosition, int zPosition);
 
 	float m_width;
 	float m_height;
