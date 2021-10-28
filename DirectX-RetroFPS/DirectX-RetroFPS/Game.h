@@ -4,6 +4,7 @@
 #include "RotatingBox.h"
 #include "Light.h"
 #include "SolidColourBox.h"
+#include "LevelManager.h"
 
 class Game
 {
@@ -18,7 +19,5 @@ private:
 	Window m_window;
 	Timer m_timer;
 
-	std::unique_ptr<RotatingBox> m_box;
-	std::unique_ptr<SolidColourBox> m_colourBox;
-	std::unique_ptr<Light> m_light;
+	LevelManager m_levelManager;
 };

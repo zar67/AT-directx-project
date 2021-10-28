@@ -8,11 +8,6 @@ void DrawableBase::Draw(Graphics& graphics)
 		b->Bind(graphics);
 	}
 
-	for (auto& b : GetStaticBinds())
-	{
-		b->Bind(graphics);
-	}
-
 	graphics.GetDeviceContext()->DrawIndexed(m_pIndexBuffer->GetCount(), 0u, 0u);
 }
 

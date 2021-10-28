@@ -4,6 +4,21 @@
 template<class T>
 class Drawable : public DrawableBase
 {
+public:
+	void Draw(Graphics& graphics) override
+	{
+		for (auto& b : m_bindables)
+		{
+			b->Bind(graphics);
+		}
+
+		for (auto& b : m_staticBindables)
+		{
+			b->Bind(graphics);
+		}
+
+		graphics.GetDeviceContext()->DrawIndexed(m_pIndexBuffer->GetCount(), 0u, 0u);
+	}
 protected:
 	static bool IsStaticInitialized() 
 	{
@@ -35,11 +50,6 @@ protected:
 			}
 		}
 		assert("Failed to find IndexBuffer in static binds" && m_pIndexBuffer != nullptr);
-	}
-
-	const std::vector<std::unique_ptr<Bindable>>& GetStaticBinds() const override
-	{
-		return m_staticBindables;
 	}
 private:
 	static std::vector<std::unique_ptr<Bindable>> m_staticBindables;
