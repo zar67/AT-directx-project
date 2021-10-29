@@ -2,7 +2,7 @@
 #include "ErrorLogger.h"
 
 Graphics::Graphics(HWND window, int width, int height) :
-	m_camera(3.0f, 2.0f, DirectX::XMFLOAT2((float)width / 3, (float)height / 3))
+	m_camera(6.0f, 3.0f, DirectX::XMFLOAT2(50, 50))
 { 
 	CreateDeviceAndSwapChain(window);
 	CreateRenderTargetView();
