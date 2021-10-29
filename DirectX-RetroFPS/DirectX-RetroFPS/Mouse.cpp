@@ -8,36 +8,43 @@ void Mouse::HandleMessages(UINT message, WPARAM wparam, LPARAM lparam)
 		{
 			POINTS points = MAKEPOINTS(lparam);
 			OnMouseMove(points.x, points.y);
+			break;
 		}
 		case WM_LBUTTONDOWN:
 		{
 			POINTS points = MAKEPOINTS(lparam);
 			OnLeftPressed(points.x, points.y);
+			break;
 		}
 		case WM_LBUTTONUP:
 		{
 			POINTS points = MAKEPOINTS(lparam);
 			OnLeftReleased(points.x, points.y);
+			break;
 		}
 		case WM_RBUTTONDOWN:
 		{
 			POINTS points = MAKEPOINTS(lparam);
 			OnRightPressed(points.x, points.y);
+			break;
 		}
 		case WM_RBUTTONUP:
 		{
 			POINTS points = MAKEPOINTS(lparam);
 			OnRightReleased(points.x, points.y);
+			break;
 		}
 		case WM_MBUTTONDOWN:
 		{
 			POINTS points = MAKEPOINTS(lparam);
 			OnMiddlePressed(points.x, points.y);
+			break;
 		}
 		case WM_MBUTTONUP:
 		{
 			POINTS points = MAKEPOINTS(lparam);
 			OnMiddleReleased(points.x, points.y);
+			break;
 		}
 		case WM_MOUSEHWHEEL:
 		{
@@ -50,6 +57,7 @@ void Mouse::HandleMessages(UINT message, WPARAM wparam, LPARAM lparam)
 			{
 				OnWheelDown(points.x, points.y);
 			}
+			break;
 		}
 	}
 }

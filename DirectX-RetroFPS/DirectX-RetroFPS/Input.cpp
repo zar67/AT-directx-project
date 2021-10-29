@@ -23,10 +23,6 @@ void Input::Update()
 	while (!m_mouse.IsEventBufferEmpty())
 	{
 		MouseEvent mouseEvent = m_mouse.Read();
-		if (mouseEvent.GetType() == MouseEvent::EventType::Move)
-		{
-			std::cout << "Mouse Position: (" << mouseEvent.GetXPos() << "," << mouseEvent.GetYPos() << ")" << std::endl;
-		}
 	}
 }
 
