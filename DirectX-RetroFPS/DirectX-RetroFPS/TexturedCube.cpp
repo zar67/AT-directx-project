@@ -1,4 +1,4 @@
-#include "RotatingBox.h"
+#include "TexturedCube.h"
 #include "PixelShader.h"
 #include "VertexShader.h"
 #include "VertexBuffer.h"
@@ -9,7 +9,7 @@
 #include "Topology.h"
 #include "RasterizerState.h"
 
-RotatingBox::RotatingBox(Graphics& graphics, float pitchRotateSpeed, float yawRotateSpeed, float rollRotateSpeed) :
+TexturedCube::TexturedCube(Graphics& graphics, float pitchRotateSpeed, float yawRotateSpeed, float rollRotateSpeed) :
 	m_pitchRotateSpeed(pitchRotateSpeed),
 	m_yawRotateSpeed(yawRotateSpeed),
 	m_rollRotateSpeed(rollRotateSpeed)
@@ -26,12 +26,12 @@ RotatingBox::RotatingBox(Graphics& graphics, float pitchRotateSpeed, float yawRo
 	AddBindable(std::make_unique<TransformConstantBuffer>(graphics, *this));
 }
 
-void RotatingBox::Update(float deltaTime)
+void TexturedCube::Update(float deltaTime)
 {
 	m_transform.ApplyRotation(m_pitchRotateSpeed * deltaTime, m_yawRotateSpeed * deltaTime, m_rollRotateSpeed * deltaTime);
 }
 
-void RotatingBox::InitialiseStatic(Graphics& graphics)
+void TexturedCube::InitialiseStatic(Graphics& graphics)
 {
 	struct Vertex
 	{

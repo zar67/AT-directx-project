@@ -1,11 +1,5 @@
-/* ------------------------------------------------- */
-/* Filename: ErrorLogger.h                           */
-/* Author: Zoe Rowbotham                             */
-/* Description: Header of the ErrorLogger class.     */
-/* The ErrorLogger logs errors through MessageBoxes. */
-/* ------------------------------------------------- */
-
 #pragma once
+
 #include <string>
 #include <Windows.h>
 

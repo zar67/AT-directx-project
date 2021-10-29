@@ -1,5 +1,4 @@
 #pragma once
-#include <DirectXMath.h>
 #include "Input.h"
 #include "Transform.h"
 

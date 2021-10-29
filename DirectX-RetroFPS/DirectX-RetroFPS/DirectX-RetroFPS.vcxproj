@@ -92,7 +92,7 @@
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="MouseEvent.cpp" />
     <ClCompile Include="RasterizerState.cpp" />
-    <ClCompile Include="RotatingBox.cpp" />
+    <ClCompile Include="TexturedCube.cpp" />
     <ClCompile Include="DrawableBase.cpp" />
     <ClCompile Include="ErrorLogger.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -102,7 +102,7 @@
     <ClCompile Include="PixelShader.cpp" />
     <ClCompile Include="Sampler.cpp" />
     <ClCompile Include="Light.cpp" />
-    <ClCompile Include="SolidColourBox.cpp" />
+    <ClCompile Include="ColouredCube.cpp" />
     <ClCompile Include="StringConversion.cpp" />
     <ClCompile Include="TextureBindable.cpp" />
     <ClCompile Include="Timer.cpp" />
@@ -123,7 +123,7 @@
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="MouseEvent.h" />
     <ClInclude Include="RasterizerState.h" />
-    <ClInclude Include="RotatingBox.h" />
+    <ClInclude Include="TexturedCube.h" />
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="DrawableBase.h" />
     <ClInclude Include="ErrorLogger.h" />
@@ -137,7 +137,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="Sampler.h" />
     <ClInclude Include="Light.h" />
-    <ClInclude Include="SolidColourBox.h" />
+    <ClInclude Include="ColouredCube.h" />
     <ClInclude Include="StringConversion.h" />
     <ClInclude Include="TextureBindable.h" />
     <ClInclude Include="Timer.h" />

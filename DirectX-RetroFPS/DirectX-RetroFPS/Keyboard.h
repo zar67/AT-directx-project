@@ -1,7 +1,9 @@
 #pragma once
-#include "KeyboardEvent.h"
+
 #include <queue>
 #include <Windows.h>
+
+#include "KeyboardEvent.h"
 
 class Keyboard
 {

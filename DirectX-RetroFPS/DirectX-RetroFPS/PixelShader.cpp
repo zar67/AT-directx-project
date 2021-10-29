@@ -1,7 +1,9 @@
 #pragma comment(lib, "D3DCompiler.lib")
 
-#include "PixelShader.h"
 #include <d3dcompiler.h>
+
+#include "PixelShader.h"
+#include "ErrorLogger.h"
 
 PixelShader::PixelShader(Graphics& graphics, std::wstring shaderPath)
 {

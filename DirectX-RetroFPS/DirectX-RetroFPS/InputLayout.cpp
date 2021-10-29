@@ -1,4 +1,5 @@
 #include "InputLayout.h"
+#include "ErrorLogger.h"
 
 InputLayout::InputLayout(Graphics& graphics, const std::vector<D3D11_INPUT_ELEMENT_DESC>& layout, ID3D10Blob* vertexShaderByteCode)
 {

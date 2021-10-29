@@ -1,8 +1,9 @@
 #pragma once
-#include "MouseEvent.h"
+
 #include <queue>
 #include <Windows.h>
-#include <DirectXMath.h>
+
+#include "MouseEvent.h"
 
 class Mouse
 {
@@ -18,7 +19,6 @@ public:
 
 	bool IsInWindow();
 
-	DirectX::XMFLOAT2 GetPosition();
 	int GetXPos();
 	int GetYPos();
 

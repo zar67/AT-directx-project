@@ -1,11 +1,11 @@
 #pragma once
 #include "Drawable.h"
 
-class RotatingBox : public Drawable<RotatingBox>
+class TexturedCube : public Drawable<TexturedCube>
 {
 public:
-	RotatingBox() = default;
-	RotatingBox(Graphics& graphics, float pitchRotateSpeed, float yawRotateSpeed, float rollRotateSpeed);
+	TexturedCube() = default;
+	TexturedCube(Graphics& graphics, float pitchRotateSpeed, float yawRotateSpeed, float rollRotateSpeed);
 
 	virtual void Update(float deltaTime) override;
 private:

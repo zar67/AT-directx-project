@@ -1,4 +1,5 @@
 #include <stdexcept>
+
 #include "Window.h"
 #include "ErrorLogger.h"
 

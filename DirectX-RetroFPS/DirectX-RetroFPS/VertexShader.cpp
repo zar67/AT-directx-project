@@ -1,14 +1,9 @@
-/* ------------------------------------------------- */
-/* Filename: VertexShader.cpp                        */
-/* Author: Zoe Rowbotham                             */
-/* Description: Includes function declarations for   */
-/* the VertexShader class.                           */
-/* ------------------------------------------------- */
-
 #pragma comment(lib, "D3DCompiler.lib")
 
-#include "VertexShader.h"
 #include <d3dcompiler.h>
+
+#include "VertexShader.h"
+#include "ErrorLogger.h"
 
 VertexShader::VertexShader(Graphics& graphics, std::wstring shaderPath)
 {

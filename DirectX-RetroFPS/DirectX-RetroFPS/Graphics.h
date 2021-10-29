@@ -1,15 +1,12 @@
 #pragma comment(lib, "D3DCompiler.lib")
 #pragma comment(lib, "d3d11.lib")
-
 #pragma once
+
 #include <d3d11.h>
 #include <wrl.h>
-#include <vector>
 #include <d3dcompiler.h>
-#include <DirectXMath.h>
-#include <memory>
-#include <random>
-#include "ErrorLogger.h"
+#include <string>
+
 #include "Camera.h"
 
 class Graphics

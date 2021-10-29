@@ -1,5 +1,4 @@
 #pragma once
-#include <optional>
 
 class MouseEvent
 {
@@ -33,8 +32,7 @@ public:
 	MouseEvent();
 	MouseEvent(const EventType type, ButtonState leftButtonState, ButtonState rightButtonState, ButtonState middleButtonState, int xPos, int yPos);
 
-	EventType GetType(); 
-	std::pair<int, int> GetPos();
+	EventType GetType();
 	int GetXPos();
 	int GetYPos();
 

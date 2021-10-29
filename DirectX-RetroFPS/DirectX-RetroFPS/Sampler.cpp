@@ -1,4 +1,5 @@
 #include "Sampler.h"
+#include "ErrorLogger.h"
 
 Sampler::Sampler(Graphics& graphics)
 {

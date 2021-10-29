@@ -1,12 +1,6 @@
-/* ------------------------------------------------- */
-/* Filename: ErrorLogger.cpp                         */
-/* Author: Zoe Rowbotham                             */
-/* Description: Includes function declarations for   */
-/* the ErrorLogger class.                            */
-/* ------------------------------------------------- */
+#include <comdef.h>
 
 #include "ErrorLogger.h"
-#include <comdef.h>
 #include "StringConversion.h"
 
 void ErrorLogger::Log(std::string message)

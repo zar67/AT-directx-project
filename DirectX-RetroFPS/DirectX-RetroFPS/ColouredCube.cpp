@@ -1,15 +1,13 @@
-#include "SolidColourBox.h"
+#include "ColouredCube.h"
 #include "PixelShader.h"
 #include "VertexShader.h"
 #include "VertexBuffer.h"
 #include "InputLayout.h"
 #include "TransformConstantBuffer.h"
-#include "Sampler.h"
-#include "TextureBindable.h"
 #include "Topology.h"
 #include "RasterizerState.h"
 
-SolidColourBox::SolidColourBox(Graphics& graphics, float pitchRotateSpeed, float yawRotateSpeed, float rollRotateSpeed) :
+ColouredCube::ColouredCube(Graphics& graphics, float pitchRotateSpeed, float yawRotateSpeed, float rollRotateSpeed) :
 	m_pitchRotateSpeed(pitchRotateSpeed),
 	m_yawRotateSpeed(yawRotateSpeed),
 	m_rollRotateSpeed(rollRotateSpeed)
@@ -26,12 +24,12 @@ SolidColourBox::SolidColourBox(Graphics& graphics, float pitchRotateSpeed, float
 	AddBindable(std::make_unique<TransformConstantBuffer>(graphics, *this));
 }
 
-void SolidColourBox::Update(float deltaTime)
+void ColouredCube::Update(float deltaTime)
 {
 	m_transform.ApplyRotation(m_pitchRotateSpeed * deltaTime, m_yawRotateSpeed * deltaTime, m_rollRotateSpeed * deltaTime);
 }
 
-void SolidColourBox::InitialiseStatic(Graphics& graphics)
+void ColouredCube::InitialiseStatic(Graphics& graphics)
 {
 	struct Vertex
 	{

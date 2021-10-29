@@ -1,6 +1,4 @@
 #include "Input.h"
-#include <string>
-#include <iostream>
 
 void Input::HandleMessages(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam, int windowWidth, int windowHeight)
 {

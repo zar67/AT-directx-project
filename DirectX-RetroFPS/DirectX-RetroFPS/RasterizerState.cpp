@@ -1,4 +1,5 @@
 #include "RasterizerState.h"
+#include "ErrorLogger.h"
 
 RasterizerState::RasterizerState(Graphics& graphics)
 {

@@ -1,7 +1,9 @@
 #pragma once
+
 #include <Windows.h>
 #include <optional>
 #include <memory>
+
 #include "resource.h"
 #include "Graphics.h"
 #include "Input.h"

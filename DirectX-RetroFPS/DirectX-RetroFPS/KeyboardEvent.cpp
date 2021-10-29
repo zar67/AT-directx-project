@@ -6,7 +6,7 @@ KeyboardEvent::KeyboardEvent()
 	m_key = 0u;
 }
 
-KeyboardEvent::KeyboardEvent(const EventType type, const unsigned char key)
+KeyboardEvent::KeyboardEvent(const KeyboardEvent::EventType type, const unsigned char key)
 {
 	m_type = type;
 	m_key = key;

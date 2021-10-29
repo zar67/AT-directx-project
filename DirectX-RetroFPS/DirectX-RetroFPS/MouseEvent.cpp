@@ -29,11 +29,6 @@ MouseEvent::EventType MouseEvent::GetType()
 	return m_type;
 }
 
-std::pair<int, int> MouseEvent::GetPos()
-{
-	return std::pair<int, int>(m_xPosition, m_yPosition);
-}
-
 int MouseEvent::GetXPos()
 {
 	return m_xPosition;

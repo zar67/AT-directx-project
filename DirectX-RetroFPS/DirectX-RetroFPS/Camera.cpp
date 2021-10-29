@@ -1,5 +1,7 @@
-#include "Camera.h"
+#include <DirectXMath.h>
 #include <stdlib.h>
+
+#include "Camera.h"
 
 Camera::Camera(float movementSpeed, float rotationSpeed, DirectX::XMFLOAT2 deadZoneSize)
 {
@@ -44,7 +46,7 @@ void Camera::Update(float deltaTime, Input& input, int windowWidth, int windowHe
 
 	// Update Camera Rotation
 	DirectX::XMFLOAT2 windowCenter = DirectX::XMFLOAT2(windowWidth / 2, windowHeight / 2);
-	DirectX::XMFLOAT2 mousePosition = input.GetMouse().GetPosition();
+	DirectX::XMFLOAT2 mousePosition = DirectX::XMFLOAT2(input.GetMouse().GetXPos(), input.GetMouse().GetYPos());
 	DirectX::XMFLOAT2 deadZone = DirectX::XMFLOAT2(windowWidth / 2 - m_deadZoneSize.x / 2, windowHeight / 2 - m_deadZoneSize.y / 2);
 
 	DirectX::XMFLOAT2 mouseDirectionVector = DirectX::XMFLOAT2(mousePosition.x - windowCenter.x, mousePosition.y - windowCenter.y);

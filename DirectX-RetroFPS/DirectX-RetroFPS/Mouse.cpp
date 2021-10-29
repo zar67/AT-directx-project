@@ -78,11 +78,6 @@ bool Mouse::IsInWindow()
 	return m_isInWindow;
 }
 
-DirectX::XMFLOAT2 Mouse::GetPosition()
-{
-	return DirectX::XMFLOAT2(m_xPosition, m_yPosition);
-}
-
 int Mouse::GetXPos()
 {
 	return m_xPosition;

@@ -15,7 +15,7 @@ int Game::Run()
 
 	while (true)
 	{
-		float deltaTime = m_timer.Mark();
+		float deltaTime = m_gameTimer.Mark();
 
 		if (const auto ecode = Window::ProcessWindowsMessages())
 		{

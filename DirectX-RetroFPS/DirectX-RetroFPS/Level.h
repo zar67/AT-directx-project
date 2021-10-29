@@ -1,4 +1,7 @@
 #pragma once
+
+#include <memory>
+
 #include "Graphics.h"
 #include "DrawableBase.h"
 

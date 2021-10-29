@@ -16,10 +16,10 @@ private:
 	void Render();
 
 	Window m_window;
-	Timer m_timer;
+	LevelManager m_levelManager;
+	Timer m_gameTimer;
 
 	std::unique_ptr<Light> m_light;
-	LevelManager m_levelManager;
 
 	bool m_isPaused = false;
 };

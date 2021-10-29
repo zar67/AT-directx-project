@@ -1,3 +1,5 @@
+#include <DirectXMath.h>
+
 #include "Graphics.h"
 #include "ErrorLogger.h"
 

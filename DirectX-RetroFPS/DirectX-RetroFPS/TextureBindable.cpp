@@ -1,6 +1,7 @@
 #include "TextureBindable.h"
 #include "StringConversion.h"
 #include "WICTextureLoader.h"
+#include "ErrorLogger.h"
 
 TextureBindable::TextureBindable(Graphics& graphics, std::string filename)
 {

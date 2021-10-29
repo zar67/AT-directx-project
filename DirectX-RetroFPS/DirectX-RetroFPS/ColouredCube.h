@@ -1,11 +1,11 @@
 #pragma once
 #include "Drawable.h"
 
-class SolidColourBox : public Drawable<SolidColourBox>
+class ColouredCube : public Drawable<ColouredCube>
 {
 public:
-	SolidColourBox() = default;
-	SolidColourBox(Graphics& graphics, float pitchRotateSpeed, float yawRotateSpeed, float rollRotateSpeed);
+	ColouredCube() = default;
+	ColouredCube(Graphics& graphics, float pitchRotateSpeed, float yawRotateSpeed, float rollRotateSpeed);
 
 	virtual void Update(float deltaTime) override;
 private:

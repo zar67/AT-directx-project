@@ -1,4 +1,7 @@
 #pragma once
+
+#include <memory>
+
 #include "Level.h"
 
 class LevelManager

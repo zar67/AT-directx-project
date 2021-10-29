@@ -1,11 +1,5 @@
-/* ------------------------------------------------- */
-/* Filename: IndexBuffer.cpp                         */
-/* Author: Zoe Rowbotham                             */
-/* Description: Includes function declarations for   */
-/* the IndexBuffer class.                            */
-/* ------------------------------------------------- */
-
 #include "IndexBuffer.h"
+#include "ErrorLogger.h"
 
 IndexBuffer::IndexBuffer(Graphics& graphics, const std::vector<unsigned short>& indices)
 {

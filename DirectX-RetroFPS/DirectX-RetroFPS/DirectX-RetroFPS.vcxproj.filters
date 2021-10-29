@@ -111,7 +111,7 @@
     <ClCompile Include="DrawableBase.cpp">
       <Filter>Source\Source Files\Graphics\Drawable</Filter>
     </ClCompile>
-    <ClCompile Include="RotatingBox.cpp">
+    <ClCompile Include="TexturedCube.cpp">
       <Filter>Source\Source Files\Graphics\Drawable</Filter>
     </ClCompile>
     <ClCompile Include="TransformConstantBuffer.cpp">
@@ -153,7 +153,7 @@
     <ClCompile Include="Light.cpp">
       <Filter>Source\Source Files\Graphics\Lighting</Filter>
     </ClCompile>
-    <ClCompile Include="SolidColourBox.cpp">
+    <ClCompile Include="ColouredCube.cpp">
       <Filter>Source\Source Files\Graphics\Drawable</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
@@ -212,7 +212,7 @@
     <ClInclude Include="DrawableBase.h">
       <Filter>Source\Header Files\Graphics\Drawable</Filter>
     </ClInclude>
-    <ClInclude Include="RotatingBox.h">
+    <ClInclude Include="TexturedCube.h">
       <Filter>Source\Header Files\Graphics\Drawable</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
@@ -293,7 +293,7 @@
     <ClInclude Include="resource.h">
       <Filter>Source\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SolidColourBox.h">
+    <ClInclude Include="ColouredCube.h">
       <Filter>Source\Header Files\Graphics\Drawable</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">

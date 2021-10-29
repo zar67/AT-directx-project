@@ -1,5 +1,6 @@
 #pragma once
 #include "Bindable.h"
+#include "ErrorLogger.h"
 
 template<typename T>
 class VertexConstantBuffer : public Bindable
