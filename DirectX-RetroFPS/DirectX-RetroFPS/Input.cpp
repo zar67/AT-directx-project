@@ -2,6 +2,12 @@
 #include <string>
 #include <iostream>
 
+void Input::HandleMessages(UINT message, WPARAM wparam, LPARAM lparam)
+{
+	m_keyboard.HandleMessages(message, wparam, lparam);
+	m_mouse.HandleMessages(message, wparam, lparam);
+}
+
 void Input::Update()
 {
 	while (!m_keyboard.IsCharacterBufferEmpty())
@@ -13,9 +19,23 @@ void Input::Update()
 	{
 		KeyboardEvent keyboardEvent = m_keyboard.ReadKey();
 	}
+
+	while (!m_mouse.IsEventBufferEmpty())
+	{
+		MouseEvent mouseEvent = m_mouse.Read();
+		if (mouseEvent.GetType() == MouseEvent::EventType::Move)
+		{
+			std::cout << "Mouse Position: (" << mouseEvent.GetXPos() << "," << mouseEvent.GetYPos() << ")" << std::endl;
+		}
+	}
 }
 
-Keyboard* Input::GetKeyboard()
+Keyboard& Input::GetKeyboard()
 {
-	return &m_keyboard;
+	return m_keyboard;
+}
+
+Mouse& Input::GetMouse()
+{
+	return m_mouse;
 }

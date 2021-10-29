@@ -9,6 +9,41 @@ Keyboard::Keyboard()
 	}
 }
 
+void Keyboard::HandleMessages(UINT message, WPARAM wparam, LPARAM lparam)
+{
+	switch (message)
+	{
+		case WM_KEYUP:
+		{
+			unsigned char keycode = static_cast<unsigned char>(wparam);
+			OnKeyReleased(keycode);
+			break;
+		}
+		case WM_KEYDOWN:
+		{
+			unsigned char keycode = static_cast<unsigned char>(wparam);
+			const bool wasPressed = lparam & 0x40000000;
+
+			if (wasPressed)
+			{
+				OnKeyHeld(keycode);
+			}
+			else
+			{
+				OnKeyPressed(keycode);
+			}
+
+			break;
+		}
+		case WM_CHAR:
+		{
+			unsigned char keycode = static_cast<unsigned char>(wparam);
+			OnCharacter(keycode);
+			break;
+		}
+	}
+}
+
 bool Keyboard::IsKeyPressed(const unsigned char keycode)
 {
 	return m_keyStates[keycode];

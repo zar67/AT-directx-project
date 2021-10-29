@@ -1,10 +1,3 @@
-/* ------------------------------------------------- */
-/* Filename: Window.cpp                              */
-/* Author: Zoe Rowbotham                             */
-/* Description: Includes function declarations for   */
-/* the Window class.                                 */
-/* ------------------------------------------------- */
-
 #include <stdexcept>
 #include "Window.h"
 #include "ErrorLogger.h"
@@ -105,33 +98,9 @@ LRESULT Window::HandleMessage(HWND hWnd, UINT message, WPARAM wparam, LPARAM lpa
 			// If we don't do this, DefWindowProc will destroy the window twice.
 			return 0;
 		}
-		case WM_KEYUP:
+		default:
 		{
-			unsigned char keycode = static_cast<unsigned char>(wparam);
-			m_pInput->GetKeyboard()->OnKeyReleased(keycode);
-			break;
-		}
-		case WM_KEYDOWN:
-		{
-			unsigned char keycode = static_cast<unsigned char>(wparam);
-			const bool wasPressed = lparam & 0x40000000;
-
-			if (wasPressed)
-			{
-				m_pInput->GetKeyboard()->OnKeyHeld(keycode);
-			}
-			else
-			{
-				m_pInput->GetKeyboard()->OnKeyPressed(keycode);
-			}
-
-			break;
-		}
-		case WM_CHAR:
-		{
-			unsigned char keycode = static_cast<unsigned char>(wparam);
-			m_pInput->GetKeyboard()->OnCharacter(keycode);
-			break;
+			m_pInput->HandleMessages(message, wparam, lparam);
 		}
 	}
 

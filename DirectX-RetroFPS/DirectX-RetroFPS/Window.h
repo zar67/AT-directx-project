@@ -30,7 +30,6 @@ private:
 	void CreateWindowClass();
 	void InitialiseWindow(int width, int height);
 
-
 	std::unique_ptr<Graphics> m_pGraphics;
 	std::unique_ptr<Input> m_pInput;
 
