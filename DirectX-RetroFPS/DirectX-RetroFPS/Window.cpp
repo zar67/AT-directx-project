@@ -100,7 +100,7 @@ LRESULT Window::HandleMessage(HWND hWnd, UINT message, WPARAM wparam, LPARAM lpa
 		}
 		default:
 		{
-			m_pInput->HandleMessages(message, wparam, lparam);
+			m_pInput->HandleMessages(hWnd, message, wparam, lparam);
 		}
 	}
 

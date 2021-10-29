@@ -1,13 +1,40 @@
 #include "Mouse.h"
 
-void Mouse::HandleMessages(UINT message, WPARAM wparam, LPARAM lparam)
+void Mouse::HandleMessages(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam, int windowWidth, int windowHeight)
 {
 	switch (message)
 	{
 		case WM_MOUSEMOVE:
 		{
 			POINTS points = MAKEPOINTS(lparam);
-			OnMouseMove(points.x, points.y);
+
+			if (points.x >= 0 && points.x < windowWidth &&
+				points.y >= 0 && points.y < windowHeight)
+			{
+				OnMouseMove(points.x, points.y);
+
+				if (!m_isInWindow)
+				{
+					// Ensures even if the mouse leaves the window region we recieve messages.
+					SetCapture(hWnd);
+
+					OnMouseEnterWindow();
+				}
+			}
+			else
+			{
+				// Perform drag even if outside of the window.
+				if (m_isLeftPressed || m_isRightPressed || m_isMiddlePressed)
+				{
+					OnMouseMove(points.x, points.y);
+				}
+				else
+				{
+					ReleaseCapture();
+					OnMouseLeaveWindow();
+				}
+			}
+
 			break;
 		}
 		case WM_LBUTTONDOWN:
@@ -49,17 +76,15 @@ void Mouse::HandleMessages(UINT message, WPARAM wparam, LPARAM lparam)
 		case WM_MOUSEHWHEEL:
 		{
 			POINTS points = MAKEPOINTS(lparam);
-			if (GET_WHEEL_DELTA_WPARAM(wparam) > 0)
-			{
-				OnWheelUp(points.x, points.y);
-			}
-			else if (GET_WHEEL_DELTA_WPARAM(wparam) < 0)
-			{
-				OnWheelDown(points.x, points.y);
-			}
+			OnWheelDelta(points.x, points.y, GET_WHEEL_DELTA_WPARAM(wparam));
 			break;
 		}
 	}
+}
+
+bool Mouse::IsInWindow()
+{
+	return m_isInWindow;
 }
 
 std::pair<int, int> Mouse::GetPos()
@@ -226,6 +251,37 @@ void Mouse::OnWheelDown(int x, int y)
 	m_xPosition = x;
 	m_yPosition = y;
 	m_eventBuffer.push(MouseEvent(MouseEvent::EventType::WheelDown, m_isLeftPressed, m_isRightPressed, m_xPosition, m_yPosition));
+	TrimBuffer();
+}
+
+void Mouse::OnWheelDelta(int x, int y, int delta)
+{
+	m_wheelDeltaCarry += delta;
+
+	while (m_wheelDeltaCarry >= WHEEL_DELTA)
+	{
+		m_wheelDeltaCarry -= WHEEL_DELTA;
+		OnWheelUp(x, y);
+	}
+
+	while (m_wheelDeltaCarry <= -WHEEL_DELTA)
+	{
+		m_wheelDeltaCarry += WHEEL_DELTA;
+		OnWheelDown(x, y);
+	}
+}
+
+void Mouse::OnMouseEnterWindow()
+{
+	m_isInWindow = true;
+	m_eventBuffer.push(MouseEvent(MouseEvent::EventType::EnterWindow, m_isLeftPressed, m_isRightPressed, m_xPosition, m_yPosition));
+	TrimBuffer();
+}
+
+void Mouse::OnMouseLeaveWindow()
+{
+	m_isInWindow = false;
+	m_eventBuffer.push(MouseEvent(MouseEvent::EventType::LeaveWindow, m_isLeftPressed, m_isRightPressed, m_xPosition, m_yPosition));
 	TrimBuffer();
 }
 

@@ -10,7 +10,9 @@ public:
 	Mouse(const Mouse&) = delete;
 	Mouse& operator=(const Mouse&) = delete;
 
-	void HandleMessages(UINT message, WPARAM wparam, LPARAM lparam);
+	void HandleMessages(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam, int windowWidth, int windowHeight);
+
+	bool IsInWindow();
 
 	std::pair<int, int> GetPos();
 	int GetXPos();
@@ -40,13 +42,16 @@ private:
 
 	void OnWheelUp(int x, int y);
 	void OnWheelDown(int x, int y);
+	void OnWheelDelta(int x, int y, int delta);
+
+	void OnMouseEnterWindow();
+	void OnMouseLeaveWindow();
 
 	void TrimBuffer();
 
 	static constexpr unsigned int m_bufferSize = 16u;
 
-	int m_xPosition;
-	int m_yPosition;
+	bool m_isInWindow = false;
 
 	bool m_isLeftPressed = false;
 	bool m_isLeftHeld = false;
@@ -54,6 +59,11 @@ private:
 	bool m_isRightHeld = false;
 	bool m_isMiddlePressed = false;
 	bool m_isMiddleHeld = false;
+
+	int m_xPosition;
+	int m_yPosition;
+
+	int m_wheelDeltaCarry = 0;
 	
 	std::queue<MouseEvent> m_eventBuffer;
 };

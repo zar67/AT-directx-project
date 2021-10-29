@@ -9,7 +9,7 @@ public:
 	Input() = default;
 	~Input() = default;
 
-	void HandleMessages(UINT message, WPARAM wparam, LPARAM lparam);
+	void HandleMessages(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam);
 	void Update();
 
 	Keyboard& GetKeyboard();

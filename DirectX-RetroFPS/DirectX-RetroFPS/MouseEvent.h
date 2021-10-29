@@ -18,6 +18,8 @@ public:
 		WheelUp,
 		WheelDown,
 		Move,
+		EnterWindow,
+		LeaveWindow,
 		Invalid
 	};
 

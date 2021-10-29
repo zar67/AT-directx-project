@@ -2,10 +2,10 @@
 #include <string>
 #include <iostream>
 
-void Input::HandleMessages(UINT message, WPARAM wparam, LPARAM lparam)
+void Input::HandleMessages(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam)
 {
 	m_keyboard.HandleMessages(message, wparam, lparam);
-	m_mouse.HandleMessages(message, wparam, lparam);
+	m_mouse.HandleMessages(hWnd, message, wparam, lparam);
 }
 
 void Input::Update()
