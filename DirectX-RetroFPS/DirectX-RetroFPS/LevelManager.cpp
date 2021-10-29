@@ -28,3 +28,8 @@ void LevelManager::DrawCurrentLevel(Graphics& graphics)
 {
 	m_levels[m_currentLevelIndex]->Draw(graphics);
 }
+
+Level* LevelManager::GetCurrentLevel()
+{
+	return m_levels[m_currentLevelIndex].get();
+}

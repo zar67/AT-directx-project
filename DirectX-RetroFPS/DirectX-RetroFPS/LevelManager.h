@@ -14,6 +14,8 @@ public:
 	void LoadNextLevel(Graphics& graphics);
 	void DrawCurrentLevel(Graphics& graphics);
 
+	Level* GetCurrentLevel();
+
 private:
 	int m_currentLevelIndex = 0;
 	std::vector<std::unique_ptr<Level>> m_levels;

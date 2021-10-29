@@ -14,6 +14,9 @@ public:
 	void Initialise(Graphics& graphics);
 	void Draw(Graphics& graphics);
 
+	int GetGeometryCount();
+	DrawableBase* GetGeometryAtIndex(int index);
+
 	const float UNIT_SIZE = 1.0f;
 
 private:

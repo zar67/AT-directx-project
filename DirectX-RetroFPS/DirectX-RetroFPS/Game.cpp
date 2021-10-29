@@ -1,12 +1,13 @@
 #include "Game.h"
+#include "CollisionDetection.h"
 
 Game::Game() :
 	m_window(800, 600, IDS_GAMENAME, IDI_MAINICON),
 	m_levelManager(m_window.GetGraphics())
 {
 	m_light = std::make_unique<Light>(m_window.GetGraphics());
-	m_light->GetTransform()->ApplyScalar(0.5f, 0.5f, 0.5f);
-	m_light->GetTransform()->ApplyTranslation(4.0f, 0.0f, 2.0f);
+	m_light->GetTransform().ApplyScalar(0.5f, 0.5f, 0.5f);
+	m_light->GetTransform().ApplyTranslation(4.0f, 0.0f, 2.0f);
 }
 
 int Game::Run()
@@ -22,7 +23,6 @@ int Game::Run()
 			return *ecode;
 		}
 
-		HandleInput();
 		Update(deltaTime);
 		Render();
 	}
@@ -37,9 +37,12 @@ void Game::Init()
 
 void Game::Update(float deltaTime)
 {
+	HandleInput();
+
 	if (!m_isPaused)
 	{
 		m_window.GetGraphics().GetCamera()->Update(deltaTime, m_window.GetInput(), m_window.GetWidth(), m_window.GetHeight());
+		HandleCollision();
 	}
 }
 
@@ -77,6 +80,27 @@ void Game::HandleInput()
 	{
 		// Handle Mouse Event
 		mouseEvent = m_window.GetInput().GetMouse().Read();
+	}
+}
+
+void Game::HandleCollision()
+{
+	Level* currentLevel = m_levelManager.GetCurrentLevel();
+	for (int i = 0; i < currentLevel->GetGeometryCount(); i++)
+	{
+		DrawableBase* drawableA = currentLevel->GetGeometryAtIndex(i);
+		for (int j = 0; j < currentLevel->GetGeometryCount(); j++)
+		{
+			DrawableBase* drawableB = currentLevel->GetGeometryAtIndex(j);
+			if (drawableA != drawableB)
+			{
+				/*bool collision = CollisionDetection::IsColliding(drawableA->GetCollider(), drawableB->GetCollider());
+				if (collision)
+				{
+					ErrorLogger::Log("Collision at: " + std::to_string(i) + " -> " + std::to_string(j));
+				}*/
+			}
+		}
 	}
 }
 

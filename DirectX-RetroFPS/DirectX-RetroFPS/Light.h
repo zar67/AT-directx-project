@@ -5,7 +5,6 @@
 class Light : public Drawable<Light>
 {
 public:
-	Light() = default;
 	Light(Graphics & graphics);
 
 	virtual void Bind(Graphics & graphics);
@@ -25,6 +24,7 @@ protected:
 	};
 protected:
 	void InitialiseStatic(Graphics & graphics);
+	void InitialiseCollider();
 
 	BufferData m_bufferData;
 	PixelConstantBuffer<BufferData> m_constantBuffer;

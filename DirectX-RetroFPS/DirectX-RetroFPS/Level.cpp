@@ -26,6 +26,16 @@ void Level::Draw(Graphics& graphics)
 	}
 }
 
+int Level::GetGeometryCount()
+{
+	return m_geometry.size();
+}
+
+DrawableBase* Level::GetGeometryAtIndex(int index)
+{
+	return m_geometry[index].get();
+}
+
 void Level::GenerateDataFromFile(Graphics& graphics, std::string filename)
 {
 	std::ifstream file(filename);
@@ -108,8 +118,8 @@ void Level::ParseLevelDataCharacter(Graphics& graphics, char character, float xP
 		case '#': // Wall
 		{
 			std::unique_ptr<TexturedCube> pCube = std::make_unique<TexturedCube>(graphics, 0.3f, 0.3f, 0.3f);
-			pCube->GetTransform()->ApplyTranslation(xPosition, yPosition, zPosition);
-			pCube->GetTransform()->ApplyScalar(UNIT_SIZE, UNIT_SIZE, UNIT_SIZE);
+			pCube->GetTransform().ApplyTranslation(xPosition, yPosition, zPosition);
+			pCube->GetTransform().ApplyScalar(UNIT_SIZE, UNIT_SIZE, UNIT_SIZE);
 			m_geometry.emplace_back(std::move(pCube));
 			break;
 		}
