@@ -87,9 +87,9 @@ bool Mouse::IsInWindow()
 	return m_isInWindow;
 }
 
-std::pair<int, int> Mouse::GetPos()
+DirectX::XMFLOAT2 Mouse::GetPosition()
 {
-	return std::pair<int, int>(m_xPosition, m_yPosition);
+	return DirectX::XMFLOAT2(m_xPosition, m_yPosition);
 }
 
 int Mouse::GetXPos()

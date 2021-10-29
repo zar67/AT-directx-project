@@ -21,6 +21,9 @@ public:
 	Graphics& GetGraphics();
 	Input& GetInput();
 
+	int GetWidth();
+	int GetHeight();
+
 private:
 	static LRESULT CALLBACK HandleMessageSetup(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam);
 	static LRESULT CALLBACK HandleMessageBridge(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam);
@@ -38,6 +41,6 @@ private:
 	HICON m_icon;
 	HINSTANCE m_instance;
 
-	INT m_windowWidth;
-	INT m_windowHeight;
+	int m_windowWidth;
+	int m_windowHeight;
 };

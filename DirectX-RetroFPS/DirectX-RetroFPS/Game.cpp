@@ -36,7 +36,7 @@ void Game::Init()
 
 void Game::Update(float deltaTime)
 {
-	m_window.GetGraphics().GetCamera()->Update(deltaTime, 3.5f, m_window.GetInput());
+	m_window.GetGraphics().GetCamera()->Update(deltaTime, m_window.GetInput(), m_window.GetWidth(), m_window.GetHeight());
 	m_window.GetInput().Update();
 }
 

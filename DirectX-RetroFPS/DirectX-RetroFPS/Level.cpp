@@ -13,6 +13,7 @@ Level::Level(Graphics& graphics, std::string filename)
 void Level::Initialise(Graphics& graphics)
 {
 	graphics.GetCamera()->SetPosition(m_startingPosition.x, m_startingPosition.y, m_startingPosition.z);
+	graphics.GetCamera()->LockYPosition(m_startingPosition.y);
 	graphics.GetCamera()->SetRotation(0.0f, m_startLookRotation, 0.0f);
 }
 

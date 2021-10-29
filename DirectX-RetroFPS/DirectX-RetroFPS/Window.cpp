@@ -52,6 +52,16 @@ Input& Window::GetInput()
 	return *m_pInput;
 }
 
+int Window::GetWidth()
+{
+	return m_windowWidth;
+}
+
+int Window::GetHeight()
+{
+	return m_windowHeight;
+}
+
 LRESULT Window::HandleMessageSetup(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam)
 {
 	if (message == WM_NCCREATE) // Sent when a window is first created.
@@ -100,7 +110,7 @@ LRESULT Window::HandleMessage(HWND hWnd, UINT message, WPARAM wparam, LPARAM lpa
 		}
 		default:
 		{
-			m_pInput->HandleMessages(hWnd, message, wparam, lparam);
+			m_pInput->HandleMessages(hWnd, message, wparam, lparam, m_windowWidth, m_windowHeight);
 		}
 	}
 

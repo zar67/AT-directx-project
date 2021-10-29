@@ -2,6 +2,7 @@
 #include "MouseEvent.h"
 #include <queue>
 #include <Windows.h>
+#include <DirectXMath.h>
 
 class Mouse
 {
@@ -14,7 +15,7 @@ public:
 
 	bool IsInWindow();
 
-	std::pair<int, int> GetPos();
+	DirectX::XMFLOAT2 GetPosition();
 	int GetXPos();
 	int GetYPos();
 
