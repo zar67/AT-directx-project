@@ -36,7 +36,27 @@ void Game::Init()
 
 void Game::Update(float deltaTime)
 {
-	m_window.GetGraphics().GetCamera()->Update(deltaTime, 3.5f, m_window.GetInput());
+	bool wasPaused = m_isPaused;
+	if (m_window.GetInput().GetKeyboard().GetKeyState(VK_ESCAPE) == Keyboard::KeyState::PRESSED)
+	{
+		m_isPaused = !m_isPaused;
+	}
+
+	if (m_isPaused)
+	{
+		m_window.ShowCursor();
+	}
+	else
+	{
+		if (wasPaused)
+		{
+			m_window.HideCursor();
+		}
+
+		m_window.GetGraphics().GetCamera()->Update(deltaTime, m_window.GetInput(), m_window.GetWidth(), m_window.GetHeight());
+		
+	}
+	
 	m_window.GetInput().Update();
 }
 

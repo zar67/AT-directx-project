@@ -6,14 +6,16 @@
 class Camera
 {
 public:
-	Camera();
+	Camera(float movementSpeed, float rotationSpeed, DirectX::XMFLOAT2 deadZoneSize);
 
 	void SetProjectionValues(float fovDegrees, float aspectRatio, float nearZ, float farZ);
 
 	const DirectX::XMMATRIX& GetViewMatrix() const;
 	const DirectX::XMMATRIX& GetProjectionMatrix() const;
 
-	void Update(float deltaTime, float movementSpeed, Input& input);
+	void Update(float deltaTime, Input& input, int windowWidth, int windowHeight);
+
+	void LockYPosition(float y);
 
 	void SetPosition(float x, float y, float z);
 	void AdjustPosition(float x, float y, float z);
@@ -25,6 +27,11 @@ private:
 	void UpdateViewMatrix();
 
 	Transform m_transform;
+	float m_yLockPosition;
+
+	float m_movementSpeed;
+	float m_rotationSpeed;
+	DirectX::XMFLOAT2 m_deadZoneSize;
 
 	DirectX::XMMATRIX m_viewMatrix;
 	DirectX::XMMATRIX m_projectionMatrix;

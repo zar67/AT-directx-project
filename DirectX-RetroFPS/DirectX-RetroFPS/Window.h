@@ -21,6 +21,12 @@ public:
 	Graphics& GetGraphics();
 	Input& GetInput();
 
+	void ShowCursor();
+	void HideCursor();
+
+	int GetWidth();
+	int GetHeight();
+
 private:
 	static LRESULT CALLBACK HandleMessageSetup(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam);
 	static LRESULT CALLBACK HandleMessageBridge(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam);
@@ -30,7 +36,6 @@ private:
 	void CreateWindowClass();
 	void InitialiseWindow(int width, int height);
 
-
 	std::unique_ptr<Graphics> m_pGraphics;
 	std::unique_ptr<Input> m_pInput;
 
@@ -39,6 +44,8 @@ private:
 	HICON m_icon;
 	HINSTANCE m_instance;
 
-	INT m_windowWidth;
-	INT m_windowHeight;
+	int m_windowWidth;
+	int m_windowHeight;
+
+	bool m_isCursorEnabled = true;
 };

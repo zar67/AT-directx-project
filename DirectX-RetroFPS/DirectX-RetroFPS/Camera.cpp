@@ -1,7 +1,12 @@
 #include "Camera.h"
+#include <stdlib.h>
 
-Camera::Camera()
+Camera::Camera(float movementSpeed, float rotationSpeed, DirectX::XMFLOAT2 deadZoneSize)
 {
+	m_movementSpeed = movementSpeed;
+	m_rotationSpeed = rotationSpeed;
+	m_deadZoneSize = deadZoneSize;
+
 	SetPosition(0, 0, 0);
 	SetRotation(0, 0, 0);
 
@@ -24,22 +29,58 @@ const DirectX::XMMATRIX& Camera::GetProjectionMatrix() const
 	return m_projectionMatrix;
 }
 
-void Camera::Update(float deltaTime, float movementSpeed, Input& input)
+void Camera::Update(float deltaTime, Input& input, int windowWidth, int windowHeight)
 {
 	// Update Camera Movement
-	float forwardMovement = input.GetKeyboard()->IsKeyPressed('W') ? movementSpeed : 0.0f;
-	float backwardMovement = input.GetKeyboard()->IsKeyPressed('S') ? -movementSpeed : 0.0f;
-	float leftMovement = input.GetKeyboard()->IsKeyPressed('A') ? -movementSpeed : 0.0f;
-	float rightMovement = input.GetKeyboard()->IsKeyPressed('D') ? movementSpeed : 0.0f;
-
-	float upMovement = input.GetKeyboard()->IsKeyPressed('E') ? movementSpeed : 0.0f;
-	float downMovement = input.GetKeyboard()->IsKeyPressed('Q') ? -movementSpeed : 0.0f;
+	float forwardMovement = input.GetKeyboard().IsKeyDown('W') ? m_movementSpeed : 0.0f;
+	float backwardMovement = input.GetKeyboard().IsKeyDown('S') ? -m_movementSpeed : 0.0f;
+	float leftMovement = input.GetKeyboard().IsKeyDown('A') ? -m_movementSpeed : 0.0f;
+	float rightMovement = input.GetKeyboard().IsKeyDown('D') ? m_movementSpeed : 0.0f;
 
 	float xMovement = (leftMovement + rightMovement) * deltaTime;
-	float yMovement = (upMovement + downMovement) * deltaTime;
 	float zMovement = (forwardMovement + backwardMovement) * deltaTime;
 
-	AdjustPosition(xMovement, yMovement, zMovement);
+	DirectX::XMFLOAT2 windowCenter = DirectX::XMFLOAT2(windowWidth / 2, windowHeight / 2);
+	DirectX::XMFLOAT2 mousePosition = input.GetMouse().GetPosition();
+	DirectX::XMFLOAT2 deadZone = DirectX::XMFLOAT2(windowWidth / 2 - m_deadZoneSize.x / 2, windowHeight / 2 - m_deadZoneSize.y / 2);
+
+	DirectX::XMFLOAT2 mouseDirectionVector = DirectX::XMFLOAT2(mousePosition.x - windowCenter.x, mousePosition.y - windowCenter.y);
+	float mouseDirectionLength = sqrt(pow(mouseDirectionVector.x, 2) + pow(mouseDirectionVector.y, 2));
+	DirectX::XMFLOAT2 normalisedMouseDirection = DirectX::XMFLOAT2(mouseDirectionVector.x / mouseDirectionLength, mouseDirectionVector.y / mouseDirectionLength);
+
+	float normalisedDirectionLengthX = abs(mouseDirectionVector.x / (windowWidth / 2));
+	float normalisedDirectionLengthY = abs(mouseDirectionVector.y / (windowHeight / 2));
+
+	float horizontalRotation = normalisedMouseDirection.x * normalisedDirectionLengthX * deltaTime * m_rotationSpeed;
+	float verticalRotation = normalisedMouseDirection.y * normalisedDirectionLengthY * deltaTime * m_rotationSpeed;
+
+	if (mousePosition.x >= deadZone.x && mousePosition.x <= deadZone.x + m_deadZoneSize.x &&
+		mousePosition.y >= deadZone.y && mousePosition.y <= deadZone.y + m_deadZoneSize.y)
+	{
+		horizontalRotation = 0.0f;
+		verticalRotation = 0.0f;
+	}
+
+	AdjustPosition(xMovement, 0.0f, zMovement);
+	AdjustRotation(verticalRotation, horizontalRotation, 0.0f);
+
+	m_transform.Position.y = m_yLockPosition;
+
+	if (m_transform.Rotation.x > 45.0f * (3.14f / 180.0f))
+	{
+		m_transform.Rotation.x = 45.0f * (3.14f / 180.0f);
+		verticalRotation = 0;
+	}
+	else if (m_transform.Rotation.x < -45.0f * (3.14f / 180.0f))
+	{
+		m_transform.Rotation.x = -45.0f * (3.14f / 180.0f);
+		verticalRotation = 0;
+	}
+}
+
+void Camera::LockYPosition(float y)
+{
+	m_yLockPosition = y;
 }
 
 void Camera::SetPosition(float x, float y, float z)

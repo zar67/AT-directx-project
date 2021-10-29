@@ -1,23 +1,15 @@
-/* ------------------------------------------------- */
-/* Filename: Graphics.cpp                            */
-/* Author: Zoe Rowbotham                             */
-/* Description: Includes function declarations for   */
-/* the Graphics class.                               */
-/* ------------------------------------------------- */
-
 #include "Graphics.h"
 #include "ErrorLogger.h"
 
-Graphics::Graphics(HWND window, int width, int height)
-{
+Graphics::Graphics(HWND window, int width, int height) :
+	m_camera(6.0f, 3.0f, DirectX::XMFLOAT2(50, 50))
+{ 
 	CreateDeviceAndSwapChain(window);
 	CreateRenderTargetView();
 	CreateDepthStencilBuffer(width, height);
 	CreateDepthStencilState();
 	CreateViewport(width, height);
 
-	m_camera.SetPosition(0, 0, 0);
-	m_camera.SetRotation(0, 0, 0);
 	m_camera.SetProjectionValues(90, static_cast<float>(width) / static_cast<float>(height), 0.1f, 1000.0f);
 }
 

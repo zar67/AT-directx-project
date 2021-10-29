@@ -1,10 +1,3 @@
-/* ------------------------------------------------- */
-/* Filename: Window.cpp                              */
-/* Author: Zoe Rowbotham                             */
-/* Description: Includes function declarations for   */
-/* the Window class.                                 */
-/* ------------------------------------------------- */
-
 #include <stdexcept>
 #include "Window.h"
 #include "ErrorLogger.h"
@@ -22,6 +15,8 @@ Window::Window(int width, int height, const int name, const int icon)
 
 	CreateWindowClass();
 	InitialiseWindow(width, height);
+
+	HideCursor();
 }
 
 Window::~Window()
@@ -57,6 +52,28 @@ Graphics& Window::GetGraphics()
 Input& Window::GetInput()
 {
 	return *m_pInput;
+}
+
+void Window::ShowCursor()
+{
+	m_isCursorEnabled = true;
+	while (::ShowCursor(TRUE) < 0);
+}
+
+void Window::HideCursor()
+{
+	m_isCursorEnabled = false;
+	while (::ShowCursor(FALSE) >= 0);
+}
+
+int Window::GetWidth()
+{
+	return m_windowWidth;
+}
+
+int Window::GetHeight()
+{
+	return m_windowHeight;
 }
 
 LRESULT Window::HandleMessageSetup(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam)
@@ -105,33 +122,9 @@ LRESULT Window::HandleMessage(HWND hWnd, UINT message, WPARAM wparam, LPARAM lpa
 			// If we don't do this, DefWindowProc will destroy the window twice.
 			return 0;
 		}
-		case WM_KEYUP:
+		default:
 		{
-			unsigned char keycode = static_cast<unsigned char>(wparam);
-			m_pInput->GetKeyboard()->OnKeyReleased(keycode);
-			break;
-		}
-		case WM_KEYDOWN:
-		{
-			unsigned char keycode = static_cast<unsigned char>(wparam);
-			const bool wasPressed = lparam & 0x40000000;
-
-			if (wasPressed)
-			{
-				m_pInput->GetKeyboard()->OnKeyHeld(keycode);
-			}
-			else
-			{
-				m_pInput->GetKeyboard()->OnKeyPressed(keycode);
-			}
-
-			break;
-		}
-		case WM_CHAR:
-		{
-			unsigned char keycode = static_cast<unsigned char>(wparam);
-			m_pInput->GetKeyboard()->OnCharacter(keycode);
-			break;
+			m_pInput->HandleMessages(hWnd, message, wparam, lparam, m_windowWidth, m_windowHeight);
 		}
 	}
 
