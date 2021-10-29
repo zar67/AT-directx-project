@@ -7,34 +7,7 @@ void Mouse::HandleMessages(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam
 		case WM_MOUSEMOVE:
 		{
 			POINTS points = MAKEPOINTS(lparam);
-
-			if (points.x >= 0 && points.x < windowWidth &&
-				points.y >= 0 && points.y < windowHeight)
-			{
-				OnMouseMove(points.x, points.y);
-
-				if (!m_isInWindow)
-				{
-					// Ensures even if the mouse leaves the window region we recieve messages.
-					SetCapture(hWnd);
-
-					OnMouseEnterWindow();
-				}
-			}
-			else
-			{
-				// Perform drag even if outside of the window.
-				if (m_isLeftPressed || m_isRightPressed || m_isMiddlePressed)
-				{
-					OnMouseMove(points.x, points.y);
-				}
-				else
-				{
-					ReleaseCapture();
-					OnMouseLeaveWindow();
-				}
-			}
-
+			OnMouseMove(points.x, points.y);
 			break;
 		}
 		case WM_LBUTTONDOWN:
@@ -82,6 +55,24 @@ void Mouse::HandleMessages(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam
 	}
 }
 
+void Mouse::ResetPressedButtons()
+{
+	if (m_leftButtonState == MouseEvent::ButtonState::PRESSED)
+	{
+		m_leftButtonState == MouseEvent::ButtonState::NOT_PRESSED;
+	}
+
+	if (m_rightButtonState == MouseEvent::ButtonState::PRESSED)
+	{
+		m_rightButtonState == MouseEvent::ButtonState::NOT_PRESSED;
+	}
+
+	if (m_middleButtonState == MouseEvent::ButtonState::PRESSED)
+	{
+		m_middleButtonState == MouseEvent::ButtonState::NOT_PRESSED;
+	}
+}
+
 bool Mouse::IsInWindow()
 {
 	return m_isInWindow;
@@ -102,14 +93,34 @@ int Mouse::GetYPos()
 	return m_yPosition;
 }
 
-bool Mouse::IsLeftPressed()
+MouseEvent::ButtonState Mouse::GetLeftButtonState()
 {
-	return m_isLeftPressed;
+	return m_leftButtonState;
 }
 
-bool Mouse::IsRightPressed()
+MouseEvent::ButtonState Mouse::GetRightButtonState()
 {
-	return m_isRightPressed;
+	return m_rightButtonState;
+}
+
+MouseEvent::ButtonState Mouse::GetMiddleButtonState()
+{
+	return m_middleButtonState;
+}
+
+bool Mouse::IsLeftButtonDown()
+{
+	return m_leftButtonState == MouseEvent::ButtonState::PRESSED || m_leftButtonState == MouseEvent::ButtonState::HELD;
+}
+
+bool Mouse::IsRightButtonDown()
+{
+	return m_rightButtonState == MouseEvent::ButtonState::PRESSED || m_rightButtonState == MouseEvent::ButtonState::HELD;
+}
+
+bool Mouse::IsMiddleButtonDown()
+{
+	return m_middleButtonState == MouseEvent::ButtonState::PRESSED || m_middleButtonState == MouseEvent::ButtonState::HELD;
 }
 
 MouseEvent Mouse::Read()
@@ -141,7 +152,7 @@ void Mouse::OnMouseMove(int x, int y)
 	m_xPosition = x;
 	m_yPosition = y;
 
-	m_eventBuffer.push(MouseEvent(MouseEvent::EventType::Move, m_isLeftPressed, m_isRightPressed, m_xPosition, m_yPosition));
+	m_eventBuffer.push(MouseEvent(MouseEvent::EventType::Move, m_leftButtonState, m_rightButtonState, m_middleButtonState, m_xPosition, m_yPosition));
 	TrimBuffer();
 }
 
@@ -149,9 +160,9 @@ void Mouse::OnLeftPressed(int x, int y)
 {
 	m_xPosition = x;
 	m_yPosition = y;
-	m_isLeftPressed = true;
+	m_leftButtonState = MouseEvent::ButtonState::PRESSED;
 
-	m_eventBuffer.push(MouseEvent(MouseEvent::EventType::LPress, m_isLeftPressed, m_isRightPressed, m_xPosition, m_yPosition));
+	m_eventBuffer.push(MouseEvent(MouseEvent::EventType::LPress, m_leftButtonState, m_rightButtonState, m_middleButtonState, m_xPosition, m_yPosition));
 	TrimBuffer();
 }
 
@@ -159,9 +170,9 @@ void Mouse::OnLeftHeld(int x, int y)
 {
 	m_xPosition = x;
 	m_yPosition = y;
-	m_isLeftHeld = true;
+	m_leftButtonState = MouseEvent::ButtonState::HELD;
 
-	m_eventBuffer.push(MouseEvent(MouseEvent::EventType::LHold, m_isLeftPressed, m_isRightPressed, m_xPosition, m_yPosition));
+	m_eventBuffer.push(MouseEvent(MouseEvent::EventType::LHold, m_leftButtonState, m_rightButtonState, m_middleButtonState, m_xPosition, m_yPosition));
 	TrimBuffer();
 }
 
@@ -169,10 +180,9 @@ void Mouse::OnLeftReleased(int x, int y)
 {
 	m_xPosition = x;
 	m_yPosition = y;
-	m_isLeftPressed = false;
-	m_isLeftHeld = false;
+	m_leftButtonState = MouseEvent::ButtonState::NOT_PRESSED;
 
-	m_eventBuffer.push(MouseEvent(MouseEvent::EventType::LRelease, m_isLeftPressed, m_isRightPressed, m_xPosition, m_yPosition));
+	m_eventBuffer.push(MouseEvent(MouseEvent::EventType::LRelease, m_leftButtonState, m_rightButtonState, m_middleButtonState, m_xPosition, m_yPosition));
 	TrimBuffer();
 }
 
@@ -180,9 +190,9 @@ void Mouse::OnRightPressed(int x, int y)
 {
 	m_xPosition = x;
 	m_yPosition = y;
-	m_isRightPressed = true;
+	m_rightButtonState = MouseEvent::ButtonState::PRESSED;
 
-	m_eventBuffer.push(MouseEvent(MouseEvent::EventType::RPress, m_isLeftPressed, m_isRightPressed, m_xPosition, m_yPosition));
+	m_eventBuffer.push(MouseEvent(MouseEvent::EventType::RPress, m_leftButtonState, m_rightButtonState, m_middleButtonState, m_xPosition, m_yPosition));
 	TrimBuffer();
 }
 
@@ -190,9 +200,9 @@ void Mouse::OnRightHeld(int x, int y)
 {
 	m_xPosition = x;
 	m_yPosition = y;
-	m_isRightHeld = true;
+	m_rightButtonState = MouseEvent::ButtonState::HELD;
 
-	m_eventBuffer.push(MouseEvent(MouseEvent::EventType::RHold, m_isLeftPressed, m_isRightPressed, m_xPosition, m_yPosition));
+	m_eventBuffer.push(MouseEvent(MouseEvent::EventType::RHold, m_leftButtonState, m_rightButtonState, m_middleButtonState, m_xPosition, m_yPosition));
 	TrimBuffer();
 }
 
@@ -200,10 +210,9 @@ void Mouse::OnRightReleased(int x, int y)
 {
 	m_xPosition = x;
 	m_yPosition = y;
-	m_isRightPressed = false;
-	m_isRightHeld = false;
+	m_rightButtonState = MouseEvent::ButtonState::NOT_PRESSED;
 
-	m_eventBuffer.push(MouseEvent(MouseEvent::EventType::RRelease, m_isLeftPressed, m_isRightPressed, m_xPosition, m_yPosition));
+	m_eventBuffer.push(MouseEvent(MouseEvent::EventType::RRelease, m_leftButtonState, m_rightButtonState, m_middleButtonState, m_xPosition, m_yPosition));
 	TrimBuffer();
 }
 
@@ -211,9 +220,9 @@ void Mouse::OnMiddlePressed(int x, int y)
 {
 	m_xPosition = x;
 	m_yPosition = y;
-	m_isMiddlePressed = true;
+	m_middleButtonState = MouseEvent::ButtonState::PRESSED;
 
-	m_eventBuffer.push(MouseEvent(MouseEvent::EventType::MPress, m_isLeftPressed, m_isRightPressed, m_xPosition, m_yPosition));
+	m_eventBuffer.push(MouseEvent(MouseEvent::EventType::MPress, m_leftButtonState, m_rightButtonState, m_middleButtonState, m_xPosition, m_yPosition));
 	TrimBuffer();
 }
 
@@ -221,9 +230,9 @@ void Mouse::OnMiddleHeld(int x, int y)
 {
 	m_xPosition = x;
 	m_yPosition = y;
-	m_isMiddleHeld = true;
+	m_middleButtonState = MouseEvent::ButtonState::HELD;
 
-	m_eventBuffer.push(MouseEvent(MouseEvent::EventType::MHold, m_isLeftPressed, m_isRightPressed, m_xPosition, m_yPosition));
+	m_eventBuffer.push(MouseEvent(MouseEvent::EventType::MHold, m_leftButtonState, m_rightButtonState, m_middleButtonState, m_xPosition, m_yPosition));
 	TrimBuffer();
 }
 
@@ -231,10 +240,9 @@ void Mouse::OnMiddleReleased(int x, int y)
 {
 	m_xPosition = x;
 	m_yPosition = y;
-	m_isMiddleHeld = false;
-	m_isMiddlePressed = false;
+	m_middleButtonState = MouseEvent::ButtonState::NOT_PRESSED;
 
-	m_eventBuffer.push(MouseEvent(MouseEvent::EventType::MRelease, m_isLeftPressed, m_isRightPressed, m_xPosition, m_yPosition));
+	m_eventBuffer.push(MouseEvent(MouseEvent::EventType::MRelease, m_leftButtonState, m_rightButtonState, m_middleButtonState, m_xPosition, m_yPosition));
 	TrimBuffer();
 }
 
@@ -242,7 +250,7 @@ void Mouse::OnWheelUp(int x, int y)
 {
 	m_xPosition = x;
 	m_yPosition = y;
-	m_eventBuffer.push(MouseEvent(MouseEvent::EventType::WheelUp, m_isLeftPressed, m_isRightPressed, m_xPosition, m_yPosition));
+	m_eventBuffer.push(MouseEvent(MouseEvent::EventType::WheelUp, m_leftButtonState, m_rightButtonState, m_middleButtonState, m_xPosition, m_yPosition));
 	TrimBuffer();
 }
 
@@ -250,7 +258,7 @@ void Mouse::OnWheelDown(int x, int y)
 {
 	m_xPosition = x;
 	m_yPosition = y;
-	m_eventBuffer.push(MouseEvent(MouseEvent::EventType::WheelDown, m_isLeftPressed, m_isRightPressed, m_xPosition, m_yPosition));
+	m_eventBuffer.push(MouseEvent(MouseEvent::EventType::WheelDown, m_leftButtonState, m_rightButtonState, m_middleButtonState, m_xPosition, m_yPosition));
 	TrimBuffer();
 }
 
@@ -274,14 +282,14 @@ void Mouse::OnWheelDelta(int x, int y, int delta)
 void Mouse::OnMouseEnterWindow()
 {
 	m_isInWindow = true;
-	m_eventBuffer.push(MouseEvent(MouseEvent::EventType::EnterWindow, m_isLeftPressed, m_isRightPressed, m_xPosition, m_yPosition));
+	m_eventBuffer.push(MouseEvent(MouseEvent::EventType::EnterWindow, m_leftButtonState, m_rightButtonState, m_middleButtonState, m_xPosition, m_yPosition));
 	TrimBuffer();
 }
 
 void Mouse::OnMouseLeaveWindow()
 {
 	m_isInWindow = false;
-	m_eventBuffer.push(MouseEvent(MouseEvent::EventType::LeaveWindow, m_isLeftPressed, m_isRightPressed, m_xPosition, m_yPosition));
+	m_eventBuffer.push(MouseEvent(MouseEvent::EventType::LeaveWindow, m_leftButtonState, m_rightButtonState, m_middleButtonState, m_xPosition, m_yPosition));
 	TrimBuffer();
 }
 

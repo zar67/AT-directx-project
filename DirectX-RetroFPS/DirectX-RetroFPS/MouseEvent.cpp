@@ -3,17 +3,23 @@
 MouseEvent::MouseEvent()
 {
 	m_type = EventType::Invalid;
-	m_isLeftPressed = false;
-	m_isRightPressed = false;
+
+	m_leftButtonState == ButtonState::NOT_PRESSED;
+	m_rightButtonState == ButtonState::NOT_PRESSED;
+	m_middleButtonState == ButtonState::NOT_PRESSED;
+
 	m_xPosition = 0;
 	m_yPosition = 0;
 }
 
-MouseEvent::MouseEvent(const EventType type, bool isLeftPressed, bool isRightPressed, int xPos, int yPos)
+MouseEvent::MouseEvent(const EventType type, ButtonState leftButtonState, ButtonState rightButtonState, ButtonState middleButtonState, int xPos, int yPos)
 {
 	m_type = type;
-	m_isLeftPressed = isLeftPressed;
-	m_isRightPressed = isRightPressed;
+
+	m_leftButtonState == leftButtonState;
+	m_rightButtonState == rightButtonState;
+	m_middleButtonState == middleButtonState;
+
 	m_xPosition = xPos;
 	m_yPosition = yPos;
 }
@@ -38,12 +44,17 @@ int MouseEvent::GetYPos()
 	return m_yPosition;
 }
 
-bool MouseEvent::IsLeftPressed()
+MouseEvent::ButtonState MouseEvent::GetLeftButtonState()
 {
-	return m_isLeftPressed;
+	return m_leftButtonState;
 }
 
-bool MouseEvent::IsRightPressed()
+MouseEvent::ButtonState MouseEvent::GetRightButtonState()
 {
-	return m_isRightPressed;
+	return m_rightButtonState;
+}
+
+MouseEvent::ButtonState MouseEvent::GetMiddleButtonState()
+{
+	return m_middleButtonState;
 }

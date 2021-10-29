@@ -15,6 +15,8 @@ Window::Window(int width, int height, const int name, const int icon)
 
 	CreateWindowClass();
 	InitialiseWindow(width, height);
+
+	HideCursor();
 }
 
 Window::~Window()
@@ -50,6 +52,18 @@ Graphics& Window::GetGraphics()
 Input& Window::GetInput()
 {
 	return *m_pInput;
+}
+
+void Window::ShowCursor()
+{
+	m_isCursorEnabled = true;
+	while (::ShowCursor(TRUE) < 0);
+}
+
+void Window::HideCursor()
+{
+	m_isCursorEnabled = false;
+	while (::ShowCursor(FALSE) >= 0);
 }
 
 int Window::GetWidth()

@@ -5,7 +5,7 @@ Keyboard::Keyboard()
 {
 	for (int i = 0; i < 256; i++)
 	{
-		m_keyStates[i] = false;
+		m_keyStates[i] = KeyState::NOT_PRESSED;
 	}
 }
 
@@ -44,9 +44,25 @@ void Keyboard::HandleMessages(UINT message, WPARAM wparam, LPARAM lparam)
 	}
 }
 
-bool Keyboard::IsKeyPressed(const unsigned char keycode)
+void Keyboard::ResetPressedKeys()
+{
+	for (int i = 0; i < 256; i++)
+	{
+		if (m_keyStates[i] == KeyState::PRESSED)
+		{
+			m_keyStates[i] = KeyState::NOT_PRESSED;
+		}
+	}
+}
+
+Keyboard::KeyState Keyboard::GetKeyState(const unsigned char keycode)
 {
 	return m_keyStates[keycode];
+}
+
+bool Keyboard::IsKeyDown(const unsigned char keycode)
+{
+	return m_keyStates[keycode] == Keyboard::KeyState::PRESSED || m_keyStates[keycode] == Keyboard::KeyState::HELD;
 }
 
 bool Keyboard::IsEventBufferEmpty()
@@ -89,19 +105,19 @@ unsigned char Keyboard::ReadChar()
 
 void Keyboard::OnKeyPressed(const unsigned char key)
 {
-	m_keyStates[key] = true;
+	m_keyStates[key] = KeyState::PRESSED;
 	m_eventBuffer.push(KeyboardEvent(KeyboardEvent::EventType::Press, key));
 }
 
 void Keyboard::OnKeyHeld(const unsigned char key)
 {
-	m_keyStates[key] = true;
+	m_keyStates[key] = KeyState::HELD;
 	m_eventBuffer.push(KeyboardEvent(KeyboardEvent::EventType::Hold, key));
 }
 
 void Keyboard::OnKeyReleased(const unsigned char key)
 {
-	m_keyStates[key] = false;
+	m_keyStates[key] = KeyState::NOT_PRESSED;
 	m_eventBuffer.push(KeyboardEvent(KeyboardEvent::EventType::Release, key));
 }
 

@@ -19,4 +19,6 @@ private:
 
 	std::unique_ptr<Light> m_light;
 	LevelManager m_levelManager;
+
+	bool m_isPaused = false;
 };

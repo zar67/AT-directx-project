@@ -6,11 +6,21 @@
 class Keyboard
 {
 public:
+	enum class KeyState
+	{
+		PRESSED,
+		HELD,
+		NOT_PRESSED
+	};
+public:
 	Keyboard();
 
 	void HandleMessages(UINT message, WPARAM wparam, LPARAM lparam);
+	void ResetPressedKeys();
 
-	bool IsKeyPressed(const unsigned char keycode);
+	KeyState GetKeyState(const unsigned char keycode);
+	bool IsKeyDown(const unsigned char keycode);
+
 	bool IsEventBufferEmpty();
 	bool IsCharacterBufferEmpty();
 
@@ -24,7 +34,7 @@ private:
 
 	void OnCharacter(const unsigned char key);
 
-	bool m_keyStates[256];
+	KeyState m_keyStates[256];
 	
 	std::queue<KeyboardEvent> m_eventBuffer;
 	std::queue<unsigned char> m_characterBuffer;

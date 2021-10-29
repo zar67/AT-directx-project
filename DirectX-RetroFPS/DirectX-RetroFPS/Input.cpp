@@ -24,6 +24,9 @@ void Input::Update()
 	{
 		MouseEvent mouseEvent = m_mouse.Read();
 	}
+
+	m_keyboard.ResetPressedKeys();
+	m_mouse.ResetPressedButtons();
 }
 
 Keyboard& Input::GetKeyboard()

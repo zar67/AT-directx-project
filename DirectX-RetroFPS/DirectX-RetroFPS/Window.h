@@ -21,6 +21,9 @@ public:
 	Graphics& GetGraphics();
 	Input& GetInput();
 
+	void ShowCursor();
+	void HideCursor();
+
 	int GetWidth();
 	int GetHeight();
 
@@ -43,4 +46,6 @@ private:
 
 	int m_windowWidth;
 	int m_windowHeight;
+
+	bool m_isCursorEnabled = true;
 };

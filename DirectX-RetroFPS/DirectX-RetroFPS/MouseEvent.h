@@ -4,6 +4,13 @@
 class MouseEvent
 {
 public:
+	enum class ButtonState
+	{
+		PRESSED,
+		HELD,
+		NOT_PRESSED
+	};
+
 	enum class EventType
 	{
 		LPress,
@@ -24,20 +31,24 @@ public:
 	};
 
 	MouseEvent();
-	MouseEvent(const EventType type, bool isLeftPressed, bool isRightPressed, int xPos, int yPos);
+	MouseEvent(const EventType type, ButtonState leftButtonState, ButtonState rightButtonState, ButtonState middleButtonState, int xPos, int yPos);
 
 	EventType GetType(); 
 	std::pair<int, int> GetPos();
 	int GetXPos();
 	int GetYPos();
 
-	bool IsLeftPressed();
-	bool IsRightPressed();
+	ButtonState GetLeftButtonState();
+	ButtonState GetRightButtonState();
+	ButtonState GetMiddleButtonState();
 
 private:
 	EventType m_type;
-	bool m_isLeftPressed;
-	bool m_isRightPressed;
+
+	ButtonState m_leftButtonState;
+	ButtonState m_rightButtonState;
+	ButtonState m_middleButtonState;
+
 	int m_xPosition;
 	int m_yPosition;
 };

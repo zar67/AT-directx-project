@@ -7,11 +7,14 @@
 class Mouse
 {
 public:
+
+public:
 	Mouse() = default;
 	Mouse(const Mouse&) = delete;
 	Mouse& operator=(const Mouse&) = delete;
 
 	void HandleMessages(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam, int windowWidth, int windowHeight);
+	void ResetPressedButtons();
 
 	bool IsInWindow();
 
@@ -19,8 +22,13 @@ public:
 	int GetXPos();
 	int GetYPos();
 
-	bool IsLeftPressed();
-	bool IsRightPressed();
+	MouseEvent::ButtonState GetLeftButtonState();
+	MouseEvent::ButtonState GetRightButtonState();
+	MouseEvent::ButtonState GetMiddleButtonState();
+
+	bool IsLeftButtonDown();
+	bool IsRightButtonDown();
+	bool IsMiddleButtonDown();
 
 	MouseEvent Read();
 	bool IsEventBufferEmpty();
@@ -54,12 +62,9 @@ private:
 
 	bool m_isInWindow = false;
 
-	bool m_isLeftPressed = false;
-	bool m_isLeftHeld = false;
-	bool m_isRightPressed = false;
-	bool m_isRightHeld = false;
-	bool m_isMiddlePressed = false;
-	bool m_isMiddleHeld = false;
+	MouseEvent::ButtonState m_leftButtonState;
+	MouseEvent::ButtonState m_rightButtonState;
+	MouseEvent::ButtonState m_middleButtonState;
 
 	int m_xPosition;
 	int m_yPosition;
