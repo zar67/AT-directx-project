@@ -22,6 +22,7 @@ int Game::Run()
 			return *ecode;
 		}
 
+		HandleInput();
 		Update(deltaTime);
 		Render();
 	}
@@ -36,28 +37,47 @@ void Game::Init()
 
 void Game::Update(float deltaTime)
 {
-	bool wasPaused = m_isPaused;
-	if (m_window.GetInput().GetKeyboard().GetKeyState(VK_ESCAPE) == Keyboard::KeyState::PRESSED)
+	if (!m_isPaused)
 	{
-		m_isPaused = !m_isPaused;
+		m_window.GetGraphics().GetCamera()->Update(deltaTime, m_window.GetInput(), m_window.GetWidth(), m_window.GetHeight());
 	}
+}
 
-	if (m_isPaused)
+void Game::HandleInput()
+{
+	KeyboardEvent keyboardEvent = m_window.GetInput().GetKeyboard().ReadKey();
+	while (keyboardEvent.GetType() != KeyboardEvent::EventType::Invalid)
 	{
-		m_window.ShowCursor();
-	}
-	else
-	{
-		if (wasPaused)
+		if (keyboardEvent.GetKeyCode() == VK_ESCAPE && keyboardEvent.GetType() == KeyboardEvent::EventType::Press)
 		{
-			m_window.HideCursor();
+			if (m_isPaused)
+			{
+				m_window.HideCursor();
+			}
+			else
+			{
+				m_window.ShowCursor();
+			}
+
+			m_isPaused = !m_isPaused;
 		}
 
-		m_window.GetGraphics().GetCamera()->Update(deltaTime, m_window.GetInput(), m_window.GetWidth(), m_window.GetHeight());
-		
+		keyboardEvent = m_window.GetInput().GetKeyboard().ReadKey();
 	}
-	
-	m_window.GetInput().Update();
+
+	char characterEvent = m_window.GetInput().GetKeyboard().ReadChar();
+	while (characterEvent != 0u)
+	{
+		// Handle character pressed
+		characterEvent = m_window.GetInput().GetKeyboard().ReadChar();
+	}
+
+	MouseEvent mouseEvent = m_window.GetInput().GetMouse().Read();
+	while (mouseEvent.GetType() != MouseEvent::EventType::Invalid)
+	{
+		// Handle Mouse Event
+		mouseEvent = m_window.GetInput().GetMouse().Read();
+	}
 }
 
 void Game::Render()

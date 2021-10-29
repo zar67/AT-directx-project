@@ -12,6 +12,7 @@ public:
 private:
 	void Init();
 	void Update(float deltaTime);
+	void HandleInput();
 	void Render();
 
 	Window m_window;

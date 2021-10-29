@@ -40,6 +40,9 @@ void Camera::Update(float deltaTime, Input& input, int windowWidth, int windowHe
 	float xMovement = (leftMovement + rightMovement) * deltaTime;
 	float zMovement = (forwardMovement + backwardMovement) * deltaTime;
 
+	AdjustPosition(xMovement, 0.0f, zMovement);
+
+	// Update Camera Rotation
 	DirectX::XMFLOAT2 windowCenter = DirectX::XMFLOAT2(windowWidth / 2, windowHeight / 2);
 	DirectX::XMFLOAT2 mousePosition = input.GetMouse().GetPosition();
 	DirectX::XMFLOAT2 deadZone = DirectX::XMFLOAT2(windowWidth / 2 - m_deadZoneSize.x / 2, windowHeight / 2 - m_deadZoneSize.y / 2);
@@ -61,11 +64,12 @@ void Camera::Update(float deltaTime, Input& input, int windowWidth, int windowHe
 		verticalRotation = 0.0f;
 	}
 
-	AdjustPosition(xMovement, 0.0f, zMovement);
 	AdjustRotation(verticalRotation, horizontalRotation, 0.0f);
 
+	// Clamp the Y to the correct Y position for the Level.
 	m_transform.Position.y = m_yLockPosition;
 
+	// Clamp the vertical rotation to 45 degrees.
 	if (m_transform.Rotation.x > 45.0f * (3.14f / 180.0f))
 	{
 		m_transform.Rotation.x = 45.0f * (3.14f / 180.0f);

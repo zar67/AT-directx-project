@@ -16,7 +16,6 @@ public:
 	Keyboard();
 
 	void HandleMessages(UINT message, WPARAM wparam, LPARAM lparam);
-	void ResetPressedKeys();
 
 	KeyState GetKeyState(const unsigned char keycode);
 	bool IsKeyDown(const unsigned char keycode);
