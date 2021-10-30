@@ -1,6 +1,7 @@
 #pragma once
 #include "Input.h"
 #include "Transform.h"
+#include "Collider.h"
 
 class Camera
 {
@@ -22,10 +23,15 @@ public:
 	void SetRotation(float x, float y, float z);
 	void AdjustRotation(float x, float y, float z);
 
+	Collider& GetCollider();
+
 private:
+	void InitialiseCollider();
 	void UpdateViewMatrix();
 
 	Transform m_transform;
+	Collider m_collider;
+
 	float m_yLockPosition;
 
 	float m_movementSpeed;
