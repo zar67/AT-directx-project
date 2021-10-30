@@ -17,7 +17,7 @@ public:
 	Collider() = default;
 	~Collider() = default;
 
-	void SetTransform(Transform& transform);
+	void SetTransform(Transform* transform);
 	void SetColliderData(std::vector<ColliderVertex> data);
 
 	std::vector<DirectX::XMFLOAT3> GetVertices();
@@ -27,5 +27,5 @@ private:
 	std::vector<DirectX::XMVECTOR> m_vertices;
 	std::vector<DirectX::XMVECTOR> m_normals;
 
-	Transform& m_pTransform;
+	Transform* m_pTransform = nullptr;
 };

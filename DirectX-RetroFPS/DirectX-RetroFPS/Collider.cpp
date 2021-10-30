@@ -1,6 +1,6 @@
 #include "Collider.h"
 
-void Collider::SetTransform(Transform& transform)
+void Collider::SetTransform(Transform* transform)
 {
 	m_pTransform = transform;
 }
@@ -20,7 +20,7 @@ std::vector<DirectX::XMFLOAT3> Collider::GetVertices()
 
 	for (DirectX::XMVECTOR vertex : m_vertices)
 	{
-		DirectX::XMVECTOR convertedVertex = DirectX::XMVector3Transform(vertex, m_pTransform.GetTransformMatrix());
+		DirectX::XMVECTOR convertedVertex = DirectX::XMVector3Transform(vertex, m_pTransform->GetTransformMatrix());
 		DirectX::XMFLOAT3 convertexVertexFloat;
 
 		DirectX::XMStoreFloat3(&convertexVertexFloat, convertedVertex);
@@ -37,7 +37,7 @@ std::vector<DirectX::XMFLOAT3> Collider::GetNormals()
 
 	for (DirectX::XMVECTOR normal : m_normals)
 	{
-		DirectX::XMVECTOR convertedNormal = DirectX::XMVector3TransformNormal(normal, m_pTransform.GetTransformMatrix());
+		DirectX::XMVECTOR convertedNormal = DirectX::XMVector3TransformNormal(normal, m_pTransform->GetTransformMatrix());
 		DirectX::XMFLOAT3 convertexNormalFloat;
 
 		DirectX::XMStoreFloat3(&convertexNormalFloat, convertedNormal);

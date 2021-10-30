@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "CollisionDetection.h"
+#include <iostream>
 
 Game::Game() :
 	m_window(800, 600, IDS_GAMENAME, IDI_MAINICON),
@@ -94,11 +95,11 @@ void Game::HandleCollision()
 			DrawableBase* drawableB = currentLevel->GetGeometryAtIndex(j);
 			if (drawableA != drawableB)
 			{
-				/*bool collision = CollisionDetection::IsColliding(drawableA->GetCollider(), drawableB->GetCollider());
+				bool collision = CollisionDetection::IsColliding(drawableA->GetCollider(), drawableB->GetCollider());
 				if (collision)
 				{
-					ErrorLogger::Log("Collision at: " + std::to_string(i) + " -> " + std::to_string(j));
-				}*/
+					std::cout << "Collision at: " << std::to_string(i) << " -> " << std::to_string(j) << std::endl;
+				}
 			}
 		}
 	}
