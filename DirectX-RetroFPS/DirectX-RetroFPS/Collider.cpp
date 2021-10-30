@@ -46,3 +46,37 @@ std::vector<DirectX::XMFLOAT3> Collider::GetNormals()
 
 	return multipliedNormals;
 }
+
+void Collider::IncreaseVelocity(float x, float y, float z)
+{
+	m_velocity.x += x;
+	m_velocity.y += y;
+	m_velocity.z += z;
+}
+
+void Collider::IncreaseVelocity(DirectX::XMFLOAT3 value)
+{
+	m_velocity.x += value.x;
+	m_velocity.y += value.y;
+	m_velocity.z += value.z;
+}
+
+void Collider::ResetVelocity()
+{
+	m_velocity = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
+}
+
+bool Collider::IsVelocityZero()
+{
+	return m_velocity.x == 0.0f && m_velocity.y == 0.0f && m_velocity.z == 0.0f;
+}
+
+DirectX::XMFLOAT3 Collider::GetVelocity()
+{
+	return m_velocity;
+}
+
+Transform* Collider::GetTransform()
+{
+	return m_pTransform;
+}

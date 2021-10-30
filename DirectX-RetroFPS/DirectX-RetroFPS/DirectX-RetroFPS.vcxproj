@@ -85,7 +85,7 @@
     <ClCompile Include="Bindable.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collider.cpp" />
-    <ClCompile Include="CollisionDetection.cpp" />
+    <ClCompile Include="CollisionUtilities.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="KeyboardEvent.cpp" />
@@ -118,7 +118,7 @@
     <ClInclude Include="Bindable.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collider.h" />
-    <ClInclude Include="CollisionDetection.h" />
+    <ClInclude Include="CollisionUtilities.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="KeyboardEvent.h" />

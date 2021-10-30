@@ -2,7 +2,12 @@
 
 #include "Game.h"
 
-int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, INT nCmdShow)
+int main(int argc, char* argv[])
 {
 	return Game{}.Run();
 }
+
+//int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, INT nCmdShow)
+//{
+//	return Game{}.Run();
+//}

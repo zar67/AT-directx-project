@@ -11,6 +11,7 @@ Camera::Camera(float movementSpeed, float rotationSpeed, DirectX::XMFLOAT2 deadZ
 
 	SetPosition(0, 0, 0);
 	SetRotation(0, 0, 0);
+	m_transform.ApplyScalar(0.75f, 0.75f, 0.75f);
 
 	InitialiseCollider();
 	UpdateViewMatrix();
@@ -34,6 +35,8 @@ const DirectX::XMMATRIX& Camera::GetProjectionMatrix() const
 
 void Camera::Update(float deltaTime, Input& input, int windowWidth, int windowHeight)
 {
+	m_collider.ResetVelocity();
+
 	// Update Camera Movement
 	float forwardMovement = input.GetKeyboard().IsKeyDown('W') ? m_movementSpeed : 0.0f;
 	float backwardMovement = input.GetKeyboard().IsKeyDown('S') ? -m_movementSpeed : 0.0f;
@@ -101,7 +104,9 @@ void Camera::SetPosition(float x, float y, float z)
 
 void Camera::AdjustPosition(float x, float y, float z)
 {
-	m_transform.ApplyTranslation(x, y, z);
+	DirectX::XMFLOAT3 translation = m_transform.ApplyTranslation(x, y, z);
+	m_collider.IncreaseVelocity(translation);
+
 	UpdateViewMatrix();
 }
 
@@ -131,12 +136,12 @@ void Camera::InitialiseCollider()
 
 	// The camera is treated as a point, so all the vertices are the same, but we still need the normals.
 	m_collider.SetColliderData({
-		{DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f), DirectX::XMFLOAT3(-1.0f, 0.0f, 0.0f)}, // Left Side
-		{DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f), DirectX::XMFLOAT3(1.0f, 0.0f, 0.0f)}, // Right Side
-		{DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f), DirectX::XMFLOAT3(0.0f, 0.0f, -1.0f)}, // Front Side
-		{DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f), DirectX::XMFLOAT3(0.0f, 0.0f, 1.0f)}, // Back Side
-		{DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f), DirectX::XMFLOAT3(0.0f, 1.0f, 0.0f)}, // Top Side
-		{DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f), DirectX::XMFLOAT3(0.0f, -1.0f, 0.0f)} // Bottom Side
+		{DirectX::XMFLOAT3(-1.0f, 0.0f, 0.0f), DirectX::XMFLOAT3(-1.0f, 0.0f, 0.0f)}, // Left Side
+		{DirectX::XMFLOAT3(1.0f, 0.0f, 0.0f), DirectX::XMFLOAT3(1.0f, 0.0f, 0.0f)}, // Right Side
+		{DirectX::XMFLOAT3(0.0f, 0.0f, -1.0f), DirectX::XMFLOAT3(0.0f, 0.0f, -1.0f)}, // Front Side
+		{DirectX::XMFLOAT3(0.0f, 0.0f, 1.0f), DirectX::XMFLOAT3(0.0f, 0.0f, 1.0f)}, // Back Side
+		{DirectX::XMFLOAT3(0.0f, 1.0f, 0.0f), DirectX::XMFLOAT3(0.0f, 1.0f, 0.0f)}, // Top Side
+		{DirectX::XMFLOAT3(0.0f, -1.0f, 0.0f), DirectX::XMFLOAT3(0.0f, -1.0f, 0.0f)} // Bottom Side
 		});
 }
 

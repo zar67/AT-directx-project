@@ -1,5 +1,6 @@
 #include "Game.h"
-#include "CollisionDetection.h"
+#include "CollisionUtilities.h"
+#include <iostream>
 
 Game::Game() :
 	m_window(800, 600, IDS_GAMENAME, IDI_MAINICON),
@@ -89,10 +90,10 @@ void Game::HandleCollision()
 	for (int i = 0; i < currentLevel->GetGeometryCount(); i++)
 	{
 		DrawableBase* drawableA = currentLevel->GetGeometryAtIndex(i);
-		bool collision = CollisionDetection::IsColliding(drawableA->GetCollider(), m_window.GetGraphics().GetCamera()->GetCollider());
-		if (collision)
+		CollisionUtilities::CollisionData collision = CollisionUtilities::IsColliding(drawableA->GetCollider(), m_window.GetGraphics().GetCamera()->GetCollider());
+		if (collision.IsColliding)
 		{
-
+			CollisionUtilities::ResolveCollision(collision);
 		}
 	}
 }

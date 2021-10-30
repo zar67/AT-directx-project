@@ -177,7 +177,7 @@
     <ClCompile Include="Mouse.cpp">
       <Filter>Source\Source Files\Input</Filter>
     </ClCompile>
-    <ClCompile Include="CollisionDetection.cpp">
+    <ClCompile Include="CollisionUtilities.cpp">
       <Filter>Source\Source Files\Physics</Filter>
     </ClCompile>
     <ClCompile Include="Collider.cpp">
@@ -332,7 +332,7 @@
     <ClInclude Include="resource.h">
       <Filter>Source\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionDetection.h">
+    <ClInclude Include="CollisionUtilities.h">
       <Filter>Source\Header Files\Physics</Filter>
     </ClInclude>
     <ClInclude Include="Collider.h">

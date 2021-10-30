@@ -23,9 +23,18 @@ public:
 	std::vector<DirectX::XMFLOAT3> GetVertices();
 	std::vector<DirectX::XMFLOAT3> GetNormals();
 
+	void IncreaseVelocity(float x, float y, float z);
+	void IncreaseVelocity(DirectX::XMFLOAT3 value);
+	void ResetVelocity();
+	bool IsVelocityZero();
+
+	DirectX::XMFLOAT3 GetVelocity();
+	Transform* GetTransform();
+
 private:
 	std::vector<DirectX::XMVECTOR> m_vertices;
 	std::vector<DirectX::XMVECTOR> m_normals;
 
 	Transform* m_pTransform = nullptr;
+	DirectX::XMFLOAT3 m_velocity;
 };
