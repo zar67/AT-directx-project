@@ -30,6 +30,13 @@ struct Transform
 			DirectX::XMMatrixTranslation(Position.x, Position.y, Position.z);
 	}
 
+	DirectX::XMMATRIX GetTransformMatrixWithConstraints(bool rotationX, bool rotationY, bool rotationZ)
+	{
+		return DirectX::XMMatrixScaling(Scale.x, Scale.y, Scale.z) *
+			DirectX::XMMatrixRotationRollPitchYaw(rotationX ? 0 : Rotation.x, rotationY ? 0 : Rotation.y, rotationZ ? 0 :Rotation.z) *
+			DirectX::XMMatrixTranslation(Position.x, Position.y, Position.z);
+	}
+
 	DirectX::XMFLOAT3 ApplyTranslation(float x, float y, float z)
 	{
 		DirectX::XMFLOAT3 translation = DirectX::XMFLOAT3(x, y, z);

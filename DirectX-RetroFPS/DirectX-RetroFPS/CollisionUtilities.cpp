@@ -54,13 +54,20 @@ void CollisionUtilities::ResolveCollision(CollisionUtilities::CollisionData data
 		revertColliderBRatio = (aMagnitude / (aMagnitude + bMagnitude));
 	}
 
-	DirectX::XMFLOAT3 aMovement = DirectX::XMFLOAT3(-aVelocity.x * revertColliderARatio, -aVelocity.y * revertColliderARatio, -aVelocity.z * revertColliderARatio);
-	DirectX::XMFLOAT3 bMovement = DirectX::XMFLOAT3(-bVelocity.x * revertColliderBRatio, -bVelocity.y * revertColliderBRatio, -bVelocity.z * revertColliderBRatio);
+	DirectX::XMFLOAT3 aMovement = DirectX::XMFLOAT3(
+		-aVelocity.x * revertColliderARatio, 
+		-aVelocity.y * revertColliderARatio, 
+		-aVelocity.z * revertColliderARatio
+	);
+	
+	DirectX::XMFLOAT3 bMovement = DirectX::XMFLOAT3(
+		-bVelocity.x * revertColliderBRatio, 
+		-bVelocity.y * revertColliderBRatio, 
+		-bVelocity.z * revertColliderBRatio
+	);
 
 	data.ColliderA->GetTransform()->ApplyTranslationOnAxes(aMovement);
 	data.ColliderB->GetTransform()->ApplyTranslationOnAxes(bMovement);
-
-	// Push back colliders by the reverse of their movement.
 }
 
 float CollisionUtilities::FindMinimumSeparation(Collider& colliderOne, Collider& colliderTwo)

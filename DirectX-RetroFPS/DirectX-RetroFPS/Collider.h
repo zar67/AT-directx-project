@@ -19,6 +19,7 @@ public:
 
 	void SetTransform(Transform* transform);
 	void SetColliderData(std::vector<ColliderVertex> data);
+	void SetRotationConstraints(bool x, bool y, bool z);
 
 	std::vector<DirectX::XMFLOAT3> GetVertices();
 	std::vector<DirectX::XMFLOAT3> GetNormals();
@@ -37,4 +38,8 @@ private:
 
 	Transform* m_pTransform = nullptr;
 	DirectX::XMFLOAT3 m_velocity;
+
+	bool m_constrainXRotation;
+	bool m_constrainYRotation;
+	bool m_constrainZRotation;
 };
