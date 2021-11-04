@@ -133,7 +133,7 @@ Collider& Camera::GetCollider()
 void Camera::InitialiseCollider()
 {
 	m_collider.SetTransform(&m_transform);
-	m_collider.SetRotationConstraints(true, true, true);
+	//m_collider.SetRotationConstraints(true, true, true);
 
 	// The camera is treated as a point, so all the vertices are the same, but we still need the normals.
 	m_collider.SetColliderData({
