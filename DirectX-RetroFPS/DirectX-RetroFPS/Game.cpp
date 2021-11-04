@@ -4,9 +4,6 @@ Game::Game() :
 	m_window(800, 600, IDS_GAMENAME, IDI_MAINICON),
 	m_levelManager(m_window.GetGraphics())
 {
-	m_light = std::make_unique<Light>(m_window.GetGraphics());
-	m_light->GetTransform()->ApplyScalar(0.5f, 0.5f, 0.5f);
-	m_light->GetTransform()->ApplyTranslation(4.0f, 0.0f, 2.0f);
 }
 
 int Game::Run()
@@ -84,9 +81,6 @@ void Game::Render()
 {
 	m_window.GetGraphics().ClearBuffer(0.0f, 0.0f, 0.0f);
 
-	m_light->Bind(m_window.GetGraphics());
-
-	m_light->Draw(m_window.GetGraphics());
 	m_levelManager.DrawCurrentLevel(m_window.GetGraphics());
 
 	m_window.GetGraphics().RenderFrame();

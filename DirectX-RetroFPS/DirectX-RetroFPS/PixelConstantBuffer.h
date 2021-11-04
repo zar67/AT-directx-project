@@ -71,4 +71,3 @@ public:
 protected:
 	Microsoft::WRL::ComPtr<ID3D11Buffer> m_pConstantBuffer = nullptr;
 };
-

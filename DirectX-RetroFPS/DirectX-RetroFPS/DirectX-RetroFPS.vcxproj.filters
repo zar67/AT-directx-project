@@ -317,6 +317,9 @@
     <ClInclude Include="Mouse.h">
       <Filter>Source\Header Files\Input</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX-RetroFPS.rc">
