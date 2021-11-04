@@ -1,4 +1,7 @@
+#define NOMINMAX
+
 #include <fstream>
+#include <math.h>
 
 #include "Level.h"
 #include "TexturedCube.h"
@@ -20,6 +23,8 @@ void Level::Initialise(Graphics& graphics)
 
 void Level::Draw(Graphics& graphics)
 {
+	DrawLights(graphics);
+
 	for (int i = 0; i < m_geometry.size(); i++)
 	{
 		m_geometry[i]->Draw(graphics);
@@ -113,6 +118,14 @@ void Level::ParseLevelDataCharacter(Graphics& graphics, char character, float xP
 			m_geometry.emplace_back(std::move(pCube));
 			break;
 		}
+		case 'L': // Light
+		{
+			std::unique_ptr<Light> pLight = std::make_unique<Light>(graphics);
+			pLight->GetTransform()->ApplyTranslation(xPosition, yPosition, zPosition);
+			pLight->GetTransform()->ApplyScalar(UNIT_SIZE, UNIT_SIZE, UNIT_SIZE);
+			m_lights.emplace_back(std::move(pLight));
+			break;
+		}
 		case 'S': // Level Start Position
 		{
 			m_startingPosition = DirectX::XMFLOAT3(xPosition, yPosition + (UNIT_SIZE * 1.5f), zPosition);
@@ -134,5 +147,37 @@ void Level::ParseLevelDataCharacter(Graphics& graphics, char character, float xP
 		{
 			break;
 		}
+	}
+}
+
+void Level::DrawLights(Graphics& graphics)
+{
+	DirectX::XMFLOAT3 cameraPosition = graphics.GetCamera()->GetTransform().Position;
+	float closestDistance = std::numeric_limits<float>::max();
+	int closestLightIndex = 0;
+
+	for (int i = 0; i < m_lights.size(); i++)
+	{
+		DirectX::XMFLOAT3 lightPos = m_lights[i]->GetTransform()->Position;
+		DirectX::XMFLOAT3 camToLight = DirectX::XMFLOAT3(
+			lightPos.x - cameraPosition.x,
+			lightPos.y - cameraPosition.y,
+			lightPos.z - cameraPosition.z
+		);
+
+		float distSquared = pow(camToLight.x, 2) + pow(camToLight.y, 2) + pow(camToLight.z, 2);
+
+		if (distSquared < closestDistance)
+		{
+			closestDistance = distSquared;
+			closestLightIndex = i;
+		}
+	}
+
+	m_lights[closestLightIndex]->Bind(graphics);
+
+	for (int i = 0; i < m_lights.size(); i++)
+	{
+		m_lights[i]->Draw(graphics);
 	}
 }
