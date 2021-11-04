@@ -6,7 +6,8 @@
 #include "Level.h"
 #include "TexturedCube.h"
 
-Level::Level(Graphics& graphics, std::string filename)
+Level::Level(Graphics& graphics, std::string filename) :
+	m_lightConstantBuffer(graphics)
 {
 	m_startingPosition = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
 	m_startLookRotation = 0;
@@ -23,7 +24,12 @@ void Level::Initialise(Graphics& graphics)
 
 void Level::Draw(Graphics& graphics)
 {
-	DrawLights(graphics);
+	BindLighting(graphics);
+
+	for (int i = 0; i < m_lights.size(); i++)
+	{
+		m_lights[i]->Draw(graphics);
+	}
 
 	for (int i = 0; i < m_geometry.size(); i++)
 	{
@@ -150,34 +156,67 @@ void Level::ParseLevelDataCharacter(Graphics& graphics, char character, float xP
 	}
 }
 
-void Level::DrawLights(Graphics& graphics)
+void Level::BindLighting(Graphics& graphics)
 {
+	Light::LightBufferData lightBufferData;
+	lightBufferData.AmbientColour = AMBIENT_COLOUR;
+	lightBufferData.AttenuationConstant = ATTENUATION_CONSTANT;
+	lightBufferData.AttenuationLinear = ATTENUATION_LINEAR;
+	lightBufferData.AttenuationQuadratic = ATTENUATION_QUADRATIC;
+
 	DirectX::XMFLOAT3 cameraPosition = graphics.GetCamera()->GetTransform().Position;
-	float closestDistance = std::numeric_limits<float>::max();
-	int closestLightIndex = 0;
 
-	for (int i = 0; i < m_lights.size(); i++)
+	float excludedIndexes[Light::MAX_SCENE_LIGHTS];
+	for (int i = 0; i < Light::MAX_SCENE_LIGHTS; i++)
 	{
-		DirectX::XMFLOAT3 lightPos = m_lights[i]->GetTransform()->Position;
-		DirectX::XMFLOAT3 camToLight = DirectX::XMFLOAT3(
-			lightPos.x - cameraPosition.x,
-			lightPos.y - cameraPosition.y,
-			lightPos.z - cameraPosition.z
-		);
+		excludedIndexes[i] = -1;
+	}
 
-		float distSquared = pow(camToLight.x, 2) + pow(camToLight.y, 2) + pow(camToLight.z, 2);
+	for (int l = 0; l < Light::MAX_SCENE_LIGHTS; l++)
+	{
+		float closestDistance = std::numeric_limits<float>::max();
+		float closestIndex = 0;
 
-		if (distSquared < closestDistance)
+		for (int i = 0; i < m_lights.size(); i++)
 		{
-			closestDistance = distSquared;
-			closestLightIndex = i;
+			bool brk = false;
+			for (int j = 0; j < Light::MAX_SCENE_LIGHTS; j++)
+			{
+				if (i == excludedIndexes[j])
+				{
+					brk = true;
+					break;
+				}
+			}
+
+			if (brk)
+			{
+				continue;
+			}
+
+			DirectX::XMFLOAT3 lightPos = m_lights[i]->GetTransform()->Position;
+			DirectX::XMFLOAT3 camToLight = DirectX::XMFLOAT3(
+				lightPos.x - cameraPosition.x,
+				lightPos.y - cameraPosition.y,
+				lightPos.z - cameraPosition.z
+			);
+
+			float distSquared = pow(camToLight.x, 2) + pow(camToLight.y, 2) + pow(camToLight.z, 2);
+
+			if (distSquared < closestDistance)
+			{
+				closestDistance = distSquared;
+				closestIndex = i;
+				excludedIndexes[l] = i;
+			}
 		}
 	}
 
-	m_lights[closestLightIndex]->Bind(graphics);
-
-	for (int i = 0; i < m_lights.size(); i++)
+	for (int i = 0; i < Light::MAX_SCENE_LIGHTS; i++)
 	{
-		m_lights[i]->Draw(graphics);
+		lightBufferData.DiffuseLighting[i] = m_lights[excludedIndexes[i]]->GetBufferData();
 	}
+
+	m_lightConstantBuffer.Update(graphics, lightBufferData);
+	m_lightConstantBuffer.Bind(graphics);
 }

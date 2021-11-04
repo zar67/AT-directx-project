@@ -1,31 +1,42 @@
 #pragma once
 #include "Drawable.h"
-#include "PixelConstantBuffer.h"
 
 class Light : public Drawable<Light>
 {
 public:
-	Light() = default;
-	Light(Graphics & graphics);
+	const static int MAX_SCENE_LIGHTS = 4;
 
-	virtual void Bind(Graphics & graphics);
-
-	void SetStrength(float strength);
-	void SetColour(float r, float g, float b);
-protected:
-	struct BufferData
+	struct DiffuseData
 	{
 		DirectX::XMFLOAT3 Position;
 		float Strength;
-		DirectX::XMFLOAT3 Colour;
-		float AttenuationConstant;
-		DirectX::XMFLOAT3 AmbientColour;
-		float AttenuationLinear;
-		alignas(16) float AttenuationQuadratic;
+		alignas(16) DirectX::XMFLOAT3 Colour;
 	};
+
+	struct LightBufferData
+	{
+		DirectX::XMFLOAT3 AmbientColour;
+		float AttenuationConstant;
+
+		float AttenuationLinear;
+		float AttenuationQuadratic;
+		float paddingOne;
+		float paddingTwo;
+
+		DiffuseData DiffuseLighting[MAX_SCENE_LIGHTS];
+	};
+public:
+	Light() = default;
+	Light(Graphics & graphics);
+
+	void SetStrength(float strength);
+	void SetColour(float r, float g, float b);
+
+	DiffuseData GetBufferData();
+
 protected:
 	void InitialiseStatic(Graphics & graphics);
 
-	BufferData m_bufferData;
-	PixelConstantBuffer<BufferData> m_constantBuffer;
+	float m_strength = 1;
+	DirectX::XMFLOAT3 m_colour = { 1.0f, 1.0f, 1.0f };
 };
