@@ -7,8 +7,7 @@
 #include "Topology.h"
 #include "VertexBuffer.h"
 
-Light::Light(Graphics& graphics) :
-	m_constantBuffer(graphics)
+Light::Light(Graphics& graphics)
 {
 	if (IsStaticInitialized())
 	{
@@ -21,35 +20,26 @@ Light::Light(Graphics& graphics) :
 
 	InitialiseCollider();
 	AddBindable(std::make_unique<TransformConstantBuffer>(graphics, *this));
-
-	m_bufferData = 
-	{
-		DirectX::XMFLOAT3(0, 0, 0),
-		1.0f,
-		DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f),
-		1.0f,
-		DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f),
-		0.045f,
-		0.0075f
-	};
-}
-
-void Light::Bind(Graphics& graphics)
-{
-	m_bufferData.Position = m_transform.Position;
-
-	m_constantBuffer.Update(graphics, m_bufferData);
-	m_constantBuffer.Bind(graphics);
 }
 
 void Light::SetStrength(float strength)
 {
-	m_bufferData.Strength = strength;
+	m_strength = strength;
 }
 
 void Light::SetColour(float r, float g, float b)
 {
-	m_bufferData.Colour = DirectX::XMFLOAT3(r, g, b);
+	m_colour = DirectX::XMFLOAT3(r, g, b);
+}
+
+Light::DiffuseData Light::GetBufferData()
+{
+	Light::DiffuseData data;
+	data.Position = m_transform.Position;
+	data.Strength = m_strength;
+	data.Colour = m_colour;
+
+	return data;
 }
 
 void Light::InitialiseStatic(Graphics& graphics)

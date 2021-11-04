@@ -13,6 +13,8 @@ public:
 	const DirectX::XMMATRIX& GetViewMatrix() const;
 	const DirectX::XMMATRIX& GetProjectionMatrix() const;
 
+	Transform& GetTransform();
+
 	void Update(float deltaTime, Input& input, int windowWidth, int windowHeight);
 
 	void LockYPosition(float y);

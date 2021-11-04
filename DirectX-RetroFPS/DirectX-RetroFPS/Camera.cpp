@@ -33,6 +33,11 @@ const DirectX::XMMATRIX& Camera::GetProjectionMatrix() const
 	return m_projectionMatrix;
 }
 
+Transform& Camera::GetTransform()
+{
+	return m_transform;
+}
+
 void Camera::Update(float deltaTime, Input& input, int windowWidth, int windowHeight)
 {
 	m_collider.ResetVelocity();
