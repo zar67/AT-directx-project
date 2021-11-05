@@ -20,6 +20,8 @@ public:
 			ColliderA = nullptr;
 			ColliderB = nullptr;
 			Separation = 0;
+			ACollisionNormal = DirectX::XMFLOAT3();
+			BCollisionNormal = DirectX::XMFLOAT3();
 		}
 	};
 public:
@@ -27,7 +29,5 @@ public:
 	static void ResolveCollision(CollisionData data);
 private:
 	static CollisionData FindMinimumSeparation(Collider& colliderOne, Collider& colliderTwo);
-
 	static float DotProduct(DirectX::XMFLOAT3 vectorOne, DirectX::XMFLOAT3 vectorTwo);
-	static DirectX::XMFLOAT3 Reflect(DirectX::XMFLOAT3 vector, DirectX::XMFLOAT3 normal);
 };

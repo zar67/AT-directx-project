@@ -28,55 +28,72 @@ void CollisionUtilities::ResolveCollision(CollisionUtilities::CollisionData data
 	DirectX::XMFLOAT3 aVelocity = data.ColliderA->GetVelocity();
 	DirectX::XMFLOAT3 bVelocity = data.ColliderB->GetVelocity();
 
-	// Calculate the ratio to push back each collider by
-	float revertColliderARatio = 0.0f;
-	float revertColliderBRatio = 0.0f;
+	data.Separation = abs(data.Separation);
 
-	data.Separation = -data.Separation;
+	// Check stationary object against moving object
+	if ((data.ColliderA->IsVelocityZero() || data.ColliderA->IsStatic()) && (!data.ColliderB->IsVelocityZero() || !data.ColliderB->IsStatic()))
+	{
+		DirectX::XMFLOAT3 bMovement = DirectX::XMFLOAT3(
+			data.ACollisionNormal.x * data.Separation,
+			data.ACollisionNormal.y * data.Separation,
+			data.ACollisionNormal.z * data.Separation
+		);
 
-	if (data.ColliderA->IsVelocityZero() && !data.ColliderB->IsVelocityZero())
-	{
-		revertColliderBRatio = 1.0f;
+		data.ColliderB->GetTransform()->ApplyTranslationOnAxes(bMovement);
 	}
-	else if (data.ColliderB->IsVelocityZero() && !data.ColliderA->IsVelocityZero())
+	// Check stationary object against moving object
+	else if ((data.ColliderB->IsVelocityZero() || data.ColliderB->IsStatic()) && (!data.ColliderA->IsVelocityZero() || !data.ColliderA->IsStatic()))
 	{
-		revertColliderARatio = 1.0f;
+		DirectX::XMFLOAT3 aMovement = DirectX::XMFLOAT3(
+			data.BCollisionNormal.x * data.Separation,
+			data.BCollisionNormal.y * data.Separation,
+			data.BCollisionNormal.z * data.Separation
+		);
+
+		data.ColliderA->GetTransform()->ApplyTranslationOnAxes(aMovement);
 	}
-	else if (data.ColliderB->IsVelocityZero() && data.ColliderA->IsVelocityZero())
+	// Check stationary objects
+	else if (data.ColliderB->IsVelocityZero() && data.ColliderA->IsVelocityZero() )
 	{
-		revertColliderARatio = 0.5f;
-		revertColliderBRatio = 0.5f;
+		DirectX::XMFLOAT3 aMovement = DirectX::XMFLOAT3(
+			data.BCollisionNormal.x * 0.5f * data.Separation,
+			data.BCollisionNormal.y * 0.5f * data.Separation,
+			data.BCollisionNormal.z * 0.5f * data.Separation
+		);
+
+		DirectX::XMFLOAT3 bMovement = DirectX::XMFLOAT3(
+			data.ACollisionNormal.x * 0.5f * data.Separation,
+			data.ACollisionNormal.y * 0.5f * data.Separation,
+			data.ACollisionNormal.z * 0.5f * data.Separation
+		);
+
+		data.ColliderA->GetTransform()->ApplyTranslationOnAxes(aMovement);
+		data.ColliderB->GetTransform()->ApplyTranslationOnAxes(bMovement);
 	}
+	// Check two moving objects
 	else
 	{
 		float aMagnitude = sqrt(pow(aVelocity.x, 2) + pow(aVelocity.y, 2) + pow(aVelocity.z, 2));
 		float bMagnitude = sqrt(pow(bVelocity.x, 2) + pow(bVelocity.y, 2) + pow(bVelocity.z, 2));
 
-		revertColliderARatio = (bMagnitude / (aMagnitude + bMagnitude));
-		revertColliderBRatio = (aMagnitude / (aMagnitude + bMagnitude));
+		float revertColliderARatio = (bMagnitude / (aMagnitude + bMagnitude));
+		float revertColliderBRatio = (aMagnitude / (aMagnitude + bMagnitude));
+
+		DirectX::XMFLOAT3 aMovement = DirectX::XMFLOAT3(
+			data.BCollisionNormal.x * revertColliderARatio * data.Separation,
+			data.BCollisionNormal.y * revertColliderARatio * data.Separation,
+			data.BCollisionNormal.z * revertColliderARatio * data.Separation
+		);
+
+		DirectX::XMFLOAT3 bMovement = DirectX::XMFLOAT3(
+			data.ACollisionNormal.x * revertColliderBRatio * data.Separation,
+			data.ACollisionNormal.y * revertColliderBRatio * data.Separation,
+			data.ACollisionNormal.z * revertColliderBRatio * data.Separation
+		);
+
+		data.ColliderA->GetTransform()->ApplyTranslationOnAxes(aMovement);
+		data.ColliderB->GetTransform()->ApplyTranslationOnAxes(bMovement);
 	}
-
-	DirectX::XMFLOAT3 aReflection = Reflect(aVelocity, data.BCollisionNormal);
-	DirectX::XMFLOAT3 aMovement = DirectX::XMFLOAT3(
-		aReflection.x * revertColliderARatio,
-		aReflection.y * revertColliderARatio,
-		aReflection.z * revertColliderARatio
-	);
-
-	DirectX::XMFLOAT3 bReflection = Reflect(bVelocity, data.ACollisionNormal);
-	DirectX::XMFLOAT3 bMovement = DirectX::XMFLOAT3(
-		bReflection.x * revertColliderBRatio,
-		bReflection.y * revertColliderBRatio,
-		bReflection.z * revertColliderBRatio
-	);
-
-	std::cout << "--------------------" << std::endl;
-	std::cout << "A Vel: (" << aVelocity.x << "," << aVelocity.y << "," << aVelocity.z << "), B Vel: (" << bVelocity.x << "," << bVelocity.y << "," << bVelocity.z << ")" << std::endl;
-	std::cout << "A Normal: (" << data.ACollisionNormal.x << "," << data.ACollisionNormal.y << "," << data.ACollisionNormal.z << "), B Normal: " << data.BCollisionNormal.x << "," << data.BCollisionNormal.y << "," << data.BCollisionNormal.z << ")" << std::endl;
-	std::cout << "A Move: (" << aMovement.x << "," << aMovement.y << "," << aMovement.z << "), B Move: (" << bMovement.x << "," << bMovement.y << "," << bMovement.z << ")" << std::endl;
-
-	data.ColliderA->GetTransform()->ApplyTranslationOnAxes(aMovement);
-	data.ColliderB->GetTransform()->ApplyTranslationOnAxes(bMovement);
 }
 
 CollisionUtilities::CollisionData CollisionUtilities::FindMinimumSeparation(Collider& a, Collider& b)
@@ -136,24 +153,4 @@ CollisionUtilities::CollisionData CollisionUtilities::FindMinimumSeparation(Coll
 float CollisionUtilities::DotProduct(DirectX::XMFLOAT3 vectorOne, DirectX::XMFLOAT3 vectorTwo)
 {
 	return (vectorOne.x * vectorTwo.x) + (vectorOne.y * vectorTwo.y) + (vectorOne.z * vectorTwo.z);
-}
-
-DirectX::XMFLOAT3 CollisionUtilities::Reflect(DirectX::XMFLOAT3 vector, DirectX::XMFLOAT3 normal)
-{
-	float normalLength = sqrt(pow(normal.x, 2) + pow(normal.y, 2) + pow(normal.z, 2));
-	DirectX::XMFLOAT3 normalisedNormal = DirectX::XMFLOAT3(
-		normal.x / normalLength,
-		normal.y / normalLength,
-		normal.z / normalLength
-	);
-
-	float dotProduct = DotProduct(vector, normalisedNormal);
-
-	DirectX::XMFLOAT3 finalReflection = DirectX::XMFLOAT3(
-		vector.x - (2 * dotProduct * normalisedNormal.x),
-		vector.y - (2 * dotProduct * normalisedNormal.y),
-		vector.z - (2 * dotProduct * normalisedNormal.z)
-	);
-
-	return finalReflection;
 }

@@ -20,6 +20,7 @@ public:
 	void SetTransform(Transform* transform);
 	void SetColliderData(std::vector<ColliderVertex> data);
 	void SetRotationConstraints(bool x, bool y, bool z);
+	void SetStatic(bool value);
 
 	std::vector<DirectX::XMFLOAT3> GetVertices();
 	std::vector<DirectX::XMFLOAT3> GetNormals();
@@ -28,6 +29,7 @@ public:
 	void IncreaseVelocity(DirectX::XMFLOAT3 value);
 	void ResetVelocity();
 	bool IsVelocityZero();
+	bool IsStatic();
 
 	DirectX::XMFLOAT3 GetVelocity();
 	Transform* GetTransform();
@@ -38,6 +40,8 @@ private:
 
 	Transform* m_pTransform = nullptr;
 	DirectX::XMFLOAT3 m_velocity;
+
+	bool m_isStatic = false;
 
 	bool m_constrainXRotation;
 	bool m_constrainYRotation;

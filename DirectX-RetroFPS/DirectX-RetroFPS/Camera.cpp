@@ -11,7 +11,7 @@ Camera::Camera(float movementSpeed, float rotationSpeed, DirectX::XMFLOAT2 deadZ
 
 	SetPosition(0, 0, 0);
 	SetRotation(0, 0, 0);
-	m_transform.ApplyScalar(0.75f, 0.75f, 0.75f);
+	//m_transform.ApplyScalar(0.75f, 0.75f, 0.75f);
 
 	InitialiseCollider();
 	UpdateViewMatrix();
@@ -138,7 +138,7 @@ Collider& Camera::GetCollider()
 void Camera::InitialiseCollider()
 {
 	m_collider.SetTransform(&m_transform);
-	//m_collider.SetRotationConstraints(true, true, true);
+	m_collider.SetRotationConstraints(true, false, true);
 
 	// The camera is treated as a point, so all the vertices are the same, but we still need the normals.
 	m_collider.SetColliderData({

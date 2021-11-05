@@ -131,6 +131,7 @@ void Level::ParseLevelDataCharacter(Graphics& graphics, char character, float xP
 			std::unique_ptr<TexturedCube> pCube = std::make_unique<TexturedCube>(graphics, 0.3f, 0.3f, 0.3f);
 			pCube->GetTransform().ApplyTranslation(xPosition, yPosition, zPosition);
 			pCube->GetTransform().ApplyScalar(UNIT_SIZE, UNIT_SIZE, UNIT_SIZE);
+			pCube->GetCollider().SetStatic(true);
 			m_geometry.emplace_back(std::move(pCube));
 			break;
 		}
@@ -139,6 +140,7 @@ void Level::ParseLevelDataCharacter(Graphics& graphics, char character, float xP
 			std::unique_ptr<Light> pLight = std::make_unique<Light>(graphics);
 			pLight->GetTransform().ApplyTranslation(xPosition, yPosition, zPosition);
 			pLight->GetTransform().ApplyScalar(UNIT_SIZE, UNIT_SIZE, UNIT_SIZE);
+			pLight->GetCollider().SetStatic(true);
 			m_lights.emplace_back(std::move(pLight));
 			break;
 		}

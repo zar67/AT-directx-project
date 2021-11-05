@@ -83,7 +83,6 @@ void Game::HandleInput()
 
 void Game::HandleCollision()
 {
-	std::cout << "FRAME BEGIN" << std::endl;
 	Level* currentLevel = m_levelManager.GetCurrentLevel();
 	for (int i = 0; i < currentLevel->GetGeometryCount(); i++)
 	{
@@ -91,12 +90,7 @@ void Game::HandleCollision()
 		CollisionUtilities::CollisionData collision = CollisionUtilities::IsColliding(drawableA->GetCollider(), m_window.GetGraphics().GetCamera()->GetCollider());
 		if (collision.IsColliding)
 		{
-			std::cout << "--------------------" << std::endl;
-			std::cout << "A Pos: (" << collision.ColliderA->GetTransform()->Position.x << "," << collision.ColliderA->GetTransform()->Position.y << "," << collision.ColliderA->GetTransform()->Position.z << "), B Pos: (" << collision.ColliderB->GetTransform()->Position.x << "," << collision.ColliderB->GetTransform()->Position.y << "," << collision.ColliderB->GetTransform()->Position.z << ")" << std::endl;
 			CollisionUtilities::ResolveCollision(collision);
-			std::cout << "--------------------" << std::endl;
-			std::cout << "A Pos: (" << collision.ColliderA->GetTransform()->Position.x << "," << collision.ColliderA->GetTransform()->Position.y << "," << collision.ColliderA->GetTransform()->Position.z << "), B Pos: (" << collision.ColliderB->GetTransform()->Position.x << "," << collision.ColliderB->GetTransform()->Position.y << "," << collision.ColliderB->GetTransform()->Position.z << ")" << std::endl;
-
 		}
 	}
 }
