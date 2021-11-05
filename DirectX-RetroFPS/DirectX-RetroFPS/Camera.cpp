@@ -11,7 +11,6 @@ Camera::Camera(float movementSpeed, float rotationSpeed, DirectX::XMFLOAT2 deadZ
 
 	SetPosition(0, 0, 0);
 	SetRotation(0, 0, 0);
-	//m_transform.ApplyScalar(0.75f, 0.75f, 0.75f);
 
 	InitialiseCollider();
 	UpdateViewMatrix();
