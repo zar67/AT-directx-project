@@ -21,6 +21,11 @@ void Collider::SetRotationConstraints(bool x, bool y, bool z)
 	m_constrainZRotation = y;
 }
 
+void Collider::SetStatic(bool value)
+{
+	m_isStatic = value;
+}
+
 std::vector<DirectX::XMFLOAT3> Collider::GetVertices()
 {
 	std::vector<DirectX::XMFLOAT3> multipliedVertices;
@@ -76,6 +81,11 @@ void Collider::ResetVelocity()
 bool Collider::IsVelocityZero()
 {
 	return m_velocity.x == 0.0f && m_velocity.y == 0.0f && m_velocity.z == 0.0f;
+}
+
+bool Collider::IsStatic()
+{
+	return m_isStatic;
 }
 
 DirectX::XMFLOAT3 Collider::GetVelocity()
