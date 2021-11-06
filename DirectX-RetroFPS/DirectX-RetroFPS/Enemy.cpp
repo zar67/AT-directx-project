@@ -1,5 +1,4 @@
 ﻿#include "Enemy.h"
-#include "VertexBuffer.h"
 #include "Topology.h"
 #include "VertexShader.h"
 #include "InputLayout.h"
@@ -21,9 +20,20 @@ Enemy::Enemy(Graphics& graphics)
 		InitialiseStatic(graphics);
 	}
 
+	std::unique_ptr<VertexBuffer<Vertex>> vertexBuffer = std::make_unique<VertexBuffer<Vertex>>(graphics, m_vertices);
+	m_pVertexBuffer = vertexBuffer.get();
+	AddBindable(std::move(vertexBuffer));
+
 	AddBindable(std::make_unique<TransformConstantBuffer>(graphics, *this));
 	
 	m_pGraphics = &graphics;
+}
+
+void Enemy::Draw(Graphics& graphics)
+{
+	m_pVertexBuffer->Update(graphics, m_vertices);
+
+	Drawable::Draw(graphics);
 }
 
 void Enemy::Update(float deltaTime)
@@ -49,26 +59,15 @@ void Enemy::Update(float deltaTime)
 	}
 
 	m_transform.Rotation.y = radianAngle;
+
+	for (auto& vertex : m_vertices)
+	{
+		vertex.TextureCoords.x += 0.03125f * deltaTime;
+	}
 }
 
 void Enemy::InitialiseStatic(Graphics& graphics)
 {
-	struct Vertex
-	{
-		DirectX::XMFLOAT3 Position;
-		DirectX::XMFLOAT3 Normal;
-		DirectX::XMFLOAT2 TextureCoords;
-		DirectX::XMFLOAT3 Colour;
-	};
-
-	std::vector<Vertex> vertices
-	{
-		{DirectX::XMFLOAT3(-1.0f, -1.0f, 0.0f), DirectX::XMFLOAT3(0, 0, -1.0f), DirectX::XMFLOAT2(0, 0.2f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(-1.0f, 1.0f, 0.0f), DirectX::XMFLOAT3(0, 0, -1.0f), DirectX::XMFLOAT2(0, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(1.0f, 1.0f, 0.0f), DirectX::XMFLOAT3(0, 0, -1.0f), DirectX::XMFLOAT2(0.03125f, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(1.0f, -1.0f, 0.0f), DirectX::XMFLOAT3(0, 0, -1.0f), DirectX::XMFLOAT2(0.03125f, 0.2f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-	};
-
 	// Create Index Buffer
 	const std::vector<unsigned short> indices =
 	{
@@ -76,7 +75,6 @@ void Enemy::InitialiseStatic(Graphics& graphics)
 		1,2,3
 	};
 
-	AddStaticBindable(std::make_unique<VertexBuffer<Vertex>>(graphics, vertices));
 	AddStaticIndexBuffer(std::make_unique<IndexBuffer>(graphics, indices));
 
 	AddStaticBindable(std::make_unique<Topology>(graphics, D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST));

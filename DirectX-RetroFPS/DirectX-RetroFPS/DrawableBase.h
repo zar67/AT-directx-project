@@ -12,7 +12,7 @@ class DrawableBase
 public:
 	virtual ~DrawableBase() = default;
 
-	void Draw(Graphics& graphics);
+	virtual void Draw(Graphics& graphics);
 	virtual void Update(float deltaTime);
 
 	void AddIndexBuffer(std::unique_ptr<IndexBuffer> indexBuffer);
