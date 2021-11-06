@@ -35,6 +35,11 @@ void Level::Draw(Graphics& graphics)
 	{
 		m_geometry[i]->Draw(graphics);
 	}
+
+	for (int i = 0; i < m_enemies.size(); i++)
+	{
+		m_enemies[i]->Draw(graphics);
+	}
 }
 
 void Level::GenerateDataFromFile(Graphics& graphics, std::string filename)
@@ -118,7 +123,7 @@ void Level::ParseLevelDataCharacter(Graphics& graphics, char character, float xP
 	{
 		case '#': // Wall
 		{
-			std::unique_ptr<TexturedCube> pCube = std::make_unique<TexturedCube>(graphics, 0.3f, 0.3f, 0.3f);
+			std::unique_ptr<TexturedCube> pCube = std::make_unique<TexturedCube>(graphics);
 			pCube->GetTransform()->ApplyTranslation(xPosition, yPosition, zPosition);
 			pCube->GetTransform()->ApplyScalar(UNIT_SIZE, UNIT_SIZE, UNIT_SIZE);
 			m_geometry.emplace_back(std::move(pCube));
@@ -139,6 +144,11 @@ void Level::ParseLevelDataCharacter(Graphics& graphics, char character, float xP
 		}
 		case 'E': // Enemy
 		{
+			std::unique_ptr<Enemy> pEnemy = std::make_unique<Enemy>(graphics);
+			pEnemy->GetTransform()->ApplyTranslation(xPosition, yPosition + (UNIT_SIZE / 2), zPosition);
+			pEnemy->GetTransform()->ApplyScalar(UNIT_SIZE, UNIT_SIZE * 2, UNIT_SIZE);
+			m_enemies.emplace_back(std::move(pEnemy));
+			break;
 			break;
 		}
 		case 'K': // Key

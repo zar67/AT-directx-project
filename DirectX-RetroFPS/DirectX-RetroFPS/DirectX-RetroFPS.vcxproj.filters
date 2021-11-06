@@ -82,6 +82,12 @@
     <Filter Include="Source\Source Files\Game\Levels">
       <UniqueIdentifier>{3957b822-53f4-4e01-b169-e0a5fe4f2791}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Source Files\Game\Enemies">
+      <UniqueIdentifier>{52dd6b62-82a1-46e1-81b1-e998880050e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Header Files\Game\Enemies">
+      <UniqueIdentifier>{64ee3b9b-91de-4bfc-81df-23693d5c6b07}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -170,6 +176,9 @@
     </ClCompile>
     <ClCompile Include="Mouse.cpp">
       <Filter>Source\Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source\Source Files\Game\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -319,6 +328,12 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Source\Header Files\Game\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

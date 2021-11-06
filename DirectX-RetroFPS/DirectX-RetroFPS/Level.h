@@ -6,6 +6,7 @@
 #include "DrawableBase.h"
 #include "PixelConstantBuffer.h"
 #include "Light.h"
+#include "Enemy.h"
 
 class Level
 {
@@ -37,6 +38,7 @@ private:
 	float m_startLookRotation;
 
 	std::vector<std::unique_ptr<DrawableBase>> m_geometry;
+	std::vector<std::unique_ptr<Enemy>> m_enemies;
 	std::vector<std::unique_ptr<Light>> m_lights;
 
 	PixelConstantBuffer<Light::LightBufferData> m_lightConstantBuffer;

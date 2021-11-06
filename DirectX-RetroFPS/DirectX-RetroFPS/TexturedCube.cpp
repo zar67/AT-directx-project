@@ -9,10 +9,7 @@
 #include "Topology.h"
 #include "RasterizerState.h"
 
-TexturedCube::TexturedCube(Graphics& graphics, float pitchRotateSpeed, float yawRotateSpeed, float rollRotateSpeed) :
-	m_pitchRotateSpeed(pitchRotateSpeed),
-	m_yawRotateSpeed(yawRotateSpeed),
-	m_rollRotateSpeed(rollRotateSpeed)
+TexturedCube::TexturedCube(Graphics& graphics)
 {
 	if (IsStaticInitialized())
 	{
@@ -24,11 +21,6 @@ TexturedCube::TexturedCube(Graphics& graphics, float pitchRotateSpeed, float yaw
 	}
 	
 	AddBindable(std::make_unique<TransformConstantBuffer>(graphics, *this));
-}
-
-void TexturedCube::Update(float deltaTime)
-{
-	m_transform.ApplyRotation(m_pitchRotateSpeed * deltaTime, m_yawRotateSpeed * deltaTime, m_rollRotateSpeed * deltaTime);
 }
 
 void TexturedCube::InitialiseStatic(Graphics& graphics)
