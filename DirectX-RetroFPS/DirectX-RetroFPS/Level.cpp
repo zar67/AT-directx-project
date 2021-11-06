@@ -163,7 +163,7 @@ void Level::ParseLevelDataCharacter(Graphics& graphics, char character, float xP
 		case 'E': // Enemy
 		{
 			std::unique_ptr<Enemy> pEnemy = std::make_unique<Enemy>(graphics);
-			pEnemy->GetTransform()->ApplyTranslation(xPosition, yPosition + (UNIT_SIZE / 2), zPosition);
+			pEnemy->GetTransform()->ApplyTranslation(xPosition, yPosition + UNIT_SIZE, zPosition);
 			pEnemy->GetTransform()->ApplyScalar(UNIT_SIZE, UNIT_SIZE * 2, UNIT_SIZE);
 			m_enemies.emplace_back(std::move(pEnemy));
 			break;
