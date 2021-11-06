@@ -59,11 +59,6 @@ void Enemy::Update(float deltaTime)
 	}
 
 	m_transform.Rotation.y = radianAngle;
-
-	for (auto& vertex : m_vertices)
-	{
-		vertex.TextureCoords.x += 0.03125f * deltaTime;
-	}
 }
 
 void Enemy::InitialiseStatic(Graphics& graphics)
