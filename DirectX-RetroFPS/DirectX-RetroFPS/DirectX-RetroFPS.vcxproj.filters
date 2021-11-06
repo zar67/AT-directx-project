@@ -180,6 +180,9 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Source\Source Files\Game\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="BlendState.cpp">
+      <Filter>Source\Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ErrorLogger.h">
@@ -334,6 +337,12 @@
     </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>Source\Header Files\Game\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BlendState.h">
+      <Filter>Source\Header Files\Graphics\Bindable</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

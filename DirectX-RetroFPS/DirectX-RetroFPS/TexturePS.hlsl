@@ -34,8 +34,8 @@ SamplerState samplerState : SAMPLER : register(s0);
 
 float4 main(PS_INPUT input) : SV_TARGET
 {
-    float3 sampleColour = shaderTexture.Sample(samplerState, input.TextureCoord);
-    sampleColour *= input.Colour;
+    float4 sampleColour = shaderTexture.Sample(samplerState, input.TextureCoord);
+    sampleColour *= float4(input.Colour, 1.0f);
     
     // Calculate Diffuse Lighting
     float3 diffuseLight = AmbientColour;
@@ -51,7 +51,7 @@ float4 main(PS_INPUT input) : SV_TARGET
         diffuseLight += diffuseLightIntensity * diffuseAttenuation * DiffuseLighting[i].Colour * DiffuseLighting[i].Strength;
     }
     
-    float3 finalColour = saturate(sampleColour * diffuseLight);
+    float4 finalColour = float4(saturate(sampleColour.rgb * diffuseLight), sampleColour.a);
     
-    return float4(finalColour, 1.0f);
+    return finalColour;
 }

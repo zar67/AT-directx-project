@@ -8,6 +8,7 @@
 #include "TextureBindable.h"
 #include "Topology.h"
 #include "RasterizerState.h"
+#include "BlendState.h"
 
 TexturedCube::TexturedCube(Graphics& graphics)
 {
@@ -98,4 +99,6 @@ void TexturedCube::InitialiseStatic(Graphics& graphics)
 	AddStaticBindable(std::make_unique<Sampler>(graphics));
 
 	AddStaticBindable(std::make_unique<TextureBindable>(graphics, "Assets\\cube.png"));
+
+	AddStaticBindable(std::make_unique<BlendState>(graphics, false));
 }

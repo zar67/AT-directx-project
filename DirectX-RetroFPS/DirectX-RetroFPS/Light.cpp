@@ -6,6 +6,7 @@
 #include "VertexShader.h"
 #include "Topology.h"
 #include "VertexBuffer.h"
+#include "BlendState.h"
 
 Light::Light(Graphics& graphics)
 {
@@ -110,4 +111,6 @@ void Light::InitialiseStatic(Graphics& graphics)
 	AddStaticBindable(std::make_unique<RasterizerState>(graphics));
 	
 	AddStaticBindable(std::make_unique<PixelShader>(graphics, graphics.GetShaderFolder() + L"ColourPS.cso"));
+
+	AddStaticBindable(std::make_unique<BlendState>(graphics, false));
 }

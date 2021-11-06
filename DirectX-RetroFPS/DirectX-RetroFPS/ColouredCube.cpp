@@ -6,6 +6,7 @@
 #include "TransformConstantBuffer.h"
 #include "Topology.h"
 #include "RasterizerState.h"
+#include "BlendState.h"
 
 ColouredCube::ColouredCube(Graphics& graphics, float pitchRotateSpeed, float yawRotateSpeed, float rollRotateSpeed) :
 	m_pitchRotateSpeed(pitchRotateSpeed),
@@ -98,4 +99,6 @@ void ColouredCube::InitialiseStatic(Graphics& graphics)
 	AddStaticBindable(std::make_unique<RasterizerState>(graphics));
 
 	AddStaticBindable(std::make_unique<PixelShader>(graphics, graphics.GetShaderFolder() + L"ColourPS.cso"));
+
+	AddStaticBindable(std::make_unique<BlendState>(graphics, false));
 }

@@ -8,6 +8,7 @@
 #include "Sampler.h"
 #include "TextureBindable.h"
 #include "TransformConstantBuffer.h"
+#include "BlendState.h"
 
 Enemy::Enemy(Graphics& graphics)
 {
@@ -101,4 +102,6 @@ void Enemy::InitialiseStatic(Graphics& graphics)
 	AddStaticBindable(std::make_unique<Sampler>(graphics));
 
 	AddStaticBindable(std::make_unique<TextureBindable>(graphics, "Assets\\Characters\\doom_demon.png"));
+
+	AddStaticBindable(std::make_unique<BlendState>(graphics, true));
 }
