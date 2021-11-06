@@ -12,7 +12,9 @@ public:
 
 	void LoadLevel(Graphics& graphics, int levelIndex);
 	void LoadNextLevel(Graphics& graphics);
+
 	void DrawCurrentLevel(Graphics& graphics);
+	void UpdateCurrentLevel(float deltaTime);
 
 private:
 	int m_currentLevelIndex = 0;

@@ -42,6 +42,24 @@ void Level::Draw(Graphics& graphics)
 	}
 }
 
+void Level::Update(float deltaTime)
+{
+	for (int i = 0; i < m_lights.size(); i++)
+	{
+		m_lights[i]->Update(deltaTime);
+	}
+
+	for (int i = 0; i < m_geometry.size(); i++)
+	{
+		m_geometry[i]->Update(deltaTime);
+	}
+
+	for (int i = 0; i < m_enemies.size(); i++)
+	{
+		m_enemies[i]->Update(deltaTime);
+	}
+}
+
 void Level::GenerateDataFromFile(Graphics& graphics, std::string filename)
 {
 	std::ifstream file(filename);
@@ -90,7 +108,7 @@ void Level::GenerateDataFromFile(Graphics& graphics, std::string filename)
 					std::string subString = line.substr(index, line.size() - 1);
 
 					float degrees = std::stof(subString);
-					float radians = degrees * (3.14f / 180);
+					float radians = degrees * (DirectX::XM_PI / 180);
 					m_startLookRotation =  radians;
 
 					yPosition += UNIT_SIZE * 2;

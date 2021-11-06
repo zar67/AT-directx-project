@@ -28,3 +28,8 @@ void LevelManager::DrawCurrentLevel(Graphics& graphics)
 {
 	m_levels[m_currentLevelIndex]->Draw(graphics);
 }
+
+void LevelManager::UpdateCurrentLevel(float deltaTime)
+{
+	m_levels[m_currentLevelIndex]->Update(deltaTime);
+}

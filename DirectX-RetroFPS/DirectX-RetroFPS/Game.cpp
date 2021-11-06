@@ -37,6 +37,7 @@ void Game::Update(float deltaTime)
 	if (!m_isPaused)
 	{
 		m_window.GetGraphics().GetCamera()->Update(deltaTime, m_window.GetInput(), m_window.GetWidth(), m_window.GetHeight());
+		m_levelManager.UpdateCurrentLevel(deltaTime);
 	}
 }
 

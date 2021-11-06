@@ -16,6 +16,7 @@ public:
 
 	void Initialise(Graphics& graphics);
 	void Draw(Graphics& graphics);
+	void Update(float deltaTime);
 
 	const float UNIT_SIZE = 1.0f;
 

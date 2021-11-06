@@ -10,4 +10,6 @@ public:
 	virtual void Update(float deltaTime) override;
 private:
 	void InitialiseStatic(Graphics & graphics);
+
+	Graphics* m_pGraphics;
 };

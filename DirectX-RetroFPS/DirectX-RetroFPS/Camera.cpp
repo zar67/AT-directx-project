@@ -77,14 +77,14 @@ void Camera::Update(float deltaTime, Input& input, int windowWidth, int windowHe
 	m_transform.Position.y = m_yLockPosition;
 
 	// Clamp the vertical rotation to 45 degrees.
-	if (m_transform.Rotation.x > 45.0f * (3.14f / 180.0f))
+	if (m_transform.Rotation.x > 45.0f * (DirectX::XM_PI / 180.0f))
 	{
-		m_transform.Rotation.x = 45.0f * (3.14f / 180.0f);
+		m_transform.Rotation.x = 45.0f * (DirectX::XM_PI / 180.0f);
 		verticalRotation = 0;
 	}
-	else if (m_transform.Rotation.x < -45.0f * (3.14f / 180.0f))
+	else if (m_transform.Rotation.x < -45.0f * (DirectX::XM_PI / 180.0f))
 	{
-		m_transform.Rotation.x = -45.0f * (3.14f / 180.0f);
+		m_transform.Rotation.x = -45.0f * (DirectX::XM_PI / 180.0f);
 		verticalRotation = 0;
 	}
 }

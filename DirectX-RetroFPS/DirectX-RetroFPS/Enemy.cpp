@@ -1,4 +1,4 @@
-#include "Enemy.h"
+﻿#include "Enemy.h"
 #include "VertexBuffer.h"
 #include "Topology.h"
 #include "VertexShader.h"
@@ -21,10 +21,33 @@ Enemy::Enemy(Graphics& graphics)
 	}
 
 	AddBindable(std::make_unique<TransformConstantBuffer>(graphics, *this));
+	
+	m_pGraphics = &graphics;
 }
 
 void Enemy::Update(float deltaTime)
 {
+	DirectX::XMFLOAT3 cameraForwardVector = DirectX::XMFLOAT3(0.0f, 0.0f, -1.0f);
+	Transform& cameraTransform = m_pGraphics->GetCamera()->GetTransform();
+
+	DirectX::XMFLOAT3 tocameraVector = DirectX::XMFLOAT3(
+		cameraTransform.Position.x - m_transform.Position.x,
+		0,
+		cameraTransform.Position.z - m_transform.Position.z
+	);
+
+	float dotProduct = cameraForwardVector.x * tocameraVector.x + cameraForwardVector.y * tocameraVector.y + cameraForwardVector.z * tocameraVector.z;
+	float forwardMagnitude = sqrt(pow(cameraForwardVector.x, 2) + pow(cameraForwardVector.y, 2) + pow(cameraForwardVector.z, 2));
+	float toCameraMagnitude = sqrt(pow(tocameraVector.x, 2) + pow(tocameraVector.y, 2) + pow(tocameraVector.z, 2));
+
+	float radianAngle = acos(dotProduct / (forwardMagnitude * toCameraMagnitude));
+
+	if (tocameraVector.x > 0)
+	{
+		radianAngle = (2 * DirectX::XM_PI) - radianAngle;
+	}
+
+	m_transform.Rotation.y = radianAngle;
 }
 
 void Enemy::InitialiseStatic(Graphics& graphics)
