@@ -2,6 +2,7 @@
 
 #include "Drawable.h"
 #include "VertexBuffer.h"
+#include "SpriteSheet.h"
 
 class Enemy : public Drawable<Enemy>
 {
@@ -24,6 +25,7 @@ private:
 
 	Graphics* m_pGraphics = nullptr;
 	VertexBuffer<Vertex>* m_pVertexBuffer = nullptr;
+	SpriteSheet* m_pSpriteSheet = nullptr;
 
 	std::vector<Vertex> m_vertices = 
 	{

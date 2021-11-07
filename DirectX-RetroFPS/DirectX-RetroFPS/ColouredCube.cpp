@@ -13,16 +13,14 @@ ColouredCube::ColouredCube(Graphics& graphics, float pitchRotateSpeed, float yaw
 	m_yawRotateSpeed(yawRotateSpeed),
 	m_rollRotateSpeed(rollRotateSpeed)
 {
-	if (IsStaticInitialized())
-	{
-		SetIndexFromStatic();
-	}
-	else
+	if (!IsStaticInitialized())
 	{
 		InitialiseStatic(graphics);
 	}
 
 	AddBindable(std::make_unique<TransformConstantBuffer>(graphics, *this));
+
+	m_pIndexBuffer = GetBindableOfType<IndexBuffer>();
 }
 
 void ColouredCube::Update(float deltaTime)
@@ -79,7 +77,7 @@ void ColouredCube::InitialiseStatic(Graphics& graphics)
 	};
 
 	AddStaticBindable(std::make_unique<VertexBuffer<Vertex>>(graphics, vertices));
-	AddStaticIndexBuffer(std::make_unique<IndexBuffer>(graphics, indices));
+	AddStaticBindable(std::make_unique<IndexBuffer>(graphics, indices));
 
 	AddStaticBindable(std::make_unique<Topology>(graphics, D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 

@@ -11,11 +11,7 @@
 
 Enemy::Enemy(Graphics& graphics)
 {
-	if (IsStaticInitialized())
-	{
-		SetIndexFromStatic();
-	}
-	else
+	if (!IsStaticInitialized())
 	{
 		InitialiseStatic(graphics);
 	}
@@ -27,6 +23,9 @@ Enemy::Enemy(Graphics& graphics)
 	AddBindable(std::make_unique<TransformConstantBuffer>(graphics, *this));
 	
 	m_pGraphics = &graphics;
+
+	m_pIndexBuffer = GetBindableOfType<IndexBuffer>();
+	m_pSpriteSheet = GetBindableOfType<SpriteSheet>();
 }
 
 void Enemy::Draw(Graphics& graphics)
@@ -70,7 +69,7 @@ void Enemy::InitialiseStatic(Graphics& graphics)
 		1,2,3
 	};
 
-	AddStaticIndexBuffer(std::make_unique<IndexBuffer>(graphics, indices));
+	AddStaticBindable(std::make_unique<IndexBuffer>(graphics, indices));
 
 	AddStaticBindable(std::make_unique<Topology>(graphics, D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 

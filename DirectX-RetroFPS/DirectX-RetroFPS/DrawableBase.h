@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <typeindex>
 
 #include "Graphics.h"
 #include "Bindable.h"
@@ -15,8 +16,31 @@ public:
 	virtual void Draw(Graphics& graphics);
 	virtual void Update(float deltaTime);
 
-	void AddIndexBuffer(std::unique_ptr<IndexBuffer> indexBuffer);
 	void AddBindable(std::unique_ptr<Bindable> bindable);
+
+	template<class B>
+	B* GetBindableOfType()
+	{
+		for (auto& bindable : m_bindables)
+		{
+			B* castBind = dynamic_cast<B*>(bindable.get());
+			if (castBind != nullptr)
+			{
+				return castBind;
+			}
+		}
+
+		for (auto& bindable : GetStaticBinds())
+		{
+			B* castBind = dynamic_cast<B*>(bindable.get());
+			if (castBind != nullptr)
+			{
+				return castBind;
+			}
+		}
+
+		return nullptr;
+	}
 
 	Transform* GetTransform();
 
