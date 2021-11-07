@@ -94,6 +94,7 @@
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="MouseEvent.cpp" />
     <ClCompile Include="RasterizerState.cpp" />
+    <ClCompile Include="SpriteSheet.cpp" />
     <ClCompile Include="TexturedCube.cpp" />
     <ClCompile Include="DrawableBase.cpp" />
     <ClCompile Include="ErrorLogger.cpp" />
@@ -127,6 +128,7 @@
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="MouseEvent.h" />
     <ClInclude Include="RasterizerState.h" />
+    <ClInclude Include="SpriteSheet.h" />
     <ClInclude Include="TexturedCube.h" />
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="DrawableBase.h" />

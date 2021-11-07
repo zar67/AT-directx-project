@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source">
@@ -87,6 +87,12 @@
     </Filter>
     <Filter Include="Source\Header Files\Game\Enemies">
       <UniqueIdentifier>{64ee3b9b-91de-4bfc-81df-23693d5c6b07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Header Files\Animations">
+      <UniqueIdentifier>{1344859d-e770-4fc2-9ef1-edc610fa7ca6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Source Files\Animations">
+      <UniqueIdentifier>{230b3bf4-807f-491e-8165-3124aa57081a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -177,11 +183,14 @@
     <ClCompile Include="Mouse.cpp">
       <Filter>Source\Source Files\Input</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Source\Source Files\Game\Enemies</Filter>
-    </ClCompile>
     <ClCompile Include="BlendState.cpp">
       <Filter>Source\Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteSheet.cpp">
+      <Filter>Source\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source\Source Files\Game\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -335,14 +344,23 @@
     <ClInclude Include="resource.h">
       <Filter>Source\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Source\Header Files\Game\Enemies</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Source\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BlendState.h">
       <Filter>Source\Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteSheet.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Source\Header Files\Game\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
