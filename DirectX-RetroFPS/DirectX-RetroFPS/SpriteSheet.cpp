@@ -25,8 +25,11 @@ SpriteSheet::SpriteSheet(Graphics& graphics, std::string filename, int columnCou
 	m_columnCount = columnCount;
 	m_rowCount = rowCount;
 
-	m_spriteWidth = textureDescription.Width / columnCount;
-	m_spriteHeight = textureDescription.Height / rowCount;
+	m_fileWidth = textureDescription.Width;
+	m_fileHeight = textureDescription.Height;
+
+	m_spriteWidth = m_fileWidth / columnCount;
+	m_spriteHeight = m_fileHeight / rowCount;
 }
 
 void SpriteSheet::Bind(Graphics& graphics)
@@ -34,13 +37,16 @@ void SpriteSheet::Bind(Graphics& graphics)
 	graphics.GetDeviceContext()->PSSetShaderResources(0, 1, m_pTextureView.GetAddressOf());
 }
 
-RECT SpriteSheet::GetSpriteBoundsAtIndex(int index)
+SpriteSheet::SpriteBounds SpriteSheet::GetSpriteBoundsAtIndex(int index)
 {
-	RECT rect;
-	rect.left = index * m_spriteWidth;
-	rect.top = index * m_spriteHeight;
-	rect.right = rect.left + m_spriteWidth;
-	rect.bottom = rect.top + m_spriteHeight;
+	float xPos = (index % m_columnCount) * m_spriteWidth;
+	float yPos = (index / m_columnCount) * m_spriteHeight;
+
+	SpriteBounds rect;
+	rect.Left = xPos / m_fileWidth;
+	rect.Top = yPos / m_fileHeight;
+	rect.Right = (xPos + m_spriteWidth) / m_fileWidth;
+	rect.Bottom = (yPos + m_spriteHeight) / m_fileHeight;
 
 	return rect;
 }

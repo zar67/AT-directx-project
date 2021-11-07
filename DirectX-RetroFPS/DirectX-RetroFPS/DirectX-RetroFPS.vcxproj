@@ -82,6 +82,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Bindable.cpp" />
     <ClCompile Include="BlendState.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -116,6 +117,7 @@
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animation.h" />
     <ClInclude Include="Bindable.h" />
     <ClInclude Include="BlendState.h" />
     <ClInclude Include="Camera.h" />

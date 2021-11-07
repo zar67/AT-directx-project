@@ -3,6 +3,7 @@
 #include "Drawable.h"
 #include "VertexBuffer.h"
 #include "SpriteSheet.h"
+#include "Animation.h"
 
 class Enemy : public Drawable<Enemy>
 {
@@ -27,7 +28,18 @@ private:
 	VertexBuffer<Vertex>* m_pVertexBuffer = nullptr;
 	SpriteSheet* m_pSpriteSheet = nullptr;
 
-	std::vector<Vertex> m_vertices = 
+	Animation m_idleAnimation;
+
+	int m_currentSpriteIndex = 0;
+
+	std::vector<DirectX::XMFLOAT2> m_textureCoords = {
+		DirectX::XMFLOAT2(0.0f, 0.2f),
+		DirectX::XMFLOAT2(0.0f, 0.0f),
+		DirectX::XMFLOAT2(0.03125f, 0.0f),
+		DirectX::XMFLOAT2(0.03125f, 0.2f)
+	};
+
+	std::vector<Vertex> m_vertices =
 	{
 		{DirectX::XMFLOAT3(-1.0f, -1.0f, 0.0f), DirectX::XMFLOAT3(0, 0, -1.0f), DirectX::XMFLOAT2(0, 0.2f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
 		{DirectX::XMFLOAT3(-1.0f, 1.0f, 0.0f), DirectX::XMFLOAT3(0, 0, -1.0f), DirectX::XMFLOAT2(0, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},

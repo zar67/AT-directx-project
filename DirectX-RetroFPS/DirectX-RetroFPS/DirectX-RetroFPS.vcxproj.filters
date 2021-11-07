@@ -186,11 +186,14 @@
     <ClCompile Include="BlendState.cpp">
       <Filter>Source\Source Files\Graphics\Bindable</Filter>
     </ClCompile>
-    <ClCompile Include="SpriteSheet.cpp">
-      <Filter>Source\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>Source\Source Files\Game\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteSheet.cpp">
+      <Filter>Source\Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Source\Source Files\Animations</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -353,14 +356,17 @@
     <ClInclude Include="resource.h">
       <Filter>Source\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SpriteSheet.h">
-      <Filter>Source\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Source\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>Source\Header Files\Game\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteSheet.h">
+      <Filter>Source\Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Source\Header Files\Animations</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

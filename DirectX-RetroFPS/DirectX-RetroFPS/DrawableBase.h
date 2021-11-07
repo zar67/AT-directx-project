@@ -1,7 +1,6 @@
 #pragma once
 
 #include <memory>
-#include <typeindex>
 
 #include "Graphics.h"
 #include "Bindable.h"
