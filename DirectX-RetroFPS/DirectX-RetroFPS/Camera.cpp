@@ -14,6 +14,8 @@ Camera::Camera(float movementSpeed, float rotationSpeed, DirectX::XMFLOAT2 deadZ
 
 	InitialiseCollider();
 	UpdateViewMatrix();
+
+	m_transform.ApplyScalar(0.75f, 0.75f, 0.75f);
 }
 
 void Camera::SetProjectionValues(float fovDegrees, float aspectRatio, float nearZ, float farZ)
@@ -102,16 +104,12 @@ void Camera::SetPosition(float x, float y, float z)
 	m_transform.Position.x = x;
 	m_transform.Position.y = y;
 	m_transform.Position.z = z;
-
-	UpdateViewMatrix();
 }
 
 void Camera::AdjustPosition(float x, float y, float z)
 {
 	DirectX::XMFLOAT3 translation = m_transform.ApplyTranslation(x, y, z);
 	m_collider.IncreaseVelocity(translation);
-
-	UpdateViewMatrix();
 }
 
 void Camera::SetRotation(float x, float y, float z)
@@ -119,14 +117,11 @@ void Camera::SetRotation(float x, float y, float z)
 	m_transform.Rotation.x = x;
 	m_transform.Rotation.y = y;
 	m_transform.Rotation.z = z;
-
-	UpdateViewMatrix();
 }
 
 void Camera::AdjustRotation(float x, float y, float z)
 {
 	m_transform.ApplyRotation(x, y, z);
-	UpdateViewMatrix();
 }
 
 Collider& Camera::GetCollider()
@@ -137,7 +132,7 @@ Collider& Camera::GetCollider()
 void Camera::InitialiseCollider()
 {
 	m_collider.SetTransform(&m_transform);
-	m_collider.SetRotationConstraints(true, false, true);
+	m_collider.SetRotationConstraints(true, true, true);
 
 	// The camera is treated as a point, so all the vertices are the same, but we still need the normals.
 	m_collider.SetColliderData({

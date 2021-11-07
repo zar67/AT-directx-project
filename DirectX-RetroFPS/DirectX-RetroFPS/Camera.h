@@ -26,10 +26,10 @@ public:
 	void AdjustRotation(float x, float y, float z);
 
 	Collider& GetCollider();
+	void UpdateViewMatrix();
 
 private:
 	void InitialiseCollider();
-	void UpdateViewMatrix();
 
 	Transform m_transform;
 	Collider m_collider;

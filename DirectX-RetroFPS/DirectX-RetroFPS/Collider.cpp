@@ -7,7 +7,7 @@ void Collider::SetTransform(Transform* transform)
 
 void Collider::SetColliderData(std::vector<ColliderVertex> data)
 {
-	for (ColliderVertex vertexData : data)
+	for (const ColliderVertex& vertexData : data)
 	{
 		m_vertices.push_back(DirectX::XMLoadFloat3(&vertexData.Vertex));
 		m_normals.push_back(DirectX::XMLoadFloat3(&vertexData.Normal));

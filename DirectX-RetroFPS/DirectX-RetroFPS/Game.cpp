@@ -41,6 +41,8 @@ void Game::Update(float deltaTime)
 	{
 		m_window.GetGraphics().GetCamera()->Update(deltaTime, m_window.GetInput(), m_window.GetWidth(), m_window.GetHeight());
 		HandleCollision();
+
+		m_window.GetGraphics().GetCamera()->UpdateViewMatrix();
 	}
 }
 
