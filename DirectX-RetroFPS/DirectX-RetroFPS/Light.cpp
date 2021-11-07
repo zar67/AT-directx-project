@@ -18,6 +18,7 @@ Light::Light(Graphics& graphics)
 		InitialiseStatic(graphics);
 	}
 
+	InitialiseCollider();
 	AddBindable(std::make_unique<TransformConstantBuffer>(graphics, *this));
 }
 
@@ -110,4 +111,17 @@ void Light::InitialiseStatic(Graphics& graphics)
 	AddStaticBindable(std::make_unique<RasterizerState>(graphics));
 	
 	AddStaticBindable(std::make_unique<PixelShader>(graphics, graphics.GetShaderFolder() + L"ColourPS.cso"));
+}
+
+void Light::InitialiseCollider()
+{
+	m_collider.SetTransform(&m_transform);
+	m_collider.SetColliderData({
+		{DirectX::XMFLOAT3(-1.0f, 0.0f, 0.0f), DirectX::XMFLOAT3(-1.0f, 0.0f, 0.0f)}, // Left Side
+		{DirectX::XMFLOAT3(1.0f, 0.0f, 0.0f), DirectX::XMFLOAT3(1.0f, 0.0f, 0.0f)}, // Right Side
+		{DirectX::XMFLOAT3(0.0f, 0.0f, -1.0f), DirectX::XMFLOAT3(0.0f, 0.0f, -1.0f)}, // Front Side
+		{DirectX::XMFLOAT3(0.0f, 0.0f, 1.0f), DirectX::XMFLOAT3(0.0f, 0.0f, 1.0f)}, // Back Side
+		{DirectX::XMFLOAT3(0.0f, 1.0f, 0.0f), DirectX::XMFLOAT3(0.0f, 1.0f, 0.0f)}, // Top Side
+		{DirectX::XMFLOAT3(0.0f, -1.0f, 0.0f), DirectX::XMFLOAT3(0.0f, -1.0f, 0.0f)} // Bottom Side
+		});
 }

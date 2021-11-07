@@ -9,9 +9,9 @@ TransformConstantBuffer::TransformConstantBuffer(Graphics& graphics, DrawableBas
 void TransformConstantBuffer::Bind(Graphics& graphics)
 {
 	BufferData data = {
-		   DirectX::XMMatrixTranspose(m_parent.GetTransform()->GetTransformMatrix()),
+		   DirectX::XMMatrixTranspose(m_parent.GetTransform().GetTransformMatrix()),
 		   DirectX::XMMatrixTranspose(
-			   m_parent.GetTransform()->GetTransformMatrix() * 
+			   m_parent.GetTransform().GetTransformMatrix() * 
 			   graphics.GetCamera()->GetViewMatrix() * 
 			   graphics.GetCamera()->GetProjectionMatrix()
 		   )

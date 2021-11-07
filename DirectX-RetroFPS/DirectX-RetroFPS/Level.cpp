@@ -37,6 +37,16 @@ void Level::Draw(Graphics& graphics)
 	}
 }
 
+int Level::GetGeometryCount()
+{
+	return m_geometry.size();
+}
+
+DrawableBase* Level::GetGeometryAtIndex(int index)
+{
+	return m_geometry[index].get();
+}
+
 void Level::GenerateDataFromFile(Graphics& graphics, std::string filename)
 {
 	std::ifstream file(filename);
@@ -119,16 +129,18 @@ void Level::ParseLevelDataCharacter(Graphics& graphics, char character, float xP
 		case '#': // Wall
 		{
 			std::unique_ptr<TexturedCube> pCube = std::make_unique<TexturedCube>(graphics, 0.3f, 0.3f, 0.3f);
-			pCube->GetTransform()->ApplyTranslation(xPosition, yPosition, zPosition);
-			pCube->GetTransform()->ApplyScalar(UNIT_SIZE, UNIT_SIZE, UNIT_SIZE);
+			pCube->GetTransform().ApplyTranslation(xPosition, yPosition, zPosition);
+			pCube->GetTransform().ApplyScalar(UNIT_SIZE, UNIT_SIZE, UNIT_SIZE);
+			pCube->GetCollider().SetStatic(true);
 			m_geometry.emplace_back(std::move(pCube));
 			break;
 		}
 		case 'L': // Light
 		{
 			std::unique_ptr<Light> pLight = std::make_unique<Light>(graphics);
-			pLight->GetTransform()->ApplyTranslation(xPosition, yPosition, zPosition);
-			pLight->GetTransform()->ApplyScalar(UNIT_SIZE, UNIT_SIZE, UNIT_SIZE);
+			pLight->GetTransform().ApplyTranslation(xPosition, yPosition, zPosition);
+			pLight->GetTransform().ApplyScalar(UNIT_SIZE, UNIT_SIZE, UNIT_SIZE);
+			pLight->GetCollider().SetStatic(true);
 			m_lights.emplace_back(std::move(pLight));
 			break;
 		}
@@ -194,7 +206,7 @@ void Level::BindLighting(Graphics& graphics)
 				continue;
 			}
 
-			DirectX::XMFLOAT3 lightPos = m_lights[i]->GetTransform()->Position;
+			DirectX::XMFLOAT3 lightPos = m_lights[i]->GetTransform().Position;
 			DirectX::XMFLOAT3 camToLight = DirectX::XMFLOAT3(
 				lightPos.x - cameraPosition.x,
 				lightPos.y - cameraPosition.y,

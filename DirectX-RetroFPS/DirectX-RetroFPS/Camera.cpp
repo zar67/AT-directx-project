@@ -12,7 +12,10 @@ Camera::Camera(float movementSpeed, float rotationSpeed, DirectX::XMFLOAT2 deadZ
 	SetPosition(0, 0, 0);
 	SetRotation(0, 0, 0);
 
+	InitialiseCollider();
 	UpdateViewMatrix();
+
+	m_transform.ApplyScalar(0.75f, 0.75f, 0.75f);
 }
 
 void Camera::SetProjectionValues(float fovDegrees, float aspectRatio, float nearZ, float farZ)
@@ -38,6 +41,8 @@ Transform& Camera::GetTransform()
 
 void Camera::Update(float deltaTime, Input& input, int windowWidth, int windowHeight)
 {
+	m_collider.ResetVelocity();
+
 	// Update Camera Movement
 	float forwardMovement = input.GetKeyboard().IsKeyDown('W') ? m_movementSpeed : 0.0f;
 	float backwardMovement = input.GetKeyboard().IsKeyDown('S') ? -m_movementSpeed : 0.0f;
@@ -99,14 +104,12 @@ void Camera::SetPosition(float x, float y, float z)
 	m_transform.Position.x = x;
 	m_transform.Position.y = y;
 	m_transform.Position.z = z;
-
-	UpdateViewMatrix();
 }
 
 void Camera::AdjustPosition(float x, float y, float z)
 {
-	m_transform.ApplyTranslation(x, y, z);
-	UpdateViewMatrix();
+	DirectX::XMFLOAT3 translation = m_transform.ApplyTranslation(x, y, z);
+	m_collider.IncreaseVelocity(translation);
 }
 
 void Camera::SetRotation(float x, float y, float z)
@@ -114,14 +117,32 @@ void Camera::SetRotation(float x, float y, float z)
 	m_transform.Rotation.x = x;
 	m_transform.Rotation.y = y;
 	m_transform.Rotation.z = z;
-
-	UpdateViewMatrix();
 }
 
 void Camera::AdjustRotation(float x, float y, float z)
 {
 	m_transform.ApplyRotation(x, y, z);
-	UpdateViewMatrix();
+}
+
+Collider& Camera::GetCollider()
+{
+	return m_collider;
+}
+
+void Camera::InitialiseCollider()
+{
+	m_collider.SetTransform(&m_transform);
+	m_collider.SetRotationConstraints(true, true, true);
+
+	// The camera is treated as a point, so all the vertices are the same, but we still need the normals.
+	m_collider.SetColliderData({
+		{DirectX::XMFLOAT3(-1.0f, 0.0f, 0.0f), DirectX::XMFLOAT3(-1.0f, 0.0f, 0.0f)}, // Left Side
+		{DirectX::XMFLOAT3(1.0f, 0.0f, 0.0f), DirectX::XMFLOAT3(1.0f, 0.0f, 0.0f)}, // Right Side
+		{DirectX::XMFLOAT3(0.0f, 0.0f, -1.0f), DirectX::XMFLOAT3(0.0f, 0.0f, -1.0f)}, // Front Side
+		{DirectX::XMFLOAT3(0.0f, 0.0f, 1.0f), DirectX::XMFLOAT3(0.0f, 0.0f, 1.0f)}, // Back Side
+		{DirectX::XMFLOAT3(0.0f, 1.0f, 0.0f), DirectX::XMFLOAT3(0.0f, 1.0f, 0.0f)}, // Top Side
+		{DirectX::XMFLOAT3(0.0f, -1.0f, 0.0f), DirectX::XMFLOAT3(0.0f, -1.0f, 0.0f)} // Bottom Side
+		});
 }
 
 void Camera::UpdateViewMatrix()

@@ -4,6 +4,8 @@
 template<class T>
 class Drawable : public DrawableBase
 {
+public:
+	Drawable() = default;
 protected:
 	static bool IsStaticInitialized() 
 	{
