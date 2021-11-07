@@ -119,7 +119,7 @@ void Level::GenerateDataFromFile(Graphics& graphics, std::string filename)
 
 					float degrees = std::stof(subString);
 					float radians = degrees * (DirectX::XM_PI / 180);
-					m_startLookRotation =  radians;
+					m_startLookRotation = radians;
 
 					yPosition += UNIT_SIZE * 2;
 					break;

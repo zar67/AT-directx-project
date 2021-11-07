@@ -43,7 +43,7 @@ private:
 
 	bool m_isStatic = false;
 
-	bool m_constrainXRotation;
-	bool m_constrainYRotation;
-	bool m_constrainZRotation;
+	bool m_constrainXRotation = false;
+	bool m_constrainYRotation = false;
+	bool m_constrainZRotation = false;
 };

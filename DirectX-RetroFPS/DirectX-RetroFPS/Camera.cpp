@@ -16,6 +16,8 @@ Camera::Camera(float movementSpeed, float rotationSpeed, DirectX::XMFLOAT2 deadZ
 	UpdateViewMatrix();
 
 	m_transform.ApplyScalar(0.75f, 0.75f, 0.75f);
+
+	m_transform.ConstrainYPosition = true;
 }
 
 void Camera::SetProjectionValues(float fovDegrees, float aspectRatio, float nearZ, float farZ)
@@ -96,7 +98,9 @@ void Camera::Update(float deltaTime, Input& input, int windowWidth, int windowHe
 
 void Camera::LockYPosition(float y)
 {
+	m_transform.ConstrainYPosition = false;
 	m_yLockPosition = y;
+	m_transform.ConstrainYPosition = true;
 }
 
 void Camera::SetPosition(float x, float y, float z)
@@ -108,7 +112,7 @@ void Camera::SetPosition(float x, float y, float z)
 
 void Camera::AdjustPosition(float x, float y, float z)
 {
-	DirectX::XMFLOAT3 translation = m_transform.ApplyTranslation(x, y, z);
+	DirectX::XMFLOAT3 translation = m_transform.ApplyTranslation(x, 0, z);
 	m_collider.IncreaseVelocity(translation);
 }
 
