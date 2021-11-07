@@ -9,4 +9,5 @@ public:
 
 private:
 	void InitialiseStatic(Graphics& graphics);
+	void InitialiseCollider();
 };

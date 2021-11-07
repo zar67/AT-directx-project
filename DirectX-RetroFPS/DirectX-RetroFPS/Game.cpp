@@ -1,4 +1,6 @@
 #include "Game.h"
+#include "CollisionUtilities.h"
+#include <iostream>
 
 Game::Game() :
 	m_window(800, 600, IDS_GAMENAME, IDI_MAINICON),
@@ -19,7 +21,6 @@ int Game::Run()
 			return *ecode;
 		}
 
-		HandleInput();
 		Update(deltaTime);
 		Render();
 	}
@@ -34,10 +35,15 @@ void Game::Init()
 
 void Game::Update(float deltaTime)
 {
+	HandleInput();
+
 	if (!m_isPaused)
 	{
 		m_window.GetGraphics().GetCamera()->Update(deltaTime, m_window.GetInput(), m_window.GetWidth(), m_window.GetHeight());
 		m_levelManager.UpdateCurrentLevel(deltaTime);
+		HandleCollision();
+
+		m_window.GetGraphics().GetCamera()->UpdateViewMatrix();
 	}
 }
 
@@ -75,6 +81,20 @@ void Game::HandleInput()
 	{
 		// Handle Mouse Event
 		mouseEvent = m_window.GetInput().GetMouse().Read();
+	}
+}
+
+void Game::HandleCollision()
+{
+	Level* currentLevel = m_levelManager.GetCurrentLevel();
+	for (int i = 0; i < currentLevel->GetGeometryCount(); i++)
+	{
+		DrawableBase* drawableA = currentLevel->GetGeometryAtIndex(i);
+		CollisionUtilities::CollisionData collision = CollisionUtilities::IsColliding(drawableA->GetCollider(), m_window.GetGraphics().GetCamera()->GetCollider());
+		if (collision.IsColliding)
+		{
+			CollisionUtilities::ResolveCollision(collision);
+		}
 	}
 }
 

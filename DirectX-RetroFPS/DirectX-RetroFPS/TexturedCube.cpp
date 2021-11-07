@@ -17,6 +17,7 @@ TexturedCube::TexturedCube(Graphics& graphics)
 		InitialiseStatic(graphics);
 	}
 	
+	InitialiseCollider();
 	AddBindable(std::make_unique<TransformConstantBuffer>(graphics, *this));
 
 	m_pIndexBuffer = GetBindableOfType<IndexBuffer>();
@@ -99,4 +100,17 @@ void TexturedCube::InitialiseStatic(Graphics& graphics)
 	AddStaticBindable(std::make_unique<TextureBindable>(graphics, "Assets\\cube.png"));
 
 	AddStaticBindable(std::make_unique<BlendState>(graphics, false));
+}
+
+void TexturedCube::InitialiseCollider()
+{
+	m_collider.SetTransform(&m_transform);
+	m_collider.SetColliderData({
+		{DirectX::XMFLOAT3(-1.0f, 0.0f, 0.0f), DirectX::XMFLOAT3(-1.0f, 0.0f, 0.0f)}, // Left Side
+		{DirectX::XMFLOAT3(1.0f, 0.0f, 0.0f), DirectX::XMFLOAT3(1.0f, 0.0f, 0.0f)}, // Right Side
+		{DirectX::XMFLOAT3(0.0f, 0.0f, -1.0f), DirectX::XMFLOAT3(0.0f, 0.0f, -1.0f)}, // Front Side
+		{DirectX::XMFLOAT3(0.0f, 0.0f, 1.0f), DirectX::XMFLOAT3(0.0f, 0.0f, 1.0f)}, // Back Side
+		{DirectX::XMFLOAT3(0.0f, 1.0f, 0.0f), DirectX::XMFLOAT3(0.0f, 1.0f, 0.0f)}, // Top Side
+		{DirectX::XMFLOAT3(0.0f, -1.0f, 0.0f), DirectX::XMFLOAT3(0.0f, -1.0f, 0.0f)} // Bottom Side
+	});
 }

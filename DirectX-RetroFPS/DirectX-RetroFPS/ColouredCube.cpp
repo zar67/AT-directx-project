@@ -18,6 +18,7 @@ ColouredCube::ColouredCube(Graphics& graphics, float pitchRotateSpeed, float yaw
 		InitialiseStatic(graphics);
 	}
 
+	InitialiseCollider();
 	AddBindable(std::make_unique<TransformConstantBuffer>(graphics, *this));
 
 	m_pIndexBuffer = GetBindableOfType<IndexBuffer>();
@@ -99,4 +100,17 @@ void ColouredCube::InitialiseStatic(Graphics& graphics)
 	AddStaticBindable(std::make_unique<PixelShader>(graphics, graphics.GetShaderFolder() + L"ColourPS.cso"));
 
 	AddStaticBindable(std::make_unique<BlendState>(graphics, false));
+}
+
+void ColouredCube::InitialiseCollider()
+{
+	m_collider.SetTransform(&m_transform);
+	m_collider.SetColliderData({
+		{DirectX::XMFLOAT3(-1.0f, 0.0f, 0.0f), DirectX::XMFLOAT3(-1.0f, 0.0f, 0.0f)}, // Left Side
+		{DirectX::XMFLOAT3(1.0f, 0.0f, 0.0f), DirectX::XMFLOAT3(1.0f, 0.0f, 0.0f)}, // Right Side
+		{DirectX::XMFLOAT3(0.0f, 0.0f, -1.0f), DirectX::XMFLOAT3(0.0f, 0.0f, -1.0f)}, // Front Side
+		{DirectX::XMFLOAT3(0.0f, 0.0f, 1.0f), DirectX::XMFLOAT3(0.0f, 0.0f, 1.0f)}, // Back Side
+		{DirectX::XMFLOAT3(0.0f, 1.0f, 0.0f), DirectX::XMFLOAT3(0.0f, 1.0f, 0.0f)}, // Top Side
+		{DirectX::XMFLOAT3(0.0f, -1.0f, 0.0f), DirectX::XMFLOAT3(0.0f, -1.0f, 0.0f)} // Bottom Side
+		});
 }

@@ -16,6 +16,8 @@ public:
 	void DrawCurrentLevel(Graphics& graphics);
 	void UpdateCurrentLevel(float deltaTime);
 
+	Level* GetCurrentLevel();
+
 private:
 	int m_currentLevelIndex = 0;
 	std::vector<std::unique_ptr<Level>> m_levels;

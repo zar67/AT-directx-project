@@ -3,6 +3,8 @@
 #include "VertexConstantBuffer.h"
 #include "DrawableBase.h"
 
+class Transform;
+
 class TransformConstantBuffer : public Bindable
 {
 public:

@@ -18,6 +18,9 @@ public:
 	void Draw(Graphics& graphics);
 	void Update(float deltaTime);
 
+	int GetGeometryCount();
+	DrawableBase* GetGeometryAtIndex(int index);
+
 	const float UNIT_SIZE = 1.0f;
 
 	const DirectX::XMFLOAT3 AMBIENT_COLOUR = {0.14f, 0.14f, 0.14f};

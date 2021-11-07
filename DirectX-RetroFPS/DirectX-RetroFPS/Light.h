@@ -36,6 +36,7 @@ public:
 
 protected:
 	void InitialiseStatic(Graphics & graphics);
+	void InitialiseCollider();
 
 	float m_strength = 1;
 	DirectX::XMFLOAT3 m_colour = { 1.0f, 1.0f, 1.0f };

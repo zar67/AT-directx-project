@@ -94,6 +94,12 @@
     <Filter Include="Source\Source Files\Animations">
       <UniqueIdentifier>{230b3bf4-807f-491e-8165-3124aa57081a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Header Files\Physics">
+      <UniqueIdentifier>{fe49009c-2d72-401f-9bea-677e7b672c14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Source Files\Physics">
+      <UniqueIdentifier>{97e90b9d-f09c-40a8-9ccd-186406ef85c3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -194,6 +200,12 @@
     </ClCompile>
     <ClCompile Include="Animation.cpp">
       <Filter>Source\Source Files\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionUtilities.cpp">
+      <Filter>Source\Source Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>Source\Source Files\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -367,6 +379,15 @@
     </ClInclude>
     <ClInclude Include="Animation.h">
       <Filter>Source\Header Files\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionUtilities.h">
+      <Filter>Source\Header Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>Source\Header Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

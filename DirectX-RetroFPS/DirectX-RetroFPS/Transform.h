@@ -30,7 +30,14 @@ struct Transform
 			DirectX::XMMatrixTranslation(Position.x, Position.y, Position.z);
 	}
 
-	void ApplyTranslation(float x, float y, float z)
+	DirectX::XMMATRIX GetTransformMatrixWithConstraints(bool rotationX, bool rotationY, bool rotationZ)
+	{
+		return DirectX::XMMatrixScaling(Scale.x, Scale.y, Scale.z) *
+			DirectX::XMMatrixRotationRollPitchYaw(rotationX ? 0 : Rotation.x, rotationY ? 0 : Rotation.y, rotationZ ? 0 :Rotation.z) *
+			DirectX::XMMatrixTranslation(Position.x, Position.y, Position.z);
+	}
+
+	DirectX::XMFLOAT3 ApplyTranslation(float x, float y, float z)
 	{
 		DirectX::XMFLOAT3 translation = DirectX::XMFLOAT3(x, y, z);
 
@@ -41,6 +48,20 @@ struct Transform
 				DirectX::XMMatrixRotationRollPitchYaw(Rotation.x, Rotation.y, Rotation.z)
 			));
 
+		Position.x += translation.x;
+		Position.y += translation.y;
+		Position.z += translation.z;
+
+		return translation;
+	}
+
+	DirectX::XMFLOAT3 ApplyTranslation(DirectX::XMFLOAT3 translation)
+	{
+		return ApplyTranslation(translation.x, translation.y, translation.z);
+	}
+
+	void ApplyTranslationOnAxes(DirectX::XMFLOAT3 translation)
+	{
 		Position.x += translation.x;
 		Position.y += translation.y;
 		Position.z += translation.z;
