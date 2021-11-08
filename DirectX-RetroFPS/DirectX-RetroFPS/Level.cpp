@@ -253,12 +253,20 @@ void Level::ParseLevelDataCharacter(Graphics& graphics, char character, float xP
 			m_lights.emplace_back(std::move(pLight));
 			break;
 		}
-		case 'S': // Level Start Position
+		case 'P': // Level Start Position
 		{
 			m_startingPosition.Set(xPosition, yPosition + (UNIT_SIZE * 1.5f), zPosition);
 			break;
 		}
-		case 'D': // Demon
+		case 'K': // Key
+		{
+			break;
+		}
+		case 'F': // Level End Position
+		{
+			break;
+		}
+		case 'M': // Demon
 		{
 			std::unique_ptr<Demon> pDemon = std::make_unique<Demon>(graphics);
 			pDemon->GetTransform().ApplyTranslation(xPosition, yPosition + UNIT_SIZE, zPosition);
@@ -274,7 +282,7 @@ void Level::ParseLevelDataCharacter(Graphics& graphics, char character, float xP
 			m_enemies.emplace_back(std::move(pZombie));
 			break;
 		}
-		case 'P': // Demon Puppy
+		case 'D': // Demon Puppy
 		{
 			std::unique_ptr<DemonPuppy> pPuppy = std::make_unique<DemonPuppy>(graphics);
 			pPuppy->GetTransform().ApplyTranslation(xPosition, yPosition + UNIT_SIZE, zPosition);
@@ -282,11 +290,31 @@ void Level::ParseLevelDataCharacter(Graphics& graphics, char character, float xP
 			m_enemies.emplace_back(std::move(pPuppy));
 			break;
 		}
-		case 'K': // Key
+		case 'H': // Health Pickup
 		{
 			break;
 		}
-		case 'F': // Level End Position
+		case 'A': // Armour Pickup
+		{
+			break;
+		}
+		case 'B': // Bullet Pickup
+		{
+			break;
+		}
+		case 'N': // Directional Indicator - North
+		{
+			break;
+		}
+		case 'E': // Directional Indicator - East
+		{
+			break;
+		}
+		case 'S': // Directional Indicator - South
+		{
+			break;
+		}
+		case 'W': // Directional Indicator - West
 		{
 			break;
 		}
