@@ -7,8 +7,10 @@
 #include "Topology.h"
 #include "VertexBuffer.h"
 #include "BlendState.h"
+#include "Sampler.h"
+#include "TextureBindable.h"
 
-Light::Light(Graphics& graphics)
+Light::Light(Graphics& graphics, std::string textureFile)
 {
 	if (!IsStaticInitialized())
 	{
@@ -17,6 +19,8 @@ Light::Light(Graphics& graphics)
 
 	InitialiseCollider();
 	AddBindable(std::make_unique<TransformConstantBuffer>(graphics, *this));
+
+	AddBindable(std::make_unique<TextureBindable>(graphics, textureFile));
 
 	m_pIndexBuffer = GetBindableOfType<IndexBuffer>();
 }
@@ -47,35 +51,36 @@ void Light::InitialiseStatic(Graphics& graphics)
 	{
 		DirectX::XMFLOAT3 Position;
 		DirectX::XMFLOAT3 Normal;
+		DirectX::XMFLOAT2 TextureCoords;
 		DirectX::XMFLOAT3 Colour;
 	};
 
 	std::vector<Vertex> vertices
 	{
-		{DirectX::XMFLOAT3(-1.0f, -1.0f, -1.0f), DirectX::XMFLOAT3(0, 0, 1.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)}, // Front
-		{DirectX::XMFLOAT3(1.0f, -1.0f, -1.0f), DirectX::XMFLOAT3(0, 0, 1.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(-1.0f, 1.0f, -1.0f), DirectX::XMFLOAT3(0, 0, 1.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(1.0f, 1.0f, -1.0f), DirectX::XMFLOAT3(0, 0, 1.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(-1.0f, -1.0f, 1.0f), DirectX::XMFLOAT3(0, 0, -1.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)}, // Back
-		{DirectX::XMFLOAT3(1.0f, -1.0f, 1.0f), DirectX::XMFLOAT3(0, 0, -1.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(-1.0f, 1.0f, 1.0f), DirectX::XMFLOAT3(0, 0, -1.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f), DirectX::XMFLOAT3(0, 0, -1.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(-1.0f, -1.0f, -1.0f), DirectX::XMFLOAT3(1.0f, 0, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)}, // Left
-		{DirectX::XMFLOAT3(-1.0f, 1.0f, -1.0f), DirectX::XMFLOAT3(1.0f, 0, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(-1.0f, -1.0f, 1.0f), DirectX::XMFLOAT3(1.0f, 0, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(-1.0f, 1.0f, 1.0f), DirectX::XMFLOAT3(1.0f, 0, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(1.0f, -1.0f, -1.0f), DirectX::XMFLOAT3(-1.0f, 0, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)}, // Right
-		{DirectX::XMFLOAT3(1.0f, 1.0f, -1.0f), DirectX::XMFLOAT3(-1.0f, 0, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(1.0f, -1.0f, 1.0f), DirectX::XMFLOAT3(-1.0f, 0, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f), DirectX::XMFLOAT3(-1.0f, 0, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(-1.0f, -1.0f, -1.0f), DirectX::XMFLOAT3(0, 1.0f, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)}, // Bottom
-		{DirectX::XMFLOAT3(1.0f, -1.0f, -1.0f), DirectX::XMFLOAT3(0, 1.0f, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(-1.0f, -1.0f, 1.0f), DirectX::XMFLOAT3(0, 1.0f, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(1.0f, -1.0f, 1.0f), DirectX::XMFLOAT3(0, 1.0f, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(-1.0f, 1.0f, -1.0f), DirectX::XMFLOAT3(0, -1.0f, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)}, // Top
-		{DirectX::XMFLOAT3(1.0f, 1.0f, -1.0f), DirectX::XMFLOAT3(0, -1.0f, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(-1.0f, 1.0f, 1.0f), DirectX::XMFLOAT3(0, -1.0f, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f), DirectX::XMFLOAT3(0, -1.0f, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)}
+		{DirectX::XMFLOAT3(-1.0f, -1.0f, -1.0f), DirectX::XMFLOAT3(0, 0, -1.0f), DirectX::XMFLOAT2(0, 1), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)}, // Front
+		{DirectX::XMFLOAT3(1.0f, -1.0f, -1.0f), DirectX::XMFLOAT3(0, 0, -1.0f), DirectX::XMFLOAT2(0, 1), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(-1.0f, 1.0f, -1.0f), DirectX::XMFLOAT3(0, 0, -1.0f), DirectX::XMFLOAT2(0, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(1.0f, 1.0f, -1.0f), DirectX::XMFLOAT3(0, 0, -1.0f), DirectX::XMFLOAT2(0, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(-1.0f, -1.0f, 1.0f), DirectX::XMFLOAT3(0, 0, 1.0f), DirectX::XMFLOAT2(0, 1), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)}, // Back
+		{DirectX::XMFLOAT3(1.0f, -1.0f, 1.0f), DirectX::XMFLOAT3(0, 0, 1.0f), DirectX::XMFLOAT2(0, 1), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(-1.0f, 1.0f, 1.0f), DirectX::XMFLOAT3(0, 0, 1.0f), DirectX::XMFLOAT2(0, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f), DirectX::XMFLOAT3(0, 0, 1.0f), DirectX::XMFLOAT2(0, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(-1.0f, -1.0f, -1.0f), DirectX::XMFLOAT3(-1.0f, 0, 0), DirectX::XMFLOAT2(0, 1), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)}, // Left
+		{DirectX::XMFLOAT3(-1.0f, 1.0f, -1.0f), DirectX::XMFLOAT3(-1.0f, 0, 0), DirectX::XMFLOAT2(0, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(-1.0f, -1.0f, 1.0f), DirectX::XMFLOAT3(-1.0f, 0, 0), DirectX::XMFLOAT2(0, 1), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(-1.0f, 1.0f, 1.0f), DirectX::XMFLOAT3(-1.0f, 0, 0), DirectX::XMFLOAT2(0, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(1.0f, -1.0f, -1.0f), DirectX::XMFLOAT3(1.0f, 0, 0), DirectX::XMFLOAT2(0, 1), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)}, // Right
+		{DirectX::XMFLOAT3(1.0f, 1.0f, -1.0f), DirectX::XMFLOAT3(1.0f, 0, 0), DirectX::XMFLOAT2(0, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(1.0f, -1.0f, 1.0f), DirectX::XMFLOAT3(1.0f, 0, 0), DirectX::XMFLOAT2(0, 1), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f), DirectX::XMFLOAT3(1.0f, 0, 0), DirectX::XMFLOAT2(0, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(-1.0f, -1.0f, -1.0f), DirectX::XMFLOAT3(0, -1.0f, 0), DirectX::XMFLOAT2(0, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)}, // Bottom
+		{DirectX::XMFLOAT3(1.0f, -1.0f, -1.0f), DirectX::XMFLOAT3(0, -1.0f, 0), DirectX::XMFLOAT2(1, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(-1.0f, -1.0f, 1.0f), DirectX::XMFLOAT3(0, -1.0f, 0), DirectX::XMFLOAT2(0, 1), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(1.0f, -1.0f, 1.0f), DirectX::XMFLOAT3(0, -1.0f, 0), DirectX::XMFLOAT2(1, 1), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(-1.0f, 1.0f, -1.0f), DirectX::XMFLOAT3(0, 1.0f, 0), DirectX::XMFLOAT2(0, 1), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)}, // Top
+		{DirectX::XMFLOAT3(1.0f, 1.0f, -1.0f), DirectX::XMFLOAT3(0, 1.0f, 0), DirectX::XMFLOAT2(1, 1), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(-1.0f, 1.0f, 1.0f), DirectX::XMFLOAT3(0, 1.0f, 0), DirectX::XMFLOAT2(0, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f), DirectX::XMFLOAT3(0, 1.0f, 0), DirectX::XMFLOAT2(1, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)}
 	};
 
 	// Create Index Buffer
@@ -94,7 +99,7 @@ void Light::InitialiseStatic(Graphics& graphics)
 
 	AddStaticBindable(std::make_unique<Topology>(graphics, D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 
-	auto vertexShader = std::make_unique<VertexShader>(graphics, graphics.GetShaderFolder() + L"ColourVS.cso");
+	auto vertexShader = std::make_unique<VertexShader>(graphics, graphics.GetShaderFolder() + L"TextureVS.cso");
 	auto vertexShaderByteCode = vertexShader->GetByteCode();
 	AddStaticBindable(std::move(vertexShader));
 
@@ -102,6 +107,7 @@ void Light::InitialiseStatic(Graphics& graphics)
 	{
 		{"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
 		{"NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0},
+		{"TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0},
 		{"COLOUR", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0}
 	};
 
@@ -109,7 +115,9 @@ void Light::InitialiseStatic(Graphics& graphics)
 
 	AddStaticBindable(std::make_unique<RasterizerState>(graphics));
 	
-	AddStaticBindable(std::make_unique<PixelShader>(graphics, graphics.GetShaderFolder() + L"ColourPS.cso"));
+	AddStaticBindable(std::make_unique<PixelShader>(graphics, graphics.GetShaderFolder() + L"TexturePS.cso"));
+
+	AddStaticBindable(std::make_unique<Sampler>(graphics));
 
 	AddStaticBindable(std::make_unique<BlendState>(graphics, false));
 }

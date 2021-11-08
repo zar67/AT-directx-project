@@ -27,7 +27,7 @@ public:
 	};
 public:
 	Light() = default;
-	Light(Graphics & graphics);
+	Light(Graphics & graphics, std::string textureFile);
 
 	void SetStrength(float strength);
 	void SetColour(float r, float g, float b);
