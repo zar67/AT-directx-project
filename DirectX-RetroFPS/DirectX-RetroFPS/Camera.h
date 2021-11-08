@@ -1,7 +1,7 @@
 #pragma once
 #include "Input.h"
 #include "Transform.h"
-#include "Collider.h"
+#include "CollisionUtilities.h"
 
 class Camera
 {
@@ -16,6 +16,7 @@ public:
 	Transform& GetTransform();
 
 	void Update(float deltaTime, Input& input, int windowWidth, int windowHeight);
+	void OnCollision(CollisionUtilities::CollisionData collision);
 
 	void LockYPosition(float y);
 

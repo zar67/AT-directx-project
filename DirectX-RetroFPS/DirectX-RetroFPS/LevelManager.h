@@ -15,6 +15,7 @@ public:
 
 	void DrawCurrentLevel(Graphics& graphics);
 	void UpdateCurrentLevel(float deltaTime);
+	void HandleCurrentLevelCollisions(Graphics& graphics);
 
 	Level* GetCurrentLevel();
 

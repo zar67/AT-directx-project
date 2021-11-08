@@ -26,6 +26,7 @@ public:
 		}
 	};
 public:
+	static bool IsCollisionPossible(Collider& colliderOne, Collider& colliderTwo);
 	static CollisionData IsColliding(Collider& colliderOne, Collider& colliderTwo);
 	static void ResolveCollision(CollisionData data);
 private:

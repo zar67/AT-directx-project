@@ -17,6 +17,7 @@ public:
 	void Initialise(Graphics& graphics);
 	void Draw(Graphics& graphics);
 	void Update(float deltaTime);
+	void HandleCollisions(Graphics& graphics);
 
 	int GetGeometryCount();
 	DrawableBase* GetGeometryAtIndex(int index);
