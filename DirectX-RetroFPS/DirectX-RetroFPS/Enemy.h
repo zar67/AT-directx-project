@@ -71,16 +71,5 @@ private:
 	void RotateToPlayer();
 	void UpdateFacingDirection();
 
-	const std::map<FaceDirection, Vector> DIRECTION_MAP = {
-		{FaceDirection::FORWARDS, Vector(0.0f, 0.0f, -1.0f)},
-		{FaceDirection::FORWARDS_LEFT, Vector(0.5f, 0.0f, -0.5f)},
-		{FaceDirection::LEFT, Vector(1.0f, 0.0f, 0.0f)},
-		{FaceDirection::BACKWARDS_LEFT, Vector(0.5f, 0.0f, 0.5f)},
-		{FaceDirection::BACKWARDS, Vector(0.0f, 0.0f, 1.0f)},
-		{FaceDirection::BACKWARDS_RIGHT, Vector(-0.5f, 0.0f, 0.5f)},
-		{FaceDirection::RIGHT, Vector(-1.0f, 0.0f, -1.0f)},
-		{FaceDirection::FORWARDS_RIGHT, Vector(-0.5f, 0.0f, -0.5f)}
-	};
-
 	Vector m_lookVector = Vector(0.0f, 0.0f, -1.0f);
 };
