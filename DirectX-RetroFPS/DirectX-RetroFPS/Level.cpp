@@ -31,17 +31,26 @@ void Level::Draw(Graphics& graphics)
 
 	for (int i = 0; i < m_lights.size(); i++)
 	{
-		m_lights[i]->Draw(graphics);
+		if (m_lights[i]->IsActive())
+		{
+			m_lights[i]->Draw(graphics);
+		}
 	}
 
 	for (int i = 0; i < m_geometry.size(); i++)
 	{
-		m_geometry[i]->Draw(graphics);
+		if (m_geometry[i]->IsActive())
+		{
+			m_geometry[i]->Draw(graphics);
+		}
 	}
 
 	for (int i = 0; i < m_enemies.size(); i++)
 	{
-		m_enemies[i]->Draw(graphics);
+		if (m_enemies[i]->IsActive())
+		{
+			m_enemies[i]->Draw(graphics);
+		}
 	}
 }
 
@@ -59,17 +68,92 @@ void Level::Update(float deltaTime)
 {
 	for (int i = 0; i < m_lights.size(); i++)
 	{
-		m_lights[i]->Update(deltaTime);
+		if (m_lights[i]->IsActive())
+		{
+			m_lights[i]->Update(deltaTime);
+		}
 	}
 
 	for (int i = 0; i < m_geometry.size(); i++)
 	{
-		m_geometry[i]->Update(deltaTime);
+		if (m_geometry[i]->IsActive())
+		{
+			m_geometry[i]->Update(deltaTime);
+		}
 	}
 
 	for (int i = 0; i < m_enemies.size(); i++)
 	{
-		m_enemies[i]->Update(deltaTime);
+		if (m_enemies[i]->IsActive())
+		{
+			m_enemies[i]->Update(deltaTime);
+		}
+	}
+}
+
+void Level::HandleCollisions(Graphics& graphics)
+{
+	for (auto& geometry : m_geometry)
+	{
+		DrawableBase* drawableA = geometry.get();
+
+		if (!drawableA->IsActive())
+		{
+			continue;
+		}
+
+		if (CollisionUtilities::IsCollisionPossible(drawableA->GetCollider(), graphics.GetCamera()->GetCollider()))
+		{
+			CollisionUtilities::CollisionData collision = CollisionUtilities::IsColliding(drawableA->GetCollider(), graphics.GetCamera()->GetCollider());
+			if (collision.IsColliding)
+			{
+				CollisionUtilities::ResolveCollision(collision);
+				drawableA->OnCollision(collision);
+				graphics.GetCamera()->OnCollision(collision);
+			}
+		}
+
+		for (auto& enemy : m_enemies)
+		{
+			DrawableBase* drawableB = enemy.get();
+
+			if (!drawableB->IsActive())
+			{
+				continue;
+			}
+
+			if (CollisionUtilities::IsCollisionPossible(drawableA->GetCollider(), drawableB->GetCollider()))
+			{
+				CollisionUtilities::CollisionData collision = CollisionUtilities::IsColliding(drawableA->GetCollider(), drawableB->GetCollider());
+				if (collision.IsColliding)
+				{
+					CollisionUtilities::ResolveCollision(collision);
+					drawableA->OnCollision(collision);
+					drawableB->OnCollision(collision);
+				}
+			}
+		}
+	}
+
+	for (auto& enemy : m_enemies)
+	{
+		DrawableBase* drawableA = enemy.get();
+
+		if (!drawableA->IsActive())
+		{
+			continue;
+		}
+
+		if (CollisionUtilities::IsCollisionPossible(drawableA->GetCollider(), graphics.GetCamera()->GetCollider()))
+		{
+			CollisionUtilities::CollisionData collision = CollisionUtilities::IsColliding(drawableA->GetCollider(), graphics.GetCamera()->GetCollider());
+			if (collision.IsColliding)
+			{
+				CollisionUtilities::ResolveCollision(collision);
+				drawableA->OnCollision(collision);
+				graphics.GetCamera()->OnCollision(collision);
+			}
+		}
 	}
 }
 

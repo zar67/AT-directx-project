@@ -20,6 +20,11 @@ void DrawableBase::Update(float deltaTime)
 
 }
 
+void DrawableBase::OnCollision(CollisionUtilities::CollisionData collision)
+{
+
+}
+
 void DrawableBase::AddBindable(std::unique_ptr<Bindable> bindable)
 {
 	m_bindables.push_back(std::move(bindable));
@@ -33,4 +38,9 @@ Transform& DrawableBase::GetTransform()
 Collider& DrawableBase::GetCollider()
 {
 	return m_collider;
+}
+
+bool DrawableBase::IsActive()
+{
+	return m_isActive;
 }

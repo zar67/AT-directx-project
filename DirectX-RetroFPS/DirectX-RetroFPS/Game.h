@@ -12,7 +12,6 @@ private:
 	void Init();
 	void Update(float deltaTime);
 	void HandleInput();
-	void HandleCollision();
 	void Render();
 
 	Window m_window;

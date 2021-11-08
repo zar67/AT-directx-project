@@ -41,7 +41,7 @@ void Game::Update(float deltaTime)
 	{
 		m_window.GetGraphics().GetCamera()->Update(deltaTime, m_window.GetInput(), m_window.GetWidth(), m_window.GetHeight());
 		m_levelManager.UpdateCurrentLevel(deltaTime);
-		HandleCollision();
+		m_levelManager.HandleCurrentLevelCollisions(m_window.GetGraphics());
 
 		m_window.GetGraphics().GetCamera()->UpdateViewMatrix();
 	}
@@ -81,20 +81,6 @@ void Game::HandleInput()
 	{
 		// Handle Mouse Event
 		mouseEvent = m_window.GetInput().GetMouse().Read();
-	}
-}
-
-void Game::HandleCollision()
-{
-	Level* currentLevel = m_levelManager.GetCurrentLevel();
-	for (int i = 0; i < currentLevel->GetGeometryCount(); i++)
-	{
-		DrawableBase* drawableA = currentLevel->GetGeometryAtIndex(i);
-		CollisionUtilities::CollisionData collision = CollisionUtilities::IsColliding(drawableA->GetCollider(), m_window.GetGraphics().GetCamera()->GetCollider());
-		if (collision.IsColliding)
-		{
-			CollisionUtilities::ResolveCollision(collision);
-		}
 	}
 }
 

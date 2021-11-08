@@ -97,6 +97,11 @@ void Camera::Update(float deltaTime, Input& input, int windowWidth, int windowHe
 	}
 }
 
+void Camera::OnCollision(CollisionUtilities::CollisionData collision)
+{
+
+}
+
 void Camera::LockYPosition(float y)
 {
 	m_transform.ConstrainYPosition = false;

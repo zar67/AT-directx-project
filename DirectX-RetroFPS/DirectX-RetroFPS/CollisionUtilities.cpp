@@ -1,6 +1,12 @@
 #include "CollisionUtilities.h"
 #include <iostream>
 
+bool CollisionUtilities::IsCollisionPossible(Collider& colliderOne, Collider& colliderTwo)
+{
+	float distanceSquared = (colliderOne.GetTransform()->Position - colliderTwo.GetTransform()->Position).GetMagnitudeSquared();
+	return distanceSquared < 5;
+}
+
 CollisionUtilities::CollisionData CollisionUtilities::IsColliding(Collider& colliderOne, Collider& colliderTwo)
 {
 	CollisionUtilities::CollisionData abData = FindMinimumSeparation(colliderOne, colliderTwo);

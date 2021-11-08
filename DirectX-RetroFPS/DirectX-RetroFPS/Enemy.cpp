@@ -16,6 +16,8 @@ Enemy::Enemy(Graphics& graphics)
 		InitialiseStatic(graphics);
 	}
 
+	InitialiseCollider();
+
 	std::unique_ptr<VertexBuffer<Vertex>> vertexBuffer = std::make_unique<VertexBuffer<Vertex>>(graphics, m_vertices);
 	m_pVertexBuffer = vertexBuffer.get();
 	AddBindable(std::move(vertexBuffer));
@@ -44,6 +46,11 @@ void Enemy::Update(float deltaTime)
 	{
 		m_vertices[i].TextureCoords = m_textureCoords[i].Coordinate;
 	}
+}
+
+void Enemy::OnCollision(CollisionUtilities::CollisionData collision)
+{
+	m_isActive = false;
 }
 
 void Enemy::InitialiseStatic(Graphics& graphics)
@@ -80,6 +87,22 @@ void Enemy::InitialiseStatic(Graphics& graphics)
 	AddStaticBindable(std::make_unique<Sampler>(graphics));
 
 	AddStaticBindable(std::make_unique<BlendState>(graphics, true));
+}
+
+void Enemy::InitialiseCollider()
+{
+	m_collider.SetTransform(&m_transform);
+	m_collider.SetRotationConstraints(true, true, true);
+
+	// The camera is treated as a point, so all the vertices are the same, but we still need the normals.
+	m_collider.SetColliderData({
+		{DirectX::XMFLOAT3(-1.0f, 0.0f, 0.0f), DirectX::XMFLOAT3(-1.0f, 0.0f, 0.0f)}, // Left Side
+		{DirectX::XMFLOAT3(1.0f, 0.0f, 0.0f), DirectX::XMFLOAT3(1.0f, 0.0f, 0.0f)}, // Right Side
+		{DirectX::XMFLOAT3(0.0f, 0.0f, -1.0f), DirectX::XMFLOAT3(0.0f, 0.0f, -1.0f)}, // Front Side
+		{DirectX::XMFLOAT3(0.0f, 0.0f, 1.0f), DirectX::XMFLOAT3(0.0f, 0.0f, 1.0f)}, // Back Side
+		{DirectX::XMFLOAT3(0.0f, 1.0f, 0.0f), DirectX::XMFLOAT3(0.0f, 1.0f, 0.0f)}, // Top Side
+		{DirectX::XMFLOAT3(0.0f, -1.0f, 0.0f), DirectX::XMFLOAT3(0.0f, -1.0f, 0.0f)} // Bottom Side
+		});
 }
 
 void Enemy::RotateToPlayer()

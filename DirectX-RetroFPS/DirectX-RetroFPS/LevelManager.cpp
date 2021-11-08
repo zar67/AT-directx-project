@@ -38,3 +38,8 @@ void LevelManager::UpdateCurrentLevel(float deltaTime)
 {
 	m_levels[m_currentLevelIndex]->Update(deltaTime);
 }
+
+void LevelManager::HandleCurrentLevelCollisions(Graphics& graphics)
+{
+	m_levels[m_currentLevelIndex]->HandleCollisions(graphics);
+}

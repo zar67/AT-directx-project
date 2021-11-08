@@ -5,7 +5,7 @@
 #include "Graphics.h"
 #include "Bindable.h"
 #include "IndexBuffer.h"
-#include "Collider.h"
+#include "CollisionUtilities.h"
 
 class DrawableBase
 {
@@ -15,12 +15,15 @@ public:
 
 	virtual void Draw(Graphics& graphics);
 	virtual void Update(float deltaTime);
+	virtual void OnCollision(CollisionUtilities::CollisionData collision);
 
 	void AddBindable(std::unique_ptr<Bindable> bindable);
 
 	Transform& GetTransform();
 	Collider& GetCollider();
     
+	bool IsActive();
+
 	template<class B>
 	B* GetBindableOfType()
 	{
@@ -53,4 +56,6 @@ protected:
 	Transform m_transform;
 	Collider m_collider;
 	std::vector<std::unique_ptr<Bindable>> m_bindables;
+
+	bool m_isActive = true;
 };

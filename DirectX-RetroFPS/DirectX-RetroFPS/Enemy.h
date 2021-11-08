@@ -40,6 +40,7 @@ public:
 
 	void Draw(Graphics& graphics) override;
 	virtual void Update(float deltaTime) override;
+	virtual void OnCollision(CollisionUtilities::CollisionData collision) override;
 
 protected:
 	std::vector<TextureCoordinate> m_textureCoords = {
@@ -67,6 +68,7 @@ protected:
 
 private:
 	void InitialiseStatic(Graphics & graphics);
+	void InitialiseCollider();
 
 	void RotateToPlayer();
 	void UpdateFacingDirection();
