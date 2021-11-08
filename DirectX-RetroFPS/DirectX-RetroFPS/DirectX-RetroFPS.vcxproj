@@ -89,6 +89,7 @@
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionUtilities.cpp" />
     <ClCompile Include="Demon.cpp" />
+    <ClCompile Include="DemonPuppy.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Keyboard.cpp" />
@@ -119,6 +120,7 @@
     <ClCompile Include="VertexShader.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="WinMain.cpp" />
+    <ClCompile Include="Zombie.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -128,6 +130,7 @@
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionUtilities.h" />
     <ClInclude Include="Demon.h" />
+    <ClInclude Include="DemonPuppy.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Keyboard.h" />
@@ -165,6 +168,7 @@
     <ClInclude Include="VertexConstantBuffer.h" />
     <ClInclude Include="VertexShader.h" />
     <ClInclude Include="Window.h" />
+    <ClInclude Include="Zombie.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="ColourPS.hlsl">

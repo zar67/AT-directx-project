@@ -213,6 +213,12 @@
     <ClCompile Include="Demon.cpp">
       <Filter>Source\Source Files\Game\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="Zombie.cpp">
+      <Filter>Source\Source Files\Game\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="DemonPuppy.cpp">
+      <Filter>Source\Source Files\Game\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ErrorLogger.h">
@@ -409,6 +415,12 @@
     </ClInclude>
     <ClInclude Include="TextureCoordinate.h">
       <Filter>Source\Header Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Zombie.h">
+      <Filter>Source\Header Files\Game\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="DemonPuppy.h">
+      <Filter>Source\Header Files\Game\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

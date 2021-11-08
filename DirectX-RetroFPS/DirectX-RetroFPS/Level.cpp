@@ -6,6 +6,8 @@
 #include "Level.h"
 #include "TexturedCube.h"
 #include "Demon.h"
+#include "Zombie.h"
+#include "DemonPuppy.h"
 
 Level::Level(Graphics& graphics, std::string filename) :
 	m_lightConstantBuffer(graphics)
@@ -172,13 +174,28 @@ void Level::ParseLevelDataCharacter(Graphics& graphics, char character, float xP
 			m_startingPosition.Set(xPosition, yPosition + (UNIT_SIZE * 1.5f), zPosition);
 			break;
 		}
-		case 'E': // Enemy
+		case 'D': // Demon
 		{
-			std::unique_ptr<Demon> pEnemy = std::make_unique<Demon>(graphics);
-			pEnemy->GetTransform().ApplyTranslation(xPosition, yPosition + UNIT_SIZE, zPosition);
-			pEnemy->GetTransform().ApplyScalar(UNIT_SIZE, UNIT_SIZE * 2, UNIT_SIZE);
-			m_enemies.emplace_back(std::move(pEnemy));
+			std::unique_ptr<Demon> pDemon = std::make_unique<Demon>(graphics);
+			pDemon->GetTransform().ApplyTranslation(xPosition, yPosition + UNIT_SIZE, zPosition);
+			pDemon->GetTransform().ApplyScalar(UNIT_SIZE, UNIT_SIZE * 2, UNIT_SIZE);
+			m_enemies.emplace_back(std::move(pDemon));
+			break; 
+		}
+		case 'Z': // Zombie
+		{
+			std::unique_ptr<Zombie> pZombie = std::make_unique<Zombie>(graphics);
+			pZombie->GetTransform().ApplyTranslation(xPosition, yPosition + UNIT_SIZE, zPosition);
+			pZombie->GetTransform().ApplyScalar(UNIT_SIZE, UNIT_SIZE * 2, UNIT_SIZE);
+			m_enemies.emplace_back(std::move(pZombie));
 			break;
+		}
+		case 'P': // Demon Puppy
+		{
+			std::unique_ptr<DemonPuppy> pPuppy = std::make_unique<DemonPuppy>(graphics);
+			pPuppy->GetTransform().ApplyTranslation(xPosition, yPosition + UNIT_SIZE, zPosition);
+			pPuppy->GetTransform().ApplyScalar(UNIT_SIZE, UNIT_SIZE * 2, UNIT_SIZE);
+			m_enemies.emplace_back(std::move(pPuppy));
 			break;
 		}
 		case 'K': // Key
