@@ -7,10 +7,13 @@ void Collider::SetTransform(Transform* transform)
 
 void Collider::SetColliderData(std::vector<ColliderVertex> data)
 {
-	for (const ColliderVertex& vertexData : data)
+	for (ColliderVertex& vertexData : data)
 	{
-		m_vertices.push_back(DirectX::XMLoadFloat3(&vertexData.Vertex));
-		m_normals.push_back(DirectX::XMLoadFloat3(&vertexData.Normal));
+		DirectX::XMFLOAT3 vertex = vertexData.Vertex.AsFLOAT3();
+		m_vertices.push_back(DirectX::XMLoadFloat3(&vertex));
+
+		DirectX::XMFLOAT3 normal = vertexData.Normal.AsFLOAT3();
+		m_normals.push_back(DirectX::XMLoadFloat3(&normal));
 	}
 }
 
@@ -26,9 +29,9 @@ void Collider::SetStatic(bool value)
 	m_isStatic = value;
 }
 
-std::vector<DirectX::XMFLOAT3> Collider::GetVertices()
+std::vector<Vector> Collider::GetVertices()
 {
-	std::vector<DirectX::XMFLOAT3> multipliedVertices;
+	std::vector<Vector> multipliedVertices;
 
 	for (DirectX::XMVECTOR vertex : m_vertices)
 	{
@@ -37,15 +40,15 @@ std::vector<DirectX::XMFLOAT3> Collider::GetVertices()
 
 		DirectX::XMStoreFloat3(&convertexVertexFloat, convertedVertex);
 
-		multipliedVertices.push_back(convertexVertexFloat);
+		multipliedVertices.push_back(Vector(convertexVertexFloat));
 	}
 
 	return multipliedVertices;
 }
 
-std::vector<DirectX::XMFLOAT3> Collider::GetNormals()
+std::vector<Vector> Collider::GetNormals()
 {
-	std::vector<DirectX::XMFLOAT3> multipliedNormals;
+	std::vector<Vector> multipliedNormals;
 
 	for (DirectX::XMVECTOR normal : m_normals)
 	{
@@ -53,7 +56,7 @@ std::vector<DirectX::XMFLOAT3> Collider::GetNormals()
 		DirectX::XMFLOAT3 convertexNormalFloat;
 
 		DirectX::XMStoreFloat3(&convertexNormalFloat, convertedNormal);
-		multipliedNormals.push_back(convertexNormalFloat);
+		multipliedNormals.push_back(Vector(convertexNormalFloat));
 	}
 
 	return multipliedNormals;
@@ -61,26 +64,21 @@ std::vector<DirectX::XMFLOAT3> Collider::GetNormals()
 
 void Collider::IncreaseVelocity(float x, float y, float z)
 {
-	m_velocity.x += x;
-	m_velocity.y += y;
-	m_velocity.z += z;
+	m_velocity.X += x;
+	m_velocity.Y += y;
+	m_velocity.Z += z;
 }
 
-void Collider::IncreaseVelocity(DirectX::XMFLOAT3 value)
+void Collider::IncreaseVelocity(Vector value)
 {
-	m_velocity.x += value.x;
-	m_velocity.y += value.y;
-	m_velocity.z += value.z;
+	m_velocity.X += value.X;
+	m_velocity.Y += value.Y;
+	m_velocity.Z += value.Z;
 }
 
 void Collider::ResetVelocity()
 {
-	m_velocity = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
-}
-
-bool Collider::IsVelocityZero()
-{
-	return m_velocity.x == 0.0f && m_velocity.y == 0.0f && m_velocity.z == 0.0f;
+	m_velocity = Vector(0.0f, 0.0f, 0.0f);
 }
 
 bool Collider::IsStatic()
@@ -88,7 +86,7 @@ bool Collider::IsStatic()
 	return m_isStatic;
 }
 
-DirectX::XMFLOAT3 Collider::GetVelocity()
+Vector Collider::GetVelocity()
 {
 	return m_velocity;
 }

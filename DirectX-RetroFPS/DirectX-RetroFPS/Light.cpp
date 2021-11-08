@@ -6,20 +6,19 @@
 #include "VertexShader.h"
 #include "Topology.h"
 #include "VertexBuffer.h"
+#include "BlendState.h"
 
 Light::Light(Graphics& graphics)
 {
-	if (IsStaticInitialized())
-	{
-		SetIndexFromStatic();
-	}
-	else
+	if (!IsStaticInitialized())
 	{
 		InitialiseStatic(graphics);
 	}
 
 	InitialiseCollider();
 	AddBindable(std::make_unique<TransformConstantBuffer>(graphics, *this));
+
+	m_pIndexBuffer = GetBindableOfType<IndexBuffer>();
 }
 
 void Light::SetStrength(float strength)
@@ -35,7 +34,7 @@ void Light::SetColour(float r, float g, float b)
 Light::DiffuseData Light::GetBufferData()
 {
 	Light::DiffuseData data;
-	data.Position = m_transform.Position;
+	data.Position = m_transform.Position.AsFLOAT3();
 	data.Strength = m_strength;
 	data.Colour = m_colour;
 
@@ -91,7 +90,7 @@ void Light::InitialiseStatic(Graphics& graphics)
 	};
 
 	AddStaticBindable(std::make_unique<VertexBuffer<Vertex>>(graphics, vertices));
-	AddStaticIndexBuffer(std::make_unique<IndexBuffer>(graphics, indices));
+	AddStaticBindable(std::make_unique<IndexBuffer>(graphics, indices));
 
 	AddStaticBindable(std::make_unique<Topology>(graphics, D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 
@@ -111,17 +110,19 @@ void Light::InitialiseStatic(Graphics& graphics)
 	AddStaticBindable(std::make_unique<RasterizerState>(graphics));
 	
 	AddStaticBindable(std::make_unique<PixelShader>(graphics, graphics.GetShaderFolder() + L"ColourPS.cso"));
+
+	AddStaticBindable(std::make_unique<BlendState>(graphics, false));
 }
 
 void Light::InitialiseCollider()
 {
 	m_collider.SetTransform(&m_transform);
 	m_collider.SetColliderData({
-		{DirectX::XMFLOAT3(-1.0f, 0.0f, 0.0f), DirectX::XMFLOAT3(-1.0f, 0.0f, 0.0f)}, // Left Side
-		{DirectX::XMFLOAT3(1.0f, 0.0f, 0.0f), DirectX::XMFLOAT3(1.0f, 0.0f, 0.0f)}, // Right Side
-		{DirectX::XMFLOAT3(0.0f, 0.0f, -1.0f), DirectX::XMFLOAT3(0.0f, 0.0f, -1.0f)}, // Front Side
-		{DirectX::XMFLOAT3(0.0f, 0.0f, 1.0f), DirectX::XMFLOAT3(0.0f, 0.0f, 1.0f)}, // Back Side
-		{DirectX::XMFLOAT3(0.0f, 1.0f, 0.0f), DirectX::XMFLOAT3(0.0f, 1.0f, 0.0f)}, // Top Side
-		{DirectX::XMFLOAT3(0.0f, -1.0f, 0.0f), DirectX::XMFLOAT3(0.0f, -1.0f, 0.0f)} // Bottom Side
+		{Vector(-1.0f, 0.0f, 0.0f), Vector(-1.0f, 0.0f, 0.0f)}, // Left Side
+		{Vector(1.0f, 0.0f, 0.0f), Vector(1.0f, 0.0f, 0.0f)}, // Right Side
+		{Vector(0.0f, 0.0f, -1.0f), Vector(0.0f, 0.0f, -1.0f)}, // Front Side
+		{Vector(0.0f, 0.0f, 1.0f), Vector(0.0f, 0.0f, 1.0f)}, // Back Side
+		{Vector(0.0f, 1.0f, 0.0f), Vector(0.0f, 1.0f, 0.0f)}, // Top Side
+		{Vector(0.0f, -1.0f, 0.0f), Vector(0.0f, -1.0f, 0.0f)} // Bottom Side
 		});
 }

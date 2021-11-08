@@ -33,3 +33,8 @@ Level* LevelManager::GetCurrentLevel()
 {
 	return m_levels[m_currentLevelIndex].get();
 }
+
+void LevelManager::UpdateCurrentLevel(float deltaTime)
+{
+	m_levels[m_currentLevelIndex]->Update(deltaTime);
+}

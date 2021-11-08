@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Collider.h"
+#include "Vector.h"
 
 static class CollisionUtilities
 {
@@ -11,8 +12,8 @@ public:
 		Collider* ColliderA;
 		Collider* ColliderB;
 		float Separation;
-		DirectX::XMFLOAT3 ACollisionNormal;
-		DirectX::XMFLOAT3 BCollisionNormal;
+		Vector ACollisionNormal;
+		Vector BCollisionNormal;
 
 		CollisionData()
 		{
@@ -20,8 +21,8 @@ public:
 			ColliderA = nullptr;
 			ColliderB = nullptr;
 			Separation = 0;
-			ACollisionNormal = DirectX::XMFLOAT3();
-			BCollisionNormal = DirectX::XMFLOAT3();
+			ACollisionNormal = Vector();
+			BCollisionNormal = Vector();
 		}
 	};
 public:
@@ -29,5 +30,4 @@ public:
 	static void ResolveCollision(CollisionData data);
 private:
 	static CollisionData FindMinimumSeparation(Collider& colliderOne, Collider& colliderTwo);
-	static float DotProduct(DirectX::XMFLOAT3 vectorOne, DirectX::XMFLOAT3 vectorTwo);
 };

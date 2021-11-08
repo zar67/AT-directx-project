@@ -82,10 +82,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Bindable.cpp" />
+    <ClCompile Include="BlendState.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionUtilities.cpp" />
+    <ClCompile Include="Demon.cpp" />
+    <ClCompile Include="DemonPuppy.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="KeyboardEvent.cpp" />
@@ -94,6 +99,7 @@
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="MouseEvent.cpp" />
     <ClCompile Include="RasterizerState.cpp" />
+    <ClCompile Include="SpriteSheet.cpp" />
     <ClCompile Include="TexturedCube.cpp" />
     <ClCompile Include="DrawableBase.cpp" />
     <ClCompile Include="ErrorLogger.cpp" />
@@ -110,15 +116,22 @@
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Topology.cpp" />
     <ClCompile Include="TransformConstantBuffer.cpp" />
+    <ClCompile Include="Vector.cpp" />
     <ClCompile Include="VertexShader.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="WinMain.cpp" />
+    <ClCompile Include="Zombie.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animation.h" />
     <ClInclude Include="Bindable.h" />
+    <ClInclude Include="BlendState.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionUtilities.h" />
+    <ClInclude Include="Demon.h" />
+    <ClInclude Include="DemonPuppy.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="KeyboardEvent.h" />
@@ -127,6 +140,8 @@
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="MouseEvent.h" />
     <ClInclude Include="RasterizerState.h" />
+    <ClInclude Include="SpriteSheet.h" />
+    <ClInclude Include="TextureCoordinate.h" />
     <ClInclude Include="TexturedCube.h" />
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="DrawableBase.h" />
@@ -148,10 +163,12 @@
     <ClInclude Include="Topology.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="TransformConstantBuffer.h" />
+    <ClInclude Include="Vector.h" />
     <ClInclude Include="VertexBuffer.h" />
     <ClInclude Include="VertexConstantBuffer.h" />
     <ClInclude Include="VertexShader.h" />
     <ClInclude Include="Window.h" />
+    <ClInclude Include="Zombie.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="ColourPS.hlsl">

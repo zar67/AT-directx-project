@@ -13,14 +13,38 @@ public:
 	DrawableBase() = default;
 	virtual ~DrawableBase() = default;
 
-	void Draw(Graphics& graphics);
+	virtual void Draw(Graphics& graphics);
 	virtual void Update(float deltaTime);
 
-	void AddIndexBuffer(std::unique_ptr<IndexBuffer> indexBuffer);
 	void AddBindable(std::unique_ptr<Bindable> bindable);
 
 	Transform& GetTransform();
 	Collider& GetCollider();
+    
+	template<class B>
+	B* GetBindableOfType()
+	{
+		for (auto& bindable : m_bindables)
+		{
+			B* castBind = dynamic_cast<B*>(bindable.get());
+			if (castBind != nullptr)
+			{
+				return castBind;
+			}
+		}
+
+		for (auto& bindable : GetStaticBinds())
+		{
+			B* castBind = dynamic_cast<B*>(bindable.get());
+			if (castBind != nullptr)
+			{
+				return castBind;
+			}
+		}
+
+		return nullptr;
+	}
+
 
 protected:
 	virtual const std::vector<std::unique_ptr<Bindable>>& GetStaticBinds() const = 0;

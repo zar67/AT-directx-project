@@ -5,11 +5,14 @@
 
 #include "Level.h"
 #include "TexturedCube.h"
+#include "Demon.h"
+#include "Zombie.h"
+#include "DemonPuppy.h"
 
 Level::Level(Graphics& graphics, std::string filename) :
 	m_lightConstantBuffer(graphics)
 {
-	m_startingPosition = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
+	m_startingPosition = Vector(0.0f, 0.0f, 0.0f);
 	m_startLookRotation = 0;
 
 	GenerateDataFromFile(graphics, filename);
@@ -17,9 +20,9 @@ Level::Level(Graphics& graphics, std::string filename) :
 
 void Level::Initialise(Graphics& graphics)
 {
-	graphics.GetCamera()->SetPosition(m_startingPosition.x, m_startingPosition.y, m_startingPosition.z);
-	graphics.GetCamera()->LockYPosition(m_startingPosition.y);
-	graphics.GetCamera()->SetRotation(0.0f, m_startLookRotation, 0.0f);
+	graphics.GetCamera()->GetTransform().Position.Set(m_startingPosition.X, m_startingPosition.Y, m_startingPosition.Z);
+	graphics.GetCamera()->LockYPosition(m_startingPosition.Y);
+	graphics.GetCamera()->GetTransform().Rotation.Set(0.0f, m_startLookRotation, 0.0f);
 }
 
 void Level::Draw(Graphics& graphics)
@@ -35,6 +38,11 @@ void Level::Draw(Graphics& graphics)
 	{
 		m_geometry[i]->Draw(graphics);
 	}
+
+	for (int i = 0; i < m_enemies.size(); i++)
+	{
+		m_enemies[i]->Draw(graphics);
+	}
 }
 
 int Level::GetGeometryCount()
@@ -45,6 +53,24 @@ int Level::GetGeometryCount()
 DrawableBase* Level::GetGeometryAtIndex(int index)
 {
 	return m_geometry[index].get();
+}
+
+void Level::Update(float deltaTime)
+{
+	for (int i = 0; i < m_lights.size(); i++)
+	{
+		m_lights[i]->Update(deltaTime);
+	}
+
+	for (int i = 0; i < m_geometry.size(); i++)
+	{
+		m_geometry[i]->Update(deltaTime);
+	}
+
+	for (int i = 0; i < m_enemies.size(); i++)
+	{
+		m_enemies[i]->Update(deltaTime);
+	}
 }
 
 void Level::GenerateDataFromFile(Graphics& graphics, std::string filename)
@@ -95,8 +121,8 @@ void Level::GenerateDataFromFile(Graphics& graphics, std::string filename)
 					std::string subString = line.substr(index, line.size() - 1);
 
 					float degrees = std::stof(subString);
-					float radians = degrees * (3.14f / 180);
-					m_startLookRotation =  radians;
+					float radians = degrees * (DirectX::XM_PI / 180);
+					m_startLookRotation = radians;
 
 					yPosition += UNIT_SIZE * 2;
 					break;
@@ -128,10 +154,9 @@ void Level::ParseLevelDataCharacter(Graphics& graphics, char character, float xP
 	{
 		case '#': // Wall
 		{
-			std::unique_ptr<TexturedCube> pCube = std::make_unique<TexturedCube>(graphics, 0.3f, 0.3f, 0.3f);
+			std::unique_ptr<TexturedCube> pCube = std::make_unique<TexturedCube>(graphics);
 			pCube->GetTransform().ApplyTranslation(xPosition, yPosition, zPosition);
 			pCube->GetTransform().ApplyScalar(UNIT_SIZE, UNIT_SIZE, UNIT_SIZE);
-			pCube->GetCollider().SetStatic(true);
 			m_geometry.emplace_back(std::move(pCube));
 			break;
 		}
@@ -146,11 +171,31 @@ void Level::ParseLevelDataCharacter(Graphics& graphics, char character, float xP
 		}
 		case 'S': // Level Start Position
 		{
-			m_startingPosition = DirectX::XMFLOAT3(xPosition, yPosition + (UNIT_SIZE * 1.5f), zPosition);
+			m_startingPosition.Set(xPosition, yPosition + (UNIT_SIZE * 1.5f), zPosition);
 			break;
 		}
-		case 'E': // Enemy
+		case 'D': // Demon
 		{
+			std::unique_ptr<Demon> pDemon = std::make_unique<Demon>(graphics);
+			pDemon->GetTransform().ApplyTranslation(xPosition, yPosition + UNIT_SIZE, zPosition);
+			pDemon->GetTransform().ApplyScalar(UNIT_SIZE, UNIT_SIZE * 2, UNIT_SIZE);
+			m_enemies.emplace_back(std::move(pDemon));
+			break; 
+		}
+		case 'Z': // Zombie
+		{
+			std::unique_ptr<Zombie> pZombie = std::make_unique<Zombie>(graphics);
+			pZombie->GetTransform().ApplyTranslation(xPosition, yPosition + UNIT_SIZE, zPosition);
+			pZombie->GetTransform().ApplyScalar(UNIT_SIZE, UNIT_SIZE * 2, UNIT_SIZE);
+			m_enemies.emplace_back(std::move(pZombie));
+			break;
+		}
+		case 'P': // Demon Puppy
+		{
+			std::unique_ptr<DemonPuppy> pPuppy = std::make_unique<DemonPuppy>(graphics);
+			pPuppy->GetTransform().ApplyTranslation(xPosition, yPosition + UNIT_SIZE, zPosition);
+			pPuppy->GetTransform().ApplyScalar(UNIT_SIZE, UNIT_SIZE * 2, UNIT_SIZE);
+			m_enemies.emplace_back(std::move(pPuppy));
 			break;
 		}
 		case 'K': // Key
@@ -176,7 +221,7 @@ void Level::BindLighting(Graphics& graphics)
 	lightBufferData.AttenuationLinear = ATTENUATION_LINEAR;
 	lightBufferData.AttenuationQuadratic = ATTENUATION_QUADRATIC;
 
-	DirectX::XMFLOAT3 cameraPosition = graphics.GetCamera()->GetTransform().Position;
+	Vector cameraPosition = graphics.GetCamera()->GetTransform().Position;
 
 	float excludedIndexes[Light::MAX_SCENE_LIGHTS];
 	for (int i = 0; i < Light::MAX_SCENE_LIGHTS; i++)
@@ -206,14 +251,10 @@ void Level::BindLighting(Graphics& graphics)
 				continue;
 			}
 
-			DirectX::XMFLOAT3 lightPos = m_lights[i]->GetTransform().Position;
-			DirectX::XMFLOAT3 camToLight = DirectX::XMFLOAT3(
-				lightPos.x - cameraPosition.x,
-				lightPos.y - cameraPosition.y,
-				lightPos.z - cameraPosition.z
-			);
+			Vector lightPos = m_lights[i]->GetTransform().Position;
+			Vector camToLight = lightPos - cameraPosition;
 
-			float distSquared = pow(camToLight.x, 2) + pow(camToLight.y, 2) + pow(camToLight.z, 2);
+			float distSquared = camToLight.GetMagnitudeSquared();
 
 			if (distSquared < closestDistance)
 			{

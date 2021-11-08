@@ -6,6 +6,7 @@
 #include "DrawableBase.h"
 #include "PixelConstantBuffer.h"
 #include "Light.h"
+#include "Enemy.h"
 
 class Level
 {
@@ -15,6 +16,7 @@ public:
 
 	void Initialise(Graphics& graphics);
 	void Draw(Graphics& graphics);
+	void Update(float deltaTime);
 
 	int GetGeometryCount();
 	DrawableBase* GetGeometryAtIndex(int index);
@@ -36,10 +38,11 @@ private:
 	float m_width;
 	float m_depth;
 
-	DirectX::XMFLOAT3 m_startingPosition;
+	Vector m_startingPosition;
 	float m_startLookRotation;
 
 	std::vector<std::unique_ptr<DrawableBase>> m_geometry;
+	std::vector<std::unique_ptr<Enemy>> m_enemies;
 	std::vector<std::unique_ptr<Light>> m_lights;
 
 	PixelConstantBuffer<Light::LightBufferData> m_lightConstantBuffer;

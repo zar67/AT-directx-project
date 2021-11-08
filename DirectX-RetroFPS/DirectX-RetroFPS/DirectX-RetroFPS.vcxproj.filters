@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source">
@@ -81,6 +81,18 @@
     </Filter>
     <Filter Include="Source\Source Files\Game\Levels">
       <UniqueIdentifier>{3957b822-53f4-4e01-b169-e0a5fe4f2791}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Source Files\Game\Enemies">
+      <UniqueIdentifier>{52dd6b62-82a1-46e1-81b1-e998880050e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Header Files\Game\Enemies">
+      <UniqueIdentifier>{64ee3b9b-91de-4bfc-81df-23693d5c6b07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Header Files\Animations">
+      <UniqueIdentifier>{1344859d-e770-4fc2-9ef1-edc610fa7ca6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Source Files\Animations">
+      <UniqueIdentifier>{230b3bf4-807f-491e-8165-3124aa57081a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\Header Files\Physics">
       <UniqueIdentifier>{fe49009c-2d72-401f-9bea-677e7b672c14}</UniqueIdentifier>
@@ -177,11 +189,35 @@
     <ClCompile Include="Mouse.cpp">
       <Filter>Source\Source Files\Input</Filter>
     </ClCompile>
+    <ClCompile Include="BlendState.cpp">
+      <Filter>Source\Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source\Source Files\Game\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteSheet.cpp">
+      <Filter>Source\Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Source\Source Files\Animations</Filter>
+    </ClCompile>
     <ClCompile Include="CollisionUtilities.cpp">
       <Filter>Source\Source Files\Physics</Filter>
     </ClCompile>
     <ClCompile Include="Collider.cpp">
       <Filter>Source\Source Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector.cpp">
+      <Filter>Source\Source Files\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Demon.cpp">
+      <Filter>Source\Source Files\Game\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Zombie.cpp">
+      <Filter>Source\Source Files\Game\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="DemonPuppy.cpp">
+      <Filter>Source\Source Files\Game\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -332,6 +368,30 @@
     <ClInclude Include="resource.h">
       <Filter>Source\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BlendState.h">
+      <Filter>Source\Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Source\Header Files\Game\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteSheet.h">
+      <Filter>Source\Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Source\Header Files\Animations</Filter>
+    </ClInclude>
     <ClInclude Include="CollisionUtilities.h">
       <Filter>Source\Header Files\Physics</Filter>
     </ClInclude>
@@ -340,6 +400,27 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector.h">
+      <Filter>Source\Header Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Demon.h">
+      <Filter>Source\Header Files\Game\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureCoordinate.h">
+      <Filter>Source\Header Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Zombie.h">
+      <Filter>Source\Header Files\Game\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="DemonPuppy.h">
+      <Filter>Source\Header Files\Game\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

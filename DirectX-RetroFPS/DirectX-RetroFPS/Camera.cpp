@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include "Camera.h"
+#include "Vector.h"
 
 Camera::Camera(float movementSpeed, float rotationSpeed, DirectX::XMFLOAT2 deadZoneSize)
 {
@@ -9,13 +10,15 @@ Camera::Camera(float movementSpeed, float rotationSpeed, DirectX::XMFLOAT2 deadZ
 	m_rotationSpeed = rotationSpeed;
 	m_deadZoneSize = deadZoneSize;
 
-	SetPosition(0, 0, 0);
-	SetRotation(0, 0, 0);
+	m_transform.Position.Set(0.0f, 0.0f, 0.0f);
+	m_transform.Rotation.Set(0.0f, 0.0f, 0.0f);
 
 	InitialiseCollider();
 	UpdateViewMatrix();
 
 	m_transform.ApplyScalar(0.75f, 0.75f, 0.75f);
+
+	m_transform.ConstrainYPosition = true;
 }
 
 void Camera::SetProjectionValues(float fovDegrees, float aspectRatio, float nearZ, float farZ)
@@ -79,44 +82,32 @@ void Camera::Update(float deltaTime, Input& input, int windowWidth, int windowHe
 	AdjustRotation(verticalRotation, horizontalRotation, 0.0f);
 
 	// Clamp the Y to the correct Y position for the Level.
-	m_transform.Position.y = m_yLockPosition;
+	m_transform.Position.Y = m_yLockPosition;
 
 	// Clamp the vertical rotation to 45 degrees.
-	if (m_transform.Rotation.x > 45.0f * (3.14f / 180.0f))
+	if (m_transform.Rotation.X > 45.0f * (DirectX::XM_PI / 180.0f))
 	{
-		m_transform.Rotation.x = 45.0f * (3.14f / 180.0f);
+		m_transform.Rotation.X = 45.0f * (DirectX::XM_PI / 180.0f);
 		verticalRotation = 0;
 	}
-	else if (m_transform.Rotation.x < -45.0f * (3.14f / 180.0f))
+	else if (m_transform.Rotation.X < -45.0f * (DirectX::XM_PI / 180.0f))
 	{
-		m_transform.Rotation.x = -45.0f * (3.14f / 180.0f);
+		m_transform.Rotation.X = -45.0f * (DirectX::XM_PI / 180.0f);
 		verticalRotation = 0;
 	}
 }
 
 void Camera::LockYPosition(float y)
 {
+	m_transform.ConstrainYPosition = false;
 	m_yLockPosition = y;
-}
-
-void Camera::SetPosition(float x, float y, float z)
-{
-	m_transform.Position.x = x;
-	m_transform.Position.y = y;
-	m_transform.Position.z = z;
+	m_transform.ConstrainYPosition = true;
 }
 
 void Camera::AdjustPosition(float x, float y, float z)
 {
-	DirectX::XMFLOAT3 translation = m_transform.ApplyTranslation(x, y, z);
+	Vector translation = m_transform.ApplyTranslation(x, 0, z);
 	m_collider.IncreaseVelocity(translation);
-}
-
-void Camera::SetRotation(float x, float y, float z)
-{
-	m_transform.Rotation.x = x;
-	m_transform.Rotation.y = y;
-	m_transform.Rotation.z = z;
 }
 
 void Camera::AdjustRotation(float x, float y, float z)
@@ -150,10 +141,10 @@ void Camera::UpdateViewMatrix()
 	// Need this otherwise DirectXMathVector.inl won't be included and cameraTarget += cameraPosition will cause an error
 	using namespace DirectX;
 
-	DirectX::XMMATRIX cameraRotationMatrix = DirectX::XMMatrixRotationRollPitchYaw(m_transform.Rotation.x, m_transform.Rotation.y, m_transform.Rotation.z);
+	DirectX::XMMATRIX cameraRotationMatrix = DirectX::XMMatrixRotationRollPitchYaw(m_transform.Rotation.X, m_transform.Rotation.Y, m_transform.Rotation.Z);
 
 	DirectX::XMVECTOR cameraTarget = DirectX::XMVector3TransformCoord(DEFAULT_FORWARD_VECTOR, cameraRotationMatrix);
-	const auto cameraPosition = DirectX::XMVectorSet(m_transform.Position.x, m_transform.Position.y, m_transform.Position.z, 0.0f);
+	const auto cameraPosition = DirectX::XMVectorSet(m_transform.Position.X, m_transform.Position.Y, m_transform.Position.Z, 0.0f);
 	cameraTarget += cameraPosition;
 
 	DirectX::XMVECTOR upDirection = DirectX::XMVector3Transform(DEFAULT_UP_VECTOR, cameraRotationMatrix);
