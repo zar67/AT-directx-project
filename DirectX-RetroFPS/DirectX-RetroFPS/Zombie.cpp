@@ -28,14 +28,14 @@ Zombie::Zombie(Graphics& graphics) : Enemy(graphics)
 			{Enemy::FaceDirection::FORWARDS_RIGHT, Animation(m_pSpriteSheet, { 135, 143, 151, 159 }, 5)}
 		}},
 		{Enemy::EnemyState::ATTACKING, {
-			{Enemy::FaceDirection::FORWARDS, Animation(m_pSpriteSheet, { 64, 72, 80, 88 }, 5)},
-			{Enemy::FaceDirection::FORWARDS_LEFT, Animation(m_pSpriteSheet, { 65, 73, 81, 89 }, 5)},
-			{Enemy::FaceDirection::LEFT, Animation(m_pSpriteSheet, { 66, 74, 82, 90 }, 5)},
-			{Enemy::FaceDirection::BACKWARDS_LEFT, Animation(m_pSpriteSheet, { 67, 75, 83, 91 }, 5)},
-			{Enemy::FaceDirection::BACKWARDS, Animation(m_pSpriteSheet, { 68, 76, 84, 92 }, 5)},
-			{Enemy::FaceDirection::BACKWARDS_RIGHT, Animation(m_pSpriteSheet, { 69, 77, 85, 93 }, 5)},
-			{Enemy::FaceDirection::RIGHT, Animation(m_pSpriteSheet, { 70, 78, 86, 94 }, 5)},
-			{Enemy::FaceDirection::FORWARDS_RIGHT, Animation(m_pSpriteSheet, { 71, 79, 87, 95 }, 5)}
+			{Enemy::FaceDirection::FORWARDS, Animation(m_pSpriteSheet, { 64, 72 }, 5)},
+			{Enemy::FaceDirection::FORWARDS_LEFT, Animation(m_pSpriteSheet, { 65, 73 }, 5)},
+			{Enemy::FaceDirection::LEFT, Animation(m_pSpriteSheet, { 66, 74 }, 5)},
+			{Enemy::FaceDirection::BACKWARDS_LEFT, Animation(m_pSpriteSheet, { 67, 75 }, 5)},
+			{Enemy::FaceDirection::BACKWARDS, Animation(m_pSpriteSheet, { 68, 76 }, 5)},
+			{Enemy::FaceDirection::BACKWARDS_RIGHT, Animation(m_pSpriteSheet, { 69, 77 }, 5)},
+			{Enemy::FaceDirection::RIGHT, Animation(m_pSpriteSheet, { 70, 78 }, 5)},
+			{Enemy::FaceDirection::FORWARDS_RIGHT, Animation(m_pSpriteSheet, { 71, 79 }, 5)}
 		}},
 		{Enemy::EnemyState::DEATH, {
 			{Enemy::FaceDirection::FORWARDS, Animation(m_pSpriteSheet, { 96, 104, 112, 120 }, 5)},
