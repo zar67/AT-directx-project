@@ -4,14 +4,15 @@
 #include <vector>
 
 #include "Transform.h"
+#include "Vector.h"
 
 class Collider
 {
 public:
 	struct ColliderVertex
 	{
-		DirectX::XMFLOAT3 Vertex;
-		DirectX::XMFLOAT3 Normal;
+		Vector Vertex;
+		Vector Normal;
 	};
 public:
 	Collider() = default;
@@ -22,16 +23,15 @@ public:
 	void SetRotationConstraints(bool x, bool y, bool z);
 	void SetStatic(bool value);
 
-	std::vector<DirectX::XMFLOAT3> GetVertices();
-	std::vector<DirectX::XMFLOAT3> GetNormals();
+	std::vector<Vector> GetVertices();
+	std::vector<Vector> GetNormals();
 
 	void IncreaseVelocity(float x, float y, float z);
-	void IncreaseVelocity(DirectX::XMFLOAT3 value);
+	void IncreaseVelocity(Vector value);
 	void ResetVelocity();
-	bool IsVelocityZero();
 	bool IsStatic();
 
-	DirectX::XMFLOAT3 GetVelocity();
+	Vector GetVelocity();
 	Transform* GetTransform();
 
 private:
@@ -39,7 +39,7 @@ private:
 	std::vector<DirectX::XMVECTOR> m_normals;
 
 	Transform* m_pTransform = nullptr;
-	DirectX::XMFLOAT3 m_velocity;
+	Vector m_velocity;
 
 	bool m_isStatic = false;
 

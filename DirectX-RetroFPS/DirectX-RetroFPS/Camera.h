@@ -19,10 +19,7 @@ public:
 
 	void LockYPosition(float y);
 
-	void SetPosition(float x, float y, float z);
 	void AdjustPosition(float x, float y, float z);
-
-	void SetRotation(float x, float y, float z);
 	void AdjustRotation(float x, float y, float z);
 
 	Collider& GetCollider();

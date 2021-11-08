@@ -38,7 +38,7 @@ private:
 	float m_width;
 	float m_depth;
 
-	DirectX::XMFLOAT3 m_startingPosition;
+	Vector m_startingPosition;
 	float m_startLookRotation;
 
 	std::vector<std::unique_ptr<DrawableBase>> m_geometry;

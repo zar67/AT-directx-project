@@ -106,11 +106,11 @@ void ColouredCube::InitialiseCollider()
 {
 	m_collider.SetTransform(&m_transform);
 	m_collider.SetColliderData({
-		{DirectX::XMFLOAT3(-1.0f, 0.0f, 0.0f), DirectX::XMFLOAT3(-1.0f, 0.0f, 0.0f)}, // Left Side
-		{DirectX::XMFLOAT3(1.0f, 0.0f, 0.0f), DirectX::XMFLOAT3(1.0f, 0.0f, 0.0f)}, // Right Side
-		{DirectX::XMFLOAT3(0.0f, 0.0f, -1.0f), DirectX::XMFLOAT3(0.0f, 0.0f, -1.0f)}, // Front Side
-		{DirectX::XMFLOAT3(0.0f, 0.0f, 1.0f), DirectX::XMFLOAT3(0.0f, 0.0f, 1.0f)}, // Back Side
-		{DirectX::XMFLOAT3(0.0f, 1.0f, 0.0f), DirectX::XMFLOAT3(0.0f, 1.0f, 0.0f)}, // Top Side
-		{DirectX::XMFLOAT3(0.0f, -1.0f, 0.0f), DirectX::XMFLOAT3(0.0f, -1.0f, 0.0f)} // Bottom Side
+		{Vector(-1.0f, 0.0f, 0.0f), Vector(-1.0f, 0.0f, 0.0f)}, // Left Side
+		{Vector(1.0f, 0.0f, 0.0f), Vector(1.0f, 0.0f, 0.0f)}, // Right Side
+		{Vector(0.0f, 0.0f, -1.0f), Vector(0.0f, 0.0f, -1.0f)}, // Front Side
+		{Vector(0.0f, 0.0f, 1.0f), Vector(0.0f, 0.0f, 1.0f)}, // Back Side
+		{Vector(0.0f, 1.0f, 0.0f), Vector(0.0f, 1.0f, 0.0f)}, // Top Side
+		{Vector(0.0f, -1.0f, 0.0f), Vector(0.0f, -1.0f, 0.0f)} // Bottom Side
 		});
 }

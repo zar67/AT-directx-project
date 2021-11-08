@@ -9,7 +9,7 @@
 Level::Level(Graphics& graphics, std::string filename) :
 	m_lightConstantBuffer(graphics)
 {
-	m_startingPosition = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
+	m_startingPosition = Vector(0.0f, 0.0f, 0.0f);
 	m_startLookRotation = 0;
 
 	GenerateDataFromFile(graphics, filename);
@@ -17,9 +17,9 @@ Level::Level(Graphics& graphics, std::string filename) :
 
 void Level::Initialise(Graphics& graphics)
 {
-	graphics.GetCamera()->SetPosition(m_startingPosition.x, m_startingPosition.y, m_startingPosition.z);
-	graphics.GetCamera()->LockYPosition(m_startingPosition.y);
-	graphics.GetCamera()->SetRotation(0.0f, m_startLookRotation, 0.0f);
+	graphics.GetCamera()->GetTransform().Position.Set(m_startingPosition.X, m_startingPosition.Y, m_startingPosition.Z);
+	graphics.GetCamera()->LockYPosition(m_startingPosition.Y);
+	graphics.GetCamera()->GetTransform().Rotation.Set(0.0f, m_startLookRotation, 0.0f);
 }
 
 void Level::Draw(Graphics& graphics)
@@ -168,7 +168,7 @@ void Level::ParseLevelDataCharacter(Graphics& graphics, char character, float xP
 		}
 		case 'S': // Level Start Position
 		{
-			m_startingPosition = DirectX::XMFLOAT3(xPosition, yPosition + (UNIT_SIZE * 1.5f), zPosition);
+			m_startingPosition.Set(xPosition, yPosition + (UNIT_SIZE * 1.5f), zPosition);
 			break;
 		}
 		case 'E': // Enemy
@@ -203,7 +203,7 @@ void Level::BindLighting(Graphics& graphics)
 	lightBufferData.AttenuationLinear = ATTENUATION_LINEAR;
 	lightBufferData.AttenuationQuadratic = ATTENUATION_QUADRATIC;
 
-	DirectX::XMFLOAT3 cameraPosition = graphics.GetCamera()->GetTransform().Position;
+	Vector cameraPosition = graphics.GetCamera()->GetTransform().Position;
 
 	float excludedIndexes[Light::MAX_SCENE_LIGHTS];
 	for (int i = 0; i < Light::MAX_SCENE_LIGHTS; i++)
@@ -233,14 +233,10 @@ void Level::BindLighting(Graphics& graphics)
 				continue;
 			}
 
-			DirectX::XMFLOAT3 lightPos = m_lights[i]->GetTransform().Position;
-			DirectX::XMFLOAT3 camToLight = DirectX::XMFLOAT3(
-				lightPos.x - cameraPosition.x,
-				lightPos.y - cameraPosition.y,
-				lightPos.z - cameraPosition.z
-			);
+			Vector lightPos = m_lights[i]->GetTransform().Position;
+			Vector camToLight = lightPos - cameraPosition;
 
-			float distSquared = pow(camToLight.x, 2) + pow(camToLight.y, 2) + pow(camToLight.z, 2);
+			float distSquared = camToLight.GetMagnitudeSquared();
 
 			if (distSquared < closestDistance)
 			{

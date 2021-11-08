@@ -39,27 +39,21 @@ void Enemy::Draw(Graphics& graphics)
 
 void Enemy::Update(float deltaTime)
 {
-	DirectX::XMFLOAT3 cameraForwardVector = DirectX::XMFLOAT3(0.0f, 0.0f, -1.0f);
+	Vector cameraForwardVector = Vector(0.0f, 0.0f, -1.0f);
 	Transform& cameraTransform = m_pGraphics->GetCamera()->GetTransform();
 
-	DirectX::XMFLOAT3 tocameraVector = DirectX::XMFLOAT3(
-		cameraTransform.Position.x - m_transform.Position.x,
-		0,
-		cameraTransform.Position.z - m_transform.Position.z
-	);
+	Vector tocameraVector = cameraTransform.Position - m_transform.Position;
+	tocameraVector.Y = 0;
 
-	float dotProduct = cameraForwardVector.x * tocameraVector.x + cameraForwardVector.y * tocameraVector.y + cameraForwardVector.z * tocameraVector.z;
-	float forwardMagnitude = sqrt(pow(cameraForwardVector.x, 2) + pow(cameraForwardVector.y, 2) + pow(cameraForwardVector.z, 2));
-	float toCameraMagnitude = sqrt(pow(tocameraVector.x, 2) + pow(tocameraVector.y, 2) + pow(tocameraVector.z, 2));
+	float dotProduct = Vector::DotProduct(cameraForwardVector, tocameraVector);
+	float radianAngle = acos(dotProduct / (cameraForwardVector.GetMagnitude() * tocameraVector.GetMagnitude()));
 
-	float radianAngle = acos(dotProduct / (forwardMagnitude * toCameraMagnitude));
-
-	if (tocameraVector.x > 0)
+	if (tocameraVector.X > 0)
 	{
 		radianAngle = (2 * DirectX::XM_PI) - radianAngle;
 	}
 
-	m_transform.Rotation.y = radianAngle;
+	m_transform.Rotation.Y = radianAngle;
 
 	m_idleAnimation.Update(deltaTime, m_textureCoords);
 	for (int i = 0; i < 4; i++)
