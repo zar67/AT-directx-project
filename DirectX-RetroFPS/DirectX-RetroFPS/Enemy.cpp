@@ -36,21 +36,8 @@ void Enemy::Draw(Graphics& graphics)
 
 void Enemy::Update(float deltaTime)
 {
-	Vector cameraForwardVector = Vector(0.0f, 0.0f, -1.0f);
-	Transform& cameraTransform = m_pGraphics->GetCamera()->GetTransform();
-
-	Vector tocameraVector = cameraTransform.Position - m_transform.Position;
-	tocameraVector.Y = 0;
-
-	float dotProduct = Vector::DotProduct(cameraForwardVector, tocameraVector);
-	float radianAngle = acos(dotProduct / (cameraForwardVector.GetMagnitude() * tocameraVector.GetMagnitude()));
-
-	if (tocameraVector.X > 0)
-	{
-		radianAngle = (2 * DirectX::XM_PI) - radianAngle;
-	}
-
-	m_transform.Rotation.Y = radianAngle;
+	RotateToPlayer();
+	UpdateFacingDirection();
 
 	m_animationMap[m_currentState][m_currentDirection].Update(deltaTime, m_textureCoords);
 	for (int i = 0; i < 4; i++)
@@ -93,4 +80,42 @@ void Enemy::InitialiseStatic(Graphics& graphics)
 	AddStaticBindable(std::make_unique<Sampler>(graphics));
 
 	AddStaticBindable(std::make_unique<BlendState>(graphics, true));
+}
+
+void Enemy::RotateToPlayer()
+{
+	Vector forwardVector = Vector(0.0f, 0.0f, -1.0f);
+	Transform& cameraTransform = m_pGraphics->GetCamera()->GetTransform();
+
+	Vector toCameraVector = cameraTransform.Position - m_transform.Position;
+	toCameraVector.Y = 0;
+
+	float dotProduct = Vector::DotProduct(forwardVector, toCameraVector);
+	float rotationAngle = acos(dotProduct / (forwardVector.GetMagnitude() * toCameraVector.GetMagnitude()));
+
+	if (toCameraVector.X > 0)
+	{
+		rotationAngle = (2 * DirectX::XM_PI) - rotationAngle;
+	}
+
+	m_transform.Rotation.Y = rotationAngle;
+}
+
+void Enemy::UpdateFacingDirection()
+{
+	Transform& cameraTransform = m_pGraphics->GetCamera()->GetTransform();
+
+	Vector toCameraVector = cameraTransform.Position - m_transform.Position;
+	toCameraVector.Y = 0;
+
+	float dotProduct = Vector::DotProduct(m_lookVector, toCameraVector);
+	float angle = acos(dotProduct / (m_lookVector.GetMagnitude() * toCameraVector.GetMagnitude()));
+
+	if (toCameraVector.X > 0)
+	{
+		angle = (2 * DirectX::XM_PI) - angle;
+	}
+
+	int directionIndex = (int)(angle / ( (2 * DirectX::XM_PI) / 8));
+	m_currentDirection = (FaceDirection)directionIndex;
 }
