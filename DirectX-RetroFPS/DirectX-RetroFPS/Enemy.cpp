@@ -25,9 +25,6 @@ Enemy::Enemy(Graphics& graphics)
 	m_pGraphics = &graphics;
 
 	m_pIndexBuffer = GetBindableOfType<IndexBuffer>();
-	m_pSpriteSheet = GetBindableOfType<SpriteSheet>();
-
-	m_idleAnimation = Animation(m_pSpriteSheet, { 0, 8, 16 }, 5);
 }
 
 void Enemy::Draw(Graphics& graphics)
@@ -55,10 +52,10 @@ void Enemy::Update(float deltaTime)
 
 	m_transform.Rotation.Y = radianAngle;
 
-	m_idleAnimation.Update(deltaTime, m_textureCoords);
+	m_animationMap[m_currentState][m_currentDirection].Update(deltaTime, m_textureCoords);
 	for (int i = 0; i < 4; i++)
 	{
-		m_vertices[i].TextureCoords = m_textureCoords[i];
+		m_vertices[i].TextureCoords = m_textureCoords[i].Coordinate;
 	}
 }
 
@@ -94,8 +91,6 @@ void Enemy::InitialiseStatic(Graphics& graphics)
 	AddStaticBindable(std::make_unique<PixelShader>(graphics, graphics.GetShaderFolder() + L"TexturePS.cso"));
 
 	AddStaticBindable(std::make_unique<Sampler>(graphics));
-
-	AddStaticBindable(std::make_unique<SpriteSheet>(graphics, "Assets\\Characters\\doom_demon.png", 32, 5));
 
 	AddStaticBindable(std::make_unique<BlendState>(graphics, true));
 }

@@ -4,6 +4,7 @@
 #include "VertexBuffer.h"
 #include "SpriteSheet.h"
 #include "Animation.h"
+#include <map>
 
 class Enemy : public Drawable<Enemy>
 {
@@ -16,34 +17,54 @@ public:
 		DirectX::XMFLOAT3 Colour;
 	};
 
-	Enemy() = default;
+	enum class FaceDirection {
+		FORWARDS,
+		FORWARDS_LEFT,
+		LEFT,
+		BACKWARDS_LEFT,
+		BACKWARDS,
+		BACKWARDS_RIGHT,
+		RIGHT,
+		FORWARDS_RIGHT
+	};
+
+	enum class EnemyState {
+		IDLE,
+		MOVING,
+		ATTACKING,
+		DEATH
+	};
+
+public:
 	Enemy(Graphics & graphics);
 
-	virtual void Draw(Graphics& graphics) override;
+	void Draw(Graphics& graphics) override;
 	virtual void Update(float deltaTime) override;
-private:
-	void InitialiseStatic(Graphics & graphics);
+
+protected:
+	std::vector<TextureCoordinate> m_textureCoords = {
+		{TextureCoordinate::Position::BOTTOM_LEFT, DirectX::XMFLOAT2(0.0f, 0.0f)},
+		{TextureCoordinate::Position::TOP_LEFT, DirectX::XMFLOAT2(0.0f, 0.0f)},
+		{TextureCoordinate::Position::TOP_RIGHT, DirectX::XMFLOAT2(0.0f, 0.0f)},
+		{TextureCoordinate::Position::BOTTOM_RIGHT, DirectX::XMFLOAT2(0.0f, 0.0f)}
+	};
+
+	std::vector<Vertex> m_vertices = {
+		{DirectX::XMFLOAT3(-1.0f, -1.0f, 0.0f), DirectX::XMFLOAT3(0, 0, -1.0f), DirectX::XMFLOAT2(0.0f, 0.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(-1.0f, 1.0f, 0.0f), DirectX::XMFLOAT3(0, 0, -1.0f), DirectX::XMFLOAT2(0.0f, 0.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(1.0f, 1.0f, 0.0f), DirectX::XMFLOAT3(0, 0, -1.0f), DirectX::XMFLOAT2(0.0f, 0.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(1.0f, -1.0f, 0.0f), DirectX::XMFLOAT3(0, 0, -1.0f), DirectX::XMFLOAT2(0.0f, 0.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+	};
+
+	std::map<EnemyState, std::map<FaceDirection, Animation>> m_animationMap;
 
 	Graphics* m_pGraphics = nullptr;
 	VertexBuffer<Vertex>* m_pVertexBuffer = nullptr;
 	SpriteSheet* m_pSpriteSheet = nullptr;
 
-	Animation m_idleAnimation;
+	FaceDirection m_currentDirection = FaceDirection::FORWARDS;
+	EnemyState m_currentState = EnemyState::IDLE;
 
-	int m_currentSpriteIndex = 0;
-
-	std::vector<DirectX::XMFLOAT2> m_textureCoords = {
-		DirectX::XMFLOAT2(0.0f, 0.2f),
-		DirectX::XMFLOAT2(0.0f, 0.0f),
-		DirectX::XMFLOAT2(0.03125f, 0.0f),
-		DirectX::XMFLOAT2(0.03125f, 0.2f)
-	};
-
-	std::vector<Vertex> m_vertices =
-	{
-		{DirectX::XMFLOAT3(-1.0f, -1.0f, 0.0f), DirectX::XMFLOAT3(0, 0, -1.0f), DirectX::XMFLOAT2(0, 0.2f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(-1.0f, 1.0f, 0.0f), DirectX::XMFLOAT3(0, 0, -1.0f), DirectX::XMFLOAT2(0, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(1.0f, 1.0f, 0.0f), DirectX::XMFLOAT3(0, 0, -1.0f), DirectX::XMFLOAT2(0.03125f, 0), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(1.0f, -1.0f, 0.0f), DirectX::XMFLOAT3(0, 0, -1.0f), DirectX::XMFLOAT2(0.03125f, 0.2f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-	};
+private:
+	void InitialiseStatic(Graphics & graphics);
 };

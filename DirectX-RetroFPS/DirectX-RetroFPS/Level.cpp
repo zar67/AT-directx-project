@@ -5,6 +5,7 @@
 
 #include "Level.h"
 #include "TexturedCube.h"
+#include "Demon.h"
 
 Level::Level(Graphics& graphics, std::string filename) :
 	m_lightConstantBuffer(graphics)
@@ -173,7 +174,7 @@ void Level::ParseLevelDataCharacter(Graphics& graphics, char character, float xP
 		}
 		case 'E': // Enemy
 		{
-			std::unique_ptr<Enemy> pEnemy = std::make_unique<Enemy>(graphics);
+			std::unique_ptr<Demon> pEnemy = std::make_unique<Demon>(graphics);
 			pEnemy->GetTransform().ApplyTranslation(xPosition, yPosition + UNIT_SIZE, zPosition);
 			pEnemy->GetTransform().ApplyScalar(UNIT_SIZE, UNIT_SIZE * 2, UNIT_SIZE);
 			m_enemies.emplace_back(std::move(pEnemy));

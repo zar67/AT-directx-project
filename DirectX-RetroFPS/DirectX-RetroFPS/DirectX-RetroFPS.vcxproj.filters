@@ -210,6 +210,9 @@
     <ClCompile Include="Vector.cpp">
       <Filter>Source\Source Files\Utilities</Filter>
     </ClCompile>
+    <ClCompile Include="Demon.cpp">
+      <Filter>Source\Source Files\Game\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ErrorLogger.h">
@@ -396,6 +399,15 @@
       <Filter>Source\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Vector.h">
+      <Filter>Source\Header Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Demon.h">
+      <Filter>Source\Header Files\Game\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureCoordinate.h">
       <Filter>Source\Header Files\Utilities</Filter>
     </ClInclude>
   </ItemGroup>
