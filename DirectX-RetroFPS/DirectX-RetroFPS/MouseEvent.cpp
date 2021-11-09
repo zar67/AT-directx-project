@@ -2,7 +2,7 @@
 
 MouseEvent::MouseEvent()
 {
-	m_type = EventType::Invalid;
+	m_type = EventType::INVALID;
 
 	m_leftButtonState == ButtonState::NOT_PRESSED;
 	m_rightButtonState == ButtonState::NOT_PRESSED;

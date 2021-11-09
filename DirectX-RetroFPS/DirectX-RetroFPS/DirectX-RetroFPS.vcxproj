@@ -140,6 +140,7 @@
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="MouseEvent.h" />
     <ClInclude Include="RasterizerState.h" />
+    <ClInclude Include="Ray.h" />
     <ClInclude Include="SpriteSheet.h" />
     <ClInclude Include="TextureCoordinate.h" />
     <ClInclude Include="TexturedCube.h" />

@@ -26,6 +26,10 @@ public:
 	std::vector<Vector> GetFaceVertices();
 	std::vector<Vector> GetFaceNormals();
 
+	std::vector<Vector> GetTransformedAxes();
+	float GetMinPositionOnAxis(int axisIndex);
+	float GetMaxPositionOnAxis(int axisIndex);
+
 	void IncreaseVelocity(float x, float y, float z);
 	void IncreaseVelocity(Vector value);
 	void ResetVelocity();
@@ -39,8 +43,8 @@ private:
 	std::vector<Vector> m_faceNormals;
 
 	Vector m_extents;
-	Vector m_minimum;
-	Vector m_maximum;
+	Vector m_minimumPosition;
+	Vector m_maximumPosition;
 
 	Transform* m_pTransform = nullptr;
 	Vector m_velocity;

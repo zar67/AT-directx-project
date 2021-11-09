@@ -9,6 +9,8 @@ public:
 	Vector(const Vector& other);
 	Vector(DirectX::XMFLOAT3 other);
 	~Vector() = default;
+	
+	bool operator==(const Vector& other);
 
 	Vector operator+(const Vector& other);
 	Vector operator-(const Vector& other);
@@ -32,6 +34,7 @@ public:
 
 	bool IsZero();
 	Vector GetNormalized();
+	Vector GetReversed();
 	float GetMagnitude();
 	float GetMagnitudeSquared();
 

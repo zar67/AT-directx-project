@@ -7,6 +7,11 @@ bool CollisionUtilities::IsCollisionPossible(OBBCollider& colliderOne, OBBCollid
 	return distanceSquared < 5;
 }
 
+bool CollisionUtilities::IsCollisionPossible(Ray& ray, OBBCollider& collider)
+{
+	return Vector::DotProduct(ray.Direction, ray.Origin - collider.GetTransform()->Position) > 0;
+}
+
 CollisionUtilities::CollisionData CollisionUtilities::IsColliding(OBBCollider& colliderOne, OBBCollider& colliderTwo)
 {
 	CollisionUtilities::CollisionData abData = FindMinimumSeparation(colliderOne, colliderTwo);
@@ -27,6 +32,56 @@ CollisionUtilities::CollisionData CollisionUtilities::IsColliding(OBBCollider& c
 	}
 
 	return CollisionUtilities::CollisionData();
+}
+
+bool CollisionUtilities::IsColliding(Ray& ray, OBBCollider& collider)
+{
+	Vector rayColliderVector = collider.GetTransform()->Position - ray.Origin;
+
+	std::vector<Vector> axes = collider.GetTransformedAxes();
+	
+	float tMin = std::numeric_limits<float>().min();
+	float tMax = std::numeric_limits<float>().max();
+
+	int axisIndex = 0;
+	for (auto& axis : axes)
+	{
+		float axisPositionDot = Vector::DotProduct(axis, rayColliderVector);
+		float axisRayDot = Vector::DotProduct(axis, ray.Direction);
+
+		if (std::abs(axisRayDot) > 0.01f)
+		{
+			float min = (axisPositionDot + collider.GetMinPositionOnAxis(axisIndex)) / axisRayDot;
+			float max = (axisPositionDot + collider.GetMaxPositionOnAxis(axisIndex)) / axisRayDot;
+
+			if (min > max)
+			{
+				float temp = min;
+				min = max;
+				max = temp;
+			}
+
+			tMin = std::max(tMin, min);
+			tMax = std::min(tMax, max);
+
+			if (tMax < tMin)
+			{
+				return false;
+			}
+		}
+		else
+		{
+			if (-axisPositionDot + collider.GetMinPositionOnAxis(axisIndex) > 0 ||
+				-axisPositionDot + collider.GetMaxPositionOnAxis(axisIndex) < 0)
+			{
+				return false;
+			}
+		}
+
+		axisIndex++;
+	}
+
+	return true;
 }
 
 void CollisionUtilities::ResolveCollision(CollisionUtilities::CollisionData data)

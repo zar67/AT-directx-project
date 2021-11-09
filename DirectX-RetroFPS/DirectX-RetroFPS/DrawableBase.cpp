@@ -44,3 +44,8 @@ bool DrawableBase::IsActive()
 {
 	return m_isActive;
 }
+
+void DrawableBase::SetActive(bool value)
+{
+	m_isActive = value;
+}

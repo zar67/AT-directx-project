@@ -5,28 +5,28 @@ class MouseEvent
 public:
 	enum class ButtonState
 	{
+		NOT_PRESSED,
 		PRESSED,
-		HELD,
-		NOT_PRESSED
+		HELD
 	};
 
 	enum class EventType
 	{
-		LPress,
-		LHold,
-		LRelease,
-		RPress,
-		RHold,
-		RRelease,
-		MPress,
-		MHold,
-		MRelease,
-		WheelUp,
-		WheelDown,
-		Move,
-		EnterWindow,
-		LeaveWindow,
-		Invalid
+		INVALID,
+		L_PRESS,
+		L_HOLD,
+		L_RELEASE,
+		R_PRESS,
+		R_HOLD,
+		R_RELEASE,
+		M_PRESS,
+		M_HOLD,
+		M_RELEASE,
+		WHEEL_UP,
+		WHEEL_DOWN,
+		MOVE,
+		ENTER_WINDOW,
+		LEAVE_WINDOW
 	};
 
 	MouseEvent();

@@ -62,9 +62,9 @@ private:
 
 	bool m_isInWindow = false;
 
-	MouseEvent::ButtonState m_leftButtonState;
-	MouseEvent::ButtonState m_rightButtonState;
-	MouseEvent::ButtonState m_middleButtonState;
+	MouseEvent::ButtonState m_leftButtonState = MouseEvent::ButtonState::NOT_PRESSED;
+	MouseEvent::ButtonState m_rightButtonState = MouseEvent::ButtonState::NOT_PRESSED;
+	MouseEvent::ButtonState m_middleButtonState = MouseEvent::ButtonState::NOT_PRESSED;
 
 	int m_xPosition;
 	int m_yPosition;

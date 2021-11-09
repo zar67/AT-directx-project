@@ -1,7 +1,7 @@
 #pragma once
 
 #include "OBBCollider.h"
-#include "Vector.h"
+#include "Ray.h"
 
 static class CollisionUtilities
 {
@@ -28,6 +28,10 @@ public:
 public:
 	static bool IsCollisionPossible(OBBCollider& colliderOne, OBBCollider& colliderTwo);
 	static CollisionData IsColliding(OBBCollider& colliderOne, OBBCollider& colliderTwo);
+    
+	static bool IsCollisionPossible(Ray& ray, OBBCollider& collider);
+	static bool IsColliding(Ray& ray, OBBCollider& collider);
+    
 	static void ResolveCollision(CollisionData data);
 private:
 	static CollisionData FindMinimumSeparation(OBBCollider& colliderOne, OBBCollider& colliderTwo);
