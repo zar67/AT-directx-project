@@ -23,14 +23,14 @@ public:
 	void AdjustPosition(float x, float y, float z);
 	void AdjustRotation(float x, float y, float z);
 
-	Collider& GetCollider();
+	OBBCollider& GetCollider();
 	void UpdateViewMatrix();
 
 private:
 	void InitialiseCollider();
 
 	Transform m_transform;
-	Collider m_collider;
+	OBBCollider m_collider;
 
 	float m_yLockPosition;
 

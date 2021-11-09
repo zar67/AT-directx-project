@@ -20,7 +20,7 @@ public:
 	void AddBindable(std::unique_ptr<Bindable> bindable);
 
 	Transform& GetTransform();
-	Collider& GetCollider();
+	OBBCollider& GetCollider();
     
 	bool IsActive();
 
@@ -54,7 +54,7 @@ protected:
 
 	IndexBuffer* m_pIndexBuffer = nullptr;
 	Transform m_transform;
-	Collider m_collider;
+	OBBCollider m_collider;
 	std::vector<std::unique_ptr<Bindable>> m_bindables;
 
 	bool m_isActive = true;

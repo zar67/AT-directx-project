@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Collider.h"
+#include "OBBCollider.h"
 #include "Vector.h"
 
 static class CollisionUtilities
@@ -9,8 +9,8 @@ public:
 	struct CollisionData
 	{
 		bool IsColliding;
-		Collider* ColliderA;
-		Collider* ColliderB;
+		OBBCollider* ColliderA;
+		OBBCollider* ColliderB;
 		float Separation;
 		Vector ACollisionNormal;
 		Vector BCollisionNormal;
@@ -26,9 +26,9 @@ public:
 		}
 	};
 public:
-	static bool IsCollisionPossible(Collider& colliderOne, Collider& colliderTwo);
-	static CollisionData IsColliding(Collider& colliderOne, Collider& colliderTwo);
+	static bool IsCollisionPossible(OBBCollider& colliderOne, OBBCollider& colliderTwo);
+	static CollisionData IsColliding(OBBCollider& colliderOne, OBBCollider& colliderTwo);
 	static void ResolveCollision(CollisionData data);
 private:
-	static CollisionData FindMinimumSeparation(Collider& colliderOne, Collider& colliderTwo);
+	static CollisionData FindMinimumSeparation(OBBCollider& colliderOne, OBBCollider& colliderTwo);
 };

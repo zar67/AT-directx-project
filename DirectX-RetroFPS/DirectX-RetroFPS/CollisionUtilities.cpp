@@ -1,13 +1,13 @@
 #include "CollisionUtilities.h"
 #include <iostream>
 
-bool CollisionUtilities::IsCollisionPossible(Collider& colliderOne, Collider& colliderTwo)
+bool CollisionUtilities::IsCollisionPossible(OBBCollider& colliderOne, OBBCollider& colliderTwo)
 {
 	float distanceSquared = (colliderOne.GetTransform()->Position - colliderTwo.GetTransform()->Position).GetMagnitudeSquared();
 	return distanceSquared < 5;
 }
 
-CollisionUtilities::CollisionData CollisionUtilities::IsColliding(Collider& colliderOne, Collider& colliderTwo)
+CollisionUtilities::CollisionData CollisionUtilities::IsColliding(OBBCollider& colliderOne, OBBCollider& colliderTwo)
 {
 	CollisionUtilities::CollisionData abData = FindMinimumSeparation(colliderOne, colliderTwo);
 	CollisionUtilities::CollisionData baData = FindMinimumSeparation(colliderTwo, colliderOne);
@@ -76,7 +76,7 @@ void CollisionUtilities::ResolveCollision(CollisionUtilities::CollisionData data
 	}
 }
 
-CollisionUtilities::CollisionData CollisionUtilities::FindMinimumSeparation(Collider& a, Collider& b)
+CollisionUtilities::CollisionData CollisionUtilities::FindMinimumSeparation(OBBCollider& a, OBBCollider& b)
 {
 	CollisionUtilities::CollisionData returnData;
 	returnData.ColliderA = &a;
@@ -84,11 +84,11 @@ CollisionUtilities::CollisionData CollisionUtilities::FindMinimumSeparation(Coll
 
 	float separation = std::numeric_limits<float>::lowest();
 
-	std::vector<Vector> aVertices = a.GetVertices();
-	std::vector<Vector> aNormals = a.GetNormals();
+	std::vector<Vector> aVertices = a.GetFaceVertices();
+	std::vector<Vector> aNormals = a.GetFaceNormals();
 
-	std::vector<Vector> bVertices = b.GetVertices();
-	std::vector<Vector> bNormals = b.GetNormals();
+	std::vector<Vector> bVertices = b.GetFaceVertices();
+	std::vector<Vector> bNormals = b.GetFaceNormals();
 
 	for (int i = 0; i < aVertices.size(); i++)
 	{
