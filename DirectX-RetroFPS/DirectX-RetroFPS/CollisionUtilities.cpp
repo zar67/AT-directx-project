@@ -49,7 +49,7 @@ bool CollisionUtilities::IsColliding(Ray& ray, Collider& collider)
 		float halfSize = axis.GetMagnitude() / 2;
 
 		float f = Vector::DotProduct(axis, ray.Direction);
-		float e = std::abs(Vector::DotProduct(axis, p));
+		float e = Vector::DotProduct(axis, p);
 
 		if (std::abs(f) > 0.1f)
 		{
