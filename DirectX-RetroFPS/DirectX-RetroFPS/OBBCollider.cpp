@@ -77,6 +77,28 @@ std::vector<Vector> OBBCollider::GetFaceNormals()
 	return multipliedNormals;
 }
 
+Vector OBBCollider::GetMinPoint()
+{
+	DirectX::XMFLOAT3 posFloat = m_minimumPosition.AsFLOAT3();
+	DirectX::XMVECTOR convertedPos = DirectX::XMVector3Transform(DirectX::XMLoadFloat3(&posFloat), m_pTransform->GetTransformMatrixWithConstraints(m_constrainXRotation, m_constrainYRotation, m_constrainZRotation));
+
+	DirectX::XMFLOAT3 convertedPosFloat;
+	DirectX::XMStoreFloat3(&convertedPosFloat, convertedPos);
+
+	return Vector(convertedPosFloat);
+}
+
+Vector OBBCollider::GetMaxPoint()
+{
+	DirectX::XMFLOAT3 posFloat = m_maximumPosition.AsFLOAT3();
+	DirectX::XMVECTOR convertedPos = DirectX::XMVector3Transform(DirectX::XMLoadFloat3(&posFloat), m_pTransform->GetTransformMatrixWithConstraints(m_constrainXRotation, m_constrainYRotation, m_constrainZRotation));
+
+	DirectX::XMFLOAT3 convertedPosFloat;
+	DirectX::XMStoreFloat3(&convertedPosFloat, convertedPos);
+
+	return Vector(convertedPosFloat);
+}
+
 void OBBCollider::IncreaseVelocity(float x, float y, float z)
 {
 	m_velocity.X += x;

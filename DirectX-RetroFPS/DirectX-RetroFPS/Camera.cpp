@@ -170,7 +170,7 @@ void Camera::UpdateShooting(float deltaTime, Input& input, int windowWidth, int 
 	if (shoot)
 	{
 		DirectX::XMMATRIX cameraRotationMatrix = DirectX::XMMatrixRotationRollPitchYaw(m_transform.Rotation.X, m_transform.Rotation.Y, m_transform.Rotation.Z);
-		DirectX::XMVECTOR cameraTarget = DirectX::XMVector3TransformCoord(DirectX::XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f), cameraRotationMatrix);
+		DirectX::XMVECTOR cameraTarget = DirectX::XMVector3TransformCoord(DirectX::XMVectorSet(0.0f, 0.0f, -1.0f, 0.0f), cameraRotationMatrix);
 		DirectX::XMFLOAT3 cameraForwardVector;
 		DirectX::XMStoreFloat3(&cameraForwardVector, cameraTarget);
 

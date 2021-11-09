@@ -26,6 +26,9 @@ public:
 	std::vector<Vector> GetFaceVertices();
 	std::vector<Vector> GetFaceNormals();
 
+	Vector GetMinPoint();
+	Vector GetMaxPoint();
+
 	void IncreaseVelocity(float x, float y, float z);
 	void IncreaseVelocity(Vector value);
 	void ResetVelocity();

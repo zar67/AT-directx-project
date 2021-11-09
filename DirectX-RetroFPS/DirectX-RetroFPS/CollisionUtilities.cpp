@@ -36,7 +36,76 @@ CollisionUtilities::CollisionData CollisionUtilities::IsColliding(OBBCollider& c
 
 bool CollisionUtilities::IsColliding(Ray& ray, OBBCollider& collider)
 {
-	return false;
+	Vector colliderMinPos = collider.GetMinPoint();
+	Vector colliderMaxPos = collider.GetMaxPoint();
+
+	float txmin = (colliderMinPos.X - ray.Origin.X) / ray.Direction.X;
+	float txmax = (colliderMaxPos.X - ray.Origin.X) / ray.Direction.X;
+
+	float tmin = txmin;
+	float tmax = txmax;
+
+	Vector minCollisionPosition = Vector();
+	Vector maxCollisionPosition = Vector();
+
+	if (tmin > tmax) 
+	{
+		float temp = tmin;
+		tmin = tmax;
+		tmax = temp;
+	}
+
+	float tymin = (colliderMinPos.Y - ray.Origin.Y) / ray.Direction.Y;
+	float tymax = (colliderMaxPos.Y - ray.Origin.Y) / ray.Direction.Y;
+
+	if (tymin > tymax)
+	{
+		float temp = tymin;
+		tymin = tymax;
+		tymax = temp;
+	}
+
+	if ((tmin > tymax) || (tymin > tmax))
+	{
+		return false;
+	}
+
+	if (tymin > tmin)
+	{
+		tmin = tymin;
+	}
+
+	if (tymax < tmax)
+	{
+		tmax = tymax;
+	}
+
+	float tzmin = (colliderMinPos.Z - ray.Origin.Z) / ray.Direction.Z;
+	float tzmax = (colliderMaxPos.Z - ray.Origin.Z) / ray.Direction.Z;
+
+	if (tzmin > tzmax)
+	{
+		float temp = tzmin;
+		tzmin = tzmax;
+		tzmax = temp;
+	}
+
+	if ((tmin > tzmax) || (tzmin > tmax))
+	{
+		return false;
+	}
+
+	if (tzmin > tmin)
+	{
+		tmin = tzmin;
+	}
+
+	if (tzmax < tmax)
+	{
+		tmax = tzmax;
+	}
+
+	return true;
 }
 
 void CollisionUtilities::ResolveCollision(CollisionUtilities::CollisionData data)
