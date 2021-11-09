@@ -172,9 +172,6 @@ DirectX::XMFLOAT3 Vector::AsFLOAT3()
 
 float Vector::DotProduct(Vector a, Vector b)
 {
-	a = a.GetNormalized();
-	b = b.GetNormalized();
-
 	return (a.X * b.X) + (a.Y * b.Y) + (a.Z * b.Z);
 }
 

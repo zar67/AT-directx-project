@@ -36,7 +36,58 @@ CollisionUtilities::CollisionData CollisionUtilities::IsColliding(Collider& coll
 
 bool CollisionUtilities::IsColliding(Ray& ray, Collider& collider)
 {
-	return false;
+	std::vector<std::pair<Vector,Vector>> vertexPairs = collider.GetVertexPairsByAxis();
+
+	float tMin = std::numeric_limits<float>().min();
+	float tMax = std::numeric_limits<float>().max();
+
+	Vector p = collider.GetTransform()->Position - ray.Origin;
+
+	for (int i = 0; i < vertexPairs.size(); i++)
+	{
+		Vector axis = (vertexPairs[i].second - vertexPairs[i].first).GetNormalized();
+		float halfSize = axis.GetMagnitude() / 2;
+
+		float f = Vector::DotProduct(axis, ray.Direction);
+		float e = std::abs(Vector::DotProduct(axis, p));
+
+		if (std::abs(f) > 0.1f)
+		{
+			float min = e - halfSize / f;
+			float max = e + halfSize / f;
+
+			if (min > max)
+			{
+				float temp = min;
+				min = max;
+				max = temp;
+			}
+
+			if (min > tMin)
+			{
+				tMin = min;
+			}
+
+			if (max < tMax)
+			{
+				tMax = max;
+			}
+
+			if (tMax < tMin)
+			{
+				return false;
+			}
+		}
+		else
+		{
+			if (-e - halfSize > 0 || -e + halfSize < 0)
+			{
+				return false;
+			}
+		}
+	}
+	
+	return true;
 }
 
 void CollisionUtilities::ResolveCollision(CollisionUtilities::CollisionData data)
