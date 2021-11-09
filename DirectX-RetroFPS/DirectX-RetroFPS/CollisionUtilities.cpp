@@ -63,15 +63,8 @@ bool CollisionUtilities::IsColliding(Ray& ray, Collider& collider)
 				max = temp;
 			}
 
-			if (min > tMin)
-			{
-				tMin = min;
-			}
-
-			if (max < tMax)
-			{
-				tMax = max;
-			}
+			tMin = std::max(tMin, min);
+			tMax = std::min(tMax, max);
 
 			if (tMax < tMin)
 			{

@@ -172,10 +172,6 @@ void Level::HandleCollisions(Graphics& graphics)
 			{
 				drawableA->SetActive(false);
 			}
-			else
-			{
-				std::cout << "Not Colliding" << std::endl;
-			}
 		}
 	}
 }
