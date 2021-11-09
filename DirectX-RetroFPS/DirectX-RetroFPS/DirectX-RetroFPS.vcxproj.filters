@@ -204,7 +204,7 @@
     <ClCompile Include="CollisionUtilities.cpp">
       <Filter>Source\Source Files\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="Collider.cpp">
+    <ClCompile Include="OBBCollider.cpp">
       <Filter>Source\Source Files\Physics</Filter>
     </ClCompile>
     <ClCompile Include="Vector.cpp">
@@ -395,7 +395,7 @@
     <ClInclude Include="CollisionUtilities.h">
       <Filter>Source\Header Files\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="Collider.h">
+    <ClInclude Include="OBBCollider.h">
       <Filter>Source\Header Files\Physics</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
@@ -421,9 +421,6 @@
     </ClInclude>
     <ClInclude Include="DemonPuppy.h">
       <Filter>Source\Header Files\Game\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Source\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Source\Header Files</Filter>

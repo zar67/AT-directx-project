@@ -2,11 +2,11 @@
 
 #include <DirectXMath.h>
 #include <vector>
-#include <map>
 
 #include "Transform.h"
+#include "Vector.h"
 
-class Collider
+class OBBCollider
 {
 public:
 	struct ColliderVertex
@@ -15,18 +15,16 @@ public:
 		Vector Normal;
 	};
 public:
-	Collider() = default;
-	~Collider() = default;
+	OBBCollider() = default;
+	~OBBCollider() = default;
 
 	void SetTransform(Transform* transform);
-	void SetColliderData(std::vector<ColliderVertex> data);
-
+	void SetColliderData(Vector minPosition, Vector maxPosition);
 	void SetRotationConstraints(bool x, bool y, bool z);
 	void SetStatic(bool value);
 
-	std::vector<Vector> GetVertices();
-	std::vector<Vector> GetNormals();
-	const std::vector<std::pair<Vector, Vector>>& GetVertexPairsByAxis();
+	std::vector<Vector> GetFaceVertices();
+	std::vector<Vector> GetFaceNormals();
 
 	void IncreaseVelocity(float x, float y, float z);
 	void IncreaseVelocity(Vector value);
@@ -37,13 +35,15 @@ public:
 	Transform* GetTransform();
 
 private:
-	std::vector<DirectX::XMVECTOR> m_vertices = {};
-	std::vector<DirectX::XMVECTOR> m_normals = {};
+	std::vector<Vector> m_faceVertices;
+	std::vector<Vector> m_faceNormals;
 
-	std::vector<std::pair<Vector, Vector>> m_verticesByAxis = {};
+	Vector m_extents;
+	Vector m_minimumPosition;
+	Vector m_maximumPosition;
 
 	Transform* m_pTransform = nullptr;
-	Vector m_velocity = Vector(0.0f, 0.0f, 0.0f);
+	Vector m_velocity;
 
 	bool m_isStatic = false;
 

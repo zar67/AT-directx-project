@@ -35,7 +35,7 @@ Transform& DrawableBase::GetTransform()
 	return m_transform;
 }
 
-Collider& DrawableBase::GetCollider()
+OBBCollider& DrawableBase::GetCollider()
 {
 	return m_collider;
 }

@@ -14,7 +14,7 @@ public:
 	const DirectX::XMMATRIX& GetProjectionMatrix() const;
 
 	Transform& GetTransform();
-	Collider& GetCollider();
+	OBBCollider& GetCollider();
 	Ray& GetShootRay();
 
 	void Update(float deltaTime, Input& input, int windowWidth, int windowHeight);
@@ -36,7 +36,7 @@ private:
 	void UpdateShooting(float deltaTime, Input& input, int windowWidth, int windowHeight);
 
 	Transform m_transform;
-	Collider m_collider;
+	OBBCollider m_collider;
 
 	Ray m_shootRay;
 
