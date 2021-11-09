@@ -94,19 +94,19 @@ unsigned char Keyboard::ReadChar()
 void Keyboard::OnKeyPressed(const unsigned char key)
 {
 	m_keyStates[key] = KeyState::PRESSED;
-	m_eventBuffer.push(KeyboardEvent(KeyboardEvent::EventType::Press, key));
+	m_eventBuffer.push(KeyboardEvent(KeyboardEvent::EventType::PRESS, key));
 }
 
 void Keyboard::OnKeyHeld(const unsigned char key)
 {
 	m_keyStates[key] = KeyState::HELD;
-	m_eventBuffer.push(KeyboardEvent(KeyboardEvent::EventType::Hold, key));
+	m_eventBuffer.push(KeyboardEvent(KeyboardEvent::EventType::HOLD, key));
 }
 
 void Keyboard::OnKeyReleased(const unsigned char key)
 {
 	m_keyStates[key] = KeyState::NOT_PRESSED;
-	m_eventBuffer.push(KeyboardEvent(KeyboardEvent::EventType::Release, key));
+	m_eventBuffer.push(KeyboardEvent(KeyboardEvent::EventType::RELEASE, key));
 }
 
 void Keyboard::OnCharacter(const unsigned char key)

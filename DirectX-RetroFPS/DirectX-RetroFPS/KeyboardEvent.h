@@ -5,10 +5,10 @@ class KeyboardEvent
 public:
 	enum class EventType
 	{
-		Press,
-		Hold,
-		Release,
-		Invalid
+		INVALID,
+		PRESS,
+		HOLD,
+		RELEASE
 	};
 
 	KeyboardEvent();

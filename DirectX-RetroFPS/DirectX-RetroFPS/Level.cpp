@@ -2,6 +2,7 @@
 
 #include <fstream>
 #include <math.h>
+#include <iostream>
 
 #include "Level.h"
 #include "TexturedCube.h"
@@ -113,6 +114,15 @@ void Level::HandleCollisions(Graphics& graphics)
 			}
 		}
 
+		if (graphics.GetCamera()->GetShootRay().IsValid() &&
+			CollisionUtilities::IsCollisionPossible(graphics.GetCamera()->GetShootRay(), drawableA->GetCollider()))
+		{
+			if (CollisionUtilities::IsColliding(graphics.GetCamera()->GetShootRay(), drawableA->GetCollider()))
+			{
+				drawableA->SetActive(false);
+			}
+		}
+
 		for (auto& enemy : m_enemies)
 		{
 			DrawableBase* drawableB = enemy.get();
@@ -152,6 +162,19 @@ void Level::HandleCollisions(Graphics& graphics)
 				CollisionUtilities::ResolveCollision(collision);
 				drawableA->OnCollision(collision);
 				graphics.GetCamera()->OnCollision(collision);
+			}
+		}
+
+		if (graphics.GetCamera()->GetShootRay().IsValid() &&
+			CollisionUtilities::IsCollisionPossible(graphics.GetCamera()->GetShootRay(), drawableA->GetCollider()))
+		{
+			if (CollisionUtilities::IsColliding(graphics.GetCamera()->GetShootRay(), drawableA->GetCollider()))
+			{
+				drawableA->SetActive(false);
+			}
+			else
+			{
+				std::cout << "Not Colliding" << std::endl;
 			}
 		}
 	}
@@ -205,7 +228,7 @@ void Level::GenerateDataFromFile(Graphics& graphics, std::string filename)
 					std::string subString = line.substr(index, line.size() - 1);
 
 					float degrees = std::stof(subString);
-					float radians = degrees * (DirectX::XM_PI / 180);
+					float radians = DirectX::XMConvertToRadians(degrees);
 					m_startLookRotation = radians;
 
 					yPosition += UNIT_SIZE * 2;

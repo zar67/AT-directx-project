@@ -7,6 +7,11 @@ bool CollisionUtilities::IsCollisionPossible(Collider& colliderOne, Collider& co
 	return distanceSquared < 5;
 }
 
+bool CollisionUtilities::IsCollisionPossible(Ray& ray, Collider& collider)
+{
+	return Vector::DotProduct(ray.Direction, ray.Origin - collider.GetTransform()->Position) > 0;
+}
+
 CollisionUtilities::CollisionData CollisionUtilities::IsColliding(Collider& colliderOne, Collider& colliderTwo)
 {
 	CollisionUtilities::CollisionData abData = FindMinimumSeparation(colliderOne, colliderTwo);
@@ -27,6 +32,11 @@ CollisionUtilities::CollisionData CollisionUtilities::IsColliding(Collider& coll
 	}
 
 	return CollisionUtilities::CollisionData();
+}
+
+bool CollisionUtilities::IsColliding(Ray& ray, Collider& collider)
+{
+	return false;
 }
 
 void CollisionUtilities::ResolveCollision(CollisionUtilities::CollisionData data)

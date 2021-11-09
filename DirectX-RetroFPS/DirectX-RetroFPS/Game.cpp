@@ -50,9 +50,9 @@ void Game::Update(float deltaTime)
 void Game::HandleInput()
 {
 	KeyboardEvent keyboardEvent = m_window.GetInput().GetKeyboard().ReadKey();
-	while (keyboardEvent.GetType() != KeyboardEvent::EventType::Invalid)
+	while (keyboardEvent.GetType() != KeyboardEvent::EventType::INVALID)
 	{
-		if (keyboardEvent.GetKeyCode() == VK_ESCAPE && keyboardEvent.GetType() == KeyboardEvent::EventType::Press)
+		if (keyboardEvent.GetKeyCode() == VK_ESCAPE && keyboardEvent.GetType() == KeyboardEvent::EventType::PRESS)
 		{
 			if (m_isPaused)
 			{
@@ -77,7 +77,7 @@ void Game::HandleInput()
 	}
 
 	MouseEvent mouseEvent = m_window.GetInput().GetMouse().Read();
-	while (mouseEvent.GetType() != MouseEvent::EventType::Invalid)
+	while (mouseEvent.GetType() != MouseEvent::EventType::INVALID)
 	{
 		// Handle Mouse Event
 		mouseEvent = m_window.GetInput().GetMouse().Read();

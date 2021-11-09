@@ -23,6 +23,7 @@ public:
 	Collider& GetCollider();
     
 	bool IsActive();
+	void SetActive(bool value);
 
 	template<class B>
 	B* GetBindableOfType()

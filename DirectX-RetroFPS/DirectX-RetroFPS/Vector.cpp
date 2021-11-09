@@ -21,6 +21,11 @@ Vector::Vector(DirectX::XMFLOAT3 other)
 	Z = other.z;
 }
 
+bool Vector::operator==(const Vector& other)
+{
+	return X == other.X && Y == other.Y && Z == other.Z;
+}
+
 Vector Vector::operator+(const Vector& other)
 {
 	return Vector(X + other.X, Y + other.Y, Z + other.Z);
@@ -138,6 +143,11 @@ Vector Vector::GetNormalized()
 	);
 }
 
+Vector Vector::GetReversed()
+{
+	return Vector(X * -1.0f, Y * -1.0f, Z * -1.0f);
+}
+
 float Vector::GetMagnitude()
 {
 	return sqrt(pow(X, 2) + pow(Y, 2) + pow(Z, 2));
@@ -162,6 +172,9 @@ DirectX::XMFLOAT3 Vector::AsFLOAT3()
 
 float Vector::DotProduct(Vector a, Vector b)
 {
+	a = a.GetNormalized();
+	b = b.GetNormalized();
+
 	return (a.X * b.X) + (a.Y * b.Y) + (a.Z * b.Z);
 }
 

@@ -1,5 +1,7 @@
 #include "Collider.h"
 
+#include <algorithm>
+
 void Collider::SetTransform(Transform* transform)
 {
 	m_pTransform = transform;
@@ -14,6 +16,21 @@ void Collider::SetColliderData(std::vector<ColliderVertex> data)
 
 		DirectX::XMFLOAT3 normal = vertexData.Normal.AsFLOAT3();
 		m_normals.push_back(DirectX::XMLoadFloat3(&normal));
+	}
+
+	for (int i = 0; i < data.size(); i++)
+	{
+		for (int j = i + 1; j < data.size(); j++)
+		{
+			ColliderVertex& a = data[i];
+			ColliderVertex& b = data[j];
+
+			Vector aReversed = a.Normal.GetReversed();
+			if (aReversed == b.Normal)
+			{
+				m_verticesByAxis.push_back({ a.Vertex, b.Vertex });
+			}
+		}
 	}
 }
 
@@ -60,6 +77,11 @@ std::vector<Vector> Collider::GetNormals()
 	}
 
 	return multipliedNormals;
+}
+
+const std::vector<std::pair<Vector, Vector>>& Collider::GetVertexPairsByAxis()
+{
+	return m_verticesByAxis;
 }
 
 void Collider::IncreaseVelocity(float x, float y, float z)

@@ -2,9 +2,9 @@
 
 #include <DirectXMath.h>
 #include <vector>
+#include <map>
 
 #include "Transform.h"
-#include "Vector.h"
 
 class Collider
 {
@@ -20,11 +20,13 @@ public:
 
 	void SetTransform(Transform* transform);
 	void SetColliderData(std::vector<ColliderVertex> data);
+
 	void SetRotationConstraints(bool x, bool y, bool z);
 	void SetStatic(bool value);
 
 	std::vector<Vector> GetVertices();
 	std::vector<Vector> GetNormals();
+	const std::vector<std::pair<Vector, Vector>>& GetVertexPairsByAxis();
 
 	void IncreaseVelocity(float x, float y, float z);
 	void IncreaseVelocity(Vector value);
@@ -35,11 +37,13 @@ public:
 	Transform* GetTransform();
 
 private:
-	std::vector<DirectX::XMVECTOR> m_vertices;
-	std::vector<DirectX::XMVECTOR> m_normals;
+	std::vector<DirectX::XMVECTOR> m_vertices = {};
+	std::vector<DirectX::XMVECTOR> m_normals = {};
+
+	std::vector<std::pair<Vector, Vector>> m_verticesByAxis = {};
 
 	Transform* m_pTransform = nullptr;
-	Vector m_velocity;
+	Vector m_velocity = Vector(0.0f, 0.0f, 0.0f);
 
 	bool m_isStatic = false;
 
