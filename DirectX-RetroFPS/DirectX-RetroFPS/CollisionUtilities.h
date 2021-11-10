@@ -6,18 +6,9 @@
 static class CollisionUtilities
 {
 public:
-	struct CollisionData
+	struct ColliderCollision
 	{
 		bool IsColliding;
-
-		CollisionData()
-		{
-			IsColliding = false;
-		}
-	};
-
-	struct ColliderCollision : CollisionData
-	{
 		OBBCollider* ColliderA;
 		OBBCollider* ColliderB;
 		float Separation;
@@ -35,8 +26,9 @@ public:
 		}
 	};
 
-	struct RayCollision : CollisionData
+	struct RayCollision
 	{
+		bool IsColliding;
 		Ray CollisionRay;
 		OBBCollider* Collider;
 		Vector IntersectionPosition;

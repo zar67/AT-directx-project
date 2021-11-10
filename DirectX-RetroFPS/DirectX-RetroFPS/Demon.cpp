@@ -1,6 +1,6 @@
 #include "Demon.h"
 
-Demon::Demon(Graphics& graphics) : Enemy(graphics)
+Demon::Demon(Graphics& graphics, Player& player) : Enemy(graphics, player, ENEMY_STATS)
 {
 	std::unique_ptr<SpriteSheet> spriteSheet = std::make_unique<SpriteSheet>(graphics, "Assets\\Characters\\doom_demon.png", 32, 5);
 	m_pSpriteSheet = spriteSheet.get();

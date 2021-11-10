@@ -9,7 +9,8 @@
 #include "TransformConstantBuffer.h"
 #include "BlendState.h"
 
-Enemy::Enemy(Graphics& graphics)
+Enemy::Enemy(Graphics& graphics, Player& player, EnemyStats enemyStats) :
+	MAX_HEALTH(enemyStats.MaxHealth)
 {
 	if (!IsStaticInitialized())
 	{
@@ -25,8 +26,11 @@ Enemy::Enemy(Graphics& graphics)
 	AddBindable(std::make_unique<TransformConstantBuffer>(graphics, *this));
 	
 	m_pGraphics = &graphics;
+	m_pPlayer = &player;
 
 	m_pIndexBuffer = GetBindableOfType<IndexBuffer>();
+
+	m_health = MAX_HEALTH;
 }
 
 void Enemy::Draw(Graphics& graphics)
@@ -46,11 +50,6 @@ void Enemy::Update(float deltaTime)
 	{
 		m_vertices[i].TextureCoords = m_textureCoords[i].Coordinate;
 	}
-}
-
-void Enemy::OnCollision(CollisionUtilities::CollisionData collision)
-{
-	m_isActive = false;
 }
 
 void Enemy::InitialiseStatic(Graphics& graphics)
@@ -99,7 +98,7 @@ void Enemy::InitialiseCollider()
 void Enemy::RotateToPlayer()
 {
 	Vector forwardVector = Vector(0.0f, 0.0f, -1.0f);
-	Transform& cameraTransform = m_pGraphics->GetCamera()->GetTransform();
+	Transform& cameraTransform = m_pPlayer->GetTransform();
 
 	Vector toCameraVector = cameraTransform.Position - m_transform.Position;
 	toCameraVector.Y = 0;
@@ -117,7 +116,7 @@ void Enemy::RotateToPlayer()
 
 void Enemy::UpdateFacingDirection()
 {
-	Transform& cameraTransform = m_pGraphics->GetCamera()->GetTransform();
+	Transform& cameraTransform = m_pPlayer->GetTransform();
 
 	Vector toCameraVector = cameraTransform.Position - m_transform.Position;
 	toCameraVector.Y = 0;

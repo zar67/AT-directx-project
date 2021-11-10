@@ -1,10 +1,13 @@
 #pragma once
 
+#include <map>
+
 #include "Drawable.h"
 #include "VertexBuffer.h"
 #include "SpriteSheet.h"
 #include "Animation.h"
-#include <map>
+#include "EnemyStats.h"
+#include "Player.h"
 
 class Enemy : public Drawable<Enemy>
 {
@@ -36,13 +39,14 @@ public:
 	};
 
 public:
-	Enemy(Graphics & graphics);
+	Enemy(Graphics & graphics, Player& player, EnemyStats enemyStats);
 
 	void Draw(Graphics& graphics) override;
 	virtual void Update(float deltaTime) override;
-	virtual void OnCollision(CollisionUtilities::CollisionData collision) override;
 
 protected:
+	const float MAX_HEALTH = 100.0f;
+
 	std::vector<TextureCoordinate> m_textureCoords = {
 		{TextureCoordinate::Position::BOTTOM_LEFT, DirectX::XMFLOAT2(0.0f, 0.0f)},
 		{TextureCoordinate::Position::TOP_LEFT, DirectX::XMFLOAT2(0.0f, 0.0f)},
@@ -60,11 +64,16 @@ protected:
 	std::map<EnemyState, std::map<FaceDirection, Animation>> m_animationMap;
 
 	Graphics* m_pGraphics = nullptr;
+	Player* m_pPlayer = nullptr;
+
 	VertexBuffer<Vertex>* m_pVertexBuffer = nullptr;
 	SpriteSheet* m_pSpriteSheet = nullptr;
 
 	FaceDirection m_currentDirection = FaceDirection::FORWARDS;
 	EnemyState m_currentState = EnemyState::IDLE;
+
+	Vector m_lookVector = Vector(0.0f, 0.0f, -1.0f);
+	float m_health;
 
 private:
 	void InitialiseStatic(Graphics & graphics);
@@ -72,6 +81,4 @@ private:
 
 	void RotateToPlayer();
 	void UpdateFacingDirection();
-
-	Vector m_lookVector = Vector(0.0f, 0.0f, -1.0f);
 };

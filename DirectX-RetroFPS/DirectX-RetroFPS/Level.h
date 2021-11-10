@@ -2,8 +2,6 @@
 
 #include <memory>
 
-#include "Graphics.h"
-#include "DrawableBase.h"
 #include "PixelConstantBuffer.h"
 #include "Light.h"
 #include "Enemy.h"
@@ -11,7 +9,7 @@
 class Level
 {
 public:
-	Level(Graphics& graphics, std::string filename);
+	Level(Graphics& graphics, Player& player, std::string filename);
 	~Level() = default;
 
 	void Initialise(Graphics& graphics);
@@ -35,6 +33,8 @@ private:
 	void ParseLevelDataCharacter(Graphics& graphics, char character, float xPosition, float yPosition, float zPosition);
 
 	void BindLighting(Graphics& graphics);
+
+	Player* m_pPlayer = nullptr;
 
 	float m_width;
 	float m_depth;

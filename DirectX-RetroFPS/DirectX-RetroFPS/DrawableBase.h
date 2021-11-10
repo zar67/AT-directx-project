@@ -15,7 +15,7 @@ public:
 
 	virtual void Draw(Graphics& graphics);
 	virtual void Update(float deltaTime);
-	virtual void OnCollision(CollisionUtilities::CollisionData collision);
+	virtual void OnCollision(CollisionUtilities::ColliderCollision collision);
 
 	void AddBindable(std::unique_ptr<Bindable> bindable);
 

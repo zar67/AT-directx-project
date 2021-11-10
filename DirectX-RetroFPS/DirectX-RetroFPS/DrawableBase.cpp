@@ -20,7 +20,7 @@ void DrawableBase::Update(float deltaTime)
 
 }
 
-void DrawableBase::OnCollision(CollisionUtilities::CollisionData collision)
+void DrawableBase::OnCollision(CollisionUtilities::ColliderCollision collision)
 {
 
 }

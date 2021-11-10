@@ -49,9 +49,6 @@ CollisionUtilities::RayCollision CollisionUtilities::IsColliding(Ray& ray, OBBCo
 	float tmin = txmin;
 	float tmax = txmax;
 
-	Vector minCollisionPosition = Vector();
-	Vector maxCollisionPosition = Vector();
-
 	if (tmin > tmax) 
 	{
 		float temp = tmin;

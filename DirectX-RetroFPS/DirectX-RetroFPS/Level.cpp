@@ -10,9 +10,11 @@
 #include "Zombie.h"
 #include "DemonPuppy.h"
 
-Level::Level(Graphics& graphics, std::string filename) :
+Level::Level(Graphics& graphics, Player& player, std::string filename) :
 	m_lightConstantBuffer(graphics)
 {
+	m_pPlayer = &player;
+
 	m_startingPosition = Vector(0.0f, 0.0f, 0.0f);
 	m_startLookRotation = 0;
 
@@ -21,9 +23,9 @@ Level::Level(Graphics& graphics, std::string filename) :
 
 void Level::Initialise(Graphics& graphics)
 {
-	graphics.GetCamera()->GetTransform().Position.Set(m_startingPosition.X, m_startingPosition.Y, m_startingPosition.Z);
-	graphics.GetCamera()->LockYPosition(m_startingPosition.Y);
-	graphics.GetCamera()->GetTransform().Rotation.Set(0.0f, m_startLookRotation, 0.0f);
+	m_pPlayer->GetTransform().Position.Set(m_startingPosition.X, m_startingPosition.Y, m_startingPosition.Z);
+	m_pPlayer->LockYPosition(m_startingPosition.Y);
+	m_pPlayer->GetTransform().Rotation.Set(0.0f, m_startLookRotation, 0.0f);
 }
 
 void Level::Draw(Graphics& graphics)
@@ -94,10 +96,6 @@ void Level::Update(float deltaTime)
 
 void Level::HandleCollisions(Graphics& graphics)
 {
-	CollisionUtilities::RayCollision nearestBulletCollision;
-	nearestBulletCollision.IntersectionDistance = std::numeric_limits<float>().max();
-	DrawableBase* nearestBulletObject = nullptr;
-
 	for (auto& geometry : m_geometry)
 	{
 		DrawableBase* drawableA = geometry.get();
@@ -107,28 +105,24 @@ void Level::HandleCollisions(Graphics& graphics)
 			continue;
 		}
 
-		if (CollisionUtilities::IsCollisionPossible(drawableA->GetCollider(), graphics.GetCamera()->GetCollider()))
+		if (CollisionUtilities::IsCollisionPossible(drawableA->GetCollider(), m_pPlayer->GetCollider()))
 		{
-			CollisionUtilities::ColliderCollision collision = CollisionUtilities::IsColliding(drawableA->GetCollider(), graphics.GetCamera()->GetCollider());
+			CollisionUtilities::ColliderCollision collision = CollisionUtilities::IsColliding(drawableA->GetCollider(), m_pPlayer->GetCollider());
 			if (collision.IsColliding)
 			{
 				CollisionUtilities::ResolveCollision(collision);
 				drawableA->OnCollision(collision);
-				graphics.GetCamera()->OnCollision(collision);
+				m_pPlayer->OnCollision(collision);
 			}
 		}
 
-		if (graphics.GetCamera()->GetShootRay().IsValid() &&
-			CollisionUtilities::IsCollisionPossible(graphics.GetCamera()->GetShootRay(), drawableA->GetCollider()))
+		if (m_pPlayer->GetShooter().GetShootRay().IsValid() &&
+			CollisionUtilities::IsCollisionPossible(m_pPlayer->GetShooter().GetShootRay(), drawableA->GetCollider()))
 		{
-			CollisionUtilities::RayCollision collision = CollisionUtilities::IsColliding(graphics.GetCamera()->GetShootRay(), drawableA->GetCollider());
+			CollisionUtilities::RayCollision collision = CollisionUtilities::IsColliding(m_pPlayer->GetShooter().GetShootRay(), drawableA->GetCollider());
 			if (collision.IsColliding)
 			{
-				if (collision.IntersectionDistance < nearestBulletCollision.IntersectionDistance)
-				{
-					nearestBulletCollision = collision;
-					nearestBulletObject = drawableA;
-				}
+				m_pPlayer->GetShooter().RegisterCollision(collision, drawableA);
 			}
 		}
 
@@ -163,39 +157,29 @@ void Level::HandleCollisions(Graphics& graphics)
 			continue;
 		}
 
-		if (CollisionUtilities::IsCollisionPossible(drawableA->GetCollider(), graphics.GetCamera()->GetCollider()))
+		if (CollisionUtilities::IsCollisionPossible(drawableA->GetCollider(), m_pPlayer->GetCollider()))
 		{
-			CollisionUtilities::ColliderCollision collision = CollisionUtilities::IsColliding(drawableA->GetCollider(), graphics.GetCamera()->GetCollider());
+			CollisionUtilities::ColliderCollision collision = CollisionUtilities::IsColliding(drawableA->GetCollider(), m_pPlayer->GetCollider());
 			if (collision.IsColliding)
 			{
 				CollisionUtilities::ResolveCollision(collision);
 				drawableA->OnCollision(collision);
-				graphics.GetCamera()->OnCollision(collision);
+				m_pPlayer->OnCollision(collision);
 			}
 		}
 
-		if (graphics.GetCamera()->GetShootRay().IsValid() &&
-			CollisionUtilities::IsCollisionPossible(graphics.GetCamera()->GetShootRay(), drawableA->GetCollider()))
+		if (m_pPlayer->GetShooter().GetShootRay().IsValid() &&
+			CollisionUtilities::IsCollisionPossible(m_pPlayer->GetShooter().GetShootRay(), drawableA->GetCollider()))
 		{
-			CollisionUtilities::RayCollision collision = CollisionUtilities::IsColliding(graphics.GetCamera()->GetShootRay(), drawableA->GetCollider());
+			CollisionUtilities::RayCollision collision = CollisionUtilities::IsColliding(m_pPlayer->GetShooter().GetShootRay(), drawableA->GetCollider());
 			if (collision.IsColliding)
 			{
-				if (collision.IntersectionDistance < nearestBulletCollision.IntersectionDistance)
-				{
-					nearestBulletCollision = collision;
-					nearestBulletObject = drawableA;
-				}
+				m_pPlayer->GetShooter().RegisterCollision(collision, drawableA);
 			}
 		}
 	}
 
-	if (nearestBulletCollision.IntersectionDistance != std::numeric_limits<float>().max())
-	{
-		if (nearestBulletObject != nullptr)
-		{
-			nearestBulletObject->OnCollision(nearestBulletCollision);
-		}
-	}
+	m_pPlayer->GetShooter().HandleHit();
 }
 
 void Level::GenerateDataFromFile(Graphics& graphics, std::string filename)
@@ -342,7 +326,7 @@ void Level::ParseLevelDataCharacter(Graphics& graphics, char character, float xP
 		}
 		case 'M': // Demon
 		{
-			std::unique_ptr<Demon> pDemon = std::make_unique<Demon>(graphics);
+			std::unique_ptr<Demon> pDemon = std::make_unique<Demon>(graphics, *m_pPlayer);
 			pDemon->GetTransform().ApplyTranslation(xPosition, yPosition + UNIT_SIZE, zPosition);
 			pDemon->GetTransform().ApplyScalar(UNIT_SIZE, UNIT_SIZE * 2, UNIT_SIZE);
 			m_enemies.emplace_back(std::move(pDemon));
@@ -350,7 +334,7 @@ void Level::ParseLevelDataCharacter(Graphics& graphics, char character, float xP
 		}
 		case 'Z': // Zombie
 		{
-			std::unique_ptr<Zombie> pZombie = std::make_unique<Zombie>(graphics);
+			std::unique_ptr<Zombie> pZombie = std::make_unique<Zombie>(graphics, *m_pPlayer);
 			pZombie->GetTransform().ApplyTranslation(xPosition, yPosition + UNIT_SIZE, zPosition);
 			pZombie->GetTransform().ApplyScalar(UNIT_SIZE, UNIT_SIZE * 2, UNIT_SIZE);
 			m_enemies.emplace_back(std::move(pZombie));
@@ -358,7 +342,7 @@ void Level::ParseLevelDataCharacter(Graphics& graphics, char character, float xP
 		}
 		case 'D': // Demon Puppy
 		{
-			std::unique_ptr<DemonPuppy> pPuppy = std::make_unique<DemonPuppy>(graphics);
+			std::unique_ptr<DemonPuppy> pPuppy = std::make_unique<DemonPuppy>(graphics, *m_pPlayer);
 			pPuppy->GetTransform().ApplyTranslation(xPosition, yPosition + UNIT_SIZE, zPosition);
 			pPuppy->GetTransform().ApplyScalar(UNIT_SIZE, UNIT_SIZE * 2, UNIT_SIZE);
 			m_enemies.emplace_back(std::move(pPuppy));
@@ -407,7 +391,7 @@ void Level::BindLighting(Graphics& graphics)
 	lightBufferData.AttenuationLinear = ATTENUATION_LINEAR;
 	lightBufferData.AttenuationQuadratic = ATTENUATION_QUADRATIC;
 
-	Vector cameraPosition = graphics.GetCamera()->GetTransform().Position;
+	Vector cameraPosition = m_pPlayer->GetTransform().Position;
 
 	float excludedIndexes[Light::MAX_SCENE_LIGHTS];
 	for (int i = 0; i < Light::MAX_SCENE_LIGHTS; i++)

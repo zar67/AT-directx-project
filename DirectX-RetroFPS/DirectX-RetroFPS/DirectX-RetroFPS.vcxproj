@@ -98,7 +98,9 @@
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="MouseEvent.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="RasterizerState.cpp" />
+    <ClCompile Include="Shooter.cpp" />
     <ClCompile Include="SpriteSheet.cpp" />
     <ClCompile Include="TexturedCube.cpp" />
     <ClCompile Include="DrawableBase.cpp" />
@@ -127,6 +129,7 @@
     <ClInclude Include="Bindable.h" />
     <ClInclude Include="BlendState.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="EnemyStats.h" />
     <ClInclude Include="OBBCollider.h" />
     <ClInclude Include="CollisionUtilities.h" />
     <ClInclude Include="Demon.h" />
@@ -139,8 +142,10 @@
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="MouseEvent.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="RasterizerState.h" />
     <ClInclude Include="Ray.h" />
+    <ClInclude Include="Shooter.h" />
     <ClInclude Include="SpriteSheet.h" />
     <ClInclude Include="TextureCoordinate.h" />
     <ClInclude Include="TexturedCube.h" />

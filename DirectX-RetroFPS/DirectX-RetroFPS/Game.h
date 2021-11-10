@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Window.h"
 #include "Timer.h"
 #include "LevelManager.h"
@@ -15,6 +16,7 @@ private:
 	void Render();
 
 	Window m_window;
+	Player m_player;
 	LevelManager m_levelManager;
 	Timer m_gameTimer;
 

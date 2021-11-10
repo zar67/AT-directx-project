@@ -219,6 +219,12 @@
     <ClCompile Include="DemonPuppy.cpp">
       <Filter>Source\Source Files\Game\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="Shooter.cpp">
+      <Filter>Source\Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source\Source Files\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ErrorLogger.h">
@@ -427,6 +433,18 @@
     </ClInclude>
     <ClInclude Include="Ray.h">
       <Filter>Source\Header Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyStats.h">
+      <Filter>Source\Header Files\Game\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Shooter.h">
+      <Filter>Source\Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Source\Header Files\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

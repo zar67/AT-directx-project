@@ -1,11 +1,13 @@
 #include "Game.h"
+
 #include "CollisionUtilities.h"
-#include <iostream>
 
 Game::Game() :
 	m_window(800, 600, IDS_GAMENAME, IDI_MAINICON),
-	m_levelManager(m_window.GetGraphics())
+	m_player(m_window.GetInput(), m_window.GetWidth(), m_window.GetHeight(), 6.0f, 3.0f, DirectX::XMFLOAT2(50, 50)),
+	m_levelManager(m_window.GetGraphics(), m_player)
 {
+	m_window.GetGraphics().GetCamera()->SetTargetTransform(m_player.GetTransform());
 }
 
 int Game::Run()
@@ -39,7 +41,8 @@ void Game::Update(float deltaTime)
 
 	if (!m_isPaused)
 	{
-		m_window.GetGraphics().GetCamera()->Update(deltaTime, m_window.GetInput(), m_window.GetWidth(), m_window.GetHeight());
+		m_player.Update(deltaTime);
+
 		m_levelManager.UpdateCurrentLevel(deltaTime);
 		m_levelManager.HandleCurrentLevelCollisions(m_window.GetGraphics());
 
