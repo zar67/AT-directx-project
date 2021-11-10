@@ -15,7 +15,9 @@ public:
 
 	virtual void Draw(Graphics& graphics);
 	virtual void Update(float deltaTime);
+
 	virtual void OnCollision(CollisionUtilities::ColliderCollision collision);
+	virtual void OnShot(DrawableBase* shooter, float damage, Vector shotContactPosition);
 
 	void AddBindable(std::unique_ptr<Bindable> bindable);
 

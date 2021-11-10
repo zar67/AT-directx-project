@@ -9,8 +9,7 @@
 #include "TransformConstantBuffer.h"
 #include "BlendState.h"
 
-Enemy::Enemy(Graphics& graphics, Player& player, EnemyStats enemyStats) :
-	MAX_HEALTH(enemyStats.MaxHealth)
+Enemy::Enemy(Graphics& graphics, Player& player)
 {
 	if (!IsStaticInitialized())
 	{
@@ -18,6 +17,7 @@ Enemy::Enemy(Graphics& graphics, Player& player, EnemyStats enemyStats) :
 	}
 
 	InitialiseCollider();
+	InitialiseStats();
 
 	std::unique_ptr<VertexBuffer<Vertex>> vertexBuffer = std::make_unique<VertexBuffer<Vertex>>(graphics, m_vertices);
 	m_pVertexBuffer = vertexBuffer.get();
@@ -29,8 +29,6 @@ Enemy::Enemy(Graphics& graphics, Player& player, EnemyStats enemyStats) :
 	m_pPlayer = &player;
 
 	m_pIndexBuffer = GetBindableOfType<IndexBuffer>();
-
-	m_health = MAX_HEALTH;
 }
 
 void Enemy::Draw(Graphics& graphics)
@@ -50,6 +48,20 @@ void Enemy::Update(float deltaTime)
 	{
 		m_vertices[i].TextureCoords = m_textureCoords[i].Coordinate;
 	}
+}
+
+void Enemy::OnShot(DrawableBase* shooter, float damage, Vector shotContactPosition)
+{
+	m_health -= damage;
+	if (m_health <= 0)
+	{
+		SetActive(false);
+	}
+}
+
+void Enemy::InitialiseStats()
+{
+	m_health = m_maxHealth;
 }
 
 void Enemy::InitialiseStatic(Graphics& graphics)

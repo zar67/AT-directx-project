@@ -9,6 +9,5 @@ public:
 
 	virtual void Update(float deltaTime) override;
 
-protected:
-	const EnemyStats ENEMY_STATS = EnemyStats(150.0f);
+	void InitialiseStats() override;
 };

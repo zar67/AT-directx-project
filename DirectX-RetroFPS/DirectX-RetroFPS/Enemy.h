@@ -6,7 +6,6 @@
 #include "VertexBuffer.h"
 #include "SpriteSheet.h"
 #include "Animation.h"
-#include "EnemyStats.h"
 #include "Player.h"
 
 class Enemy : public Drawable<Enemy>
@@ -39,14 +38,16 @@ public:
 	};
 
 public:
-	Enemy(Graphics & graphics, Player& player, EnemyStats enemyStats);
+	Enemy(Graphics & graphics, Player& player);
 
 	void Draw(Graphics& graphics) override;
 	virtual void Update(float deltaTime) override;
 
-protected:
-	const float MAX_HEALTH = 100.0f;
+	virtual void OnShot(DrawableBase* shooter, float damage, Vector shotContactPosition) override;
 
+	virtual void InitialiseStats();
+
+protected:
 	std::vector<TextureCoordinate> m_textureCoords = {
 		{TextureCoordinate::Position::BOTTOM_LEFT, DirectX::XMFLOAT2(0.0f, 0.0f)},
 		{TextureCoordinate::Position::TOP_LEFT, DirectX::XMFLOAT2(0.0f, 0.0f)},
@@ -73,6 +74,9 @@ protected:
 	EnemyState m_currentState = EnemyState::IDLE;
 
 	Vector m_lookVector = Vector(0.0f, 0.0f, -1.0f);
+
+	// Stats
+	float m_maxHealth = 100.0f;
 	float m_health;
 
 private:

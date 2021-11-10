@@ -25,6 +25,11 @@ void DrawableBase::OnCollision(CollisionUtilities::ColliderCollision collision)
 
 }
 
+void DrawableBase::OnShot(DrawableBase* shooter, float damage, Vector shotContactPosition)
+{
+
+}
+
 void DrawableBase::AddBindable(std::unique_ptr<Bindable> bindable)
 {
 	m_bindables.push_back(std::move(bindable));

@@ -437,9 +437,6 @@
     <ClInclude Include="resource.h">
       <Filter>Source\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyStats.h">
-      <Filter>Source\Header Files\Game\Enemies</Filter>
-    </ClInclude>
     <ClInclude Include="Shooter.h">
       <Filter>Source\Header Files\Game</Filter>
     </ClInclude>

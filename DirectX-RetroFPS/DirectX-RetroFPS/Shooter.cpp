@@ -19,11 +19,11 @@ void Shooter::RegisterCollision(CollisionUtilities::RayCollision collision, Draw
 	}
 }
 
-void Shooter::HandleHit()
+void Shooter::HandleHit(DrawableBase* shooter, float damage)
 {
 	if (m_nearestCollisionDrawable != nullptr)
 	{
-		m_nearestCollisionDrawable->SetActive(false);
+		m_nearestCollisionDrawable->OnShot(shooter, damage, m_nearestCollision.IntersectionPosition);
 	}
 }
 

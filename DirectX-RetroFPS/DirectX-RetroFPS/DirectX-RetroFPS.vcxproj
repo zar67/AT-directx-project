@@ -129,7 +129,6 @@
     <ClInclude Include="Bindable.h" />
     <ClInclude Include="BlendState.h" />
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="EnemyStats.h" />
     <ClInclude Include="OBBCollider.h" />
     <ClInclude Include="CollisionUtilities.h" />
     <ClInclude Include="Demon.h" />

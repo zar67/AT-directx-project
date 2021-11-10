@@ -1,6 +1,6 @@
 #include "DemonPuppy.h"
 
-DemonPuppy::DemonPuppy(Graphics& graphics, Player& player) : Enemy(graphics, player, ENEMY_STATS)
+DemonPuppy::DemonPuppy(Graphics& graphics, Player& player) : Enemy(graphics, player)
 {
 	std::unique_ptr<SpriteSheet> spriteSheet = std::make_unique<SpriteSheet>(graphics, "Assets\\Characters\\doom_demon_puppy.png", 32, 5);
 	m_pSpriteSheet = spriteSheet.get();
@@ -48,4 +48,11 @@ DemonPuppy::DemonPuppy(Graphics& graphics, Player& player) : Enemy(graphics, pla
 			{Enemy::FaceDirection::FORWARDS_RIGHT, Animation(m_pSpriteSheet, { 103, 111, 119, 127 }, 5)}
 		}}
 	};
+}
+
+void DemonPuppy::InitialiseStats()
+{
+	m_maxHealth = 200.0f;
+
+	Enemy::InitialiseStats();
 }

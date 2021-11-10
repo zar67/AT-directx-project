@@ -11,7 +11,7 @@ public:
 
 	void StartShoot(Ray ray);
 	void RegisterCollision(CollisionUtilities::RayCollision collision, DrawableBase* drawable);
-	void HandleHit();
+	void HandleHit(DrawableBase* shooter, float damage);
 
 	Ray& GetShootRay();
 
