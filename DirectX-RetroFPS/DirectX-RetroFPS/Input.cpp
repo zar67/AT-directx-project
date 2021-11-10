@@ -6,6 +6,11 @@ void Input::HandleMessages(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam
 	m_mouse.HandleMessages(hWnd, message, wparam, lparam, windowWidth, windowHeight);
 }
 
+void Input::UpdateStates()
+{
+	m_mouse.DetectHeldButtons();
+}
+
 Keyboard& Input::GetKeyboard()
 {
 	return m_keyboard;

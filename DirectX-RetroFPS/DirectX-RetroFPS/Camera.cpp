@@ -172,6 +172,7 @@ void Camera::UpdateShooting(float deltaTime, Input& input, int windowWidth, int 
 	m_shootRay = Ray();
 
 	bool shoot = input.GetMouse().GetLeftButtonState() == MouseEvent::ButtonState::PRESSED;
+
 	if (shoot)
 	{
 		DirectX::XMMATRIX cameraRotationMatrix = DirectX::XMMatrixRotationRollPitchYaw(m_transform.Rotation.X, m_transform.Rotation.Y, m_transform.Rotation.Z);

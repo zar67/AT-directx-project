@@ -1,4 +1,5 @@
 #include "Mouse.h"
+#include <iostream>
 
 void Mouse::HandleMessages(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam, int windowWidth, int windowHeight)
 {
@@ -55,21 +56,21 @@ void Mouse::HandleMessages(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam
 	}
 }
 
-void Mouse::ResetPressedButtons()
+void Mouse::DetectHeldButtons()
 {
 	if (m_leftButtonState == MouseEvent::ButtonState::PRESSED)
 	{
-		m_leftButtonState == MouseEvent::ButtonState::NOT_PRESSED;
+		m_leftButtonState = MouseEvent::ButtonState::HELD;
 	}
 
 	if (m_rightButtonState == MouseEvent::ButtonState::PRESSED)
 	{
-		m_rightButtonState == MouseEvent::ButtonState::NOT_PRESSED;
+		m_rightButtonState = MouseEvent::ButtonState::HELD;
 	}
 
 	if (m_middleButtonState == MouseEvent::ButtonState::PRESSED)
 	{
-		m_middleButtonState == MouseEvent::ButtonState::NOT_PRESSED;
+		m_middleButtonState = MouseEvent::ButtonState::HELD;
 	}
 }
 

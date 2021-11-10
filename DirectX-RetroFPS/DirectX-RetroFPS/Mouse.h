@@ -15,7 +15,7 @@ public:
 	Mouse& operator=(const Mouse&) = delete;
 
 	void HandleMessages(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam, int windowWidth, int windowHeight);
-	void ResetPressedButtons();
+	void DetectHeldButtons();
 
 	bool IsInWindow();
 

@@ -12,6 +12,7 @@ public:
 	~Input() = default;
 
 	void HandleMessages(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam, int windowWidth, int windowHeight);
+	void UpdateStates();
 
 	Keyboard& GetKeyboard();
 	Mouse& GetMouse();
