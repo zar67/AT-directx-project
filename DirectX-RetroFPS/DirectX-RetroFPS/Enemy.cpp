@@ -43,11 +43,17 @@ void Enemy::Update(float deltaTime)
 {
 	RotateToPlayer();
 	UpdateFacingDirection();
-
+	
 	m_animationMap[m_currentState][m_currentDirection].Update(deltaTime, m_textureCoords);
 	for (int i = 0; i < 4; i++)
 	{
 		m_vertices[i].TextureCoords = m_textureCoords[i].Coordinate;
+	}
+
+	if (m_currentState == EnemyState::DEATH &&
+		m_animationMap[m_currentState][m_currentDirection].Completed())
+	{
+		SetActive(false);
 	}
 }
 
@@ -56,7 +62,7 @@ void Enemy::OnShot(DrawableBase* shooter, float damage, Vector shotContactPositi
 	m_health.Damage(damage);
 	if (m_health.IsDead())
 	{
-		SetActive(false);
+		m_currentState = EnemyState::DEATH;
 	}
 }
 
