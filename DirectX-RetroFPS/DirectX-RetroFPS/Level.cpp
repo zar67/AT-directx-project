@@ -116,7 +116,7 @@ void Level::HandleCollisions(Graphics& graphics)
 			}
 		}
 
-		if (m_pPlayer->GetShooter().GetShootRay().IsValid() &&
+		if (m_pPlayer->GetShooter().IsShooting() &&
 			CollisionUtilities::IsCollisionPossible(m_pPlayer->GetShooter().GetShootRay(), drawableA->GetCollider()))
 		{
 			CollisionUtilities::RayCollision collision = CollisionUtilities::IsColliding(m_pPlayer->GetShooter().GetShootRay(), drawableA->GetCollider());
@@ -168,7 +168,7 @@ void Level::HandleCollisions(Graphics& graphics)
 			}
 		}
 
-		if (m_pPlayer->GetShooter().GetShootRay().IsValid() &&
+		if (m_pPlayer->GetShooter().IsShooting() &&
 			CollisionUtilities::IsCollisionPossible(m_pPlayer->GetShooter().GetShootRay(), drawableA->GetCollider()))
 		{
 			CollisionUtilities::RayCollision collision = CollisionUtilities::IsColliding(m_pPlayer->GetShooter().GetShootRay(), drawableA->GetCollider());

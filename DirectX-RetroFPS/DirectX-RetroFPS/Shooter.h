@@ -16,6 +16,7 @@ public:
 	void RegisterCollision(CollisionUtilities::RayCollision collision, DrawableBase* drawable);
 	void HandleHit();
 
+	bool IsShooting();
 	Ray& GetShootRay();
 
 private:

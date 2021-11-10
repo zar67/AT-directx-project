@@ -37,6 +37,11 @@ void Shooter::HandleHit()
 	}
 }
 
+bool Shooter::IsShooting()
+{
+	return m_shootRay.IsValid();
+}
+
 Ray& Shooter::GetShootRay()
 {
 	return m_shootRay;

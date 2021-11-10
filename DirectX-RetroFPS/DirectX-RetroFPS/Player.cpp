@@ -124,7 +124,7 @@ void Player::UpdateShooting(float deltaTime)
 		Vector rayDirection = Vector(cameraForwardVector);
 		rayDirection = rayDirection.GetNormalized();
 
-		if (!m_shooter.GetShootRay().IsValid())
+		if (!m_shooter.IsShooting())
 		{
 			m_shooter.StartShoot(Ray(m_transform.Position, rayDirection));
 		}
