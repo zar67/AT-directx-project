@@ -20,7 +20,12 @@ void DrawableBase::Update(float deltaTime)
 
 }
 
-void DrawableBase::OnCollision(CollisionUtilities::CollisionData collision)
+void DrawableBase::OnCollision(CollisionUtilities::ColliderCollision collision, DrawableBase* other)
+{
+
+}
+
+void DrawableBase::OnShot(DrawableBase* shooter, float damage, Vector shotContactPosition)
 {
 
 }
@@ -35,7 +40,7 @@ Transform& DrawableBase::GetTransform()
 	return m_transform;
 }
 
-Collider& DrawableBase::GetCollider()
+OBBCollider& DrawableBase::GetCollider()
 {
 	return m_collider;
 }
@@ -43,4 +48,9 @@ Collider& DrawableBase::GetCollider()
 bool DrawableBase::IsActive()
 {
 	return m_isActive;
+}
+
+void DrawableBase::SetActive(bool value)
+{
+	m_isActive = value;
 }

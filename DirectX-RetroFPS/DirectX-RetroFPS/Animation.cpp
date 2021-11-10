@@ -24,8 +24,15 @@ int Animation::GetStartingSpriteIndex()
 	return m_spriteIndexes[0];
 }
 
+bool Animation::Completed()
+{
+	return m_currentSpriteIndex == 0 && m_previousSpriteIndex == m_spriteIndexes.size() - 1;
+}
+
 void Animation::ChangeSprite(std::vector<TextureCoordinate>& textureCoords)
 {
+	m_previousSpriteIndex = m_currentSpriteIndex;
+
 	SpriteSheet::SpriteBounds currentSpriteRect = m_pSpriteSheet->GetSpriteBoundsAtIndex(m_spriteIndexes[m_currentSpriteIndex]);
 
 	m_currentSpriteIndex++;

@@ -5,5 +5,5 @@
 class DemonPuppy : public Enemy
 {
 public:
-	DemonPuppy(Graphics& graphics);
+	DemonPuppy(Graphics& graphics, Player& player);
 };

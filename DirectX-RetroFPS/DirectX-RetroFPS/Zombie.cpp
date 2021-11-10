@@ -1,6 +1,6 @@
 #include "Zombie.h"
 
-Zombie::Zombie(Graphics& graphics) : Enemy(graphics)
+Zombie::Zombie(Graphics& graphics, Player& player) : Enemy(graphics, player)
 {
 	std::unique_ptr<SpriteSheet> spriteSheet = std::make_unique<SpriteSheet>(graphics, "Assets\\Characters\\doom_zombie.png", 32, 5);
 	m_pSpriteSheet = spriteSheet.get();
@@ -48,4 +48,7 @@ Zombie::Zombie(Graphics& graphics) : Enemy(graphics)
 			{Enemy::FaceDirection::FORWARDS_RIGHT, Animation(m_pSpriteSheet, { 103, 111, 119, 127 }, 5)}
 		}}
 	};
+
+	m_health.SetMaxHealth(100.0f);
+	m_health.Reset();
 }

@@ -21,6 +21,11 @@ Vector::Vector(DirectX::XMFLOAT3 other)
 	Z = other.z;
 }
 
+bool Vector::operator==(const Vector& other)
+{
+	return X == other.X && Y == other.Y && Z == other.Z;
+}
+
 Vector Vector::operator+(const Vector& other)
 {
 	return Vector(X + other.X, Y + other.Y, Z + other.Z);
@@ -136,6 +141,11 @@ Vector Vector::GetNormalized()
 		Y / scalar,
 		Z / scalar
 	);
+}
+
+Vector Vector::GetReversed()
+{
+	return Vector(X * -1.0f, Y * -1.0f, Z * -1.0f);
 }
 
 float Vector::GetMagnitude()

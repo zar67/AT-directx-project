@@ -1,17 +1,14 @@
 #pragma once
 
-#include <map>
-
 #include "Drawable.h"
-#include "VertexBuffer.h"
-#include "SpriteSheet.h"
+#include "TextureCoordinate.h"
 #include "Animation.h"
+#include "VertexBuffer.h"
 #include "Player.h"
-#include "Health.h"
 
-class Enemy : public Drawable<Enemy>
+class Pickup : public Drawable<Pickup>
 {
-public:
+public:	
 	struct Vertex
 	{
 		DirectX::XMFLOAT3 Position;
@@ -19,27 +16,8 @@ public:
 		DirectX::XMFLOAT2 TextureCoords;
 		DirectX::XMFLOAT3 Colour;
 	};
-
-	enum class FaceDirection {
-		FORWARDS,
-		FORWARDS_LEFT,
-		LEFT,
-		BACKWARDS_LEFT,
-		BACKWARDS,
-		BACKWARDS_RIGHT,
-		RIGHT,
-		FORWARDS_RIGHT
-	};
-
-	enum class EnemyState {
-		IDLE,
-		MOVING,
-		ATTACKING,
-		DEATH
-	};
-
 public:
-	Enemy(Graphics & graphics, Player& player);
+	Pickup(Graphics& graphics, Player& player);
 
 	void Draw(Graphics& graphics) override;
 	virtual void Update(float deltaTime) override;
@@ -61,25 +39,16 @@ protected:
 		{DirectX::XMFLOAT3(1.0f, -1.0f, 0.0f), DirectX::XMFLOAT3(0, 0, -1.0f), DirectX::XMFLOAT2(0.0f, 0.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
 	};
 
-	std::map<EnemyState, std::map<FaceDirection, Animation>> m_animationMap;
-
-	Graphics* m_pGraphics = nullptr;
 	Player* m_pPlayer = nullptr;
 
-	Health m_health;
+	Animation m_spinningAnimation;
 
 	VertexBuffer<Vertex>* m_pVertexBuffer = nullptr;
 	SpriteSheet* m_pSpriteSheet = nullptr;
 
-	FaceDirection m_currentDirection = FaceDirection::FORWARDS;
-	EnemyState m_currentState = EnemyState::IDLE;
-
-	Vector m_lookVector = Vector(0.0f, 0.0f, -1.0f);
-
 private:
-	void InitialiseStatic(Graphics & graphics);
+	void InitialiseStatic(Graphics& graphics);
 	void InitialiseCollider();
 
 	void RotateToPlayer();
-	void UpdateFacingDirection();
 };

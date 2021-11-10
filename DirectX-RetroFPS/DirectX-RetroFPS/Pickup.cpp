@@ -1,15 +1,14 @@
-﻿#include "Enemy.h"
+#include "Pickup.h"
+#include "TransformConstantBuffer.h"
 #include "Topology.h"
 #include "VertexShader.h"
-#include "InputLayout.h"
-#include "RasterizerState.h"
-#include "PixelShader.h"
-#include "Sampler.h"
-#include "TextureBindable.h"
-#include "TransformConstantBuffer.h"
 #include "BlendState.h"
+#include "Sampler.h"
+#include "PixelShader.h"
+#include "RasterizerState.h"
+#include "InputLayout.h"
 
-Enemy::Enemy(Graphics& graphics, Player& player)
+Pickup::Pickup(Graphics& graphics, Player& player)
 {
 	if (!IsStaticInitialized())
 	{
@@ -23,50 +22,35 @@ Enemy::Enemy(Graphics& graphics, Player& player)
 	AddBindable(std::move(vertexBuffer));
 
 	AddBindable(std::make_unique<TransformConstantBuffer>(graphics, *this));
-	
-	m_pGraphics = &graphics;
+
 	m_pPlayer = &player;
 
 	m_pIndexBuffer = GetBindableOfType<IndexBuffer>();
-
-	m_health.SetMaxHealth(100.0f);
 }
 
-void Enemy::Draw(Graphics& graphics)
+void Pickup::Draw(Graphics& graphics)
 {
 	m_pVertexBuffer->Update(graphics, m_vertices);
 
 	Drawable::Draw(graphics);
 }
 
-void Enemy::Update(float deltaTime)
+void Pickup::Update(float deltaTime)
 {
 	RotateToPlayer();
-	UpdateFacingDirection();
-	
-	m_animationMap[m_currentState][m_currentDirection].Update(deltaTime, m_textureCoords);
+	m_spinningAnimation.Update(deltaTime, m_textureCoords);
 	for (int i = 0; i < 4; i++)
 	{
 		m_vertices[i].TextureCoords = m_textureCoords[i].Coordinate;
 	}
-
-	if (m_currentState == EnemyState::DEATH &&
-		m_animationMap[m_currentState][m_currentDirection].Completed())
-	{
-		SetActive(false);
-	}
 }
 
-void Enemy::OnShot(DrawableBase* shooter, float damage, Vector shotContactPosition)
+void Pickup::OnShot(DrawableBase* shooter, float damage, Vector shotContactPosition)
 {
-	m_health.Damage(damage);
-	if (m_health.IsDead())
-	{
-		m_currentState = EnemyState::DEATH;
-	}
+	SetActive(false);
 }
 
-void Enemy::InitialiseStatic(Graphics& graphics)
+void Pickup::InitialiseStatic(Graphics& graphics)
 {
 	// Create Index Buffer
 	const std::vector<unsigned short> indices =
@@ -102,14 +86,14 @@ void Enemy::InitialiseStatic(Graphics& graphics)
 	AddStaticBindable(std::make_unique<BlendState>(graphics, true));
 }
 
-void Enemy::InitialiseCollider()
+void Pickup::InitialiseCollider()
 {
 	m_collider.SetTransform(&m_transform);
 	m_collider.SetRotationConstraints(true, true, true);
 	m_collider.SetColliderData(Vector(-1.0f, -1.0f, -1.0f), Vector(1.0f, 1.0f, 1.0f));
 }
 
-void Enemy::RotateToPlayer()
+void Pickup::RotateToPlayer()
 {
 	Vector forwardVector = Vector(0.0f, 0.0f, -1.0f);
 	Transform& cameraTransform = m_pPlayer->GetTransform();
@@ -126,23 +110,4 @@ void Enemy::RotateToPlayer()
 	}
 
 	m_transform.Rotation.Y = rotationAngle;
-}
-
-void Enemy::UpdateFacingDirection()
-{
-	Transform& cameraTransform = m_pPlayer->GetTransform();
-
-	Vector toCameraVector = cameraTransform.Position - m_transform.Position;
-	toCameraVector.Y = 0;
-
-	float dotProduct = Vector::DotProduct(m_lookVector, toCameraVector);
-	float angle = acos(dotProduct / (m_lookVector.GetMagnitude() * toCameraVector.GetMagnitude()));
-
-	if (toCameraVector.X > 0)
-	{
-		angle = (2 * DirectX::XM_PI) - angle;
-	}
-
-	int directionIndex = (int)(angle / ( (2 * DirectX::XM_PI) / 8));
-	m_currentDirection = (FaceDirection)directionIndex;
 }

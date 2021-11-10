@@ -1,4 +1,7 @@
 #pragma once
+
+#include <vector>
+
 #include "Bindable.h"
 
 class InputLayout : public Bindable

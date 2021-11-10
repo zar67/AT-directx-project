@@ -100,6 +100,18 @@
     <Filter Include="Source\Source Files\Physics">
       <UniqueIdentifier>{97e90b9d-f09c-40a8-9ccd-186406ef85c3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Header Files\Game\Components">
+      <UniqueIdentifier>{2dbacfd3-97f0-49b4-ab97-52fdf95982de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Source Files\Game\Components">
+      <UniqueIdentifier>{c7da0f20-2802-4551-9103-20894de2ef5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Header Files\Game\Pickup">
+      <UniqueIdentifier>{3820db50-0043-462e-be85-23c50896a951}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Source Files\Game\Pickups">
+      <UniqueIdentifier>{89e2b4a7-bfa3-44a5-a92b-fa50c049ea91}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -204,7 +216,7 @@
     <ClCompile Include="CollisionUtilities.cpp">
       <Filter>Source\Source Files\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="Collider.cpp">
+    <ClCompile Include="OBBCollider.cpp">
       <Filter>Source\Source Files\Physics</Filter>
     </ClCompile>
     <ClCompile Include="Vector.cpp">
@@ -218,6 +230,21 @@
     </ClCompile>
     <ClCompile Include="DemonPuppy.cpp">
       <Filter>Source\Source Files\Game\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source\Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Shooter.cpp">
+      <Filter>Source\Source Files\Game\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Health.cpp">
+      <Filter>Source\Source Files\Game\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Pickup.cpp">
+      <Filter>Source\Source Files\Game\Pickups</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthPickup.cpp">
+      <Filter>Source\Source Files\Game\Pickups</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -395,7 +422,7 @@
     <ClInclude Include="CollisionUtilities.h">
       <Filter>Source\Header Files\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="Collider.h">
+    <ClInclude Include="OBBCollider.h">
       <Filter>Source\Header Files\Physics</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
@@ -424,6 +451,30 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ray.h">
+      <Filter>Source\Header Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Source\Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Shooter.h">
+      <Filter>Source\Header Files\Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Health.h">
+      <Filter>Source\Header Files\Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Pickup.h">
+      <Filter>Source\Header Files\Game\Pickup</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthPickup.h">
+      <Filter>Source\Header Files\Game\Pickup</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

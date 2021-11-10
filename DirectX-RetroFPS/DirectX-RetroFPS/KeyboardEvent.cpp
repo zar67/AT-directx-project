@@ -2,7 +2,7 @@
 
 KeyboardEvent::KeyboardEvent()
 {
-	m_type = EventType::Invalid;
+	m_type = EventType::INVALID;
 	m_key = 0u;
 }
 

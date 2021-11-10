@@ -1,6 +1,6 @@
 #include "Demon.h"
 
-Demon::Demon(Graphics& graphics) : Enemy(graphics)
+Demon::Demon(Graphics& graphics, Player& player) : Enemy(graphics, player)
 {
 	std::unique_ptr<SpriteSheet> spriteSheet = std::make_unique<SpriteSheet>(graphics, "Assets\\Characters\\doom_demon.png", 32, 5);
 	m_pSpriteSheet = spriteSheet.get();
@@ -48,6 +48,9 @@ Demon::Demon(Graphics& graphics) : Enemy(graphics)
 			{Enemy::FaceDirection::FORWARDS_RIGHT, Animation(m_pSpriteSheet, { 103, 111, 119, 127 }, 5)}
 		}}
 	};
+
+	m_health.SetMaxHealth(150.0f);
+	m_health.Reset();
 }
 
 void Demon::Update(float deltaTime)

@@ -15,14 +15,17 @@ public:
 
 	virtual void Draw(Graphics& graphics);
 	virtual void Update(float deltaTime);
-	virtual void OnCollision(CollisionUtilities::CollisionData collision);
+
+	virtual void OnCollision(CollisionUtilities::ColliderCollision collision, DrawableBase* other);
+	virtual void OnShot(DrawableBase* shooter, float damage, Vector shotContactPosition);
 
 	void AddBindable(std::unique_ptr<Bindable> bindable);
 
 	Transform& GetTransform();
-	Collider& GetCollider();
+	OBBCollider& GetCollider();
     
 	bool IsActive();
+	void SetActive(bool value);
 
 	template<class B>
 	B* GetBindableOfType()
@@ -54,7 +57,7 @@ protected:
 
 	IndexBuffer* m_pIndexBuffer = nullptr;
 	Transform m_transform;
-	Collider m_collider;
+	OBBCollider m_collider;
 	std::vector<std::unique_ptr<Bindable>> m_bindables;
 
 	bool m_isActive = true;

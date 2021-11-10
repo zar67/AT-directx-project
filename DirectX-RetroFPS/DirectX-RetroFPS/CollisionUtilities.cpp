@@ -1,16 +1,21 @@
 #include "CollisionUtilities.h"
 #include <iostream>
 
-bool CollisionUtilities::IsCollisionPossible(Collider& colliderOne, Collider& colliderTwo)
+bool CollisionUtilities::IsCollisionPossible(OBBCollider& colliderOne, OBBCollider& colliderTwo)
 {
 	float distanceSquared = (colliderOne.GetTransform()->Position - colliderTwo.GetTransform()->Position).GetMagnitudeSquared();
 	return distanceSquared < 5;
 }
 
-CollisionUtilities::CollisionData CollisionUtilities::IsColliding(Collider& colliderOne, Collider& colliderTwo)
+bool CollisionUtilities::IsCollisionPossible(Ray& ray, OBBCollider& collider)
 {
-	CollisionUtilities::CollisionData abData = FindMinimumSeparation(colliderOne, colliderTwo);
-	CollisionUtilities::CollisionData baData = FindMinimumSeparation(colliderTwo, colliderOne);
+	return Vector::DotProduct(ray.Direction, ray.Origin - collider.GetTransform()->Position) > 0;
+}
+
+CollisionUtilities::ColliderCollision CollisionUtilities::IsColliding(OBBCollider& colliderOne, OBBCollider& colliderTwo)
+{
+	CollisionUtilities::ColliderCollision abData = FindMinimumSeparation(colliderOne, colliderTwo);
+	CollisionUtilities::ColliderCollision baData = FindMinimumSeparation(colliderTwo, colliderOne);
 
 	if (abData.Separation < 0 && baData.Separation < 0)
 	{
@@ -26,10 +31,91 @@ CollisionUtilities::CollisionData CollisionUtilities::IsColliding(Collider& coll
 		}
 	}
 
-	return CollisionUtilities::CollisionData();
+	return CollisionUtilities::ColliderCollision();
 }
 
-void CollisionUtilities::ResolveCollision(CollisionUtilities::CollisionData data)
+CollisionUtilities::RayCollision CollisionUtilities::IsColliding(Ray& ray, OBBCollider& collider)
+{
+	CollisionUtilities::RayCollision rayCollisionData;
+	rayCollisionData.CollisionRay = ray;
+	rayCollisionData.Collider = &collider;
+
+	Vector colliderMinPos = collider.GetMinPoint();
+	Vector colliderMaxPos = collider.GetMaxPoint();
+
+	float txmin = (colliderMinPos.X - ray.Origin.X) / ray.Direction.X;
+	float txmax = (colliderMaxPos.X - ray.Origin.X) / ray.Direction.X;
+
+	float tmin = txmin;
+	float tmax = txmax;
+
+	if (tmin > tmax) 
+	{
+		float temp = tmin;
+		tmin = tmax;
+		tmax = temp;
+	}
+
+	float tymin = (colliderMinPos.Y - ray.Origin.Y) / ray.Direction.Y;
+	float tymax = (colliderMaxPos.Y - ray.Origin.Y) / ray.Direction.Y;
+
+	if (tymin > tymax)
+	{
+		float temp = tymin;
+		tymin = tymax;
+		tymax = temp;
+	}
+
+	if ((tmin > tymax) || (tymin > tmax))
+	{
+		rayCollisionData.IsColliding = false;
+		return rayCollisionData;
+	}
+
+	if (tymin > tmin)
+	{
+		tmin = tymin;
+	}
+
+	if (tymax < tmax)
+	{
+		tmax = tymax;
+	}
+
+	float tzmin = (colliderMinPos.Z - ray.Origin.Z) / ray.Direction.Z;
+	float tzmax = (colliderMaxPos.Z - ray.Origin.Z) / ray.Direction.Z;
+
+	if (tzmin > tzmax)
+	{
+		float temp = tzmin;
+		tzmin = tzmax;
+		tzmax = temp;
+	}
+
+	if ((tmin > tzmax) || (tzmin > tmax))
+	{
+		rayCollisionData.IsColliding = false;
+		return rayCollisionData;
+	}
+
+	if (tzmin > tmin)
+	{
+		tmin = tzmin;
+	}
+
+	if (tzmax < tmax)
+	{
+		tmax = tzmax;
+	}
+
+	rayCollisionData.IsColliding = true;
+	rayCollisionData.IntersectionDistance = std::abs(tmin);
+	rayCollisionData.IntersectionPosition = ray.Origin + (ray.Direction.GetNormalized() * std::abs(tmin));
+
+	return rayCollisionData;
+}
+
+void CollisionUtilities::ResolveCollision(CollisionUtilities::ColliderCollision data)
 {
 	Vector aVelocity = data.ColliderA->GetVelocity();
 	Vector bVelocity = data.ColliderB->GetVelocity();
@@ -76,19 +162,19 @@ void CollisionUtilities::ResolveCollision(CollisionUtilities::CollisionData data
 	}
 }
 
-CollisionUtilities::CollisionData CollisionUtilities::FindMinimumSeparation(Collider& a, Collider& b)
+CollisionUtilities::ColliderCollision CollisionUtilities::FindMinimumSeparation(OBBCollider& a, OBBCollider& b)
 {
-	CollisionUtilities::CollisionData returnData;
+	CollisionUtilities::ColliderCollision returnData;
 	returnData.ColliderA = &a;
 	returnData.ColliderB = &b;
 
 	float separation = std::numeric_limits<float>::lowest();
 
-	std::vector<Vector> aVertices = a.GetVertices();
-	std::vector<Vector> aNormals = a.GetNormals();
+	std::vector<Vector> aVertices = a.GetFaceVertices();
+	std::vector<Vector> aNormals = a.GetFaceNormals();
 
-	std::vector<Vector> bVertices = b.GetVertices();
-	std::vector<Vector> bNormals = b.GetNormals();
+	std::vector<Vector> bVertices = b.GetFaceVertices();
+	std::vector<Vector> bNormals = b.GetFaceNormals();
 
 	for (int i = 0; i < aVertices.size(); i++)
 	{

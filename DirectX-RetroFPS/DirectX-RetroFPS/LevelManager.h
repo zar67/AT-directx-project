@@ -7,7 +7,7 @@
 class LevelManager
 {
 public:
-	LevelManager(Graphics& graphics);
+	LevelManager(Graphics& graphics, Player& player);
 	~LevelManager() = default;
 
 	void LoadLevel(Graphics& graphics, int levelIndex);

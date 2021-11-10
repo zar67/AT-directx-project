@@ -12,7 +12,9 @@ public:
 	Animation(SpriteSheet* pSpriteSheet, std::vector<int> spriteIndexes, float playbackSpeed);
 
 	void Update(float deltaTime, std::vector<TextureCoordinate>& textureCoords);
+	
 	int GetStartingSpriteIndex();
+	bool Completed();
 
 private:
 	void ChangeSprite(std::vector<TextureCoordinate>& textureCoords);
@@ -25,4 +27,5 @@ private:
 	float m_animationTimer = 0;
 
 	int m_currentSpriteIndex = 0;
+	int m_previousSpriteIndex = -1;
 };

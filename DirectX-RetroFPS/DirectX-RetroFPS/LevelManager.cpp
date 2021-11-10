@@ -2,13 +2,13 @@
 
 #include "LevelManager.h"
 
-LevelManager::LevelManager(Graphics& graphics)
+LevelManager::LevelManager(Graphics& graphics, Player& player)
 {
 	std::string directoryName = "Assets\\LevelData";
 
 	for (const auto& entry : std::filesystem::directory_iterator(directoryName))
 	{
-		m_levels.push_back(std::make_unique<Level>(graphics, entry.path().string()));
+		m_levels.push_back(std::make_unique<Level>(graphics, player, entry.path().string()));
 	}
 }
 

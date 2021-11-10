@@ -2,16 +2,15 @@
 
 #include <memory>
 
-#include "Graphics.h"
-#include "DrawableBase.h"
 #include "PixelConstantBuffer.h"
 #include "Light.h"
 #include "Enemy.h"
+#include "Pickup.h"
 
 class Level
 {
 public:
-	Level(Graphics& graphics, std::string filename);
+	Level(Graphics& graphics, Player& player, std::string filename);
 	~Level() = default;
 
 	void Initialise(Graphics& graphics);
@@ -36,6 +35,8 @@ private:
 
 	void BindLighting(Graphics& graphics);
 
+	Player* m_pPlayer = nullptr;
+
 	float m_width;
 	float m_depth;
 
@@ -45,6 +46,7 @@ private:
 	std::vector<std::unique_ptr<DrawableBase>> m_geometry;
 	std::vector<std::unique_ptr<Enemy>> m_enemies;
 	std::vector<std::unique_ptr<Light>> m_lights;
+	std::vector<std::unique_ptr<Pickup>> m_pickups;
 
 	PixelConstantBuffer<Light::LightBufferData> m_lightConstantBuffer;
 };

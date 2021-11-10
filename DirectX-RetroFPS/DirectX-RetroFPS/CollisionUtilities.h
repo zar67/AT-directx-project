@@ -1,21 +1,21 @@
 #pragma once
 
-#include "Collider.h"
-#include "Vector.h"
+#include "OBBCollider.h"
+#include "Ray.h"
 
 static class CollisionUtilities
 {
 public:
-	struct CollisionData
+	struct ColliderCollision
 	{
 		bool IsColliding;
-		Collider* ColliderA;
-		Collider* ColliderB;
+		OBBCollider* ColliderA;
+		OBBCollider* ColliderB;
 		float Separation;
 		Vector ACollisionNormal;
 		Vector BCollisionNormal;
 
-		CollisionData()
+		ColliderCollision()
 		{
 			IsColliding = false;
 			ColliderA = nullptr;
@@ -25,10 +25,32 @@ public:
 			BCollisionNormal = Vector();
 		}
 	};
+
+	struct RayCollision
+	{
+		bool IsColliding;
+		Ray CollisionRay;
+		OBBCollider* Collider;
+		Vector IntersectionPosition;
+		float IntersectionDistance;
+
+		RayCollision()
+		{
+			CollisionRay = Ray();
+			Collider = nullptr;
+			IntersectionPosition = Vector();
+			IntersectionDistance = 0;
+		};
+	};
+
 public:
-	static bool IsCollisionPossible(Collider& colliderOne, Collider& colliderTwo);
-	static CollisionData IsColliding(Collider& colliderOne, Collider& colliderTwo);
-	static void ResolveCollision(CollisionData data);
+	static bool IsCollisionPossible(OBBCollider& colliderOne, OBBCollider& colliderTwo);
+	static ColliderCollision IsColliding(OBBCollider& colliderOne, OBBCollider& colliderTwo);
+    
+	static bool IsCollisionPossible(Ray& ray, OBBCollider& collider);
+	static RayCollision IsColliding(Ray& ray, OBBCollider& collider);
+    
+	static void ResolveCollision(ColliderCollision data);
 private:
-	static CollisionData FindMinimumSeparation(Collider& colliderOne, Collider& colliderTwo);
+	static ColliderCollision FindMinimumSeparation(OBBCollider& colliderOne, OBBCollider& colliderTwo);
 };

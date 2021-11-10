@@ -5,5 +5,5 @@
 class Zombie : public Enemy
 {
 public:
-	Zombie(Graphics& graphics);
+	Zombie(Graphics& graphics, Player& player);
 };

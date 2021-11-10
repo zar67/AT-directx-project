@@ -86,7 +86,9 @@
     <ClCompile Include="Bindable.cpp" />
     <ClCompile Include="BlendState.cpp" />
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="Health.cpp" />
+    <ClCompile Include="HealthPickup.cpp" />
+    <ClCompile Include="OBBCollider.cpp" />
     <ClCompile Include="CollisionUtilities.cpp" />
     <ClCompile Include="Demon.cpp" />
     <ClCompile Include="DemonPuppy.cpp" />
@@ -98,7 +100,10 @@
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="MouseEvent.cpp" />
+    <ClCompile Include="Pickup.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="RasterizerState.cpp" />
+    <ClCompile Include="Shooter.cpp" />
     <ClCompile Include="SpriteSheet.cpp" />
     <ClCompile Include="TexturedCube.cpp" />
     <ClCompile Include="DrawableBase.cpp" />
@@ -127,7 +132,9 @@
     <ClInclude Include="Bindable.h" />
     <ClInclude Include="BlendState.h" />
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="Collider.h" />
+    <ClInclude Include="Health.h" />
+    <ClInclude Include="HealthPickup.h" />
+    <ClInclude Include="OBBCollider.h" />
     <ClInclude Include="CollisionUtilities.h" />
     <ClInclude Include="Demon.h" />
     <ClInclude Include="DemonPuppy.h" />
@@ -139,7 +146,11 @@
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="MouseEvent.h" />
+    <ClInclude Include="Pickup.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="RasterizerState.h" />
+    <ClInclude Include="Ray.h" />
+    <ClInclude Include="Shooter.h" />
     <ClInclude Include="SpriteSheet.h" />
     <ClInclude Include="TextureCoordinate.h" />
     <ClInclude Include="TexturedCube.h" />

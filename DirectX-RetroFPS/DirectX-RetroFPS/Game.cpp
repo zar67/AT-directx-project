@@ -1,11 +1,13 @@
 #include "Game.h"
+
 #include "CollisionUtilities.h"
-#include <iostream>
 
 Game::Game() :
 	m_window(800, 600, IDS_GAMENAME, IDI_MAINICON),
-	m_levelManager(m_window.GetGraphics())
+	m_player(m_window.GetInput(), m_window.GetWidth(), m_window.GetHeight(), 6.0f, 3.0f, DirectX::XMFLOAT2(50, 50)),
+	m_levelManager(m_window.GetGraphics(), m_player)
 {
+	m_window.GetGraphics().GetCamera()->SetTargetTransform(m_player.GetTransform());
 }
 
 int Game::Run()
@@ -39,20 +41,23 @@ void Game::Update(float deltaTime)
 
 	if (!m_isPaused)
 	{
-		m_window.GetGraphics().GetCamera()->Update(deltaTime, m_window.GetInput(), m_window.GetWidth(), m_window.GetHeight());
+		m_player.Update(deltaTime);
+
 		m_levelManager.UpdateCurrentLevel(deltaTime);
 		m_levelManager.HandleCurrentLevelCollisions(m_window.GetGraphics());
 
 		m_window.GetGraphics().GetCamera()->UpdateViewMatrix();
 	}
+
+	m_window.GetInput().UpdateStates();
 }
 
 void Game::HandleInput()
 {
 	KeyboardEvent keyboardEvent = m_window.GetInput().GetKeyboard().ReadKey();
-	while (keyboardEvent.GetType() != KeyboardEvent::EventType::Invalid)
+	while (keyboardEvent.GetType() != KeyboardEvent::EventType::INVALID)
 	{
-		if (keyboardEvent.GetKeyCode() == VK_ESCAPE && keyboardEvent.GetType() == KeyboardEvent::EventType::Press)
+		if (keyboardEvent.GetKeyCode() == VK_ESCAPE && keyboardEvent.GetType() == KeyboardEvent::EventType::PRESS)
 		{
 			if (m_isPaused)
 			{
@@ -77,7 +82,7 @@ void Game::HandleInput()
 	}
 
 	MouseEvent mouseEvent = m_window.GetInput().GetMouse().Read();
-	while (mouseEvent.GetType() != MouseEvent::EventType::Invalid)
+	while (mouseEvent.GetType() != MouseEvent::EventType::INVALID)
 	{
 		// Handle Mouse Event
 		mouseEvent = m_window.GetInput().GetMouse().Read();
