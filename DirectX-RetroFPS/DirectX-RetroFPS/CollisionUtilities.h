@@ -9,13 +9,22 @@ public:
 	struct CollisionData
 	{
 		bool IsColliding;
+
+		CollisionData()
+		{
+			IsColliding = false;
+		}
+	};
+
+	struct ColliderCollision : CollisionData
+	{
 		OBBCollider* ColliderA;
 		OBBCollider* ColliderB;
 		float Separation;
 		Vector ACollisionNormal;
 		Vector BCollisionNormal;
 
-		CollisionData()
+		ColliderCollision()
 		{
 			IsColliding = false;
 			ColliderA = nullptr;
@@ -25,14 +34,29 @@ public:
 			BCollisionNormal = Vector();
 		}
 	};
+
+	struct RayCollision : CollisionData
+	{
+		Ray CollisionRay;
+		OBBCollider* Collider;
+		Vector CollisionPosition;
+
+		RayCollision()
+		{
+			CollisionRay = Ray();
+			Collider = nullptr;
+			CollisionPosition = Vector();
+		};
+	};
+
 public:
 	static bool IsCollisionPossible(OBBCollider& colliderOne, OBBCollider& colliderTwo);
-	static CollisionData IsColliding(OBBCollider& colliderOne, OBBCollider& colliderTwo);
+	static ColliderCollision IsColliding(OBBCollider& colliderOne, OBBCollider& colliderTwo);
     
 	static bool IsCollisionPossible(Ray& ray, OBBCollider& collider);
-	static bool IsColliding(Ray& ray, OBBCollider& collider);
+	static RayCollision IsColliding(Ray& ray, OBBCollider& collider);
     
-	static void ResolveCollision(CollisionData data);
+	static void ResolveCollision(ColliderCollision data);
 private:
-	static CollisionData FindMinimumSeparation(OBBCollider& colliderOne, OBBCollider& colliderTwo);
+	static ColliderCollision FindMinimumSeparation(OBBCollider& colliderOne, OBBCollider& colliderTwo);
 };

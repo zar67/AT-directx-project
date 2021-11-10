@@ -105,7 +105,7 @@ void Level::HandleCollisions(Graphics& graphics)
 
 		if (CollisionUtilities::IsCollisionPossible(drawableA->GetCollider(), graphics.GetCamera()->GetCollider()))
 		{
-			CollisionUtilities::CollisionData collision = CollisionUtilities::IsColliding(drawableA->GetCollider(), graphics.GetCamera()->GetCollider());
+			CollisionUtilities::ColliderCollision collision = CollisionUtilities::IsColliding(drawableA->GetCollider(), graphics.GetCamera()->GetCollider());
 			if (collision.IsColliding)
 			{
 				CollisionUtilities::ResolveCollision(collision);
@@ -117,7 +117,8 @@ void Level::HandleCollisions(Graphics& graphics)
 		if (graphics.GetCamera()->GetShootRay().IsValid() &&
 			CollisionUtilities::IsCollisionPossible(graphics.GetCamera()->GetShootRay(), drawableA->GetCollider()))
 		{
-			if (CollisionUtilities::IsColliding(graphics.GetCamera()->GetShootRay(), drawableA->GetCollider()))
+			CollisionUtilities::RayCollision collision = CollisionUtilities::IsColliding(graphics.GetCamera()->GetShootRay(), drawableA->GetCollider());
+			if (collision.IsColliding)
 			{
 				drawableA->SetActive(false);
 			}
@@ -134,7 +135,7 @@ void Level::HandleCollisions(Graphics& graphics)
 
 			if (CollisionUtilities::IsCollisionPossible(drawableA->GetCollider(), drawableB->GetCollider()))
 			{
-				CollisionUtilities::CollisionData collision = CollisionUtilities::IsColliding(drawableA->GetCollider(), drawableB->GetCollider());
+				CollisionUtilities::ColliderCollision collision = CollisionUtilities::IsColliding(drawableA->GetCollider(), drawableB->GetCollider());
 				if (collision.IsColliding)
 				{
 					CollisionUtilities::ResolveCollision(collision);
@@ -156,7 +157,7 @@ void Level::HandleCollisions(Graphics& graphics)
 
 		if (CollisionUtilities::IsCollisionPossible(drawableA->GetCollider(), graphics.GetCamera()->GetCollider()))
 		{
-			CollisionUtilities::CollisionData collision = CollisionUtilities::IsColliding(drawableA->GetCollider(), graphics.GetCamera()->GetCollider());
+			CollisionUtilities::ColliderCollision collision = CollisionUtilities::IsColliding(drawableA->GetCollider(), graphics.GetCamera()->GetCollider());
 			if (collision.IsColliding)
 			{
 				CollisionUtilities::ResolveCollision(collision);
@@ -168,7 +169,8 @@ void Level::HandleCollisions(Graphics& graphics)
 		if (graphics.GetCamera()->GetShootRay().IsValid() &&
 			CollisionUtilities::IsCollisionPossible(graphics.GetCamera()->GetShootRay(), drawableA->GetCollider()))
 		{
-			if (CollisionUtilities::IsColliding(graphics.GetCamera()->GetShootRay(), drawableA->GetCollider()))
+			CollisionUtilities::RayCollision collision = CollisionUtilities::IsColliding(graphics.GetCamera()->GetShootRay(), drawableA->GetCollider());
+			if (collision.IsColliding)
 			{
 				drawableA->SetActive(false);
 			}

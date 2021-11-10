@@ -12,10 +12,10 @@ bool CollisionUtilities::IsCollisionPossible(Ray& ray, OBBCollider& collider)
 	return Vector::DotProduct(ray.Direction, ray.Origin - collider.GetTransform()->Position) > 0;
 }
 
-CollisionUtilities::CollisionData CollisionUtilities::IsColliding(OBBCollider& colliderOne, OBBCollider& colliderTwo)
+CollisionUtilities::ColliderCollision CollisionUtilities::IsColliding(OBBCollider& colliderOne, OBBCollider& colliderTwo)
 {
-	CollisionUtilities::CollisionData abData = FindMinimumSeparation(colliderOne, colliderTwo);
-	CollisionUtilities::CollisionData baData = FindMinimumSeparation(colliderTwo, colliderOne);
+	CollisionUtilities::ColliderCollision abData = FindMinimumSeparation(colliderOne, colliderTwo);
+	CollisionUtilities::ColliderCollision baData = FindMinimumSeparation(colliderTwo, colliderOne);
 
 	if (abData.Separation < 0 && baData.Separation < 0)
 	{
@@ -31,11 +31,15 @@ CollisionUtilities::CollisionData CollisionUtilities::IsColliding(OBBCollider& c
 		}
 	}
 
-	return CollisionUtilities::CollisionData();
+	return CollisionUtilities::ColliderCollision();
 }
 
-bool CollisionUtilities::IsColliding(Ray& ray, OBBCollider& collider)
+CollisionUtilities::RayCollision CollisionUtilities::IsColliding(Ray& ray, OBBCollider& collider)
 {
+	CollisionUtilities::RayCollision rayCollisionData;
+	rayCollisionData.CollisionRay = ray;
+	rayCollisionData.Collider = &collider;
+
 	Vector colliderMinPos = collider.GetMinPoint();
 	Vector colliderMaxPos = collider.GetMaxPoint();
 
@@ -67,7 +71,8 @@ bool CollisionUtilities::IsColliding(Ray& ray, OBBCollider& collider)
 
 	if ((tmin > tymax) || (tymin > tmax))
 	{
-		return false;
+		rayCollisionData.IsColliding = false;
+		return rayCollisionData;
 	}
 
 	if (tymin > tmin)
@@ -92,7 +97,8 @@ bool CollisionUtilities::IsColliding(Ray& ray, OBBCollider& collider)
 
 	if ((tmin > tzmax) || (tzmin > tmax))
 	{
-		return false;
+		rayCollisionData.IsColliding = false;
+		return rayCollisionData;
 	}
 
 	if (tzmin > tmin)
@@ -105,10 +111,11 @@ bool CollisionUtilities::IsColliding(Ray& ray, OBBCollider& collider)
 		tmax = tzmax;
 	}
 
-	return true;
+	rayCollisionData.IsColliding = true;
+	return rayCollisionData;
 }
 
-void CollisionUtilities::ResolveCollision(CollisionUtilities::CollisionData data)
+void CollisionUtilities::ResolveCollision(CollisionUtilities::ColliderCollision data)
 {
 	Vector aVelocity = data.ColliderA->GetVelocity();
 	Vector bVelocity = data.ColliderB->GetVelocity();
@@ -155,9 +162,9 @@ void CollisionUtilities::ResolveCollision(CollisionUtilities::CollisionData data
 	}
 }
 
-CollisionUtilities::CollisionData CollisionUtilities::FindMinimumSeparation(OBBCollider& a, OBBCollider& b)
+CollisionUtilities::ColliderCollision CollisionUtilities::FindMinimumSeparation(OBBCollider& a, OBBCollider& b)
 {
-	CollisionUtilities::CollisionData returnData;
+	CollisionUtilities::ColliderCollision returnData;
 	returnData.ColliderA = &a;
 	returnData.ColliderB = &b;
 
