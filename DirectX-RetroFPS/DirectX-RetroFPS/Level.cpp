@@ -94,6 +94,10 @@ void Level::Update(float deltaTime)
 
 void Level::HandleCollisions(Graphics& graphics)
 {
+	CollisionUtilities::RayCollision nearestBulletCollision;
+	nearestBulletCollision.IntersectionDistance = std::numeric_limits<float>().max();
+	DrawableBase* nearestBulletObject = nullptr;
+
 	for (auto& geometry : m_geometry)
 	{
 		DrawableBase* drawableA = geometry.get();
@@ -120,9 +124,11 @@ void Level::HandleCollisions(Graphics& graphics)
 			CollisionUtilities::RayCollision collision = CollisionUtilities::IsColliding(graphics.GetCamera()->GetShootRay(), drawableA->GetCollider());
 			if (collision.IsColliding)
 			{
-				drawableA->SetActive(false);
-				drawableA->OnCollision(collision);
-				graphics.GetCamera()->OnCollision(collision);
+				if (collision.IntersectionDistance < nearestBulletCollision.IntersectionDistance)
+				{
+					nearestBulletCollision = collision;
+					nearestBulletObject = drawableA;
+				}
 			}
 		}
 
@@ -174,9 +180,20 @@ void Level::HandleCollisions(Graphics& graphics)
 			CollisionUtilities::RayCollision collision = CollisionUtilities::IsColliding(graphics.GetCamera()->GetShootRay(), drawableA->GetCollider());
 			if (collision.IsColliding)
 			{
-				drawableA->OnCollision(collision);
-				graphics.GetCamera()->OnCollision(collision);
+				if (collision.IntersectionDistance < nearestBulletCollision.IntersectionDistance)
+				{
+					nearestBulletCollision = collision;
+					nearestBulletObject = drawableA;
+				}
 			}
+		}
+	}
+
+	if (nearestBulletCollision.IntersectionDistance != std::numeric_limits<float>().max())
+	{
+		if (nearestBulletObject != nullptr)
+		{
+			nearestBulletObject->OnCollision(nearestBulletCollision);
 		}
 	}
 }

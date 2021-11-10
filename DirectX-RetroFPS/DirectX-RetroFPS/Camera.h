@@ -18,7 +18,9 @@ public:
 	Ray& GetShootRay();
 
 	void Update(float deltaTime, Input& input, int windowWidth, int windowHeight);
+
 	void OnCollision(CollisionUtilities::CollisionData collision);
+	void OnBulletCollision(CollisionUtilities::RayCollision collision);
 
 	void LockYPosition(float y);
 

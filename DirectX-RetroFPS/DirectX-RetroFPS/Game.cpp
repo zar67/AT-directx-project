@@ -45,6 +45,8 @@ void Game::Update(float deltaTime)
 
 		m_window.GetGraphics().GetCamera()->UpdateViewMatrix();
 	}
+
+	m_window.GetInput().GetMouse().ResetPressedButtons();
 }
 
 void Game::HandleInput()

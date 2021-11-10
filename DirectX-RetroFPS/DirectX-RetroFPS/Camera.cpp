@@ -70,6 +70,11 @@ void Camera::OnCollision(CollisionUtilities::CollisionData collision)
 
 }
 
+void Camera::OnBulletCollision(CollisionUtilities::RayCollision collision)
+{
+
+}
+
 void Camera::LockYPosition(float y)
 {
 	m_transform.ConstrainYPosition = false;

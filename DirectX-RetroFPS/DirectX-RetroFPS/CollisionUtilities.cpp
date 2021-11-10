@@ -112,6 +112,9 @@ CollisionUtilities::RayCollision CollisionUtilities::IsColliding(Ray& ray, OBBCo
 	}
 
 	rayCollisionData.IsColliding = true;
+	rayCollisionData.IntersectionDistance = std::abs(tmin);
+	rayCollisionData.IntersectionPosition = ray.Origin + (ray.Direction.GetNormalized() * std::abs(tmin));
+
 	return rayCollisionData;
 }
 
