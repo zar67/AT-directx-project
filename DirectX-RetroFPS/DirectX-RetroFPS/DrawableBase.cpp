@@ -22,7 +22,7 @@ void DrawableBase::Update(float deltaTime)
 
 void DrawableBase::OnCollision(CollisionUtilities::CollisionData collision)
 {
-	SetActive(false);
+
 }
 
 void DrawableBase::AddBindable(std::unique_ptr<Bindable> bindable)
