@@ -17,7 +17,6 @@ Enemy::Enemy(Graphics& graphics, Player& player)
 	}
 
 	InitialiseCollider();
-	InitialiseStats();
 
 	std::unique_ptr<VertexBuffer<Vertex>> vertexBuffer = std::make_unique<VertexBuffer<Vertex>>(graphics, m_vertices);
 	m_pVertexBuffer = vertexBuffer.get();
@@ -29,6 +28,8 @@ Enemy::Enemy(Graphics& graphics, Player& player)
 	m_pPlayer = &player;
 
 	m_pIndexBuffer = GetBindableOfType<IndexBuffer>();
+
+	m_health.SetMaxHealth(100.0f);
 }
 
 void Enemy::Draw(Graphics& graphics)
@@ -52,16 +53,11 @@ void Enemy::Update(float deltaTime)
 
 void Enemy::OnShot(DrawableBase* shooter, float damage, Vector shotContactPosition)
 {
-	m_health -= damage;
-	if (m_health <= 0)
+	m_health.Damage(damage);
+	if (m_health.IsDead())
 	{
 		SetActive(false);
 	}
-}
-
-void Enemy::InitialiseStats()
-{
-	m_health = m_maxHealth;
 }
 
 void Enemy::InitialiseStatic(Graphics& graphics)

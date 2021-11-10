@@ -48,11 +48,7 @@ DemonPuppy::DemonPuppy(Graphics& graphics, Player& player) : Enemy(graphics, pla
 			{Enemy::FaceDirection::FORWARDS_RIGHT, Animation(m_pSpriteSheet, { 103, 111, 119, 127 }, 5)}
 		}}
 	};
-}
 
-void DemonPuppy::InitialiseStats()
-{
-	m_maxHealth = 200.0f;
-
-	Enemy::InitialiseStats();
+	m_health.SetMaxHealth(200.0f);
+	m_health.Reset();
 }

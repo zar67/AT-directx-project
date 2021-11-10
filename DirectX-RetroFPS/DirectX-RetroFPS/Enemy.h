@@ -7,6 +7,7 @@
 #include "SpriteSheet.h"
 #include "Animation.h"
 #include "Player.h"
+#include "Health.h"
 
 class Enemy : public Drawable<Enemy>
 {
@@ -45,8 +46,6 @@ public:
 
 	virtual void OnShot(DrawableBase* shooter, float damage, Vector shotContactPosition) override;
 
-	virtual void InitialiseStats();
-
 protected:
 	std::vector<TextureCoordinate> m_textureCoords = {
 		{TextureCoordinate::Position::BOTTOM_LEFT, DirectX::XMFLOAT2(0.0f, 0.0f)},
@@ -67,6 +66,8 @@ protected:
 	Graphics* m_pGraphics = nullptr;
 	Player* m_pPlayer = nullptr;
 
+	Health m_health;
+
 	VertexBuffer<Vertex>* m_pVertexBuffer = nullptr;
 	SpriteSheet* m_pSpriteSheet = nullptr;
 
@@ -74,10 +75,6 @@ protected:
 	EnemyState m_currentState = EnemyState::IDLE;
 
 	Vector m_lookVector = Vector(0.0f, 0.0f, -1.0f);
-
-	// Stats
-	float m_maxHealth = 100.0f;
-	float m_health;
 
 private:
 	void InitialiseStatic(Graphics & graphics);

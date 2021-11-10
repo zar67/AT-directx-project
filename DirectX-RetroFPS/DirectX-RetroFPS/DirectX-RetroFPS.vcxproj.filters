@@ -100,6 +100,12 @@
     <Filter Include="Source\Source Files\Physics">
       <UniqueIdentifier>{97e90b9d-f09c-40a8-9ccd-186406ef85c3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Header Files\Game\Components">
+      <UniqueIdentifier>{2dbacfd3-97f0-49b4-ab97-52fdf95982de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Source Files\Game\Components">
+      <UniqueIdentifier>{c7da0f20-2802-4551-9103-20894de2ef5c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -219,11 +225,14 @@
     <ClCompile Include="DemonPuppy.cpp">
       <Filter>Source\Source Files\Game\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="Shooter.cpp">
-      <Filter>Source\Source Files\Game</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Source\Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Shooter.cpp">
+      <Filter>Source\Source Files\Game\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Health.cpp">
+      <Filter>Source\Source Files\Game\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -437,11 +446,17 @@
     <ClInclude Include="resource.h">
       <Filter>Source\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Shooter.h">
-      <Filter>Source\Header Files\Game</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Source\Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Shooter.h">
+      <Filter>Source\Header Files\Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Health.h">
+      <Filter>Source\Header Files\Game\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

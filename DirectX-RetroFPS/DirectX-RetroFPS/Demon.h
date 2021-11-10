@@ -8,6 +8,4 @@ public:
 	Demon(Graphics& graphics, Player& player);
 
 	virtual void Update(float deltaTime) override;
-
-	void InitialiseStats() override;
 };

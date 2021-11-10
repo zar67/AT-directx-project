@@ -18,6 +18,9 @@ Player::Player(Input& input, float windowWidth, float windowHeight, float moveme
 	m_transform.ConstrainYPosition = true;
 
 	InitialiseCollider();
+
+	m_shooter.SetDamage(10.0f);
+	m_shooter.SetParent(this);
 }
 
 void Player::Update(float deltaTime)

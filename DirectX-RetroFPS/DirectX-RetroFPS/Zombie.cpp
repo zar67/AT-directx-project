@@ -48,11 +48,7 @@ Zombie::Zombie(Graphics& graphics, Player& player) : Enemy(graphics, player)
 			{Enemy::FaceDirection::FORWARDS_RIGHT, Animation(m_pSpriteSheet, { 103, 111, 119, 127 }, 5)}
 		}}
 	};
-}
 
-void Zombie::InitialiseStats()
-{
-	m_maxHealth = 100.0f;
-
-	Enemy::InitialiseStats();
+	m_health.SetMaxHealth(100.0f);
+	m_health.Reset();
 }

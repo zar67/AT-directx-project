@@ -9,9 +9,12 @@ class Shooter
 public:
 	Shooter() = default;
 
+	void SetDamage(float damage);
+	void SetParent(DrawableBase* drawable);
+
 	void StartShoot(Ray ray);
 	void RegisterCollision(CollisionUtilities::RayCollision collision, DrawableBase* drawable);
-	void HandleHit(DrawableBase* shooter, float damage);
+	void HandleHit();
 
 	Ray& GetShootRay();
 
@@ -20,4 +23,7 @@ private:
 
 	CollisionUtilities::RayCollision m_nearestCollision;
 	DrawableBase* m_nearestCollisionDrawable = nullptr;
+
+	float m_damage;
+	DrawableBase* m_pParent = nullptr;
 };

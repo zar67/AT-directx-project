@@ -86,6 +86,7 @@
     <ClCompile Include="Bindable.cpp" />
     <ClCompile Include="BlendState.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Health.cpp" />
     <ClCompile Include="OBBCollider.cpp" />
     <ClCompile Include="CollisionUtilities.cpp" />
     <ClCompile Include="Demon.cpp" />
@@ -129,6 +130,7 @@
     <ClInclude Include="Bindable.h" />
     <ClInclude Include="BlendState.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Health.h" />
     <ClInclude Include="OBBCollider.h" />
     <ClInclude Include="CollisionUtilities.h" />
     <ClInclude Include="Demon.h" />

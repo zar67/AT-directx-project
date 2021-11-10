@@ -179,7 +179,7 @@ void Level::HandleCollisions(Graphics& graphics)
 		}
 	}
 
-	m_pPlayer->GetShooter().HandleHit(m_pPlayer, 10.0f);
+	m_pPlayer->GetShooter().HandleHit();
 }
 
 void Level::GenerateDataFromFile(Graphics& graphics, std::string filename)

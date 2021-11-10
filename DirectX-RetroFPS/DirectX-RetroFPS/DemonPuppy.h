@@ -6,6 +6,4 @@ class DemonPuppy : public Enemy
 {
 public:
 	DemonPuppy(Graphics& graphics, Player& player);
-
-	void InitialiseStats() override;
 };

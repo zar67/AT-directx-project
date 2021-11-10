@@ -2,6 +2,16 @@
 
 #include "Shooter.h"
 
+void Shooter::SetDamage(float damage)
+{
+	m_damage = damage;
+}
+
+void Shooter::SetParent(DrawableBase* drawable)
+{
+	m_pParent = drawable;
+}
+
 void Shooter::StartShoot(Ray ray)
 {
 	m_shootRay = ray;
@@ -19,11 +29,11 @@ void Shooter::RegisterCollision(CollisionUtilities::RayCollision collision, Draw
 	}
 }
 
-void Shooter::HandleHit(DrawableBase* shooter, float damage)
+void Shooter::HandleHit()
 {
 	if (m_nearestCollisionDrawable != nullptr)
 	{
-		m_nearestCollisionDrawable->OnShot(shooter, damage, m_nearestCollision.IntersectionPosition);
+		m_nearestCollisionDrawable->OnShot(m_pParent, m_damage, m_nearestCollision.IntersectionPosition);
 	}
 }
 

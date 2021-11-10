@@ -6,6 +6,4 @@ class Zombie : public Enemy
 {
 public:
 	Zombie(Graphics& graphics, Player& player);
-
-	void InitialiseStats() override;
 };

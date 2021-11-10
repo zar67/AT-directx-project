@@ -48,16 +48,12 @@ Demon::Demon(Graphics& graphics, Player& player) : Enemy(graphics, player)
 			{Enemy::FaceDirection::FORWARDS_RIGHT, Animation(m_pSpriteSheet, { 103, 111, 119, 127 }, 5)}
 		}}
 	};
+
+	m_health.SetMaxHealth(150.0f);
+	m_health.Reset();
 }
 
 void Demon::Update(float deltaTime)
 {
 	Enemy::Update(deltaTime);
-}
-
-void Demon::InitialiseStats()
-{
-	m_maxHealth = 150.0f;
-
-	Enemy::InitialiseStats();
 }
