@@ -39,13 +39,15 @@ public:
 	{
 		Ray CollisionRay;
 		OBBCollider* Collider;
-		Vector CollisionPosition;
+		Vector RayEnterPosition;
+		Vector RayExitPosition;
 
 		RayCollision()
 		{
 			CollisionRay = Ray();
 			Collider = nullptr;
-			CollisionPosition = Vector();
+			RayEnterPosition = Vector();
+			RayExitPosition = Vector();
 		};
 	};
 

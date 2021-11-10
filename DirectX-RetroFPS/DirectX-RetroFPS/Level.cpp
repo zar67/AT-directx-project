@@ -121,6 +121,8 @@ void Level::HandleCollisions(Graphics& graphics)
 			if (collision.IsColliding)
 			{
 				drawableA->SetActive(false);
+				drawableA->OnCollision(collision);
+				graphics.GetCamera()->OnCollision(collision);
 			}
 		}
 
@@ -172,7 +174,8 @@ void Level::HandleCollisions(Graphics& graphics)
 			CollisionUtilities::RayCollision collision = CollisionUtilities::IsColliding(graphics.GetCamera()->GetShootRay(), drawableA->GetCollider());
 			if (collision.IsColliding)
 			{
-				drawableA->SetActive(false);
+				drawableA->OnCollision(collision);
+				graphics.GetCamera()->OnCollision(collision);
 			}
 		}
 	}
