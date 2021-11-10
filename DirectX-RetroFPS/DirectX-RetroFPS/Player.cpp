@@ -21,6 +21,9 @@ Player::Player(Input& input, float windowWidth, float windowHeight, float moveme
 
 	m_shooter.SetDamage(10.0f);
 	m_shooter.SetParent(this);
+
+	m_health.SetMaxHealth(100.0f);
+	m_health.Reset();
 }
 
 void Player::Update(float deltaTime)
@@ -40,6 +43,11 @@ OBBCollider& Player::GetCollider()
 Shooter& Player::GetShooter()
 {
 	return m_shooter;
+}
+
+Health& Player::GetHealth()
+{
+	return m_health;
 }
 
 void Player::LockYPosition(float y)

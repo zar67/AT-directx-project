@@ -5,6 +5,7 @@
 #include "PixelConstantBuffer.h"
 #include "Light.h"
 #include "Enemy.h"
+#include "Pickup.h"
 
 class Level
 {
@@ -45,6 +46,7 @@ private:
 	std::vector<std::unique_ptr<DrawableBase>> m_geometry;
 	std::vector<std::unique_ptr<Enemy>> m_enemies;
 	std::vector<std::unique_ptr<Light>> m_lights;
+	std::vector<std::unique_ptr<Pickup>> m_pickups;
 
 	PixelConstantBuffer<Light::LightBufferData> m_lightConstantBuffer;
 };

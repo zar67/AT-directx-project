@@ -8,8 +8,11 @@ public:
 	void SetMaxHealth(float max);
 
 	void Reset();
-	bool IsDead();
 	void Damage(float damage);
+	void Heal(float amount);
+
+	bool IsDead();
+	bool IsAtMaxHealth();
 
 private:
 	float m_maxHealth;

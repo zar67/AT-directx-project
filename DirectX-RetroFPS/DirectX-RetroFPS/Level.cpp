@@ -9,6 +9,7 @@
 #include "Demon.h"
 #include "Zombie.h"
 #include "DemonPuppy.h"
+#include "HealthPickup.h"
 
 Level::Level(Graphics& graphics, Player& player, std::string filename) :
 	m_lightConstantBuffer(graphics)
@@ -55,6 +56,14 @@ void Level::Draw(Graphics& graphics)
 			m_enemies[i]->Draw(graphics);
 		}
 	}
+
+	for (int i = 0; i < m_pickups.size(); i++)
+	{
+		if (m_pickups[i]->IsActive())
+		{
+			m_pickups[i]->Draw(graphics);
+		}
+	}
 }
 
 int Level::GetGeometryCount()
@@ -92,6 +101,14 @@ void Level::Update(float deltaTime)
 			m_enemies[i]->Update(deltaTime);
 		}
 	}
+
+	for (int i = 0; i < m_pickups.size(); i++)
+	{
+		if (m_pickups[i]->IsActive())
+		{
+			m_pickups[i]->Update(deltaTime);
+		}
+	}
 }
 
 void Level::HandleCollisions(Graphics& graphics)
@@ -111,8 +128,8 @@ void Level::HandleCollisions(Graphics& graphics)
 			if (collision.IsColliding)
 			{
 				CollisionUtilities::ResolveCollision(collision);
-				drawableA->OnCollision(collision);
-				m_pPlayer->OnCollision(collision);
+				drawableA->OnCollision(collision, m_pPlayer);
+				m_pPlayer->OnCollision(collision, drawableA);
 			}
 		}
 
@@ -141,8 +158,8 @@ void Level::HandleCollisions(Graphics& graphics)
 				if (collision.IsColliding)
 				{
 					CollisionUtilities::ResolveCollision(collision);
-					drawableA->OnCollision(collision);
-					drawableB->OnCollision(collision);
+					drawableA->OnCollision(collision, drawableB);
+					drawableB->OnCollision(collision, drawableA);
 				}
 			}
 		}
@@ -163,8 +180,8 @@ void Level::HandleCollisions(Graphics& graphics)
 			if (collision.IsColliding)
 			{
 				CollisionUtilities::ResolveCollision(collision);
-				drawableA->OnCollision(collision);
-				m_pPlayer->OnCollision(collision);
+				drawableA->OnCollision(collision, m_pPlayer);
+				m_pPlayer->OnCollision(collision, drawableA);
 			}
 		}
 
@@ -175,6 +192,20 @@ void Level::HandleCollisions(Graphics& graphics)
 			if (collision.IsColliding)
 			{
 				m_pPlayer->GetShooter().RegisterCollision(collision, drawableA);
+			}
+		}
+	}
+
+	for (auto& pickup : m_pickups)
+	{
+		DrawableBase* drawable = pickup.get();
+		if (CollisionUtilities::IsCollisionPossible(drawable->GetCollider(), m_pPlayer->GetCollider()))
+		{
+			CollisionUtilities::ColliderCollision collision = CollisionUtilities::IsColliding(drawable->GetCollider(), m_pPlayer->GetCollider());
+			if (collision.IsColliding)
+			{
+				drawable->OnCollision(collision, m_pPlayer);
+				m_pPlayer->OnCollision(collision, drawable);
 			}
 		}
 	}
@@ -350,6 +381,10 @@ void Level::ParseLevelDataCharacter(Graphics& graphics, char character, float xP
 		}
 		case 'H': // Health Pickup
 		{
+			std::unique_ptr<HealthPickup> pHealthPickup = std::make_unique<HealthPickup>(graphics, *m_pPlayer);
+			pHealthPickup->GetTransform().ApplyTranslation(xPosition, yPosition + UNIT_SIZE / 3, zPosition);
+			pHealthPickup->GetTransform().ApplyScalar(UNIT_SIZE / 2, UNIT_SIZE / 2, UNIT_SIZE / 2);
+			m_pickups.emplace_back(std::move(pHealthPickup));
 			break;
 		}
 		case 'A': // Armour Pickup

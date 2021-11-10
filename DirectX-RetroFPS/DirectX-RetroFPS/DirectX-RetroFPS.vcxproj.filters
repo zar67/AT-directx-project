@@ -106,6 +106,12 @@
     <Filter Include="Source\Source Files\Game\Components">
       <UniqueIdentifier>{c7da0f20-2802-4551-9103-20894de2ef5c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Header Files\Game\Pickup">
+      <UniqueIdentifier>{3820db50-0043-462e-be85-23c50896a951}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Source Files\Game\Pickups">
+      <UniqueIdentifier>{89e2b4a7-bfa3-44a5-a92b-fa50c049ea91}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -233,6 +239,12 @@
     </ClCompile>
     <ClCompile Include="Health.cpp">
       <Filter>Source\Source Files\Game\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Pickup.cpp">
+      <Filter>Source\Source Files\Game\Pickups</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthPickup.cpp">
+      <Filter>Source\Source Files\Game\Pickups</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -457,6 +469,12 @@
     </ClInclude>
     <ClInclude Include="Health.h">
       <Filter>Source\Header Files\Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Pickup.h">
+      <Filter>Source\Header Files\Game\Pickup</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthPickup.h">
+      <Filter>Source\Header Files\Game\Pickup</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
