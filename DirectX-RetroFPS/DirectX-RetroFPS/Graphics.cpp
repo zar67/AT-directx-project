@@ -20,11 +20,20 @@ void Graphics::RenderFrame()
 	m_pSwapChain->Present(1u, 0u);
 }
 
-void Graphics::ClearBuffer(float r, float g, float b)
+void Graphics::ClearRenderTarget(float r, float g, float b)
 {
 	const float color[] = { r, g, b, 1.0f };
 	m_pDeviceContext->ClearRenderTargetView(m_pRenderTargetView.Get(), color);
+}
+
+void Graphics::ClearDepthStencil()
+{
 	m_pDeviceContext->ClearDepthStencilView(m_pDepthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+}
+
+void Graphics::BindDepthStencil()
+{
+	m_pDeviceContext->OMSetRenderTargets(1, m_pRenderTargetView.GetAddressOf(), m_pDepthStencilView.Get());
 }
 
 ID3D11Device* Graphics::GetDevice()
@@ -147,8 +156,6 @@ void Graphics::CreateDepthStencilBuffer(int width, int height)
 		ErrorLogger::Log(hResult, "Failed to Create Depth Stencil View");
 		return;
 	}
-
-	m_pDeviceContext->OMSetRenderTargets(1, m_pRenderTargetView.GetAddressOf(), m_pDepthStencilView.Get());
 }
 
 void Graphics::CreateDepthStencilState()

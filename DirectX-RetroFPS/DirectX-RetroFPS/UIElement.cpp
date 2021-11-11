@@ -34,20 +34,20 @@ void UIElement::SetOffset(Vector offset)
 
 void UIElement::Update(float deltaTime)
 {
-	m_transform.Position = Vector();
-	m_transform.Rotation = Vector();
+	m_transform.Position = m_camera->GetTransform()->Position;
+	m_transform.Rotation = m_camera->GetTransform()->Rotation + DirectX::XM_PI;
+	m_transform.Rotation.X *= -1;
 
-	m_transform.ApplyTranslation(m_camera->GetTransform()->Position + m_offset);
-	m_transform.ApplyRotation(m_camera->GetTransform()->Rotation);
+	m_transform.ApplyTranslation(m_offset);
 }
 
 void UIElement::InitialiseStatic(Graphics& graphics)
 {
 	std::vector<Vertex> vertices = {
-		{DirectX::XMFLOAT3(-1.0f, -1.0f, 0.0f), DirectX::XMFLOAT3(0, 0, -1.0f), DirectX::XMFLOAT2(0.0f, 0.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(-1.0f, -1.0f, 0.0f), DirectX::XMFLOAT3(0, 0, -1.0f), DirectX::XMFLOAT2(0.0f, 1.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
 		{DirectX::XMFLOAT3(-1.0f, 1.0f, 0.0f), DirectX::XMFLOAT3(0, 0, -1.0f), DirectX::XMFLOAT2(0.0f, 0.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(1.0f, 1.0f, 0.0f), DirectX::XMFLOAT3(0, 0, -1.0f), DirectX::XMFLOAT2(0.0f, 0.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(1.0f, -1.0f, 0.0f), DirectX::XMFLOAT3(0, 0, -1.0f), DirectX::XMFLOAT2(0.0f, 0.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(1.0f, 1.0f, 0.0f), DirectX::XMFLOAT3(0, 0, -1.0f), DirectX::XMFLOAT2(1.0f, 0.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
+		{DirectX::XMFLOAT3(1.0f, -1.0f, 0.0f), DirectX::XMFLOAT3(0, 0, -1.0f), DirectX::XMFLOAT2(1.0f, 1.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
 	};
 
 	std::unique_ptr<VertexBuffer<Vertex>> vertexBuffer = std::make_unique<VertexBuffer<Vertex>>(graphics, vertices);
@@ -63,7 +63,7 @@ void UIElement::InitialiseStatic(Graphics& graphics)
 
 	AddStaticBindable(std::make_unique<Topology>(graphics, D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 
-	auto vertexShader = std::make_unique<VertexShader>(graphics, graphics.GetShaderFolder() + L"TextureVS.cso");
+	auto vertexShader = std::make_unique<VertexShader>(graphics, graphics.GetShaderFolder() + L"UnlitTextureVS.cso");
 	auto vertexShaderByteCode = vertexShader->GetByteCode();
 	AddStaticBindable(std::move(vertexShader));
 
@@ -79,7 +79,7 @@ void UIElement::InitialiseStatic(Graphics& graphics)
 
 	AddStaticBindable(std::make_unique<RasterizerState>(graphics));
 
-	AddStaticBindable(std::make_unique<PixelShader>(graphics, graphics.GetShaderFolder() + L"TexturePS.cso"));
+	AddStaticBindable(std::make_unique<PixelShader>(graphics, graphics.GetShaderFolder() + L"UnlitTexturePS.cso"));
 
 	AddStaticBindable(std::make_unique<Sampler>(graphics));
 

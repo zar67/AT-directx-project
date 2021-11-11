@@ -18,7 +18,9 @@ public:
 	~Graphics() = default;
 
 	void RenderFrame();
-	void ClearBuffer(float r, float g, float b);
+	void ClearRenderTarget(float r, float g, float b);
+	void ClearDepthStencil();
+	void BindDepthStencil();
 
 	ID3D11Device* GetDevice();
 	ID3D11DeviceContext* GetDeviceContext();

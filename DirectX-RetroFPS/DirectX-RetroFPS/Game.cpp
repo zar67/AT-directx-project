@@ -43,11 +43,6 @@ void Game::Update(float deltaTime)
 	m_UIManager.Update(deltaTime);
 	switch (m_UIManager.GetCurrentScreenID())
 	{
-		case UIManager::ScreenID::MAIN_MENU:
-		{
-			m_UIManager.GoToScreen(UIManager::ScreenID::GAME_HUD);
-			break;
-		}
 		case UIManager::ScreenID::GAME_HUD:
 		{
 			if (!m_isPaused)
@@ -57,7 +52,6 @@ void Game::Update(float deltaTime)
 				m_levelManager.UpdateCurrentLevel(deltaTime);
 				m_levelManager.HandleCurrentLevelCollisions(m_window.GetGraphics());
 
-				m_window.GetGraphics().GetCamera()->UpdateViewMatrix();
 			}
 			break;
 		}
@@ -67,6 +61,7 @@ void Game::Update(float deltaTime)
 		}
 	}
 
+	m_window.GetGraphics().GetCamera()->UpdateViewMatrix();
 	m_window.GetInput().UpdateStates();
 }
 
@@ -75,6 +70,11 @@ void Game::HandleInput()
 	KeyboardEvent keyboardEvent = m_window.GetInput().GetKeyboard().ReadKey();
 	while (keyboardEvent.GetType() != KeyboardEvent::EventType::INVALID)
 	{
+		if (m_UIManager.GetCurrentScreenID() == UIManager::ScreenID::MAIN_MENU)
+		{
+			m_UIManager.GoToScreen(UIManager::ScreenID::GAME_HUD);
+		}
+
 		if (keyboardEvent.GetKeyCode() == VK_ESCAPE && keyboardEvent.GetType() == KeyboardEvent::EventType::PRESS)
 		{
 			if (m_isPaused)
@@ -109,10 +109,17 @@ void Game::HandleInput()
 
 void Game::Render()
 {
-	m_window.GetGraphics().ClearBuffer(0.0f, 0.0f, 0.0f);
+	m_window.GetGraphics().ClearRenderTarget(0.0f, 0.0f, 0.0f);
+	m_window.GetGraphics().ClearDepthStencil();
+	m_window.GetGraphics().BindDepthStencil();
 
+	if (m_UIManager.GetCurrentScreenID() == UIManager::ScreenID::GAME_HUD)
+	{
+		m_levelManager.DrawCurrentLevel(m_window.GetGraphics());
+	}
+
+	m_window.GetGraphics().ClearDepthStencil();
 	m_UIManager.Draw(m_window.GetGraphics());
-	m_levelManager.DrawCurrentLevel(m_window.GetGraphics());
 
 	m_window.GetGraphics().RenderFrame();
 }
