@@ -1,8 +1,10 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 #include "Bindable.h"
+#include "TextureCoordinate.h"
 
 class SpriteSheet : public Bindable
 {
@@ -20,6 +22,7 @@ public:
 
 	virtual void Bind(Graphics& graphics) override;
 
+	void SetCoordsToSpriteAt(int index, std::vector<TextureCoordinate>& textureCoords);
 	SpriteBounds GetSpriteBoundsAtIndex(int index);
 
 private:

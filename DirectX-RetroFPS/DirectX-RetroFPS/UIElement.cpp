@@ -17,6 +17,10 @@ UIElement::UIElement(Graphics& graphics)
 		InitialiseStatic(graphics);
 	}
 
+	std::unique_ptr<VertexBuffer<Vertex>> vertexBuffer = std::make_unique<VertexBuffer<Vertex>>(graphics, m_vertices);
+	m_pVertexBuffer = vertexBuffer.get();
+	AddBindable(std::move(vertexBuffer));
+
 	AddBindable(std::make_unique<TransformConstantBuffer>(graphics, *this));
 
 	m_pIndexBuffer = GetBindableOfType<IndexBuffer>();
@@ -43,16 +47,6 @@ void UIElement::Update(float deltaTime)
 
 void UIElement::InitialiseStatic(Graphics& graphics)
 {
-	std::vector<Vertex> vertices = {
-		{DirectX::XMFLOAT3(-1.0f, -1.0f, 0.0f), DirectX::XMFLOAT3(0, 0, -1.0f), DirectX::XMFLOAT2(0.0f, 1.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(-1.0f, 1.0f, 0.0f), DirectX::XMFLOAT3(0, 0, -1.0f), DirectX::XMFLOAT2(0.0f, 0.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(1.0f, 1.0f, 0.0f), DirectX::XMFLOAT3(0, 0, -1.0f), DirectX::XMFLOAT2(1.0f, 0.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-		{DirectX::XMFLOAT3(1.0f, -1.0f, 0.0f), DirectX::XMFLOAT3(0, 0, -1.0f), DirectX::XMFLOAT2(1.0f, 1.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f)},
-	};
-
-	std::unique_ptr<VertexBuffer<Vertex>> vertexBuffer = std::make_unique<VertexBuffer<Vertex>>(graphics, vertices);
-	AddStaticBindable(std::move(vertexBuffer));
-
 	const std::vector<unsigned short> indices =
 	{
 		0,1,3,

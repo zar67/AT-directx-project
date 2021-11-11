@@ -85,6 +85,7 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Bindable.cpp" />
     <ClCompile Include="BlendState.cpp" />
+    <ClCompile Include="ButtonElement.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="GameHUDScreen.cpp" />
     <ClCompile Include="GameOverScreen.cpp" />
@@ -138,6 +139,7 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Bindable.h" />
     <ClInclude Include="BlendState.h" />
+    <ClInclude Include="ButtonElement.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="GameHUDScreen.h" />
     <ClInclude Include="GameOverScreen.h" />

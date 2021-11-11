@@ -285,6 +285,9 @@
     <ClCompile Include="GameOverScreen.cpp">
       <Filter>Source\Source Files\Game\UI\Screens</Filter>
     </ClCompile>
+    <ClCompile Include="ButtonElement.cpp">
+      <Filter>Source\Source Files\Game\UI\Elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ErrorLogger.h">
@@ -544,6 +547,9 @@
     </ClInclude>
     <ClInclude Include="GameOverScreen.h">
       <Filter>Source\Header Files\Game\UI\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonElement.h">
+      <Filter>Source\Header Files\Game\UI\Elements</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

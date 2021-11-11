@@ -38,36 +38,5 @@ void Animation::ChangeSprite(std::vector<TextureCoordinate>& textureCoords)
 	m_currentSpriteIndex++;
 	m_currentSpriteIndex %= m_spriteIndexes.size();
 
-	SpriteSheet::SpriteBounds newSpriteRect = m_pSpriteSheet->GetSpriteBoundsAtIndex(m_spriteIndexes[m_currentSpriteIndex]);
-
-	for (auto& vertex : textureCoords)
-	{
-		switch (vertex.Position)
-		{
-			case TextureCoordinate::Position::TOP_LEFT:
-			{
-				vertex.Coordinate.x = newSpriteRect.Left;
-				vertex.Coordinate.y = newSpriteRect.Top;
-				break;
-			}
-			case TextureCoordinate::Position::TOP_RIGHT:
-			{
-				vertex.Coordinate.x = newSpriteRect.Right;
-				vertex.Coordinate.y = newSpriteRect.Top;
-				break;
-			}
-			case TextureCoordinate::Position::BOTTOM_LEFT:
-			{
-				vertex.Coordinate.x = newSpriteRect.Left;
-				vertex.Coordinate.y = newSpriteRect.Bottom;
-				break;
-			}
-			case TextureCoordinate::Position::BOTTOM_RIGHT:
-			{
-				vertex.Coordinate.x = newSpriteRect.Right;
-				vertex.Coordinate.y = newSpriteRect.Bottom;
-				break;
-			}
-		}
-	}
+	m_pSpriteSheet->SetCoordsToSpriteAt(m_spriteIndexes[m_currentSpriteIndex], textureCoords);
 }
