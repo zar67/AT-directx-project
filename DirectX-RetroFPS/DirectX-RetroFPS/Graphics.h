@@ -9,10 +9,13 @@
 
 #include "Camera.h"
 
+#define WINDOW_WIDTH 800
+#define WINDOW_HEIGHT 600
+
 class Graphics
 {
 public:
-	Graphics(HWND window, int width, int height);
+	Graphics(HWND window);
 	Graphics(const Graphics&) = delete;
 	Graphics& operator=(const Graphics&) = delete;
 	~Graphics() = default;
@@ -31,9 +34,9 @@ public:
 private:
 	void CreateDeviceAndSwapChain(HWND window);
 	void CreateRenderTargetView();
-	void CreateDepthStencilBuffer(int width, int height);
+	void CreateDepthStencilBuffer();
 	void CreateDepthStencilState();
-	void CreateViewport(int width, int height);
+	void CreateViewport();
 
 	Camera m_camera;
 

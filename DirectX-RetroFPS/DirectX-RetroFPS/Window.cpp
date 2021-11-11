@@ -3,19 +3,16 @@
 #include "Window.h"
 #include "ErrorLogger.h"
 
-Window::Window(int width, int height, const int name, const int icon)
+Window::Window()
 {
 	m_instance = GetModuleHandle(nullptr);
 
 	LoadString(m_instance, IDS_WINDOWCLASSNAME, m_windowClassName, MAX_WINDOW_NAME_STRING);
-	LoadString(m_instance, name, m_windowTitle, MAX_WINDOW_NAME_STRING);
-	m_icon = LoadIcon(m_instance, MAKEINTRESOURCE(icon));
-
-	m_windowWidth = width;
-	m_windowHeight = height;
+	LoadString(m_instance, IDS_GAMENAME, m_windowTitle, MAX_WINDOW_NAME_STRING);
+	m_icon = LoadIcon(m_instance, MAKEINTRESOURCE(IDI_MAINICON));
 
 	CreateWindowClass();
-	InitialiseWindow(width, height);
+	InitialiseWindow();
 
 	HideCursor();
 }
@@ -67,16 +64,6 @@ void Window::HideCursor()
 	while (::ShowCursor(FALSE) >= 0);
 }
 
-int Window::GetWidth()
-{
-	return m_windowWidth;
-}
-
-int Window::GetHeight()
-{
-	return m_windowHeight;
-}
-
 LRESULT Window::HandleMessageSetup(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam)
 {
 	if (message == WM_NCCREATE) // Sent when a window is first created.
@@ -125,7 +112,7 @@ LRESULT Window::HandleMessage(HWND hWnd, UINT message, WPARAM wparam, LPARAM lpa
 		}
 		default:
 		{
-			m_pInput->HandleMessages(hWnd, message, wparam, lparam, m_windowWidth, m_windowHeight);
+			m_pInput->HandleMessages(hWnd, message, wparam, lparam, WINDOW_WIDTH, WINDOW_HEIGHT);
 		}
 	}
 
@@ -160,16 +147,16 @@ void Window::CreateWindowClass()
 	RegisterClassEx(&windowClass);
 }
 
-void Window::InitialiseWindow(int width, int height)
+void Window::InitialiseWindow()
 {
-	int screenCenterX = GetSystemMetrics(SM_CXSCREEN) / 2 - width / 2;
-	int screenCenterY = GetSystemMetrics(SM_CYSCREEN) / 2 - height / 2;
+	int screenCenterX = GetSystemMetrics(SM_CXSCREEN) / 2 - WINDOW_WIDTH / 2;
+	int screenCenterY = GetSystemMetrics(SM_CYSCREEN) / 2 - WINDOW_HEIGHT / 2;
 
 	RECT windowRect;
 	windowRect.left = screenCenterX;
-	windowRect.right = m_windowWidth + windowRect.left;
+	windowRect.right = WINDOW_WIDTH + windowRect.left;
 	windowRect.top = screenCenterY;
-	windowRect.bottom = m_windowHeight + windowRect.top;
+	windowRect.bottom = WINDOW_HEIGHT + windowRect.top;
 
 	AdjustWindowRect(&windowRect, WS_OVERLAPPEDWINDOW, FALSE);
 
@@ -190,7 +177,7 @@ void Window::InitialiseWindow(int width, int height)
 	ShowWindow(window, SW_SHOW);
 
 	// Initialise the graphics.
-	m_pGraphics = std::make_unique<Graphics>(window, width, height);
+	m_pGraphics = std::make_unique<Graphics>(window);
 
 	m_pInput = std::make_unique<Input>();
 }

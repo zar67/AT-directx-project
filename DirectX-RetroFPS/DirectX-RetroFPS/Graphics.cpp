@@ -3,15 +3,15 @@
 #include "Graphics.h"
 #include "ErrorLogger.h"
 
-Graphics::Graphics(HWND window, int width, int height)
+Graphics::Graphics(HWND window)
 { 
 	CreateDeviceAndSwapChain(window);
 	CreateRenderTargetView();
-	CreateDepthStencilBuffer(width, height);
+	CreateDepthStencilBuffer();
 	CreateDepthStencilState();
-	CreateViewport(width, height);
+	CreateViewport();
 
-	m_camera.SetProjectionValues(90, static_cast<float>(width) / static_cast<float>(height), 0.1f, 1000.0f);
+	m_camera.SetProjectionValues(90, static_cast<float>(WINDOW_WIDTH) / static_cast<float>(WINDOW_HEIGHT), 0.1f, 1000.0f);
 }
 
 void Graphics::RenderFrame()
@@ -128,11 +128,11 @@ void Graphics::CreateRenderTargetView()
 	}
 }
 
-void Graphics::CreateDepthStencilBuffer(int width, int height)
+void Graphics::CreateDepthStencilBuffer()
 {
 	D3D11_TEXTURE2D_DESC depthBufferDescription;
-	depthBufferDescription.Width = width;
-	depthBufferDescription.Height = height;
+	depthBufferDescription.Width = WINDOW_WIDTH;
+	depthBufferDescription.Height = WINDOW_HEIGHT;
 	depthBufferDescription.MipLevels = 1;
 	depthBufferDescription.ArraySize = 1;
 	depthBufferDescription.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
@@ -175,15 +175,15 @@ void Graphics::CreateDepthStencilState()
 	}
 }
 
-void Graphics::CreateViewport(int width, int height)
+void Graphics::CreateViewport()
 {
 	D3D11_VIEWPORT viewport;
 	ZeroMemory(&viewport, sizeof(D3D11_VIEWPORT));
 
 	viewport.TopLeftX = 0;
 	viewport.TopLeftY = 0;
-	viewport.Width = (float)width;
-	viewport.Height = (float)height;
+	viewport.Width = WINDOW_WIDTH;
+	viewport.Height = WINDOW_HEIGHT;
 	viewport.MinDepth = 0.0f;
 	viewport.MaxDepth = 1.0f;
 

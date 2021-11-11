@@ -3,8 +3,7 @@
 #include "CollisionUtilities.h"
 
 Game::Game() :
-	m_window(800, 600, IDS_GAMENAME, IDI_MAINICON),
-	m_player(m_window.GetInput(), m_window.GetWidth(), m_window.GetHeight(), 6.0f, 3.0f, DirectX::XMFLOAT2(50, 50)),
+	m_player(m_window.GetInput(), WINDOW_WIDTH, WINDOW_HEIGHT, 6.0f, 3.0f, DirectX::XMFLOAT2(50, 50)),
 	m_levelManager(m_window.GetGraphics(), m_player),
 	m_UIManager(m_window.GetGraphics())
 {

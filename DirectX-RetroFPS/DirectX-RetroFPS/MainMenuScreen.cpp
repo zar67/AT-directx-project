@@ -8,13 +8,13 @@ MainMenuScreen::MainMenuScreen(Graphics& graphics)
 
 	std::unique_ptr<ImageElement> titleElement = std::make_unique<ImageElement>(graphics, "Assets\\UI\\doom_title.png");
 	titleElement->SetOffset(Vector(0.0f, 1.2f, 5.0f));
-	titleElement->GetTransform().ApplyScalar(3.0f, 3.0f, 3.0f);
+	titleElement->GetTransform().ApplyScalar(3.0f, 3.0f, 1.0f);
 
 	AddElement(std::move(titleElement), graphics.GetCamera());
 
 	std::unique_ptr<ButtonElement> playButtonElement = std::make_unique<ButtonElement>(graphics, "Assets\\UI\\doom_button.png");
 	playButtonElement->SetOffset(Vector(0.0f, -1.5f, 4.0f));
-	playButtonElement->GetTransform().ApplyScalar(1.0f, 0.5f, 2.0f);
+	playButtonElement->GetTransform().ApplyScalar(1.0f, 0.5f, 1.0f);
 	playButtonElement->Select();
 	m_pPlayButton = playButtonElement.get();
 
@@ -22,7 +22,7 @@ MainMenuScreen::MainMenuScreen(Graphics& graphics)
 
 	std::unique_ptr<ButtonElement> quitButtonElement = std::make_unique<ButtonElement>(graphics, "Assets\\UI\\doom_button.png");
 	quitButtonElement->SetOffset(Vector(0.0f, -3.0f, 4.0f));
-	quitButtonElement->GetTransform().ApplyScalar(1.0f, 0.5f, 2.0f);
+	quitButtonElement->GetTransform().ApplyScalar(1.0f, 0.5f, 1.0f);
 	m_pQuitButton = quitButtonElement.get();
 
 	AddElement(std::move(quitButtonElement), graphics.GetCamera());
