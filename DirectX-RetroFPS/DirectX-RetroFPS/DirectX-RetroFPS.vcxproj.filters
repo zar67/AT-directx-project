@@ -112,6 +112,24 @@
     <Filter Include="Source\Source Files\Game\Pickups">
       <UniqueIdentifier>{89e2b4a7-bfa3-44a5-a92b-fa50c049ea91}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Header Files\Game\UI">
+      <UniqueIdentifier>{9c340866-84e3-430f-8aee-708542f98835}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Source Files\Game\UI">
+      <UniqueIdentifier>{af674558-0b76-4e8a-b363-9b13f7ef0067}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Header Files\Game\UI\Elements">
+      <UniqueIdentifier>{778f2a16-8cfc-4927-8c1d-f1292516fb3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Source Files\Game\UI\Elements">
+      <UniqueIdentifier>{fdfee130-37f8-4718-a3d6-51cdd69d3a46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Source Files\Game\UI\Screens">
+      <UniqueIdentifier>{2ac553f4-e610-4914-88fa-84a7d951431a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Header Files\Game\UI\Screens">
+      <UniqueIdentifier>{65059d59-2fe4-4bde-bcdc-1edaab166800}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -245,6 +263,21 @@
     </ClCompile>
     <ClCompile Include="HealthPickup.cpp">
       <Filter>Source\Source Files\Game\Pickups</Filter>
+    </ClCompile>
+    <ClCompile Include="UIElement.cpp">
+      <Filter>Source\Source Files\Game\UI\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageElement.cpp">
+      <Filter>Source\Source Files\Game\UI\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="UIManager.cpp">
+      <Filter>Source\Source Files\Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen.cpp">
+      <Filter>Source\Source Files\Game\UI\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuScreen.cpp">
+      <Filter>Source\Source Files\Game\UI\Screens</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -475,6 +508,24 @@
     </ClInclude>
     <ClInclude Include="HealthPickup.h">
       <Filter>Source\Header Files\Game\Pickup</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UIElement.h">
+      <Filter>Source\Header Files\Game\UI\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="UIManager.h">
+      <Filter>Source\Header Files\Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageElement.h">
+      <Filter>Source\Header Files\Game\UI\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen.h">
+      <Filter>Source\Header Files\Game\UI\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuScreen.h">
+      <Filter>Source\Header Files\Game\UI\Screens</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

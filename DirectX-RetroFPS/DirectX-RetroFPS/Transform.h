@@ -110,6 +110,22 @@ struct Transform
 		}
 	}
 
+	void ApplyRotation(Vector translation)
+	{
+		if (!ConstrainXRotation)
+		{
+			Rotation.X += translation.X;
+		}
+		if (!ConstrainYRotation)
+		{
+			Rotation.Y += translation.Y;
+		}
+		if (!ConstrainZRotation)
+		{
+			Rotation.Z += translation.Z;
+		}
+	}
+
 	void ApplyScalar(float x, float y, float z)
 	{
 		Scale.X *= x;

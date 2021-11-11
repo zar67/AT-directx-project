@@ -5,7 +5,8 @@
 Game::Game() :
 	m_window(800, 600, IDS_GAMENAME, IDI_MAINICON),
 	m_player(m_window.GetInput(), m_window.GetWidth(), m_window.GetHeight(), 6.0f, 3.0f, DirectX::XMFLOAT2(50, 50)),
-	m_levelManager(m_window.GetGraphics(), m_player)
+	m_levelManager(m_window.GetGraphics(), m_player),
+	m_UIManager(m_window.GetGraphics())
 {
 	m_window.GetGraphics().GetCamera()->SetTargetTransform(m_player.GetTransform());
 }
@@ -39,14 +40,31 @@ void Game::Update(float deltaTime)
 {
 	HandleInput();
 
-	if (!m_isPaused)
+	m_UIManager.Update(deltaTime);
+	switch (m_UIManager.GetCurrentScreenID())
 	{
-		m_player.Update(deltaTime);
+		case UIManager::ScreenID::MAIN_MENU:
+		{
+			m_UIManager.GoToScreen(UIManager::ScreenID::GAME_HUD);
+			break;
+		}
+		case UIManager::ScreenID::GAME_HUD:
+		{
+			if (!m_isPaused)
+			{
+				m_player.Update(deltaTime);
 
-		m_levelManager.UpdateCurrentLevel(deltaTime);
-		m_levelManager.HandleCurrentLevelCollisions(m_window.GetGraphics());
+				m_levelManager.UpdateCurrentLevel(deltaTime);
+				m_levelManager.HandleCurrentLevelCollisions(m_window.GetGraphics());
 
-		m_window.GetGraphics().GetCamera()->UpdateViewMatrix();
+				m_window.GetGraphics().GetCamera()->UpdateViewMatrix();
+			}
+			break;
+		}
+		case UIManager::ScreenID::GAME_OVER:
+		{
+			break;
+		}
 	}
 
 	m_window.GetInput().UpdateStates();
@@ -93,6 +111,7 @@ void Game::Render()
 {
 	m_window.GetGraphics().ClearBuffer(0.0f, 0.0f, 0.0f);
 
+	m_UIManager.Draw(m_window.GetGraphics());
 	m_levelManager.DrawCurrentLevel(m_window.GetGraphics());
 
 	m_window.GetGraphics().RenderFrame();

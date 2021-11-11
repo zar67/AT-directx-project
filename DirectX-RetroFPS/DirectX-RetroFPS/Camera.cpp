@@ -16,6 +16,11 @@ void Camera::SetTargetTransform(Transform& transform)
 	UpdateViewMatrix();
 }
 
+Transform* Camera::GetTransform()
+{
+	return m_pTargetTransform;
+}
+
 const DirectX::XMMATRIX& Camera::GetViewMatrix() const
 {
 	return m_viewMatrix;
