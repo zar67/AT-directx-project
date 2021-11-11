@@ -6,6 +6,11 @@ void Screen::AddElement(std::unique_ptr<UIElement> drawable, Camera* targetCamer
 	m_elements.push_back(std::move(drawable));
 }
 
+ScreenType Screen::HandleInput(Input& input)
+{
+	return m_screenType;
+}
+
 void Screen::Update(float deltaTime)
 {
 	for (auto& element : m_elements)

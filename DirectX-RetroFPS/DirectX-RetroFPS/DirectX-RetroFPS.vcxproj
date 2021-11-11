@@ -86,6 +86,8 @@
     <ClCompile Include="Bindable.cpp" />
     <ClCompile Include="BlendState.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="GameHUDScreen.cpp" />
+    <ClCompile Include="GameOverScreen.cpp" />
     <ClCompile Include="Health.cpp" />
     <ClCompile Include="HealthPickup.cpp" />
     <ClCompile Include="ImageElement.cpp" />
@@ -137,6 +139,8 @@
     <ClInclude Include="Bindable.h" />
     <ClInclude Include="BlendState.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="GameHUDScreen.h" />
+    <ClInclude Include="GameOverScreen.h" />
     <ClInclude Include="Health.h" />
     <ClInclude Include="HealthPickup.h" />
     <ClInclude Include="ImageElement.h" />
@@ -158,6 +162,7 @@
     <ClInclude Include="RasterizerState.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="Screen.h" />
+    <ClInclude Include="ScreenType.h" />
     <ClInclude Include="Shooter.h" />
     <ClInclude Include="SpriteSheet.h" />
     <ClInclude Include="TextureCoordinate.h" />

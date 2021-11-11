@@ -279,6 +279,12 @@
     <ClCompile Include="MainMenuScreen.cpp">
       <Filter>Source\Source Files\Game\UI\Screens</Filter>
     </ClCompile>
+    <ClCompile Include="GameHUDScreen.cpp">
+      <Filter>Source\Source Files\Game\UI\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOverScreen.cpp">
+      <Filter>Source\Source Files\Game\UI\Screens</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ErrorLogger.h">
@@ -529,6 +535,15 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenType.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameHUDScreen.h">
+      <Filter>Source\Header Files\Game\UI\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOverScreen.h">
+      <Filter>Source\Header Files\Game\UI\Screens</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
