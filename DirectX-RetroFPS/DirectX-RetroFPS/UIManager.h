@@ -16,6 +16,7 @@ public:
 	void Draw(Graphics& graphics);
 
 	void GoToScreen(ScreenType screen);
+	Screen* GetCurrentScreen();
 	ScreenType GetCurrentScreenID();
 
 private:

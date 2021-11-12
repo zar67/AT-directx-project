@@ -1,6 +1,7 @@
 #include "Game.h"
 
 #include "CollisionUtilities.h"
+#include "GameHUDScreen.h"
 
 Game::Game() :
 	m_player(m_window.GetInput(), WINDOW_WIDTH, WINDOW_HEIGHT, 6.0f, 3.0f, DirectX::XMFLOAT2(50, 50)),
@@ -39,13 +40,12 @@ void Game::Update(float deltaTime)
 {
 	HandleInput();
 
-	m_UIManager.Update(deltaTime);
-
 	if (m_UIManager.GetCurrentScreenID() == ScreenType::GAME_HUD)
 	{
 		if (!m_isPaused)
 		{
 			m_player.Update(deltaTime);
+			((GameHUDScreen*)m_UIManager.GetCurrentScreen())->UpdateHUD(m_player);
 
 			m_levelManager.UpdateCurrentLevel(deltaTime);
 			m_levelManager.HandleCurrentLevelCollisions(m_window.GetGraphics());
@@ -54,6 +54,8 @@ void Game::Update(float deltaTime)
 	}
 
 	m_window.GetGraphics().GetCamera()->UpdateViewMatrix();
+	m_UIManager.Update(deltaTime);
+
 	m_window.GetInput().UpdateStates();
 }
 

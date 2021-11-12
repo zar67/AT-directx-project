@@ -82,6 +82,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AnimatedImageElement.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Bindable.cpp" />
     <ClCompile Include="BlendState.cpp" />
@@ -136,6 +137,7 @@
     <ClCompile Include="Zombie.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnimatedImageElement.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Bindable.h" />
     <ClInclude Include="BlendState.h" />

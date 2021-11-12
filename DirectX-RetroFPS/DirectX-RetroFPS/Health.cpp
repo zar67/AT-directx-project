@@ -32,3 +32,13 @@ bool Health::IsAtMaxHealth()
 {
 	return m_currentHealth == m_maxHealth;
 }
+
+float Health::GetMaxHealth()
+{
+	return m_maxHealth;
+}
+
+float Health::GetCurrentHealth()
+{
+	return m_currentHealth;
+}

@@ -30,6 +30,11 @@ void UIManager::GoToScreen(ScreenType screen)
 	m_currentScreen = screen;
 }
 
+Screen* UIManager::GetCurrentScreen()
+{
+	return m_screens[m_currentScreen].get();
+}
+
 ScreenType UIManager::GetCurrentScreenID()
 {
 	return m_currentScreen;

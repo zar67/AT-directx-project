@@ -14,6 +14,9 @@ public:
 	bool IsDead();
 	bool IsAtMaxHealth();
 
+	float GetMaxHealth();
+	float GetCurrentHealth();
+
 private:
 	float m_maxHealth;
 	float m_currentHealth;

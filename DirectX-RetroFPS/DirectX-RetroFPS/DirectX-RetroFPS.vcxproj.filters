@@ -288,6 +288,9 @@
     <ClCompile Include="ButtonElement.cpp">
       <Filter>Source\Source Files\Game\UI\Elements</Filter>
     </ClCompile>
+    <ClCompile Include="AnimatedImageElement.cpp">
+      <Filter>Source\Source Files\Game\UI\Elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ErrorLogger.h">
@@ -549,6 +552,12 @@
       <Filter>Source\Header Files\Game\UI\Screens</Filter>
     </ClInclude>
     <ClInclude Include="ButtonElement.h">
+      <Filter>Source\Header Files\Game\UI\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatedImageElement.h">
       <Filter>Source\Header Files\Game\UI\Elements</Filter>
     </ClInclude>
   </ItemGroup>
