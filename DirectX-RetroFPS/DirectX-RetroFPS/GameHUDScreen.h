@@ -3,6 +3,7 @@
 #include "Screen.h"
 #include "Player.h"
 #include "AnimatedImageElement.h"
+#include "TextElement.h"
 
 class GameHUDScreen : public Screen
 {
@@ -11,5 +12,8 @@ public:
 
 	void UpdateHUD(Player& player);
 
-	AnimatedImageElement* m_characterDisplay = nullptr;
+private:
+	AnimatedImageElement* m_pCharacterDisplay = nullptr;
+	TextElement* m_pHealthText = nullptr;
+	TextElement* m_pArmourText = nullptr;
 };

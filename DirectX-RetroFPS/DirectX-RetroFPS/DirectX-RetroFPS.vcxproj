@@ -113,6 +113,8 @@
     <ClCompile Include="Screen.cpp" />
     <ClCompile Include="Shooter.cpp" />
     <ClCompile Include="SpriteSheet.cpp" />
+    <ClCompile Include="TextBindable.cpp" />
+    <ClCompile Include="TextElement.cpp" />
     <ClCompile Include="TexturedCube.cpp" />
     <ClCompile Include="DrawableBase.cpp" />
     <ClCompile Include="ErrorLogger.cpp" />
@@ -171,6 +173,8 @@
     <ClInclude Include="ScreenType.h" />
     <ClInclude Include="Shooter.h" />
     <ClInclude Include="SpriteSheet.h" />
+    <ClInclude Include="TextBindable.h" />
+    <ClInclude Include="TextElement.h" />
     <ClInclude Include="TextureCoordinate.h" />
     <ClInclude Include="TexturedCube.h" />
     <ClInclude Include="Drawable.h" />

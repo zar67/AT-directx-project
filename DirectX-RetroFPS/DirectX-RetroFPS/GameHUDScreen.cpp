@@ -21,13 +21,20 @@ GameHUDScreen::GameHUDScreen(Graphics& graphics)
 	hudCharacter->SetOffset(Vector(-0.54f, -3.375f, 4.0f));
 	hudCharacter->GetTransform().ApplyScalar(0.55f, 0.55f, 1.0f);
 	hudCharacter->ChangeSprite(0);
-	m_characterDisplay = hudCharacter.get();
+	m_pCharacterDisplay = hudCharacter.get();
 
 	AddElement(std::move(hudCharacter), graphics.GetCamera());
+
+	std::unique_ptr<TextElement> healthText = std::make_unique<TextElement>(graphics, "Assets\\Fonts\\doom_font.spritefont");
+	healthText->SetOffset(Vector(0.0f, 1.0f, 5.0f));
+	healthText->SetText("100");
+	m_pHealthText = healthText.get();
+
+	AddElement(std::move(healthText), graphics.GetCamera());
 }
 
 void GameHUDScreen::UpdateHUD(Player& player)
 {
 	int characterIndex = (int)player.GetHealth().GetCurrentValue() / ((int)player.GetHealth().GetMaxValue() / 5);
-	m_characterDisplay->ChangeSprite(characterIndex);
+	m_pCharacterDisplay->ChangeSprite(characterIndex);
 }
