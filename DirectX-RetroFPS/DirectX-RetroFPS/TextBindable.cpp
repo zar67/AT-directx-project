@@ -31,7 +31,7 @@ void TextBindable::Draw(Graphics& graphics)
 		m_pSpriteBatch.get(), 
 		m_text.c_str(), 
 		DirectX::XMFLOAT2(m_pTransform->Position.X, m_pTransform->Position.Y),
-		DirectX::Colors::White,
+		DirectX::XMLoadFloat4(&m_colour),
 		0,
 		DirectX::XMFLOAT2(0.0f, 0.0f),
 		DirectX::XMFLOAT2(m_pTransform->Scale.X, m_pTransform->Scale.Y)
