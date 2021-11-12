@@ -22,8 +22,10 @@ Player::Player(Input& input, float windowWidth, float windowHeight, float moveme
 	m_shooter.SetDamage(10.0f);
 	m_shooter.SetParent(this);
 
-	m_health.SetMaxHealth(100.0f);
-	m_health.Reset();
+	m_health.SetMaxValue(100.0f);
+	m_health.SetToMaxValue();
+
+	m_armour.SetMaxValue(100.0f);
 }
 
 void Player::Update(float deltaTime)
@@ -45,9 +47,14 @@ Shooter& Player::GetShooter()
 	return m_shooter;
 }
 
-Health& Player::GetHealth()
+Stat& Player::GetHealth()
 {
 	return m_health;
+}
+
+Stat& Player::GetArmour()
+{
+	return m_armour;
 }
 
 void Player::LockYPosition(float y)

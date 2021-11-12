@@ -28,6 +28,6 @@ GameHUDScreen::GameHUDScreen(Graphics& graphics)
 
 void GameHUDScreen::UpdateHUD(Player& player)
 {
-	int characterIndex = (int)player.GetHealth().GetCurrentHealth() / ((int)player.GetHealth().GetMaxHealth() / 5);
+	int characterIndex = (int)player.GetHealth().GetCurrentValue() / ((int)player.GetHealth().GetMaxValue() / 5);
 	m_characterDisplay->ChangeSprite(characterIndex);
 }

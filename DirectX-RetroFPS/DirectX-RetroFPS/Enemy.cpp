@@ -29,7 +29,7 @@ Enemy::Enemy(Graphics& graphics, Player& player)
 
 	m_pIndexBuffer = GetBindableOfType<IndexBuffer>();
 
-	m_health.SetMaxHealth(100.0f);
+	m_health.SetMaxValue(100.0f);
 }
 
 void Enemy::Draw(Graphics& graphics)
@@ -59,8 +59,8 @@ void Enemy::Update(float deltaTime)
 
 void Enemy::OnShot(DrawableBase* shooter, float damage, Vector shotContactPosition)
 {
-	m_health.Damage(damage);
-	if (m_health.IsDead())
+	m_health.Decrease(damage);
+	if (m_health.IsZero())
 	{
 		m_currentState = EnemyState::DEATH;
 	}

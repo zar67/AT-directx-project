@@ -4,7 +4,7 @@
 #include "Input.h"
 #include "CollisionUtilities.h"
 #include "Shooter.h"
-#include "Health.h"
+#include "Stat.h"
 
 class Player : public Drawable<Player>
 {
@@ -16,7 +16,8 @@ public:
 
 	OBBCollider& GetCollider();
 	Shooter& GetShooter();
-	Health& GetHealth();
+	Stat& GetHealth();
+	Stat& GetArmour();
 
 	void LockYPosition(float y);
 
@@ -35,7 +36,8 @@ private:
 
 	OBBCollider m_collider;
 	Shooter m_shooter;
-	Health m_health;
+	Stat m_health;
+	Stat m_armour;
 
 	float m_yLockPosition;
 

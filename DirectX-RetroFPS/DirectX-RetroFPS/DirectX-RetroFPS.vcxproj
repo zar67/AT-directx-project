@@ -84,13 +84,14 @@
   <ItemGroup>
     <ClCompile Include="AnimatedImageElement.cpp" />
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="ArmourPickup.cpp" />
     <ClCompile Include="Bindable.cpp" />
     <ClCompile Include="BlendState.cpp" />
     <ClCompile Include="ButtonElement.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="GameHUDScreen.cpp" />
     <ClCompile Include="GameOverScreen.cpp" />
-    <ClCompile Include="Health.cpp" />
+    <ClCompile Include="Stat.cpp" />
     <ClCompile Include="HealthPickup.cpp" />
     <ClCompile Include="ImageElement.cpp" />
     <ClCompile Include="MainMenuScreen.cpp" />
@@ -139,13 +140,14 @@
   <ItemGroup>
     <ClInclude Include="AnimatedImageElement.h" />
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="ArmourPickup.h" />
     <ClInclude Include="Bindable.h" />
     <ClInclude Include="BlendState.h" />
     <ClInclude Include="ButtonElement.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="GameHUDScreen.h" />
     <ClInclude Include="GameOverScreen.h" />
-    <ClInclude Include="Health.h" />
+    <ClInclude Include="Stat.h" />
     <ClInclude Include="HealthPickup.h" />
     <ClInclude Include="ImageElement.h" />
     <ClInclude Include="MainMenuScreen.h" />

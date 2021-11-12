@@ -2,7 +2,6 @@
 
 #include <fstream>
 #include <math.h>
-#include <iostream>
 
 #include "Level.h"
 #include "TexturedCube.h"
@@ -10,6 +9,7 @@
 #include "Zombie.h"
 #include "DemonPuppy.h"
 #include "HealthPickup.h"
+#include "ArmourPickup.h"
 
 Level::Level(Graphics& graphics, Player& player, std::string filename) :
 	m_lightConstantBuffer(graphics)
@@ -389,6 +389,10 @@ void Level::ParseLevelDataCharacter(Graphics& graphics, char character, float xP
 		}
 		case 'A': // Armour Pickup
 		{
+			std::unique_ptr<ArmourPickup> pArmourPickup = std::make_unique<ArmourPickup>(graphics, *m_pPlayer);
+			pArmourPickup->GetTransform().ApplyTranslation(xPosition, yPosition + UNIT_SIZE / 3, zPosition);
+			pArmourPickup->GetTransform().ApplyScalar(UNIT_SIZE / 2, UNIT_SIZE / 2, UNIT_SIZE / 2);
+			m_pickups.emplace_back(std::move(pArmourPickup));
 			break;
 		}
 		case 'B': // Bullet Pickup

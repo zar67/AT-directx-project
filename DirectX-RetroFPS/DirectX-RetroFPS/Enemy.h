@@ -7,7 +7,7 @@
 #include "SpriteSheet.h"
 #include "Animation.h"
 #include "Player.h"
-#include "Health.h"
+#include "Stat.h"
 
 class Enemy : public Drawable<Enemy>
 {
@@ -66,7 +66,7 @@ protected:
 	Graphics* m_pGraphics = nullptr;
 	Player* m_pPlayer = nullptr;
 
-	Health m_health;
+	Stat m_health;
 
 	VertexBuffer<Vertex>* m_pVertexBuffer = nullptr;
 	SpriteSheet* m_pSpriteSheet = nullptr;

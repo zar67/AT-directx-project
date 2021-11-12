@@ -255,7 +255,7 @@
     <ClCompile Include="Shooter.cpp">
       <Filter>Source\Source Files\Game\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Health.cpp">
+    <ClCompile Include="Stat.cpp">
       <Filter>Source\Source Files\Game\Components</Filter>
     </ClCompile>
     <ClCompile Include="Pickup.cpp">
@@ -290,6 +290,9 @@
     </ClCompile>
     <ClCompile Include="AnimatedImageElement.cpp">
       <Filter>Source\Source Files\Game\UI\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="ArmourPickup.cpp">
+      <Filter>Source\Source Files\Game\Pickups</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -512,7 +515,7 @@
     <ClInclude Include="Shooter.h">
       <Filter>Source\Header Files\Game\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Health.h">
+    <ClInclude Include="Stat.h">
       <Filter>Source\Header Files\Game\Components</Filter>
     </ClInclude>
     <ClInclude Include="Pickup.h">
@@ -559,6 +562,9 @@
     </ClInclude>
     <ClInclude Include="AnimatedImageElement.h">
       <Filter>Source\Header Files\Game\UI\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="ArmourPickup.h">
+      <Filter>Source\Header Files\Game\Pickup</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
