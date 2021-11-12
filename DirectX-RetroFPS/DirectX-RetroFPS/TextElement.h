@@ -10,6 +10,7 @@ public:
 	virtual ~TextElement() = default;
 
 	void Draw(Graphics& graphics) override;
+	void Update(float deltaTime) override;
 
 	void SetText(std::string text);
 	void SetTransform(Transform& transform);

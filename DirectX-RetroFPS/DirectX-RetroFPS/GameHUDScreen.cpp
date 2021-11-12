@@ -25,8 +25,15 @@ GameHUDScreen::GameHUDScreen(Graphics& graphics)
 
 	AddElement(std::move(hudCharacter), graphics.GetCamera());
 
+	std::unique_ptr<TextElement> armorText = std::make_unique<TextElement>(graphics, "Assets\\Fonts\\doom_font.spritefont");
+	armorText->GetTransform().ApplyTranslation(Vector(55.0f, 510.0f, 4.0f));
+	armorText->SetText("100");
+	m_pArmorText = armorText.get();
+
+	AddElement(std::move(armorText), graphics.GetCamera());
+
 	std::unique_ptr<TextElement> healthText = std::make_unique<TextElement>(graphics, "Assets\\Fonts\\doom_font.spritefont");
-	healthText->SetOffset(Vector(0.0f, 1.0f, 5.0f));
+	healthText->GetTransform().ApplyTranslation(Vector(190.0f, 510.0f, 4.0f));
 	healthText->SetText("100");
 	m_pHealthText = healthText.get();
 
@@ -37,4 +44,7 @@ void GameHUDScreen::UpdateHUD(Player& player)
 {
 	int characterIndex = (int)player.GetHealth().GetCurrentValue() / ((int)player.GetHealth().GetMaxValue() / 5);
 	m_pCharacterDisplay->ChangeSprite(characterIndex);
+
+	m_pHealthText->SetText(std::to_string((int)player.GetHealth().GetCurrentValue()));
+	m_pArmorText->SetText(std::to_string((int)player.GetArmor().GetCurrentValue()));
 }

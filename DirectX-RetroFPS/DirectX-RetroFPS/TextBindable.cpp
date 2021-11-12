@@ -26,14 +26,16 @@ void TextBindable::SetColour(float r, float g, float b, float a)
 void TextBindable::Draw(Graphics& graphics)
 {
 	m_pSpriteBatch->Begin();
+
 	m_pSpriteFont->DrawString(
 		m_pSpriteBatch.get(), 
 		m_text.c_str(), 
-		m_pTransform->Position.AsXMVector(),
-		DirectX::XMLoadFloat4(&m_colour),
-		m_pTransform->Rotation.Z,
-		Vector(0.0f, 0.0f, 0.0f).AsXMVector(),
-		m_pTransform->Scale.AsXMVector()
+		DirectX::XMFLOAT2(m_pTransform->Position.X, m_pTransform->Position.Y),
+		DirectX::Colors::White,
+		0,
+		DirectX::XMFLOAT2(0.0f, 0.0f),
+		DirectX::XMFLOAT2(m_pTransform->Scale.X, m_pTransform->Scale.Y)
 	);
+
 	m_pSpriteBatch->End();
 }

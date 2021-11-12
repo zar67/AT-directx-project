@@ -17,6 +17,6 @@ public:
 	float GetCurrentValue();
 
 private:
-	float m_maxValue;
-	float m_currentValue;
+	float m_maxValue = 0;
+	float m_currentValue = 0;
 };

@@ -15,5 +15,5 @@ public:
 private:
 	AnimatedImageElement* m_pCharacterDisplay = nullptr;
 	TextElement* m_pHealthText = nullptr;
-	TextElement* m_pArmourText = nullptr;
+	TextElement* m_pArmorText = nullptr;
 };

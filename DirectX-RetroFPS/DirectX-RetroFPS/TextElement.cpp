@@ -14,6 +14,10 @@ void TextElement::Draw(Graphics& graphics)
 	m_pTextBindable->Draw(graphics);
 }
 
+void TextElement::Update(float deltaTime)
+{
+}
+
 void TextElement::SetText(std::string text)
 {
 	m_pTextBindable->SetText(text);
