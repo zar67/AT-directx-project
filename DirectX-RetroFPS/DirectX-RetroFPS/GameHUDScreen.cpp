@@ -11,6 +11,12 @@ GameHUDScreen::GameHUDScreen(Graphics& graphics)
 
 	AddElement(std::move(hudBackground), graphics.GetCamera());
 
+	std::unique_ptr<ImageElement> crosshair = std::make_unique<ImageElement>(graphics, "Assets\\UI\\crosshair.png");
+	crosshair->SetOffset(Vector(0.0f, 0.0f, 5.0f));
+	crosshair->GetTransform().ApplyScalar(0.2f, 0.2f, 1.0f);
+
+	AddElement(std::move(crosshair), graphics.GetCamera());
+
 	std::unique_ptr<AnimatedImageElement> hudCharacter = std::make_unique<AnimatedImageElement>(graphics, "Assets\\UI\\doom_hud_character.png", 5, 1);
 	hudCharacter->SetOffset(Vector(-0.54f, -3.375f, 4.0f));
 	hudCharacter->GetTransform().ApplyScalar(0.55f, 0.55f, 1.0f);
