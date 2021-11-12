@@ -84,7 +84,7 @@
   <ItemGroup>
     <ClCompile Include="AnimatedImageElement.cpp" />
     <ClCompile Include="Animation.cpp" />
-    <ClCompile Include="ArmourPickup.cpp" />
+    <ClCompile Include="ArmorPickup.cpp" />
     <ClCompile Include="Bindable.cpp" />
     <ClCompile Include="BlendState.cpp" />
     <ClCompile Include="ButtonElement.cpp" />
@@ -140,7 +140,7 @@
   <ItemGroup>
     <ClInclude Include="AnimatedImageElement.h" />
     <ClInclude Include="Animation.h" />
-    <ClInclude Include="ArmourPickup.h" />
+    <ClInclude Include="ArmorPickup.h" />
     <ClInclude Include="Bindable.h" />
     <ClInclude Include="BlendState.h" />
     <ClInclude Include="ButtonElement.h" />

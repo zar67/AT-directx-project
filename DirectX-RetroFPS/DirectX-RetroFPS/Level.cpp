@@ -9,7 +9,7 @@
 #include "Zombie.h"
 #include "DemonPuppy.h"
 #include "HealthPickup.h"
-#include "ArmourPickup.h"
+#include "ArmorPickup.h"
 
 Level::Level(Graphics& graphics, Player& player, std::string filename) :
 	m_lightConstantBuffer(graphics)
@@ -387,12 +387,12 @@ void Level::ParseLevelDataCharacter(Graphics& graphics, char character, float xP
 			m_pickups.emplace_back(std::move(pHealthPickup));
 			break;
 		}
-		case 'A': // Armour Pickup
+		case 'A': // Armor Pickup
 		{
-			std::unique_ptr<ArmourPickup> pArmourPickup = std::make_unique<ArmourPickup>(graphics, *m_pPlayer);
-			pArmourPickup->GetTransform().ApplyTranslation(xPosition, yPosition + UNIT_SIZE / 3, zPosition);
-			pArmourPickup->GetTransform().ApplyScalar(UNIT_SIZE / 2, UNIT_SIZE / 2, UNIT_SIZE / 2);
-			m_pickups.emplace_back(std::move(pArmourPickup));
+			std::unique_ptr<ArmorPickup> pArmorPickup = std::make_unique<ArmorPickup>(graphics, *m_pPlayer);
+			pArmorPickup->GetTransform().ApplyTranslation(xPosition, yPosition + UNIT_SIZE / 3, zPosition);
+			pArmorPickup->GetTransform().ApplyScalar(UNIT_SIZE / 2, UNIT_SIZE / 2, UNIT_SIZE / 2);
+			m_pickups.emplace_back(std::move(pArmorPickup));
 			break;
 		}
 		case 'B': // Bullet Pickup

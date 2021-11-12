@@ -2,12 +2,12 @@
 
 #include "Pickup.h"
 
-class ArmourPickup : public Pickup
+class ArmorPickup : public Pickup
 {
 public:
-	ArmourPickup(Graphics& graphics, Player& player);
+	ArmorPickup(Graphics& graphics, Player& player);
 
 	virtual void OnCollision(CollisionUtilities::ColliderCollision collision, DrawableBase* other) override;
 private:
-	float m_armourAmount = 10.0f;
+	float m_armorAmount = 10.0f;
 };

@@ -291,7 +291,7 @@
     <ClCompile Include="AnimatedImageElement.cpp">
       <Filter>Source\Source Files\Game\UI\Elements</Filter>
     </ClCompile>
-    <ClCompile Include="ArmourPickup.cpp">
+    <ClCompile Include="ArmorPickup.cpp">
       <Filter>Source\Source Files\Game\Pickups</Filter>
     </ClCompile>
   </ItemGroup>
@@ -563,7 +563,7 @@
     <ClInclude Include="AnimatedImageElement.h">
       <Filter>Source\Header Files\Game\UI\Elements</Filter>
     </ClInclude>
-    <ClInclude Include="ArmourPickup.h">
+    <ClInclude Include="ArmorPickup.h">
       <Filter>Source\Header Files\Game\Pickup</Filter>
     </ClInclude>
   </ItemGroup>

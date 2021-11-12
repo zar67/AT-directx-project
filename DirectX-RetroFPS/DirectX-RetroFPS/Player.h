@@ -17,7 +17,7 @@ public:
 	OBBCollider& GetCollider();
 	Shooter& GetShooter();
 	Stat& GetHealth();
-	Stat& GetArmour();
+	Stat& GetArmor();
 
 	void LockYPosition(float y);
 
@@ -37,7 +37,7 @@ private:
 	OBBCollider m_collider;
 	Shooter m_shooter;
 	Stat m_health;
-	Stat m_armour;
+	Stat m_armor;
 
 	float m_yLockPosition;
 

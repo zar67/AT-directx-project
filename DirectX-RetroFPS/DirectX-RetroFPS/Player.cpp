@@ -24,8 +24,9 @@ Player::Player(Input& input, float windowWidth, float windowHeight, float moveme
 
 	m_health.SetMaxValue(100.0f);
 	m_health.SetToMaxValue();
+	m_health.Decrease(50.0f);
 
-	m_armour.SetMaxValue(100.0f);
+	m_armor.SetMaxValue(100.0f);
 }
 
 void Player::Update(float deltaTime)
@@ -52,9 +53,9 @@ Stat& Player::GetHealth()
 	return m_health;
 }
 
-Stat& Player::GetArmour()
+Stat& Player::GetArmor()
 {
-	return m_armour;
+	return m_armor;
 }
 
 void Player::LockYPosition(float y)
