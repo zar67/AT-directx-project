@@ -16,4 +16,9 @@ private:
 	AnimatedImageElement* m_pCharacterDisplay = nullptr;
 	TextElement* m_pHealthText = nullptr;
 	TextElement* m_pArmorText = nullptr;
+
+	TextElement* m_pPistolBulletsText = nullptr;
+	TextElement* m_pRifleBulletsText = nullptr;
+	TextElement* m_pShotgunBulletsText = nullptr;
+	TextElement* m_pCannonBulletsText = nullptr;
 };
