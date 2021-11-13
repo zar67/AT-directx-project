@@ -45,6 +45,7 @@ public:
 	virtual void Update(float deltaTime) override;
 
 	virtual void OnShot(DrawableBase* shooter, float damage, Vector shotContactPosition) override;
+	virtual void OnCollision(CollisionUtilities::ColliderCollision collision, DrawableBase* other);
 
 protected:
 	std::vector<TextureCoordinate> m_textureCoords = {

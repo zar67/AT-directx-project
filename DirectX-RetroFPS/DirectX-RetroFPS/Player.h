@@ -19,6 +19,8 @@ public:
 	Stat& GetHealth();
 	Stat& GetArmor();
 
+	void HandleDamaged(float value);
+
 	void HasKey(bool key);
 	bool HasKey();
 		

@@ -70,6 +70,15 @@ void Enemy::OnShot(DrawableBase* shooter, float damage, Vector shotContactPositi
 	}
 }
 
+void Enemy::OnCollision(CollisionUtilities::ColliderCollision collision, DrawableBase* other)
+{
+	Player* player = dynamic_cast<Player*>(other);
+	if (player != nullptr)
+	{
+		player->HandleDamaged(10.0f);
+	}
+}
+
 void Enemy::InitialiseStatic(Graphics& graphics)
 {
 	// Create Index Buffer

@@ -24,7 +24,6 @@ Player::Player(Input& input, float windowWidth, float windowHeight, float moveme
 
 	m_health.SetMaxValue(100.0f);
 	m_health.SetToMaxValue();
-	m_health.Decrease(50.0f);
 
 	m_armor.SetMaxValue(100.0f);
 }
@@ -58,10 +57,23 @@ Stat& Player::GetArmor()
 	return m_armor;
 }
 
+void Player::HandleDamaged(float value)
+{
+	if (m_armor.GetCurrentValue() > value / 2)
+	{
+		m_armor.Decrease(value / 2);
+		m_health.Decrease(value / 2);
+	}
+	else
+	{
+		m_health.Decrease(value);
+	}
+}
+
 void Player::HasKey(bool key)
 {
 	m_hasKey = key;
-}
+};
 
 bool Player::HasKey()
 {
