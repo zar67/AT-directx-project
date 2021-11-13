@@ -4,6 +4,14 @@ GameHUDScreen::GameHUDScreen(Graphics& graphics)
 {
 	m_screenType = ScreenType::GAME_HUD;
 
+	std::unique_ptr<AnimatedImageElement> hudWeapons = std::make_unique<AnimatedImageElement>(graphics, "Assets\\UI\\doom_weapons_ui.png", 8, 2);
+	hudWeapons->SetOffset(Vector(0.0f, 0.0f, 6.0f));
+	hudWeapons->GetTransform().ApplyScalar(8.0f, 6.0f, 1.0f);
+	hudWeapons->ChangeSprite(0);
+	m_pHUDWeapons = hudWeapons.get();
+
+	AddElement(std::move(hudWeapons), graphics.GetCamera());
+
 	std::unique_ptr<ImageElement> hudBackground = std::make_unique<ImageElement>(graphics, "Assets\\UI\\doom_hud.png");
 	hudBackground->SetOffset(Vector(0.0f, -3.75f, 5.0f));
 	hudBackground->GetTransform().ApplyScalar(6.0f, 1.25f, 1.0f);
