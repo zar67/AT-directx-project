@@ -1,4 +1,4 @@
-﻿#include "Enemy.h"
+#include "Enemy.h"
 #include "Topology.h"
 #include "VertexShader.h"
 #include "InputLayout.h"
@@ -59,10 +59,14 @@ void Enemy::Update(float deltaTime)
 
 void Enemy::OnShot(DrawableBase* shooter, float damage, Vector shotContactPosition)
 {
-	m_health.Decrease(damage);
-	if (m_health.IsZero())
+	if (m_currentState != EnemyState::DEATH)
 	{
-		m_currentState = EnemyState::DEATH;
+		m_health.Decrease(damage);
+		if (m_health.IsZero())
+		{
+			m_currentState = EnemyState::DEATH;
+			m_animationMap[m_currentState][m_currentDirection].Reset();
+		}
 	}
 }
 
@@ -106,7 +110,7 @@ void Enemy::InitialiseCollider()
 {
 	m_collider.SetTransform(&m_transform);
 	m_collider.SetRotationConstraints(true, true, true);
-	m_collider.SetColliderData(Vector(-1.0f, -1.0f, -1.0f), Vector(1.0f, 1.0f, 1.0f));
+	m_collider.SetColliderData(Vector(-1.0f, -1.0f, -1.0f), Vector(1.0f, 2.0f, 1.0f));
 }
 
 void Enemy::RotateToPlayer()
@@ -144,5 +148,12 @@ void Enemy::UpdateFacingDirection()
 	}
 
 	int directionIndex = (int)(angle / ( (2 * DirectX::XM_PI) / 8));
-	m_currentDirection = (FaceDirection)directionIndex;
+
+	if ((FaceDirection)directionIndex != m_currentDirection)
+	{
+		Animation& previousAnimation = m_animationMap[m_currentState][m_currentDirection];
+
+		m_currentDirection = (FaceDirection)directionIndex;
+		m_animationMap[m_currentState][m_currentDirection].Reset(previousAnimation.GetCurrentSpriteIndex(), previousAnimation.GetCurrentAnimationTimer());
+	}
 }

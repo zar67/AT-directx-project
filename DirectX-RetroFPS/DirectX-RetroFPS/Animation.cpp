@@ -1,5 +1,4 @@
 #include "Animation.h"
-#include <iostream>
 
 Animation::Animation(SpriteSheet* pSpriteSheet, std::vector<int> spriteIndexes, float playbackSpeed)
 {
@@ -19,6 +18,22 @@ void Animation::Update(float deltaTime, std::vector<TextureCoordinate>& textureC
 	}
 }
 
+void Animation::Reset()
+{
+	m_animationTimer = 0;
+
+	m_currentSpriteIndex = 0;
+	m_previousSpriteIndex = -1;
+}
+
+void Animation::Reset(int frame, float animationTimer)
+{
+	m_animationTimer = animationTimer;
+
+	m_currentSpriteIndex = frame;
+	m_previousSpriteIndex = frame - 1;
+}
+
 int Animation::GetStartingSpriteIndex()
 {
 	return m_spriteIndexes[0];
@@ -27,6 +42,16 @@ int Animation::GetStartingSpriteIndex()
 bool Animation::Completed()
 {
 	return m_currentSpriteIndex == 0 && m_previousSpriteIndex == m_spriteIndexes.size() - 1;
+}
+
+int Animation::GetCurrentSpriteIndex()
+{
+	return m_currentSpriteIndex;
+}
+
+float Animation::GetCurrentAnimationTimer()
+{
+	return m_animationTimer;
 }
 
 void Animation::ChangeSprite(std::vector<TextureCoordinate>& textureCoords)
