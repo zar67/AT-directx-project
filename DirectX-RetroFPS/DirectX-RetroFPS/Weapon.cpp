@@ -1,0 +1,55 @@
+#include "Weapon.h"
+
+#include <iostream>
+
+Weapon::Weapon(WeaponType type, float damage, int defaultBullets, float reloadDelay, bool infiniteBullets)
+{
+	m_weaponType = type;
+	m_damage = damage;
+	m_bullets = defaultBullets;
+	m_reloadDelay = reloadDelay;
+	m_infiniteBullets = infiniteBullets;
+	m_reloadTimer = 0;
+}
+
+void Weapon::AddBullets(int amount)
+{
+	if (m_bullets + amount <= 9999)
+	{
+		m_bullets += amount;
+	}
+	else
+	{
+		m_bullets = 9999;
+	}
+}
+
+int Weapon::GetBullets()
+{
+	return m_bullets;
+}
+
+float Weapon::GetDamage()
+{
+	return m_damage;
+}
+
+void Weapon::Update(float deltaTime)
+{
+	m_reloadTimer += deltaTime;
+}
+
+void Weapon::Fired()
+{
+	m_reloadTimer = 0;
+
+	if (!m_infiniteBullets)
+	{
+		m_bullets--;
+	}
+}
+
+bool Weapon::CanFire()
+{
+	return m_reloadTimer >= m_reloadDelay && (m_bullets > 0 || m_infiniteBullets);
+}

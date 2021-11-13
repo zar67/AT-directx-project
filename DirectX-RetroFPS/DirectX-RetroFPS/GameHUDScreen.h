@@ -10,6 +10,7 @@ class GameHUDScreen : public Screen
 {
 public:
 	GameHUDScreen(Graphics& graphics);
+	virtual ~GameHUDScreen() = default;
 
 	void UpdateHUD(Player& player);
 

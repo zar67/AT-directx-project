@@ -14,7 +14,7 @@ void ArmorPickup::OnCollision(CollisionUtilities::ColliderCollision collision, D
 	Player* player = dynamic_cast<Player*>(other);
 	if (player != nullptr)
 	{
-		if (player->GetArmor().GetCurrentValue() <= player->GetArmor().GetMaxValue() - m_armorAmount)
+		if (player->GetArmor().GetCurrentValue() != player->GetArmor().GetMaxValue())
 		{
 			player->GetArmor().Increase(m_armorAmount);
 			SetActive(false);

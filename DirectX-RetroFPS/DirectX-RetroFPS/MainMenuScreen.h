@@ -8,7 +8,7 @@ class MainMenuScreen : public Screen
 {
 public:
 	MainMenuScreen(Graphics& graphics);
-	~MainMenuScreen() = default;
+	virtual ~MainMenuScreen() = default;
 
 	virtual ScreenType HandleInput(Input& input) override;
 

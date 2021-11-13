@@ -130,6 +130,12 @@
     <Filter Include="Source\Header Files\Game\UI\Screens">
       <UniqueIdentifier>{65059d59-2fe4-4bde-bcdc-1edaab166800}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Source Files\Game\Weapons">
+      <UniqueIdentifier>{9ff104d8-b014-422f-8015-37db969bd7b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Header Files\Game\Weapons">
+      <UniqueIdentifier>{d10e9270-6388-4931-9fcc-fe3a9453ac67}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -304,6 +310,12 @@
       <Filter>Source\Source Files\Game\Levels</Filter>
     </ClCompile>
     <ClCompile Include="KeyPickup.cpp">
+      <Filter>Source\Source Files\Game\Pickups</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapon.cpp">
+      <Filter>Source\Source Files\Game\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletPickup.cpp">
       <Filter>Source\Source Files\Game\Pickups</Filter>
     </ClCompile>
   </ItemGroup>
@@ -557,9 +569,6 @@
     <ClInclude Include="resource.h">
       <Filter>Source\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ScreenType.h">
-      <Filter>Source\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GameHUDScreen.h">
       <Filter>Source\Header Files\Game\UI\Screens</Filter>
     </ClInclude>
@@ -591,6 +600,21 @@
       <Filter>Source\Header Files\Game\Levels</Filter>
     </ClInclude>
     <ClInclude Include="KeyPickup.h">
+      <Filter>Source\Header Files\Game\Pickup</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponType.h">
+      <Filter>Source\Header Files\Game\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapon.h">
+      <Filter>Source\Header Files\Game\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenType.h">
+      <Filter>Source\Header Files\Game\UI\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletPickup.h">
       <Filter>Source\Header Files\Game\Pickup</Filter>
     </ClInclude>
   </ItemGroup>

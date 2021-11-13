@@ -14,7 +14,14 @@ void Shooter::SetParent(DrawableBase* drawable)
 
 void Shooter::StartShoot(Ray ray)
 {
+	ClearShooter();
 	m_shootRay = ray;
+	m_pWeapon->Fired();
+}
+
+void Shooter::ClearShooter()
+{
+	m_shootRay = Ray();
 	m_nearestCollision = CollisionUtilities::RayCollision();
 	m_nearestCollision.IntersectionDistance = std::numeric_limits<float>().max();
 	m_nearestCollisionDrawable = nullptr;
@@ -37,6 +44,11 @@ void Shooter::HandleHit()
 	}
 }
 
+bool Shooter::CanShoot()
+{
+	return m_pWeapon->CanFire();
+}
+
 bool Shooter::IsShooting()
 {
 	return m_shootRay.IsValid();
@@ -45,4 +57,9 @@ bool Shooter::IsShooting()
 Ray& Shooter::GetShootRay()
 {
 	return m_shootRay;
+}
+
+void Shooter::SetWeapon(Weapon* weapon)
+{
+	m_pWeapon = weapon;
 }
