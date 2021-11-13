@@ -19,6 +19,8 @@ public:
 
 	void HandleMessages(UINT message, WPARAM wparam, LPARAM lparam);
 
+	void DetectedHeldKeys();
+
 	KeyState GetKeyState(const unsigned char keycode);
 	bool IsKeyDown(const unsigned char keycode);
 

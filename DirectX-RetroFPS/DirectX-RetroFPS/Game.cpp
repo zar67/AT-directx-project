@@ -45,6 +45,7 @@ void Game::Update(float deltaTime)
 		if (!m_isPaused)
 		{
 			m_player.Update(deltaTime);
+
 			((GameHUDScreen*)m_UIManager.GetCurrentScreen())->UpdateHUD(m_player);
 
 			m_levelManager.UpdateCurrentLevel(deltaTime);
@@ -56,6 +57,11 @@ void Game::Update(float deltaTime)
 	m_UIManager.Update(deltaTime);
 
 	m_window.GetInput().UpdateStates();
+
+	if (m_player.GetHealth().IsZero())
+	{
+		m_UIManager.GoToScreen(ScreenType::GAME_OVER);
+	}
 }
 
 void Game::HandleInput()
