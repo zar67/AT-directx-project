@@ -1,5 +1,4 @@
 #include "Animation.h"
-#include <iostream>
 
 Animation::Animation(SpriteSheet* pSpriteSheet, std::vector<int> spriteIndexes, float playbackSpeed)
 {
@@ -19,6 +18,22 @@ void Animation::Update(float deltaTime, std::vector<TextureCoordinate>& textureC
 	}
 }
 
+void Animation::Reset()
+{
+	m_animationTimer = 0;
+
+	m_currentSpriteIndex = 0;
+	m_previousSpriteIndex = -1;
+}
+
+void Animation::Reset(int frame, float animationTimer)
+{
+	m_animationTimer = animationTimer;
+
+	m_currentSpriteIndex = frame;
+	m_previousSpriteIndex = frame - 1;
+}
+
 int Animation::GetStartingSpriteIndex()
 {
 	return m_spriteIndexes[0];
@@ -27,6 +42,16 @@ int Animation::GetStartingSpriteIndex()
 bool Animation::Completed()
 {
 	return m_currentSpriteIndex == 0 && m_previousSpriteIndex == m_spriteIndexes.size() - 1;
+}
+
+int Animation::GetCurrentSpriteIndex()
+{
+	return m_currentSpriteIndex;
+}
+
+float Animation::GetCurrentAnimationTimer()
+{
+	return m_animationTimer;
 }
 
 void Animation::ChangeSprite(std::vector<TextureCoordinate>& textureCoords)
@@ -38,36 +63,5 @@ void Animation::ChangeSprite(std::vector<TextureCoordinate>& textureCoords)
 	m_currentSpriteIndex++;
 	m_currentSpriteIndex %= m_spriteIndexes.size();
 
-	SpriteSheet::SpriteBounds newSpriteRect = m_pSpriteSheet->GetSpriteBoundsAtIndex(m_spriteIndexes[m_currentSpriteIndex]);
-
-	for (auto& vertex : textureCoords)
-	{
-		switch (vertex.Position)
-		{
-			case TextureCoordinate::Position::TOP_LEFT:
-			{
-				vertex.Coordinate.x = newSpriteRect.Left;
-				vertex.Coordinate.y = newSpriteRect.Top;
-				break;
-			}
-			case TextureCoordinate::Position::TOP_RIGHT:
-			{
-				vertex.Coordinate.x = newSpriteRect.Right;
-				vertex.Coordinate.y = newSpriteRect.Top;
-				break;
-			}
-			case TextureCoordinate::Position::BOTTOM_LEFT:
-			{
-				vertex.Coordinate.x = newSpriteRect.Left;
-				vertex.Coordinate.y = newSpriteRect.Bottom;
-				break;
-			}
-			case TextureCoordinate::Position::BOTTOM_RIGHT:
-			{
-				vertex.Coordinate.x = newSpriteRect.Right;
-				vertex.Coordinate.y = newSpriteRect.Bottom;
-				break;
-			}
-		}
-	}
+	m_pSpriteSheet->SetCoordsToSpriteAt(m_spriteIndexes[m_currentSpriteIndex], textureCoords);
 }

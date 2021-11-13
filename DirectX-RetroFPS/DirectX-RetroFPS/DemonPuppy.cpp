@@ -49,6 +49,6 @@ DemonPuppy::DemonPuppy(Graphics& graphics, Player& player) : Enemy(graphics, pla
 		}}
 	};
 
-	m_health.SetMaxHealth(200.0f);
-	m_health.Reset();
+	m_health.SetMaxValue(200.0f);
+	m_health.SetToMaxValue();
 }

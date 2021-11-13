@@ -13,7 +13,7 @@
 class Window
 {
 public:
-	Window(int width, int height, const int name, const int icon);
+	Window();
 	~Window();
 	Window(const Window&) = delete;
 	Window& operator=(const Window&) = delete;
@@ -26,9 +26,6 @@ public:
 	void ShowCursor();
 	void HideCursor();
 
-	int GetWidth();
-	int GetHeight();
-
 private:
 	static LRESULT CALLBACK HandleMessageSetup(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam);
 	static LRESULT CALLBACK HandleMessageBridge(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam);
@@ -36,7 +33,7 @@ private:
 	LRESULT HandleMessage(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam);
 
 	void CreateWindowClass();
-	void InitialiseWindow(int width, int height);
+	void InitialiseWindow();
 
 	std::unique_ptr<Graphics> m_pGraphics;
 	std::unique_ptr<Input> m_pInput;
@@ -45,9 +42,6 @@ private:
 	WCHAR m_windowTitle[MAX_WINDOW_NAME_STRING];
 	HICON m_icon;
 	HINSTANCE m_instance;
-
-	int m_windowWidth;
-	int m_windowHeight;
 
 	bool m_isCursorEnabled = true;
 };

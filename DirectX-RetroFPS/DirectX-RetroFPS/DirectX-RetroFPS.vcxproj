@@ -82,12 +82,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AnimatedImageElement.cpp" />
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="ArmorPickup.cpp" />
     <ClCompile Include="Bindable.cpp" />
     <ClCompile Include="BlendState.cpp" />
+    <ClCompile Include="ButtonElement.cpp" />
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Health.cpp" />
+    <ClCompile Include="GameHUDScreen.cpp" />
+    <ClCompile Include="GameOverScreen.cpp" />
+    <ClCompile Include="Stat.cpp" />
     <ClCompile Include="HealthPickup.cpp" />
+    <ClCompile Include="ImageElement.cpp" />
+    <ClCompile Include="MainMenuScreen.cpp" />
     <ClCompile Include="OBBCollider.cpp" />
     <ClCompile Include="CollisionUtilities.cpp" />
     <ClCompile Include="Demon.cpp" />
@@ -103,8 +110,11 @@
     <ClCompile Include="Pickup.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RasterizerState.cpp" />
+    <ClCompile Include="Screen.cpp" />
     <ClCompile Include="Shooter.cpp" />
     <ClCompile Include="SpriteSheet.cpp" />
+    <ClCompile Include="TextBindable.cpp" />
+    <ClCompile Include="TextElement.cpp" />
     <ClCompile Include="TexturedCube.cpp" />
     <ClCompile Include="DrawableBase.cpp" />
     <ClCompile Include="ErrorLogger.cpp" />
@@ -121,6 +131,8 @@
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Topology.cpp" />
     <ClCompile Include="TransformConstantBuffer.cpp" />
+    <ClCompile Include="UIElement.cpp" />
+    <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="Vector.cpp" />
     <ClCompile Include="VertexShader.cpp" />
     <ClCompile Include="Window.cpp" />
@@ -128,12 +140,19 @@
     <ClCompile Include="Zombie.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnimatedImageElement.h" />
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="ArmorPickup.h" />
     <ClInclude Include="Bindable.h" />
     <ClInclude Include="BlendState.h" />
+    <ClInclude Include="ButtonElement.h" />
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="Health.h" />
+    <ClInclude Include="GameHUDScreen.h" />
+    <ClInclude Include="GameOverScreen.h" />
+    <ClInclude Include="Stat.h" />
     <ClInclude Include="HealthPickup.h" />
+    <ClInclude Include="ImageElement.h" />
+    <ClInclude Include="MainMenuScreen.h" />
     <ClInclude Include="OBBCollider.h" />
     <ClInclude Include="CollisionUtilities.h" />
     <ClInclude Include="Demon.h" />
@@ -150,8 +169,12 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="RasterizerState.h" />
     <ClInclude Include="Ray.h" />
+    <ClInclude Include="Screen.h" />
+    <ClInclude Include="ScreenType.h" />
     <ClInclude Include="Shooter.h" />
     <ClInclude Include="SpriteSheet.h" />
+    <ClInclude Include="TextBindable.h" />
+    <ClInclude Include="TextElement.h" />
     <ClInclude Include="TextureCoordinate.h" />
     <ClInclude Include="TexturedCube.h" />
     <ClInclude Include="Drawable.h" />
@@ -174,6 +197,8 @@
     <ClInclude Include="Topology.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="TransformConstantBuffer.h" />
+    <ClInclude Include="UIElement.h" />
+    <ClInclude Include="UIManager.h" />
     <ClInclude Include="Vector.h" />
     <ClInclude Include="VertexBuffer.h" />
     <ClInclude Include="VertexConstantBuffer.h" />
@@ -204,6 +229,18 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="UnlitTexturePS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="UnlitTextureVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
   </ItemGroup>

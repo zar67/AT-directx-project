@@ -170,6 +170,12 @@ DirectX::XMFLOAT3 Vector::AsFLOAT3()
 	return DirectX::XMFLOAT3(X, Y, Z);
 }
 
+DirectX::XMVECTOR Vector::AsXMVector()
+{
+	DirectX::XMFLOAT3 asFloat = AsFLOAT3();
+	return DirectX::XMLoadFloat3(&asFloat);
+}
+
 float Vector::DotProduct(Vector a, Vector b)
 {
 	return (a.X * b.X) + (a.Y * b.Y) + (a.Z * b.Z);

@@ -43,6 +43,17 @@ void Keyboard::HandleMessages(UINT message, WPARAM wparam, LPARAM lparam)
 	}
 }
 
+void Keyboard::DetectedHeldKeys()
+{
+	for (int i = 0; i < 256; i++)
+	{
+		if (m_keyStates[i] == KeyState::PRESSED)
+		{
+			m_keyStates[i] = KeyState::HELD;
+		}
+	}
+}
+
 Keyboard::KeyState Keyboard::GetKeyState(const unsigned char keycode)
 {
 	return m_keyStates[keycode];

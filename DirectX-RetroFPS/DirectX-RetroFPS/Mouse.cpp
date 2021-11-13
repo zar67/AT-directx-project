@@ -13,8 +13,11 @@ void Mouse::HandleMessages(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam
 		}
 		case WM_LBUTTONDOWN:
 		{
-			POINTS points = MAKEPOINTS(lparam);
-			OnLeftPressed(points.x, points.y);
+			if (m_leftButtonState == MouseEvent::ButtonState::NOT_PRESSED)
+			{
+				POINTS points = MAKEPOINTS(lparam);
+				OnLeftPressed(points.x, points.y);
+			}
 			break;
 		}
 		case WM_LBUTTONUP:
@@ -25,8 +28,11 @@ void Mouse::HandleMessages(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam
 		}
 		case WM_RBUTTONDOWN:
 		{
-			POINTS points = MAKEPOINTS(lparam);
-			OnRightPressed(points.x, points.y);
+			if (m_rightButtonState == MouseEvent::ButtonState::NOT_PRESSED)
+			{
+				POINTS points = MAKEPOINTS(lparam);
+				OnRightPressed(points.x, points.y);
+			}
 			break;
 		}
 		case WM_RBUTTONUP:

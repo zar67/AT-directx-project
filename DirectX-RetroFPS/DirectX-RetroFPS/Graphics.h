@@ -9,16 +9,21 @@
 
 #include "Camera.h"
 
+#define WINDOW_WIDTH 800
+#define WINDOW_HEIGHT 600
+
 class Graphics
 {
 public:
-	Graphics(HWND window, int width, int height);
+	Graphics(HWND window);
 	Graphics(const Graphics&) = delete;
 	Graphics& operator=(const Graphics&) = delete;
 	~Graphics() = default;
 
 	void RenderFrame();
-	void ClearBuffer(float r, float g, float b);
+	void ClearRenderTarget(float r, float g, float b);
+	void ClearDepthStencil();
+	void BindDepthStencil();
 
 	ID3D11Device* GetDevice();
 	ID3D11DeviceContext* GetDeviceContext();
@@ -29,9 +34,9 @@ public:
 private:
 	void CreateDeviceAndSwapChain(HWND window);
 	void CreateRenderTargetView();
-	void CreateDepthStencilBuffer(int width, int height);
+	void CreateDepthStencilBuffer();
 	void CreateDepthStencilState();
-	void CreateViewport(int width, int height);
+	void CreateViewport();
 
 	Camera m_camera;
 

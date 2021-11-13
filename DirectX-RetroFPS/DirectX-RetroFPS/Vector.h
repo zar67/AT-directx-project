@@ -41,6 +41,7 @@ public:
 	void Set(float x, float y, float z);
 
 	DirectX::XMFLOAT3 AsFLOAT3();
+	DirectX::XMVECTOR AsXMVector();
 
 	static float DotProduct(Vector a, Vector b);
 	static Vector CrossProduct(Vector a, Vector b);

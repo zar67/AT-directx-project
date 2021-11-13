@@ -9,6 +9,7 @@ void Input::HandleMessages(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam
 void Input::UpdateStates()
 {
 	m_mouse.DetectHeldButtons();
+	m_keyboard.DetectedHeldKeys();
 }
 
 Keyboard& Input::GetKeyboard()

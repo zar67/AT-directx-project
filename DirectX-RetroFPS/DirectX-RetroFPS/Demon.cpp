@@ -49,8 +49,8 @@ Demon::Demon(Graphics& graphics, Player& player) : Enemy(graphics, player)
 		}}
 	};
 
-	m_health.SetMaxHealth(150.0f);
-	m_health.Reset();
+	m_health.SetMaxValue(150.0f);
+	m_health.SetToMaxValue();
 }
 
 void Demon::Update(float deltaTime)

@@ -49,6 +49,6 @@ Zombie::Zombie(Graphics& graphics, Player& player) : Enemy(graphics, player)
 		}}
 	};
 
-	m_health.SetMaxHealth(100.0f);
-	m_health.Reset();
+	m_health.SetMaxValue(100.0f);
+	m_health.SetToMaxValue();
 }

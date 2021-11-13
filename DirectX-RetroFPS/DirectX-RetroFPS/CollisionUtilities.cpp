@@ -49,7 +49,7 @@ CollisionUtilities::RayCollision CollisionUtilities::IsColliding(Ray& ray, OBBCo
 	float tmin = txmin;
 	float tmax = txmax;
 
-	if (tmin > tmax) 
+	if (tmin > tmax)
 	{
 		float temp = tmin;
 		tmin = tmax;

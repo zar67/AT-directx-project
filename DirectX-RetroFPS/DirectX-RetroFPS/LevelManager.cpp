@@ -34,6 +34,11 @@ Level* LevelManager::GetCurrentLevel()
 	return m_levels[m_currentLevelIndex].get();
 }
 
+void LevelManager::ResetLevel(Graphics& graphics)
+{
+	m_levels[m_currentLevelIndex]->Initialise(graphics);
+}
+
 void LevelManager::UpdateCurrentLevel(float deltaTime)
 {
 	m_levels[m_currentLevelIndex]->Update(deltaTime);

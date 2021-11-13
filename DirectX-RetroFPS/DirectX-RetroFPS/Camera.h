@@ -11,6 +11,8 @@ public:
 	void SetProjectionValues(float fovDegrees, float aspectRatio, float nearZ, float farZ);
 	void SetTargetTransform(Transform& transform);
 
+	Transform* GetTransform();
+
 	const DirectX::XMMATRIX& GetViewMatrix() const;
 	const DirectX::XMMATRIX& GetProjectionMatrix() const;
 

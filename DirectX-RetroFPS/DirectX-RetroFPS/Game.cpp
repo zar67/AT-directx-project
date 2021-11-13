@@ -1,11 +1,12 @@
 #include "Game.h"
 
 #include "CollisionUtilities.h"
+#include "GameHUDScreen.h"
 
 Game::Game() :
-	m_window(800, 600, IDS_GAMENAME, IDI_MAINICON),
-	m_player(m_window.GetInput(), m_window.GetWidth(), m_window.GetHeight(), 6.0f, 3.0f, DirectX::XMFLOAT2(50, 50)),
-	m_levelManager(m_window.GetGraphics(), m_player)
+	m_player(m_window.GetInput(), WINDOW_WIDTH, WINDOW_HEIGHT, 6.0f, 3.0f, DirectX::XMFLOAT2(50, 50)),
+	m_levelManager(m_window.GetGraphics(), m_player),
+	m_UIManager(m_window.GetGraphics())
 {
 	m_window.GetGraphics().GetCamera()->SetTargetTransform(m_player.GetTransform());
 }
@@ -39,21 +40,41 @@ void Game::Update(float deltaTime)
 {
 	HandleInput();
 
-	if (!m_isPaused)
+	if (m_UIManager.GetCurrentScreenID() == ScreenType::GAME_HUD)
 	{
-		m_player.Update(deltaTime);
+		if (!m_isPaused)
+		{
+			m_player.Update(deltaTime);
 
-		m_levelManager.UpdateCurrentLevel(deltaTime);
-		m_levelManager.HandleCurrentLevelCollisions(m_window.GetGraphics());
+			((GameHUDScreen*)m_UIManager.GetCurrentScreen())->UpdateHUD(m_player);
 
-		m_window.GetGraphics().GetCamera()->UpdateViewMatrix();
+			m_levelManager.UpdateCurrentLevel(deltaTime);
+			m_levelManager.HandleCurrentLevelCollisions(m_window.GetGraphics());
+		}
+	}
+
+	m_window.GetGraphics().GetCamera()->UpdateViewMatrix();
+
+	ScreenType previousScreen = m_UIManager.GetCurrentScreenID();
+	m_UIManager.Update(deltaTime);
+
+	if (previousScreen != ScreenType::GAME_HUD && m_UIManager.GetCurrentScreenID() == ScreenType::GAME_HUD)
+	{
+		m_levelManager.ResetLevel(m_window.GetGraphics());
 	}
 
 	m_window.GetInput().UpdateStates();
+
+	if (m_player.GetHealth().IsZero())
+	{
+		m_UIManager.GoToScreen(ScreenType::GAME_OVER);
+	}
 }
 
 void Game::HandleInput()
 {
+	m_UIManager.HandleInput(m_window.GetInput());
+
 	KeyboardEvent keyboardEvent = m_window.GetInput().GetKeyboard().ReadKey();
 	while (keyboardEvent.GetType() != KeyboardEvent::EventType::INVALID)
 	{
@@ -91,9 +112,17 @@ void Game::HandleInput()
 
 void Game::Render()
 {
-	m_window.GetGraphics().ClearBuffer(0.0f, 0.0f, 0.0f);
+	m_window.GetGraphics().ClearRenderTarget(0.0f, 0.0f, 0.0f);
+	m_window.GetGraphics().ClearDepthStencil();
+	m_window.GetGraphics().BindDepthStencil();
 
-	m_levelManager.DrawCurrentLevel(m_window.GetGraphics());
+	if (m_UIManager.GetCurrentScreenID() == ScreenType::GAME_HUD)
+	{
+		m_levelManager.DrawCurrentLevel(m_window.GetGraphics());
+	}
+
+	m_window.GetGraphics().ClearDepthStencil();
+	m_UIManager.Draw(m_window.GetGraphics());
 
 	m_window.GetGraphics().RenderFrame();
 }

@@ -37,6 +37,42 @@ void SpriteSheet::Bind(Graphics& graphics)
 	graphics.GetDeviceContext()->PSSetShaderResources(0, 1, m_pTextureView.GetAddressOf());
 }
 
+void SpriteSheet::SetCoordsToSpriteAt(int index, std::vector<TextureCoordinate>& textureCoords)
+{
+	SpriteSheet::SpriteBounds newSpriteRect = GetSpriteBoundsAtIndex(index);
+
+	for (auto& vertex : textureCoords)
+	{
+		switch (vertex.Position)
+		{
+		case TextureCoordinate::Position::TOP_LEFT:
+		{
+			vertex.Coordinate.x = newSpriteRect.Left;
+			vertex.Coordinate.y = newSpriteRect.Top;
+			break;
+		}
+		case TextureCoordinate::Position::TOP_RIGHT:
+		{
+			vertex.Coordinate.x = newSpriteRect.Right;
+			vertex.Coordinate.y = newSpriteRect.Top;
+			break;
+		}
+		case TextureCoordinate::Position::BOTTOM_LEFT:
+		{
+			vertex.Coordinate.x = newSpriteRect.Left;
+			vertex.Coordinate.y = newSpriteRect.Bottom;
+			break;
+		}
+		case TextureCoordinate::Position::BOTTOM_RIGHT:
+		{
+			vertex.Coordinate.x = newSpriteRect.Right;
+			vertex.Coordinate.y = newSpriteRect.Bottom;
+			break;
+		}
+		}
+	}
+}
+
 SpriteSheet::SpriteBounds SpriteSheet::GetSpriteBoundsAtIndex(int index)
 {
 	float xPos = (index % m_columnCount) * m_spriteWidth;
