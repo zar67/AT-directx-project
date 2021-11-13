@@ -139,6 +139,7 @@ void Level::HandleCollisions(Graphics& graphics)
 			CollisionUtilities::RayCollision collision = CollisionUtilities::IsColliding(m_pPlayer->GetShooter().GetShootRay(), drawableA->GetCollider());
 			if (collision.IsColliding)
 			{
+				drawableA->SetActive(false);
 				m_pPlayer->GetShooter().RegisterCollision(collision, drawableA);
 			}
 		}

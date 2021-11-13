@@ -1,6 +1,7 @@
 #include "MainMenuScreen.h"
 
 #include "ImageElement.h"
+#include "TextElement.h"
 
 MainMenuScreen::MainMenuScreen(Graphics& graphics)
 {
@@ -14,7 +15,7 @@ MainMenuScreen::MainMenuScreen(Graphics& graphics)
 
 	std::unique_ptr<ButtonElement> playButtonElement = std::make_unique<ButtonElement>(graphics, "Assets\\UI\\doom_button.png");
 	playButtonElement->SetOffset(Vector(0.0f, -1.5f, 4.0f));
-	playButtonElement->GetTransform().ApplyScalar(1.0f, 0.5f, 1.0f);
+	playButtonElement->GetTransform().ApplyScalar(1.5f, 0.5f, 1.0f);
 	playButtonElement->Select();
 	m_pPlayButton = playButtonElement.get();
 
@@ -22,10 +23,22 @@ MainMenuScreen::MainMenuScreen(Graphics& graphics)
 
 	std::unique_ptr<ButtonElement> quitButtonElement = std::make_unique<ButtonElement>(graphics, "Assets\\UI\\doom_button.png");
 	quitButtonElement->SetOffset(Vector(0.0f, -3.0f, 4.0f));
-	quitButtonElement->GetTransform().ApplyScalar(1.0f, 0.5f, 1.0f);
+	quitButtonElement->GetTransform().ApplyScalar(1.5f, 0.5f, 1.0f);
 	m_pQuitButton = quitButtonElement.get();
 
 	AddElement(std::move(quitButtonElement), graphics.GetCamera());
+
+	std::unique_ptr<TextElement> playText = std::make_unique<TextElement>(graphics, "Assets\\Fonts\\doom_font.spritefont");
+	playText->GetTransform().ApplyTranslation(Vector(350.0f, 382.5f, 3.0f));
+	playText->SetText("Play");
+
+	AddElement(std::move(playText), graphics.GetCamera());
+
+	std::unique_ptr<TextElement> quitText = std::make_unique<TextElement>(graphics, "Assets\\Fonts\\doom_font.spritefont");
+	quitText->GetTransform().ApplyTranslation(Vector(350.0f, 495.0f, 3.0f));
+	quitText->SetText("Quit");
+
+	AddElement(std::move(quitText), graphics.GetCamera());
 }
 
 ScreenType MainMenuScreen::HandleInput(Input& input)

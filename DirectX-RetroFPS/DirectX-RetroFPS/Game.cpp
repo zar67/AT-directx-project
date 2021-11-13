@@ -49,7 +49,6 @@ void Game::Update(float deltaTime)
 
 			m_levelManager.UpdateCurrentLevel(deltaTime);
 			m_levelManager.HandleCurrentLevelCollisions(m_window.GetGraphics());
-
 		}
 	}
 
