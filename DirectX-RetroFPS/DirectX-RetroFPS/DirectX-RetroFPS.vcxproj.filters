@@ -300,6 +300,12 @@
     <ClCompile Include="TextBindable.cpp">
       <Filter>Source\Source Files\Graphics\Bindable</Filter>
     </ClCompile>
+    <ClCompile Include="LevelExit.cpp">
+      <Filter>Source\Source Files\Game\Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyPickup.cpp">
+      <Filter>Source\Source Files\Game\Pickups</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ErrorLogger.h">
@@ -577,6 +583,15 @@
     </ClInclude>
     <ClInclude Include="TextBindable.h">
       <Filter>Source\Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelExit.h">
+      <Filter>Source\Header Files\Game\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyPickup.h">
+      <Filter>Source\Header Files\Game\Pickup</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

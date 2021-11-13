@@ -64,6 +64,13 @@ void Level::Draw(Graphics& graphics)
 			m_pickups[i]->Draw(graphics);
 		}
 	}
+
+	m_pLevelExit->Draw(graphics);
+}
+
+bool Level::IsLevelComplete(Player& player)
+{
+	return player.HasKey() && m_pLevelExit->IsColliding();
 }
 
 int Level::GetGeometryCount()
@@ -109,6 +116,8 @@ void Level::Update(float deltaTime)
 			m_pickups[i]->Update(deltaTime);
 		}
 	}
+
+	m_pLevelExit->Update(deltaTime);
 }
 
 void Level::HandleCollisions(Graphics& graphics)
@@ -163,6 +172,17 @@ void Level::HandleCollisions(Graphics& graphics)
 				}
 			}
 		}
+
+		if (CollisionUtilities::IsCollisionPossible(m_pPlayer->GetCollider(), m_pLevelExit->GetCollider()))
+		{
+			CollisionUtilities::ColliderCollision collision = CollisionUtilities::IsColliding(m_pPlayer->GetCollider(), m_pLevelExit->GetCollider());
+			if (collision.IsColliding)
+			{
+				CollisionUtilities::ResolveCollision(collision);
+				m_pPlayer->OnCollision(collision, m_pLevelExit.get());
+				m_pLevelExit->OnCollision(collision, m_pPlayer);
+			}
+		}
 	}
 
 	for (auto& enemy : m_enemies)
@@ -199,6 +219,12 @@ void Level::HandleCollisions(Graphics& graphics)
 	for (auto& pickup : m_pickups)
 	{
 		DrawableBase* drawable = pickup.get();
+
+		if (!drawable->IsActive())
+		{
+			continue;
+		}
+
 		if (CollisionUtilities::IsCollisionPossible(drawable->GetCollider(), m_pPlayer->GetCollider()))
 		{
 			CollisionUtilities::ColliderCollision collision = CollisionUtilities::IsColliding(drawable->GetCollider(), m_pPlayer->GetCollider());
@@ -349,10 +375,16 @@ void Level::ParseLevelDataCharacter(Graphics& graphics, char character, float xP
 		}
 		case 'K': // Key
 		{
+			std::unique_ptr<KeyPickup> keyPickup = std::make_unique<KeyPickup>(graphics, *m_pPlayer);
+			keyPickup->GetTransform().ApplyTranslation(xPosition, yPosition, zPosition);
+			m_pickups.push_back(std::move(keyPickup));
 			break;
 		}
 		case 'F': // Level End Position
 		{
+			m_pLevelExit = std::make_unique<LevelExit>(graphics);
+			m_pLevelExit->GetTransform().ApplyScalar(1.0f, 2.0f, 1.0f);
+			m_pLevelExit->GetTransform().ApplyTranslation(xPosition, yPosition + UNIT_SIZE, zPosition);
 			break;
 		}
 		case 'M': // Demon

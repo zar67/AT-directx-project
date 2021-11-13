@@ -19,6 +19,8 @@ public:
 
 	Level* GetCurrentLevel();
 
+	bool IsLevelComplete(Graphics& graphics, Player& player);
+	bool IsLastLevel();
 	void ResetLevel(Graphics& graphics);
 
 private:
