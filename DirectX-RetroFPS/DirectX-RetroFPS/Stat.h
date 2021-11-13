@@ -8,7 +8,9 @@ public:
 	void SetMaxValue(float max);
 
 	void SetToMaxValue();
-	void Decrease(float damage);
+	void Set(float value);
+
+	void Decrease(float amount);
 	void Increase(float amount);
 
 	bool IsZero();

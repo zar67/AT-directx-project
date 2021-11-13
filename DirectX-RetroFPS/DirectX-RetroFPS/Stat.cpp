@@ -12,9 +12,14 @@ void Stat::SetToMaxValue()
 	m_currentValue = m_maxValue;
 }
 
-void Stat::Decrease(float damage)
+void Stat::Set(float value)
 {
-	m_currentValue -= damage;
+	m_currentValue = value;
+}
+
+void Stat::Decrease(float amount)
+{
+	m_currentValue -= amount;
 }
 
 void Stat::Increase(float amount)

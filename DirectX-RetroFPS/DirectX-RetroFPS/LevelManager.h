@@ -10,8 +10,8 @@ public:
 	LevelManager(Graphics& graphics, Player& player);
 	~LevelManager() = default;
 
-	void LoadLevel(Graphics& graphics, int levelIndex);
-	void LoadNextLevel(Graphics& graphics);
+	void LoadLevel(Graphics& graphics, Player& player, int levelIndex);
+	void LoadNextLevel(Graphics& graphics, Player& player);
 
 	void DrawCurrentLevel(Graphics& graphics);
 	void UpdateCurrentLevel(float deltaTime);
@@ -21,7 +21,6 @@ public:
 
 	bool IsLevelComplete(Graphics& graphics, Player& player);
 	bool IsLastLevel();
-	void ResetLevel(Graphics& graphics);
 
 private:
 	int m_currentLevelIndex = 0;

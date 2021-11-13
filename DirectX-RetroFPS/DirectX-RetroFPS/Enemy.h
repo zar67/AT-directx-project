@@ -83,4 +83,8 @@ private:
 
 	void RotateToPlayer();
 	void UpdateFacingDirection();
+
+	float m_hitTimer = 0;
+	float m_hitDelay = 1;
+	bool m_isDelayingHit = false;
 };

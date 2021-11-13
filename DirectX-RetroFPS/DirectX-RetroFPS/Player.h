@@ -20,6 +20,7 @@ public:
 	Stat& GetArmor();
 
 	void HandleDamaged(float value);
+	void Reset();
 
 	void HasKey(bool key);
 	bool HasKey();

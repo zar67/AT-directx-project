@@ -6,6 +6,12 @@ Demon::Demon(Graphics& graphics, Player& player) : Enemy(graphics, player)
 	m_pSpriteSheet = spriteSheet.get();
 	AddBindable(std::move(spriteSheet));
 
+	m_pSpriteSheet->SetCoordsToSpriteAt(0, m_textureCoords);
+	for (int i = 0; i < 4; i++)
+	{
+		m_vertices[i].TextureCoords = m_textureCoords[i].Coordinate;
+	}
+
 	m_animationMap = {
 		{Enemy::EnemyState::IDLE, {
 			{Enemy::FaceDirection::FORWARDS, Animation(m_pSpriteSheet, { 0, 8, 16, 24 }, 5)},

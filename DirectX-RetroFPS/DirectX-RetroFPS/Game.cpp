@@ -33,7 +33,7 @@ int Game::Run()
 
 void Game::Init()
 {
-	m_levelManager.LoadLevel(m_window.GetGraphics(), 0);
+	m_levelManager.LoadLevel(m_window.GetGraphics(), m_player, 0);
 }
 
 void Game::Update(float deltaTime)
@@ -59,28 +59,24 @@ void Game::Update(float deltaTime)
 				}
 				else
 				{
-					m_levelManager.LoadNextLevel(m_window.GetGraphics());
+					m_levelManager.LoadNextLevel(m_window.GetGraphics(), m_player);
 				}
+			}
+
+			if (m_player.GetHealth().IsZero())
+			{
+				m_UIManager.GoToScreen(ScreenType::GAME_OVER);
+				m_levelManager.LoadLevel(m_window.GetGraphics(), m_player, 0);
+				m_player.Reset();
 			}
 		}
 	}
 
 	m_window.GetGraphics().GetCamera()->UpdateViewMatrix();
 
-	ScreenType previousScreen = m_UIManager.GetCurrentScreenID();
 	m_UIManager.Update(deltaTime);
 
-	if (previousScreen != ScreenType::GAME_HUD && m_UIManager.GetCurrentScreenID() == ScreenType::GAME_HUD)
-	{
-		m_levelManager.ResetLevel(m_window.GetGraphics());
-	}
-
 	m_window.GetInput().UpdateStates();
-
-	if (m_player.GetHealth().IsZero())
-	{
-		m_UIManager.GoToScreen(ScreenType::GAME_OVER);
-	}
 }
 
 void Game::HandleInput()

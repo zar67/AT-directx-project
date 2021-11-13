@@ -15,7 +15,9 @@ public:
 	Level(Graphics& graphics, Player& player, std::string filename);
 	~Level() = default;
 
-	void Initialise(Graphics& graphics);
+	void Initialise();
+	void Reset(Graphics& graphics, Player& player);
+
 	void Draw(Graphics& graphics);
 	void Update(float deltaTime);
 	void HandleCollisions(Graphics& graphics);
@@ -53,6 +55,8 @@ private:
 	std::vector<std::unique_ptr<Pickup>> m_pickups;
 
 	std::unique_ptr<LevelExit> m_pLevelExit;
+
+	std::string m_filename;
 
 	PixelConstantBuffer<Light::LightBufferData> m_lightConstantBuffer;
 };

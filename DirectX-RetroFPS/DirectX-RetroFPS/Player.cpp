@@ -70,6 +70,13 @@ void Player::HandleDamaged(float value)
 	}
 }
 
+void Player::Reset()
+{
+	m_health.SetToMaxValue();
+	m_armor.Set(0);
+	m_hasKey = false;
+}
+
 void Player::HasKey(bool key)
 {
 	m_hasKey = key;

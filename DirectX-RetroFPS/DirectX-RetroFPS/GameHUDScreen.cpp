@@ -80,7 +80,19 @@ GameHUDScreen::GameHUDScreen(Graphics& graphics)
 
 void GameHUDScreen::UpdateHUD(Player& player)
 {
-	int characterIndex = (int)player.GetHealth().GetCurrentValue() / ((int)player.GetHealth().GetMaxValue() / 5);
+	int characterIndex = 4 - (int)player.GetHealth().GetCurrentValue() / ((int)player.GetHealth().GetMaxValue() / 4);
+	characterIndex--;
+
+	if (characterIndex < 0)
+	{
+		characterIndex = 0;
+	}
+
+	if (player.GetHealth().GetCurrentValue() == 0)
+	{
+		characterIndex = 4;
+	}
+
 	m_pCharacterDisplay->ChangeSprite(characterIndex);
 
 	m_pHealthText->SetText(std::to_string((int)player.GetHealth().GetCurrentValue()));

@@ -14,19 +14,36 @@
 Level::Level(Graphics& graphics, Player& player, std::string filename) :
 	m_lightConstantBuffer(graphics)
 {
+	m_filename = filename;
 	m_pPlayer = &player;
 
 	m_startingPosition = Vector(0.0f, 0.0f, 0.0f);
 	m_startLookRotation = 0;
 
-	GenerateDataFromFile(graphics, filename);
+	Reset(graphics, player);
 }
 
-void Level::Initialise(Graphics& graphics)
+void Level::Initialise()
 {
 	m_pPlayer->GetTransform().Position.Set(m_startingPosition.X, m_startingPosition.Y, m_startingPosition.Z);
 	m_pPlayer->LockYPosition(m_startingPosition.Y);
 	m_pPlayer->GetTransform().Rotation.Set(0.0f, m_startLookRotation, 0.0f);
+}
+
+void Level::Reset(Graphics& graphics, Player& player)
+{
+	m_startingPosition = Vector(0.0f, 0.0f, 0.0f);
+	m_startLookRotation = 0;
+
+	m_geometry.clear();
+	m_enemies.clear();
+	m_lights.clear();
+	m_pickups.clear();
+
+	m_pLevelExit = nullptr;
+
+	GenerateDataFromFile(graphics, m_filename);
+	Initialise();
 }
 
 void Level::Draw(Graphics& graphics)

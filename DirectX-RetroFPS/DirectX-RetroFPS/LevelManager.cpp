@@ -12,18 +12,21 @@ LevelManager::LevelManager(Graphics& graphics, Player& player)
 	}
 }
 
-void LevelManager::LoadLevel(Graphics& graphics, int levelIndex)
+void LevelManager::LoadLevel(Graphics& graphics, Player& player, int levelIndex)
 {
-	m_currentLevelIndex = levelIndex;
-	m_levels[levelIndex]->Initialise(graphics);
+	if (levelIndex < m_levels.size())
+	{
+		m_currentLevelIndex = levelIndex;
+		m_levels[levelIndex]->Reset(graphics, player);
+	}
 }
 
-void LevelManager::LoadNextLevel(Graphics& graphics)
+void LevelManager::LoadNextLevel(Graphics& graphics, Player& player)
 {
 	if (m_currentLevelIndex + 1 < m_levels.size())
 	{
 		m_currentLevelIndex++;
-		m_levels[m_currentLevelIndex]->Initialise(graphics);
+		m_levels[m_currentLevelIndex]->Reset(graphics, player);
 	}
 }
 
@@ -45,11 +48,6 @@ bool LevelManager::IsLevelComplete(Graphics& graphics, Player& player)
 bool LevelManager::IsLastLevel()
 {
 	return m_currentLevelIndex + 1 >= m_levels.size();
-}
-
-void LevelManager::ResetLevel(Graphics& graphics)
-{
-	m_levels[m_currentLevelIndex]->Initialise(graphics);
 }
 
 void LevelManager::UpdateCurrentLevel(float deltaTime)
