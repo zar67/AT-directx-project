@@ -1,5 +1,4 @@
 #include "GameHUDScreen.h"
-#include "ImageElement.h"
 
 GameHUDScreen::GameHUDScreen(Graphics& graphics)
 {
@@ -70,6 +69,13 @@ GameHUDScreen::GameHUDScreen(Graphics& graphics)
 	m_pCannonBulletsText = cannonText.get();
 
 	AddElement(std::move(cannonText), graphics.GetCamera());
+
+	std::unique_ptr<ImageElement> hudKey = std::make_unique<ImageElement>(graphics, "Assets\\UI\\key.png");
+	hudKey->SetOffset(Vector(1.95f, -3.35f, 4.0f));
+	hudKey->GetTransform().ApplyScalar(0.15f, 0.25f, 1.0f);
+	m_pKeyImage = hudKey.get();
+
+	AddElement(std::move(hudKey), graphics.GetCamera());
 }
 
 void GameHUDScreen::UpdateHUD(Player& player)
