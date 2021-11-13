@@ -19,6 +19,8 @@ public:
 
 	Level* GetCurrentLevel();
 
+	void ResetLevel(Graphics& graphics);
+
 private:
 	int m_currentLevelIndex = 0;
 	std::vector<std::unique_ptr<Level>> m_levels;

@@ -54,7 +54,14 @@ void Game::Update(float deltaTime)
 	}
 
 	m_window.GetGraphics().GetCamera()->UpdateViewMatrix();
+
+	ScreenType previousScreen = m_UIManager.GetCurrentScreenID();
 	m_UIManager.Update(deltaTime);
+
+	if (previousScreen != ScreenType::GAME_HUD && m_UIManager.GetCurrentScreenID() == ScreenType::GAME_HUD)
+	{
+		m_levelManager.ResetLevel(m_window.GetGraphics());
+	}
 
 	m_window.GetInput().UpdateStates();
 
