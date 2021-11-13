@@ -19,6 +19,8 @@ public:
 	Stat& GetHealth();
 	Stat& GetArmor();
 
+	bool HasKey();
+		
 	void LockYPosition(float y);
 
 private:
@@ -38,6 +40,8 @@ private:
 	Shooter m_shooter;
 	Stat m_health;
 	Stat m_armor;
+
+	bool m_hasKey = false;
 
 	float m_yLockPosition;
 

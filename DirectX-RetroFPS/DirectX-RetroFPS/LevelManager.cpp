@@ -20,8 +20,11 @@ void LevelManager::LoadLevel(Graphics& graphics, int levelIndex)
 
 void LevelManager::LoadNextLevel(Graphics& graphics)
 {
-	m_currentLevelIndex++;
-	m_levels[m_currentLevelIndex]->Initialise(graphics);
+	if (m_currentLevelIndex + 1 < m_levels.size())
+	{
+		m_currentLevelIndex++;
+		m_levels[m_currentLevelIndex]->Initialise(graphics);
+	}
 }
 
 void LevelManager::DrawCurrentLevel(Graphics& graphics)
@@ -32,6 +35,16 @@ void LevelManager::DrawCurrentLevel(Graphics& graphics)
 Level* LevelManager::GetCurrentLevel()
 {
 	return m_levels[m_currentLevelIndex].get();
+}
+
+bool LevelManager::IsLevelComplete(Graphics& graphics, Player& player)
+{
+	return m_levels[m_currentLevelIndex]->IsLevelComplete(player);
+}
+
+bool LevelManager::IsLastLevel()
+{
+	return m_currentLevelIndex + 1 >= m_levels.size();
 }
 
 void LevelManager::ResetLevel(Graphics& graphics)

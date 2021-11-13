@@ -58,6 +58,11 @@ Stat& Player::GetArmor()
 	return m_armor;
 }
 
+bool Player::HasKey()
+{
+	return m_hasKey;
+}
+
 void Player::LockYPosition(float y)
 {
 	m_transform.ConstrainYPosition = false;

@@ -64,6 +64,13 @@ void Level::Draw(Graphics& graphics)
 			m_pickups[i]->Draw(graphics);
 		}
 	}
+
+	m_pLevelExit->Draw(graphics);
+}
+
+bool Level::IsLevelComplete(Player& player)
+{
+	return player.HasKey() && m_pLevelExit->IsColliding();
 }
 
 int Level::GetGeometryCount()
@@ -109,6 +116,8 @@ void Level::Update(float deltaTime)
 			m_pickups[i]->Update(deltaTime);
 		}
 	}
+
+	m_pLevelExit->Update(deltaTime);
 }
 
 void Level::HandleCollisions(Graphics& graphics)
@@ -161,6 +170,17 @@ void Level::HandleCollisions(Graphics& graphics)
 					drawableA->OnCollision(collision, drawableB);
 					drawableB->OnCollision(collision, drawableA);
 				}
+			}
+		}
+
+		if (CollisionUtilities::IsCollisionPossible(m_pPlayer->GetCollider(), m_pLevelExit->GetCollider()))
+		{
+			CollisionUtilities::ColliderCollision collision = CollisionUtilities::IsColliding(m_pPlayer->GetCollider(), m_pLevelExit->GetCollider());
+			if (collision.IsColliding)
+			{
+				CollisionUtilities::ResolveCollision(collision);
+				m_pPlayer->OnCollision(collision, m_pLevelExit.get());
+				m_pLevelExit->OnCollision(collision, m_pPlayer);
 			}
 		}
 	}
@@ -353,6 +373,9 @@ void Level::ParseLevelDataCharacter(Graphics& graphics, char character, float xP
 		}
 		case 'F': // Level End Position
 		{
+			m_pLevelExit = std::make_unique<LevelExit>(graphics);
+			m_pLevelExit->GetTransform().ApplyScalar(1.0f, 2.0f, 1.0f);
+			m_pLevelExit->GetTransform().ApplyTranslation(xPosition, yPosition + UNIT_SIZE, zPosition);
 			break;
 		}
 		case 'M': // Demon

@@ -300,6 +300,9 @@
     <ClCompile Include="TextBindable.cpp">
       <Filter>Source\Source Files\Graphics\Bindable</Filter>
     </ClCompile>
+    <ClCompile Include="LevelExit.cpp">
+      <Filter>Source\Source Files\Game\Levels</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ErrorLogger.h">
@@ -577,6 +580,12 @@
     </ClInclude>
     <ClInclude Include="TextBindable.h">
       <Filter>Source\Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelExit.h">
+      <Filter>Source\Header Files\Game\Levels</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

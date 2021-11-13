@@ -6,6 +6,7 @@
 #include "Light.h"
 #include "Enemy.h"
 #include "Pickup.h"
+#include "LevelExit.h"
 
 class Level
 {
@@ -17,6 +18,8 @@ public:
 	void Draw(Graphics& graphics);
 	void Update(float deltaTime);
 	void HandleCollisions(Graphics& graphics);
+
+	bool IsLevelComplete(Player& player);
 
 	int GetGeometryCount();
 	DrawableBase* GetGeometryAtIndex(int index);
@@ -47,6 +50,8 @@ private:
 	std::vector<std::unique_ptr<Enemy>> m_enemies;
 	std::vector<std::unique_ptr<Light>> m_lights;
 	std::vector<std::unique_ptr<Pickup>> m_pickups;
+
+	std::unique_ptr<LevelExit> m_pLevelExit;
 
 	PixelConstantBuffer<Light::LightBufferData> m_lightConstantBuffer;
 };

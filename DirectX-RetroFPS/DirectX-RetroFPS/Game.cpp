@@ -50,6 +50,18 @@ void Game::Update(float deltaTime)
 
 			m_levelManager.UpdateCurrentLevel(deltaTime);
 			m_levelManager.HandleCurrentLevelCollisions(m_window.GetGraphics());
+			
+			if (m_levelManager.IsLevelComplete(m_window.GetGraphics(), m_player))
+			{
+				if (m_levelManager.IsLastLevel())
+				{
+					m_UIManager.GoToScreen(ScreenType::MAIN_MENU);
+				}
+				else
+				{
+					m_levelManager.LoadNextLevel(m_window.GetGraphics());
+				}
+			}
 		}
 	}
 
