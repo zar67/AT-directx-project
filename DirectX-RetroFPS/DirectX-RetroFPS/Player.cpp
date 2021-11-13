@@ -58,6 +58,11 @@ Stat& Player::GetArmor()
 	return m_armor;
 }
 
+void Player::HasKey(bool key)
+{
+	m_hasKey = key;
+}
+
 bool Player::HasKey()
 {
 	return m_hasKey;

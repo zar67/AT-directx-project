@@ -7,6 +7,7 @@
 #include "Enemy.h"
 #include "Pickup.h"
 #include "LevelExit.h"
+#include "KeyPickup.h"
 
 class Level
 {

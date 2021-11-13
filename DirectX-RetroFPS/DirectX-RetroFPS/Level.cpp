@@ -219,6 +219,12 @@ void Level::HandleCollisions(Graphics& graphics)
 	for (auto& pickup : m_pickups)
 	{
 		DrawableBase* drawable = pickup.get();
+
+		if (!drawable->IsActive())
+		{
+			continue;
+		}
+
 		if (CollisionUtilities::IsCollisionPossible(drawable->GetCollider(), m_pPlayer->GetCollider()))
 		{
 			CollisionUtilities::ColliderCollision collision = CollisionUtilities::IsColliding(drawable->GetCollider(), m_pPlayer->GetCollider());
@@ -369,6 +375,9 @@ void Level::ParseLevelDataCharacter(Graphics& graphics, char character, float xP
 		}
 		case 'K': // Key
 		{
+			std::unique_ptr<KeyPickup> keyPickup = std::make_unique<KeyPickup>(graphics, *m_pPlayer);
+			keyPickup->GetTransform().ApplyTranslation(xPosition, yPosition, zPosition);
+			m_pickups.push_back(std::move(keyPickup));
 			break;
 		}
 		case 'F': // Level End Position

@@ -19,6 +19,7 @@ public:
 	Stat& GetHealth();
 	Stat& GetArmor();
 
+	void HasKey(bool key);
 	bool HasKey();
 		
 	void LockYPosition(float y);

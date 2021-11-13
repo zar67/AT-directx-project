@@ -91,6 +91,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="GameHUDScreen.cpp" />
     <ClCompile Include="GameOverScreen.cpp" />
+    <ClCompile Include="KeyPickup.cpp" />
     <ClCompile Include="LevelExit.cpp" />
     <ClCompile Include="Stat.cpp" />
     <ClCompile Include="HealthPickup.cpp" />
@@ -150,6 +151,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="GameHUDScreen.h" />
     <ClInclude Include="GameOverScreen.h" />
+    <ClInclude Include="KeyPickup.h" />
     <ClInclude Include="LevelExit.h" />
     <ClInclude Include="Stat.h" />
     <ClInclude Include="HealthPickup.h" />

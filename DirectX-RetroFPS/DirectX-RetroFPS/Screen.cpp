@@ -15,7 +15,10 @@ void Screen::Update(float deltaTime)
 {
 	for (auto& element : m_elements)
 	{
-		element->Update(deltaTime);
+		if (element->IsActive())
+		{
+			element->Update(deltaTime);
+		}
 	}
 }
 
@@ -23,6 +26,9 @@ void Screen::Draw(Graphics& graphics)
 {
 	for (auto& element : m_elements)
 	{
-		element->Draw(graphics);
+		if (element->IsActive())
+		{
+			element->Draw(graphics);
+		}
 	}
 }

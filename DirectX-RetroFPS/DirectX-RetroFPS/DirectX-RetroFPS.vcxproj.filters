@@ -303,6 +303,9 @@
     <ClCompile Include="LevelExit.cpp">
       <Filter>Source\Source Files\Game\Levels</Filter>
     </ClCompile>
+    <ClCompile Include="KeyPickup.cpp">
+      <Filter>Source\Source Files\Game\Pickups</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ErrorLogger.h">
@@ -586,6 +589,9 @@
     </ClInclude>
     <ClInclude Include="LevelExit.h">
       <Filter>Source\Header Files\Game\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyPickup.h">
+      <Filter>Source\Header Files\Game\Pickup</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

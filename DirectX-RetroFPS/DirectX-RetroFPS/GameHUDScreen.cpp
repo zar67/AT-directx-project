@@ -85,4 +85,6 @@ void GameHUDScreen::UpdateHUD(Player& player)
 
 	m_pHealthText->SetText(std::to_string((int)player.GetHealth().GetCurrentValue()));
 	m_pArmorText->SetText(std::to_string((int)player.GetArmor().GetCurrentValue()));
+
+	m_pKeyImage->SetActive(player.HasKey());
 }
