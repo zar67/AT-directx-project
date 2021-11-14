@@ -67,4 +67,6 @@ Demon::Demon(Graphics& graphics, Player& player) : Enemy(graphics, player)
 
 	m_health.SetMaxValue(150.0f);
 	m_health.SetToMaxValue();
+
+	m_movementSpeed = 0;
 }

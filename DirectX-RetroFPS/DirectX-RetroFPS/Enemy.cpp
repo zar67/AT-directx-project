@@ -41,9 +41,16 @@ void Enemy::Draw(Graphics& graphics)
 
 void Enemy::Update(float deltaTime)
 {
+	m_seesPlayer = (m_pPlayer->GetTransform().Position - m_transform.Position).GetMagnitude() < m_playerLookDistance;
+
 	RotateToPlayer();
 	UpdateFacingDirection();
 	
+	if (m_seesPlayer && m_movementSpeed > 0)
+	{
+		MoveToPlayer(deltaTime);
+	}
+
 	m_animationMap[m_currentState][m_currentDirection].Update(deltaTime, m_textureCoords);
 	for (int i = 0; i < 4; i++)
 	{
@@ -162,6 +169,8 @@ void Enemy::UpdateFacingDirection()
 	Vector toCameraVector = cameraTransform.Position - m_transform.Position;
 	toCameraVector.Y = 0;
 
+	m_lookVector = m_seesPlayer ? toCameraVector.GetNormalized() : m_lookVector;
+
 	float dotProduct = Vector::DotProduct(m_lookVector, toCameraVector);
 	float angle = acos(dotProduct / (m_lookVector.GetMagnitude() * toCameraVector.GetMagnitude()));
 
@@ -179,4 +188,14 @@ void Enemy::UpdateFacingDirection()
 		m_currentDirection = (FaceDirection)directionIndex;
 		m_animationMap[m_currentState][m_currentDirection].Reset(previousAnimation.GetCurrentSpriteIndex(), previousAnimation.GetCurrentAnimationTimer());
 	}
+}
+
+void Enemy::MoveToPlayer(float deltaTime)
+{
+	Vector movement = (m_pPlayer->GetTransform().Position - m_transform.Position).GetNormalized();
+	movement.Y = 0;
+	movement *= m_movementSpeed * deltaTime;
+
+	m_transform.ApplyTranslationOnAxes(movement);
+	m_collider.IncreaseVelocity(movement);
 }

@@ -67,4 +67,6 @@ DemonPuppy::DemonPuppy(Graphics& graphics, Player& player) : Enemy(graphics, pla
 
 	m_health.SetMaxValue(200.0f);
 	m_health.SetToMaxValue();
+
+	m_movementSpeed = 5.0f;
 }

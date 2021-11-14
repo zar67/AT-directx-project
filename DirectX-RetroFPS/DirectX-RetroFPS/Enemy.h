@@ -69,6 +69,10 @@ protected:
 	Player* m_pPlayer = nullptr;
 
 	Stat m_health;
+	float m_movementSpeed = 0;
+
+	bool m_seesPlayer = false;
+	float m_playerLookDistance = 6.0f;
 
 	VertexBuffer<Vertex>* m_pVertexBuffer = nullptr;
 	SpriteSheet* m_pSpriteSheet = nullptr;
@@ -84,6 +88,7 @@ private:
 
 	void RotateToPlayer();
 	void UpdateFacingDirection();
+	void MoveToPlayer(float deltaTime);
 
 	float m_hurtTimer = 0;
 	float m_hurtDelay = 0.15f;

@@ -67,4 +67,6 @@ Zombie::Zombie(Graphics& graphics, Player& player) : Enemy(graphics, player)
 
 	m_health.SetMaxValue(100.0f);
 	m_health.SetToMaxValue();
+
+	m_movementSpeed = 2.5f;
 }
