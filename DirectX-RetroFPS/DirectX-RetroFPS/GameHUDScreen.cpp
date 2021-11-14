@@ -106,5 +106,10 @@ void GameHUDScreen::UpdateHUD(Player& player)
 	m_pHealthText->SetText(std::to_string((int)player.GetHealth().GetCurrentValue()));
 	m_pArmorText->SetText(std::to_string((int)player.GetArmor().GetCurrentValue()));
 
+	m_pPistolBulletsText->SetText(std::to_string(player.GetWeaponOfType(WeaponType::PISTOL)->GetBullets()));
+	m_pRifleBulletsText->SetText(std::to_string(player.GetWeaponOfType(WeaponType::RIFLE)->GetBullets()));
+	m_pShotgunBulletsText->SetText(std::to_string(player.GetWeaponOfType(WeaponType::SHOTGUN)->GetBullets()));
+	m_pCannonBulletsText->SetText(std::to_string(player.GetWeaponOfType(WeaponType::CANNON)->GetBullets()));
+
 	m_pKeyImage->SetActive(player.HasKey());
 }
