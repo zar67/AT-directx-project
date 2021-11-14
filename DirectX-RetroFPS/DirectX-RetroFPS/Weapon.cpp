@@ -60,6 +60,11 @@ bool Weapon::CanFire()
 	return m_reloadTimer >= m_reloadDelay && (m_bullets > 0 || m_infiniteBullets);
 }
 
+bool Weapon::ShowShootImage()
+{
+	return m_reloadTimer <= m_shootImageDelay;
+}
+
 WeaponType Weapon::GetType()
 {
 	return m_weaponType;

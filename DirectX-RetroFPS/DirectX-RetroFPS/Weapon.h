@@ -18,6 +18,7 @@ public:
 
 	void Fired();
 	bool CanFire();
+	bool ShowShootImage();
 	WeaponType GetType();
 
 private:
@@ -31,4 +32,6 @@ private:
 
 	float m_reloadDelay;
 	float m_reloadTimer;
+
+	float m_shootImageDelay = 0.1f;
 };

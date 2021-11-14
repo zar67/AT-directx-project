@@ -102,36 +102,38 @@ void GameHUDScreen::UpdateHUD(Player& player)
 	}
 
 	m_pCharacterDisplay->ChangeSprite(characterIndex);
+
+	bool showShootImage = player.GetShooter().GetWeapon()->ShowShootImage();
 	switch (player.GetShooter().GetWeapon()->GetType())
 	{
 		case WeaponType::FIST:
 		{
-			m_pHUDWeapons->ChangeSprite(0);
+			m_pHUDWeapons->ChangeSprite(showShootImage ? 1 : 0);
 			break;
 		}
 		case WeaponType::CHAINSAW:
 		{
-			m_pHUDWeapons->ChangeSprite(10);
+			m_pHUDWeapons->ChangeSprite(showShootImage ? 11 : 10);
 			break;
 		}
 		case WeaponType::PISTOL:
 		{
-			m_pHUDWeapons->ChangeSprite(2);
+			m_pHUDWeapons->ChangeSprite(showShootImage ? 3 : 2);
 			break;
 		}
 		case WeaponType::RIFLE:
 		{
-			m_pHUDWeapons->ChangeSprite(4);
+			m_pHUDWeapons->ChangeSprite(showShootImage ? 5 : 4);
 			break;
 		}
 		case WeaponType::SHOTGUN:
 		{
-			m_pHUDWeapons->ChangeSprite(6);
+			m_pHUDWeapons->ChangeSprite(showShootImage ? 7 : 6);
 			break;
 		}
 		case WeaponType::CANNON:
 		{
-			m_pHUDWeapons->ChangeSprite(8);
+			m_pHUDWeapons->ChangeSprite(showShootImage ? 9 : 8);
 			break;
 		}
 	}
