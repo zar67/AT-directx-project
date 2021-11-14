@@ -7,7 +7,7 @@ Weapon::Weapon(WeaponType type, float damage, int defaultBullets, float reloadDe
 	m_range = range;
 	m_bullets = defaultBullets;
 	m_reloadDelay = reloadDelay;
-	m_infiniteBullets = infiniteBullets;
+	m_hasInfiniteBullets = infiniteBullets;
 	m_reloadTimer = 0;
 }
 
@@ -47,7 +47,7 @@ void Weapon::Fired()
 {
 	m_reloadTimer = 0;
 
-	if (!m_infiniteBullets)
+	if (!m_hasInfiniteBullets)
 	{
 		m_bullets--;
 	}
@@ -55,7 +55,7 @@ void Weapon::Fired()
 
 bool Weapon::CanFire()
 {
-	return m_reloadTimer >= m_reloadDelay && (m_bullets > 0 || m_infiniteBullets);
+	return m_reloadTimer >= m_reloadDelay && (m_bullets > 0 || m_hasInfiniteBullets);
 }
 
 bool Weapon::ShowShootImage()
