@@ -2,10 +2,11 @@
 
 #include <iostream>
 
-Weapon::Weapon(WeaponType type, float damage, int defaultBullets, float reloadDelay, bool infiniteBullets)
+Weapon::Weapon(WeaponType type, float damage, int defaultBullets, float reloadDelay, float range, bool infiniteBullets)
 {
 	m_weaponType = type;
 	m_damage = damage;
+	m_range = range;
 	m_bullets = defaultBullets;
 	m_reloadDelay = reloadDelay;
 	m_infiniteBullets = infiniteBullets;
@@ -34,6 +35,11 @@ float Weapon::GetDamage()
 	return m_damage;
 }
 
+float Weapon::GetRange()
+{
+	return m_range;
+}
+
 void Weapon::Update(float deltaTime)
 {
 	m_reloadTimer += deltaTime;
@@ -52,4 +58,9 @@ void Weapon::Fired()
 bool Weapon::CanFire()
 {
 	return m_reloadTimer >= m_reloadDelay && (m_bullets > 0 || m_infiniteBullets);
+}
+
+WeaponType Weapon::GetType()
+{
+	return m_weaponType;
 }

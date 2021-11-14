@@ -10,7 +10,6 @@ class Shooter
 public:
 	Shooter() = default;
 
-	void SetDamage(float damage);
 	void SetParent(DrawableBase* drawable);
 
 	void StartShoot(Ray ray);
@@ -22,6 +21,7 @@ public:
 	bool IsShooting();
 	Ray& GetShootRay();
 
+	Weapon* GetWeapon();
 	void SetWeapon(Weapon* weapon);
 
 private:
@@ -32,6 +32,5 @@ private:
 
 	Weapon* m_pWeapon = nullptr;
 
-	float m_damage;
 	DrawableBase* m_pParent = nullptr;
 };

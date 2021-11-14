@@ -4,7 +4,7 @@ GameHUDScreen::GameHUDScreen(Graphics& graphics)
 {
 	m_screenType = ScreenType::GAME_HUD;
 
-	std::unique_ptr<AnimatedImageElement> hudWeapons = std::make_unique<AnimatedImageElement>(graphics, "Assets\\UI\\doom_weapons_ui.png", 8, 2);
+	std::unique_ptr<AnimatedImageElement> hudWeapons = std::make_unique<AnimatedImageElement>(graphics, "Assets\\UI\\doom_weapons_ui.png", 6, 2);
 	hudWeapons->SetOffset(Vector(0.0f, 0.0f, 6.0f));
 	hudWeapons->GetTransform().ApplyScalar(8.0f, 6.0f, 1.0f);
 	hudWeapons->ChangeSprite(0);
@@ -102,6 +102,39 @@ void GameHUDScreen::UpdateHUD(Player& player)
 	}
 
 	m_pCharacterDisplay->ChangeSprite(characterIndex);
+	switch (player.GetShooter().GetWeapon()->GetType())
+	{
+		case WeaponType::FIST:
+		{
+			m_pHUDWeapons->ChangeSprite(0);
+			break;
+		}
+		case WeaponType::CHAINSAW:
+		{
+			m_pHUDWeapons->ChangeSprite(10);
+			break;
+		}
+		case WeaponType::PISTOL:
+		{
+			m_pHUDWeapons->ChangeSprite(2);
+			break;
+		}
+		case WeaponType::RIFLE:
+		{
+			m_pHUDWeapons->ChangeSprite(4);
+			break;
+		}
+		case WeaponType::SHOTGUN:
+		{
+			m_pHUDWeapons->ChangeSprite(6);
+			break;
+		}
+		case WeaponType::CANNON:
+		{
+			m_pHUDWeapons->ChangeSprite(8);
+			break;
+		}
+	}
 
 	m_pHealthText->SetText(std::to_string((int)player.GetHealth().GetCurrentValue()));
 	m_pArmorText->SetText(std::to_string((int)player.GetArmor().GetCurrentValue()));

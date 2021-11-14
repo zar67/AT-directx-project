@@ -3,6 +3,7 @@
 enum class WeaponType
 {
 	FIST,
+	CHAINSAW,
 	PISTOL,
 	RIFLE,
 	SHOTGUN,

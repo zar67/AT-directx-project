@@ -2,11 +2,6 @@
 
 #include "Shooter.h"
 
-void Shooter::SetDamage(float damage)
-{
-	m_damage = damage;
-}
-
 void Shooter::SetParent(DrawableBase* drawable)
 {
 	m_pParent = drawable;
@@ -38,9 +33,9 @@ void Shooter::RegisterCollision(CollisionUtilities::RayCollision collision, Draw
 
 void Shooter::HandleHit()
 {
-	if (m_nearestCollisionDrawable != nullptr)
+	if (m_nearestCollisionDrawable != nullptr && m_nearestCollision.IntersectionDistance <= m_pWeapon->GetRange())
 	{
-		m_nearestCollisionDrawable->OnShot(m_pParent, m_damage, m_nearestCollision.IntersectionPosition);
+		m_nearestCollisionDrawable->OnShot(m_pParent, m_pWeapon->GetDamage(), m_nearestCollision.IntersectionPosition);
 	}
 }
 
@@ -57,6 +52,11 @@ bool Shooter::IsShooting()
 Ray& Shooter::GetShootRay()
 {
 	return m_shootRay;
+}
+
+Weapon* Shooter::GetWeapon()
+{
+	return m_pWeapon;
 }
 
 void Shooter::SetWeapon(Weapon* weapon)
