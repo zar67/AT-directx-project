@@ -1,7 +1,5 @@
 #include "Weapon.h"
 
-#include <iostream>
-
 Weapon::Weapon(WeaponType type, float damage, int defaultBullets, float reloadDelay, float range, bool infiniteBullets)
 {
 	m_weaponType = type;

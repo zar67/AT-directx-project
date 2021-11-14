@@ -1,5 +1,4 @@
 #include "CollisionUtilities.h"
-#include <iostream>
 
 bool CollisionUtilities::IsCollisionPossible(OBBCollider& colliderOne, OBBCollider& colliderTwo)
 {
