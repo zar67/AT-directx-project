@@ -5,7 +5,7 @@
 class Weapon
 {
 public:
-	Weapon(WeaponType type, float damage, int defaultBullets, float reloadDelay, float range, bool infiniteBullets);
+	Weapon(WeaponType type, float damage, int defaultBullets, float reloadDelay, float range, bool hasInfiniteBullets);
 	~Weapon() = default;
 
 	void AddBullets(int amount);
@@ -27,7 +27,7 @@ private:
 	float m_damage;
 	float m_range;
 
-	bool m_infiniteBullets;
+	bool m_hasInfiniteBullets;
 	int m_bullets;
 
 	float m_reloadDelay;
