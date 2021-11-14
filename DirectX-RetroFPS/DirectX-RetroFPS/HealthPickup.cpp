@@ -14,7 +14,7 @@ void HealthPickup::OnCollision(CollisionUtilities::ColliderCollision collision, 
 	Player* player = dynamic_cast<Player*>(other);
 	if (player != nullptr)
 	{
-		if (player->GetHealth().GetCurrentValue() <= player->GetHealth().GetMaxValue() - m_healAmount)
+		if (player->GetHealth().GetCurrentValue() != player->GetHealth().GetMaxValue())
 		{
 			player->GetHealth().Increase(m_healAmount);
 			SetActive(false);

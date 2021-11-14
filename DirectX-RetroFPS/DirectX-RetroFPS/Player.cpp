@@ -19,13 +19,21 @@ Player::Player(Input& input, float windowWidth, float windowHeight, float moveme
 
 	InitialiseCollider();
 
-	m_shooter.SetDamage(10.0f);
 	m_shooter.SetParent(this);
 
 	m_health.SetMaxValue(100.0f);
 	m_health.SetToMaxValue();
 
 	m_armor.SetMaxValue(100.0f);
+
+	m_weapons[WeaponType::FIST] = std::make_unique<Weapon>(WeaponType::FIST, 2.0f, 0, 0.2f, 4.0f, true);
+	m_weapons[WeaponType::CHAINSAW] = std::make_unique<Weapon>(WeaponType::CHAINSAW, 5.0f, 0, 0.5f, 4.0f, true);
+	m_weapons[WeaponType::PISTOL] = std::make_unique<Weapon>(WeaponType::PISTOL, 10.0f, 10, 0.5f, 15.0f, false);
+	m_weapons[WeaponType::RIFLE] = std::make_unique<Weapon>(WeaponType::RIFLE, 15.0f, 20, 0.2f, 15.0f, false);
+	m_weapons[WeaponType::SHOTGUN] = std::make_unique<Weapon>(WeaponType::SHOTGUN, 20.0f, 5, 1.0f, 8.0f, false);
+	m_weapons[WeaponType::CANNON] = std::make_unique<Weapon>(WeaponType::CANNON, 25.0f, 1, 2.0f, 8.0f, false);
+
+	m_shooter.SetWeapon(m_weapons[WeaponType::FIST].get());
 }
 
 void Player::Update(float deltaTime)
@@ -75,6 +83,11 @@ void Player::Reset()
 	m_health.SetToMaxValue();
 	m_armor.Set(0);
 	m_hasKey = false;
+}
+
+Weapon* Player::GetWeaponOfType(WeaponType type)
+{
+	return m_weapons[type].get();
 }
 
 void Player::HasKey(bool key)
@@ -157,9 +170,9 @@ void Player::ClampRotation()
 void Player::UpdateShooting(float deltaTime)
 {
 	bool shoot = m_pInput->GetMouse().GetLeftButtonState() == MouseEvent::ButtonState::PRESSED;
-	m_shooter.StartShoot(Ray());
+	m_shooter.ClearShooter();
 
-	if (shoot)
+	if (shoot && m_shooter.CanShoot())
 	{
 		DirectX::XMMATRIX cameraRotationMatrix = DirectX::XMMatrixRotationRollPitchYaw(m_transform.Rotation.X, m_transform.Rotation.Y, m_transform.Rotation.Z);
 		DirectX::XMVECTOR cameraTarget = DirectX::XMVector3TransformCoord(DirectX::XMVectorSet(0.0f, 0.0f, -1.0f, 0.0f), cameraRotationMatrix);
@@ -173,5 +186,35 @@ void Player::UpdateShooting(float deltaTime)
 		{
 			m_shooter.StartShoot(Ray(m_transform.Position, rayDirection));
 		}
+	}
+
+	for (auto& weapon : m_weapons)
+	{
+		weapon.second->Update(deltaTime);
+	}
+
+	if (m_pInput->GetKeyboard().IsKeyDown('1'))
+	{
+		m_shooter.SetWeapon(m_weapons[WeaponType::FIST].get());
+	}
+	else if (m_pInput->GetKeyboard().IsKeyDown('2'))
+	{
+		m_shooter.SetWeapon(m_weapons[WeaponType::CHAINSAW].get());
+	}
+	else if (m_pInput->GetKeyboard().IsKeyDown('3'))
+	{
+		m_shooter.SetWeapon(m_weapons[WeaponType::PISTOL].get());
+	}
+	else if (m_pInput->GetKeyboard().IsKeyDown('4'))
+	{
+		m_shooter.SetWeapon(m_weapons[WeaponType::RIFLE].get());
+	}
+	else if (m_pInput->GetKeyboard().IsKeyDown('5'))
+	{
+		m_shooter.SetWeapon(m_weapons[WeaponType::SHOTGUN].get());
+	}
+	else if (m_pInput->GetKeyboard().IsKeyDown('6'))
+	{
+		m_shooter.SetWeapon(m_weapons[WeaponType::CANNON].get());
 	}
 }

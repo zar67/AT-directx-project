@@ -1,10 +1,13 @@
 #pragma once
 
+#include <map>
+
 #include "Drawable.h"
 #include "Input.h"
 #include "CollisionUtilities.h"
 #include "Shooter.h"
 #include "Stat.h"
+#include "Weapon.h"
 
 class Player : public Drawable<Player>
 {
@@ -21,6 +24,8 @@ public:
 
 	void HandleDamaged(float value);
 	void Reset();
+
+	Weapon* GetWeaponOfType(WeaponType type);
 
 	void HasKey(bool key);
 	bool HasKey();
@@ -44,6 +49,8 @@ private:
 	Shooter m_shooter;
 	Stat m_health;
 	Stat m_armor;
+
+	std::map<WeaponType, std::unique_ptr<Weapon>> m_weapons;
 
 	bool m_hasKey = false;
 

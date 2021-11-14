@@ -87,6 +87,7 @@
     <ClCompile Include="ArmorPickup.cpp" />
     <ClCompile Include="Bindable.cpp" />
     <ClCompile Include="BlendState.cpp" />
+    <ClCompile Include="BulletPickup.cpp" />
     <ClCompile Include="ButtonElement.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="GameHUDScreen.cpp" />
@@ -137,6 +138,7 @@
     <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="Vector.cpp" />
     <ClCompile Include="VertexShader.cpp" />
+    <ClCompile Include="Weapon.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="WinMain.cpp" />
     <ClCompile Include="Zombie.cpp" />
@@ -147,6 +149,7 @@
     <ClInclude Include="ArmorPickup.h" />
     <ClInclude Include="Bindable.h" />
     <ClInclude Include="BlendState.h" />
+    <ClInclude Include="BulletPickup.h" />
     <ClInclude Include="ButtonElement.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="GameHUDScreen.h" />
@@ -207,6 +210,8 @@
     <ClInclude Include="VertexBuffer.h" />
     <ClInclude Include="VertexConstantBuffer.h" />
     <ClInclude Include="VertexShader.h" />
+    <ClInclude Include="Weapon.h" />
+    <ClInclude Include="WeaponType.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="Zombie.h" />
   </ItemGroup>

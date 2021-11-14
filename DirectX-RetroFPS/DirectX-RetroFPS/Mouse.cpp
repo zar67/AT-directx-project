@@ -1,5 +1,4 @@
 #include "Mouse.h"
-#include <iostream>
 
 void Mouse::HandleMessages(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam, int windowWidth, int windowHeight)
 {

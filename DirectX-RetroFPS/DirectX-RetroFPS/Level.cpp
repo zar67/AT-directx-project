@@ -10,6 +10,7 @@
 #include "DemonPuppy.h"
 #include "HealthPickup.h"
 #include "ArmorPickup.h"
+#include "BulletPickup.h"
 
 Level::Level(Graphics& graphics, Player& player, std::string filename) :
 	m_lightConstantBuffer(graphics)
@@ -446,6 +447,12 @@ void Level::ParseLevelDataCharacter(Graphics& graphics, char character, float xP
 		}
 		case 'B': // Bullet Pickup
 		{
+			int type = (rand() % 4) + 2;
+			int bulletAmounts[4] = {5, 10, 5, 2};
+			std::unique_ptr<BulletPickup> pBulletPickup = std::make_unique<BulletPickup>(graphics, *m_pPlayer, (WeaponType)type, bulletAmounts[type - 2]);
+			pBulletPickup->GetTransform().ApplyTranslation(xPosition, yPosition + UNIT_SIZE / 3, zPosition);
+			pBulletPickup->GetTransform().ApplyScalar(UNIT_SIZE / 2, UNIT_SIZE / 2, UNIT_SIZE / 2);
+			m_pickups.emplace_back(std::move(pBulletPickup));
 			break;
 		}
 		case 'N': // Directional Indicator - North

@@ -2,11 +2,6 @@
 
 #include "Shooter.h"
 
-void Shooter::SetDamage(float damage)
-{
-	m_damage = damage;
-}
-
 void Shooter::SetParent(DrawableBase* drawable)
 {
 	m_pParent = drawable;
@@ -14,7 +9,14 @@ void Shooter::SetParent(DrawableBase* drawable)
 
 void Shooter::StartShoot(Ray ray)
 {
+	ClearShooter();
 	m_shootRay = ray;
+	m_pWeapon->Fired();
+}
+
+void Shooter::ClearShooter()
+{
+	m_shootRay = Ray();
 	m_nearestCollision = CollisionUtilities::RayCollision();
 	m_nearestCollision.IntersectionDistance = std::numeric_limits<float>().max();
 	m_nearestCollisionDrawable = nullptr;
@@ -31,10 +33,15 @@ void Shooter::RegisterCollision(CollisionUtilities::RayCollision collision, Draw
 
 void Shooter::HandleHit()
 {
-	if (m_nearestCollisionDrawable != nullptr)
+	if (m_nearestCollisionDrawable != nullptr && m_nearestCollision.IntersectionDistance <= m_pWeapon->GetRange())
 	{
-		m_nearestCollisionDrawable->OnShot(m_pParent, m_damage, m_nearestCollision.IntersectionPosition);
+		m_nearestCollisionDrawable->OnShot(m_pParent, m_pWeapon->GetDamage(), m_nearestCollision.IntersectionPosition);
 	}
+}
+
+bool Shooter::CanShoot()
+{
+	return m_pWeapon->CanFire();
 }
 
 bool Shooter::IsShooting()
@@ -45,4 +52,14 @@ bool Shooter::IsShooting()
 Ray& Shooter::GetShootRay()
 {
 	return m_shootRay;
+}
+
+Weapon* Shooter::GetWeapon()
+{
+	return m_pWeapon;
+}
+
+void Shooter::SetWeapon(Weapon* weapon)
+{
+	m_pWeapon = weapon;
 }

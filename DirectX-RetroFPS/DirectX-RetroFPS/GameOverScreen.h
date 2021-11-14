@@ -8,7 +8,7 @@ class GameOverScreen : public Screen
 {
 public:
 	GameOverScreen(Graphics& graphics);
-	~GameOverScreen() = default;
+	virtual ~GameOverScreen() = default;
 
 	virtual ScreenType HandleInput(Input & input) override;
 

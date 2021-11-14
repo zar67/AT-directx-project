@@ -10,7 +10,7 @@ class Screen
 {
 public:
 	Screen() = default;
-	~Screen() = default;
+	virtual ~Screen() = default;
 
 	void AddElement(std::unique_ptr<UIElement> drawable, Camera* targetCamera);
 	
