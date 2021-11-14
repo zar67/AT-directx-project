@@ -56,14 +56,13 @@ void Enemy::Update(float deltaTime)
 		SetActive(false);
 	}
 
-	if (m_isDelayingHit)
+	if (m_currentState == EnemyState::HURT)
 	{
-		m_hitTimer += deltaTime;
-
-		if (m_hitTimer >= m_hitDelay)
+		m_hurtTimer += deltaTime;
+		if (m_hurtTimer >= m_hurtDelay)
 		{
-			m_hitTimer = 0;
-			m_isDelayingHit = false;
+			m_currentState = EnemyState::IDLE;
+			m_hurtTimer = 0;
 		}
 	}
 }
@@ -73,6 +72,10 @@ void Enemy::OnShot(DrawableBase* shooter, float damage, Vector shotContactPositi
 	if (m_currentState != EnemyState::DEATH)
 	{
 		m_health.Decrease(damage);
+
+		m_currentState = EnemyState::HURT;
+		m_hurtTimer = 0;
+
 		if (m_health.IsZero())
 		{
 			m_currentState = EnemyState::DEATH;
@@ -84,10 +87,9 @@ void Enemy::OnShot(DrawableBase* shooter, float damage, Vector shotContactPositi
 void Enemy::OnCollision(CollisionUtilities::ColliderCollision collision, DrawableBase* other)
 {
 	Player* player = dynamic_cast<Player*>(other);
-	if (player != nullptr && !m_isDelayingHit)
+	if (player != nullptr)
 	{
 		player->HandleDamaged(10.0f);
-		m_isDelayingHit = true;
 	}
 }
 

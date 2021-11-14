@@ -35,6 +35,7 @@ public:
 		IDLE,
 		MOVING,
 		ATTACKING,
+		HURT,
 		DEATH
 	};
 
@@ -84,7 +85,6 @@ private:
 	void RotateToPlayer();
 	void UpdateFacingDirection();
 
-	float m_hitTimer = 0;
-	float m_hitDelay = 1;
-	bool m_isDelayingHit = false;
+	float m_hurtTimer = 0;
+	float m_hurtDelay = 0.15f;
 };

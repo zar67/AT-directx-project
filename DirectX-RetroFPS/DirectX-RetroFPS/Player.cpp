@@ -43,6 +43,17 @@ void Player::Update(float deltaTime)
 	ClampRotation();
 
 	UpdateShooting(deltaTime);
+
+	if (m_isDelayingHit)
+	{
+		m_hitTimer += deltaTime;
+
+		if (m_hitTimer >= m_hitDelay)
+		{
+			m_hitTimer = 0;
+			m_isDelayingHit = false;
+		}
+	}
 }
 
 OBBCollider& Player::GetCollider()
@@ -67,6 +78,11 @@ Stat& Player::GetArmor()
 
 void Player::HandleDamaged(float value)
 {
+	if (m_isDelayingHit)
+	{
+		return;
+	}
+
 	if (m_armor.GetCurrentValue() > value / 2)
 	{
 		m_armor.Decrease(value / 2);
@@ -76,6 +92,8 @@ void Player::HandleDamaged(float value)
 	{
 		m_health.Decrease(value);
 	}
+
+	m_isDelayingHit = true;
 }
 
 void Player::Reset()

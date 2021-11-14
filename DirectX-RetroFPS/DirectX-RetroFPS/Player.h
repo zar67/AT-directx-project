@@ -61,4 +61,8 @@ private:
 	DirectX::XMFLOAT2 m_deadZoneSize;
 
 	const float LOOK_Y_CLAMP = 45.0f;
+
+	float m_hitTimer = 0;
+	float m_hitDelay = 1;
+	bool m_isDelayingHit = false;
 };

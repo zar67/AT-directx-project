@@ -43,6 +43,16 @@ Zombie::Zombie(Graphics& graphics, Player& player) : Enemy(graphics, player)
 			{Enemy::FaceDirection::RIGHT, Animation(m_pSpriteSheet, { 70, 78 }, 5)},
 			{Enemy::FaceDirection::FORWARDS_RIGHT, Animation(m_pSpriteSheet, { 71, 79 }, 5)}
 		}},
+		{Enemy::EnemyState::HURT, {
+			{Enemy::FaceDirection::FORWARDS, Animation(m_pSpriteSheet, { 96 }, 5)},
+			{Enemy::FaceDirection::FORWARDS_LEFT, Animation(m_pSpriteSheet, { 97 }, 5)},
+			{Enemy::FaceDirection::LEFT, Animation(m_pSpriteSheet, { 98 }, 5)},
+			{Enemy::FaceDirection::BACKWARDS_LEFT, Animation(m_pSpriteSheet, { 99 }, 5)},
+			{Enemy::FaceDirection::BACKWARDS, Animation(m_pSpriteSheet, { 100 }, 5)},
+			{Enemy::FaceDirection::BACKWARDS_RIGHT, Animation(m_pSpriteSheet, { 101 }, 5)},
+			{Enemy::FaceDirection::RIGHT, Animation(m_pSpriteSheet, { 102 }, 5)},
+			{Enemy::FaceDirection::FORWARDS_RIGHT, Animation(m_pSpriteSheet, { 103 }, 5)}
+		}},
 		{Enemy::EnemyState::DEATH, {
 			{Enemy::FaceDirection::FORWARDS, Animation(m_pSpriteSheet, { 96, 104, 112, 120 }, 5)},
 			{Enemy::FaceDirection::FORWARDS_LEFT, Animation(m_pSpriteSheet, { 97, 105, 113, 121 }, 5)},
