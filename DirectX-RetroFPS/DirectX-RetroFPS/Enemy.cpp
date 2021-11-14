@@ -46,7 +46,7 @@ void Enemy::Update(float deltaTime)
 	RotateToPlayer();
 	UpdateFacingDirection();
 	
-	if (m_seesPlayer && m_movementSpeed > 0)
+	if (m_seesPlayer && m_movementSpeed > 0 && m_currentState != EnemyState::DEATH && m_currentState != EnemyState::HURT)
 	{
 		MoveToPlayer(deltaTime);
 	}
@@ -80,13 +80,15 @@ void Enemy::OnShot(DrawableBase* shooter, float damage, Vector shotContactPositi
 	{
 		m_health.Decrease(damage);
 
-		m_currentState = EnemyState::HURT;
-		m_hurtTimer = 0;
-
 		if (m_health.IsZero())
 		{
 			m_currentState = EnemyState::DEATH;
 			m_animationMap[m_currentState][m_currentDirection].Reset();
+		}
+		else
+		{
+			m_currentState = EnemyState::HURT;
+			m_hurtTimer = 0;
 		}
 	}
 }
