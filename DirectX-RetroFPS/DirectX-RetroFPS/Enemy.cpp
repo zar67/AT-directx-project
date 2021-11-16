@@ -34,6 +34,11 @@ Enemy::Enemy(Graphics& graphics, Player& player)
 
 void Enemy::Draw(Graphics& graphics)
 {
+	if (!IsActive())
+	{
+		return;
+	}
+
 	m_pVertexBuffer->Update(graphics, m_vertices);
 
 	Drawable::Draw(graphics);

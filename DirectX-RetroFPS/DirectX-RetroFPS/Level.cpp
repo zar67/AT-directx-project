@@ -53,34 +53,22 @@ void Level::Draw(Graphics& graphics)
 
 	for (int i = 0; i < m_lights.size(); i++)
 	{
-		if (m_lights[i]->IsActive())
-		{
-			m_lights[i]->Draw(graphics);
-		}
+		m_lights[i]->Draw(graphics);
 	}
 
 	for (int i = 0; i < m_geometry.size(); i++)
 	{
-		if (m_geometry[i]->IsActive())
-		{
-			m_geometry[i]->Draw(graphics);
-		}
+		m_geometry[i]->Draw(graphics);
 	}
 
 	for (int i = 0; i < m_enemies.size(); i++)
 	{
-		if (m_enemies[i]->IsActive())
-		{
-			m_enemies[i]->Draw(graphics);
-		}
+		m_enemies[i]->Draw(graphics);
 	}
 
 	for (int i = 0; i < m_pickups.size(); i++)
 	{
-		if (m_pickups[i]->IsActive())
-		{
-			m_pickups[i]->Draw(graphics);
-		}
+		m_pickups[i]->Draw(graphics);
 	}
 
 	m_pLevelExit->Draw(graphics);

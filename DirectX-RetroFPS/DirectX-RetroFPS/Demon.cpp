@@ -70,3 +70,52 @@ Demon::Demon(Graphics& graphics, Player& player) : Enemy(graphics, player)
 
 	m_movementSpeed = 0;
 }
+
+void Demon::Draw(Graphics& graphics)
+{
+	Enemy::Draw(graphics);
+
+	for (auto& fireball : m_fireballs)
+	{
+		fireball->Draw(graphics);
+	}
+}
+
+void Demon::Update(float deltaTime)
+{
+	Enemy::Update(deltaTime);
+
+	m_shootTimer += deltaTime;
+
+	if (m_seesPlayer && m_shootTimer >= m_shootDelay && m_currentState != EnemyState::ATTACKING)
+	{
+		m_shootTimer = 0;
+		m_currentState = EnemyState::ATTACKING;
+		m_animationMap[m_currentState][m_currentDirection].Reset();
+
+		std::unique_ptr<Fireball> newFireball = std::make_unique<Fireball>(m_pGraphics, m_pPlayer, 10.0f);
+
+		m_fireballs.push_back(std::move(newFireball));
+	}
+	
+	if (m_currentState == EnemyState::ATTACKING)
+	{
+		if (m_animationMap[m_currentState][m_currentDirection].Completed())
+		{
+			m_currentState = EnemyState::IDLE;
+			m_animationMap[m_currentState][m_currentDirection].Reset();
+		}
+	}
+
+	for (int i = m_fireballs.size() - 1; i > 0; i--)
+	{
+		if (m_fireballs[i]->IsActive())
+		{
+			m_fireballs[i]->Update(deltaTime);
+		}
+		else
+		{
+			m_fireballs.erase(m_fireballs.begin()+i);
+		}
+	}
+}
