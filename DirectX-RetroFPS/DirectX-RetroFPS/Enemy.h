@@ -48,6 +48,11 @@ public:
 	virtual void OnShot(DrawableBase* shooter, float damage, Vector shotContactPosition) override;
 	virtual void OnCollision(CollisionUtilities::ColliderCollision collision, DrawableBase* other);
 
+	virtual void PlaySightSound() {};
+	virtual void PlayAttackSound() {};
+	virtual void PlayInjuredSound() {};
+	virtual void PlayDeathSound() {};
+
 protected:
 	std::vector<TextureCoordinate> m_textureCoords = {
 		{TextureCoordinate::Position::BOTTOM_LEFT, DirectX::XMFLOAT2(0.0f, 0.0f)},

@@ -1,5 +1,6 @@
 #include "Demon.h"
 #include "CollisionUtilities.h"
+#include "SoundManager.h"
 
 Demon::Demon(Graphics& graphics, Player& player) : Enemy(graphics, player)
 {
@@ -111,6 +112,7 @@ void Demon::Update(float deltaTime)
 			newFireball->SetStartPosition(starterPosition);
 			newFireball->SetDirection(m_pPlayer->GetTransform().Position - starterPosition);
 
+			SoundManager::Play(SoundType::DEMON_ATTACK);
 			m_fireballs.push_back(std::move(newFireball));
 		}
 	}
@@ -187,4 +189,24 @@ void Demon::HandlePlayerFireballCollision()
 			}
 		}
 	}
+}
+
+void Demon::PlaySightSound()
+{
+	SoundManager::Play(SoundType::DEMON_SIGHT);
+}
+
+void Demon::PlayAttackSound()
+{
+	SoundManager::Play(SoundType::DEMON_ATTACK);
+}
+
+void Demon::PlayInjuredSound()
+{
+	SoundManager::Play(SoundType::DEMON_INJURED);
+}
+
+void Demon::PlayDeathSound()
+{
+	SoundManager::Play(SoundType::DEMON_DEATH);
 }

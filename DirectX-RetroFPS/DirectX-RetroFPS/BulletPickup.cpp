@@ -1,4 +1,5 @@
 #include "BulletPickup.h"
+#include "SoundManager.h"
 
 BulletPickup::BulletPickup(Graphics& graphics, Player& player, WeaponType type, int bulletNumber) : Pickup(graphics, player)
 {
@@ -20,6 +21,7 @@ void BulletPickup::OnCollision(CollisionUtilities::ColliderCollision collision, 
 		if (player->GetWeaponOfType(m_weaponType) != nullptr)
 		{
 			player->GetWeaponOfType(m_weaponType)->AddBullets(m_bulletAmount);
+			SoundManager::Play(SoundType::BULLET_PICKUP);
 			SetActive(false);
 		}
 	}

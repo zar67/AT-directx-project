@@ -95,6 +95,7 @@
     <ClCompile Include="GameOverScreen.cpp" />
     <ClCompile Include="KeyPickup.cpp" />
     <ClCompile Include="LevelExit.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Stat.cpp" />
     <ClCompile Include="HealthPickup.cpp" />
     <ClCompile Include="ImageElement.cpp" />
@@ -158,6 +159,8 @@
     <ClInclude Include="GameOverScreen.h" />
     <ClInclude Include="KeyPickup.h" />
     <ClInclude Include="LevelExit.h" />
+    <ClInclude Include="SoundManager.h" />
+    <ClInclude Include="SoundType.h" />
     <ClInclude Include="Stat.h" />
     <ClInclude Include="HealthPickup.h" />
     <ClInclude Include="ImageElement.h" />

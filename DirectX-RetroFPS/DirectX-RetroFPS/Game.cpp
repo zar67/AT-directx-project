@@ -2,6 +2,7 @@
 
 #include "CollisionUtilities.h"
 #include "GameHUDScreen.h"
+#include "SoundManager.h"
 
 Game::Game() :
 	m_player(m_window.GetInput(), WINDOW_WIDTH, WINDOW_HEIGHT, 6.0f, 3.0f, DirectX::XMFLOAT2(50, 50)),
@@ -39,6 +40,7 @@ void Game::Init()
 void Game::Update(float deltaTime)
 {
 	HandleInput();
+	SoundManager::Update();
 
 	if (m_UIManager.GetCurrentScreenID() == ScreenType::GAME_HUD)
 	{
@@ -53,6 +55,7 @@ void Game::Update(float deltaTime)
 			
 			if (m_levelManager.IsLevelComplete(m_window.GetGraphics(), m_player))
 			{
+				SoundManager::Play(SoundType::LEVEL_COMPLETE);
 				if (m_levelManager.IsLastLevel())
 				{
 					m_UIManager.GoToScreen(ScreenType::MAIN_MENU);
@@ -99,6 +102,8 @@ void Game::HandleInput()
 			}
 
 			m_isPaused = !m_isPaused;
+
+			SoundManager::Pause(m_isPaused);
 		}
 
 		keyboardEvent = m_window.GetInput().GetKeyboard().ReadKey();

@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "SoundManager.h"
 
 Player::Player(Input& input, float windowWidth, float windowHeight, float movementSpeed, float rotationSpeed, DirectX::XMFLOAT2 deadZoneSize)
 {
@@ -91,6 +92,15 @@ void Player::HandleDamaged(float value)
 	else
 	{
 		m_health.Decrease(value);
+	}
+
+	if (m_health.IsZero())
+	{
+		SoundManager::Play(SoundType::PLAYER_DEATH);
+	}
+	else
+	{
+		SoundManager::Play(SoundType::PLAYER_INJURED);
 	}
 
 	m_isDelayingHit = true;
@@ -214,25 +224,31 @@ void Player::UpdateShooting(float deltaTime)
 	if (m_pInput->GetKeyboard().IsKeyDown('1'))
 	{
 		m_shooter.SetWeapon(m_weapons[WeaponType::FIST].get());
+		SoundManager::Stop(SoundType::CHAINSAW_IDLE, true);
 	}
 	else if (m_pInput->GetKeyboard().IsKeyDown('2'))
 	{
 		m_shooter.SetWeapon(m_weapons[WeaponType::CHAINSAW].get());
+		SoundManager::Play(SoundType::CHAINSAW_IDLE, true);
 	}
 	else if (m_pInput->GetKeyboard().IsKeyDown('3'))
 	{
 		m_shooter.SetWeapon(m_weapons[WeaponType::PISTOL].get());
+		SoundManager::Stop(SoundType::CHAINSAW_IDLE, true);
 	}
 	else if (m_pInput->GetKeyboard().IsKeyDown('4'))
 	{
 		m_shooter.SetWeapon(m_weapons[WeaponType::RIFLE].get());
+		SoundManager::Stop(SoundType::CHAINSAW_IDLE, true);
 	}
 	else if (m_pInput->GetKeyboard().IsKeyDown('5'))
 	{
 		m_shooter.SetWeapon(m_weapons[WeaponType::SHOTGUN].get());
+		SoundManager::Stop(SoundType::CHAINSAW_IDLE, true);
 	}
 	else if (m_pInput->GetKeyboard().IsKeyDown('6'))
 	{
 		m_shooter.SetWeapon(m_weapons[WeaponType::CANNON].get());
+		SoundManager::Stop(SoundType::CHAINSAW_IDLE, true);
 	}
 }

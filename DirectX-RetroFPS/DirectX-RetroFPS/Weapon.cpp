@@ -1,4 +1,5 @@
 #include "Weapon.h"
+#include "SoundManager.h"
 
 Weapon::Weapon(WeaponType type, float damage, int defaultBullets, float reloadDelay, float range, bool infiniteBullets)
 {
@@ -50,6 +51,40 @@ void Weapon::Fired()
 	if (!m_hasInfiniteBullets)
 	{
 		m_bullets--;
+	}
+
+	switch (m_weaponType)
+	{
+		case WeaponType::FIST:
+		{
+			SoundManager::Play(SoundType::FIST_FIRE);
+			break;
+		}
+		case WeaponType::CHAINSAW:
+		{
+			SoundManager::Play(SoundType::CHAINSAW_FIRE);
+			break;
+		}
+		case WeaponType::PISTOL:
+		{
+			SoundManager::Play(SoundType::PISTOL_FIRE);
+			break;
+		}
+		case WeaponType::RIFLE:
+		{
+			SoundManager::Play(SoundType::RIFLE_FIRE);
+			break;
+		}
+		case WeaponType::SHOTGUN:
+		{
+			SoundManager::Play(SoundType::SHOTGUN_FIRE);
+			break;
+		}
+		case WeaponType::CANNON:
+		{
+			SoundManager::Play(SoundType::CANNON_FIRE);
+			break;
+		}
 	}
 }
 

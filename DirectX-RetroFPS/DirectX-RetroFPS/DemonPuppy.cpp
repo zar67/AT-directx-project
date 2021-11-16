@@ -1,4 +1,5 @@
 #include "DemonPuppy.h"
+#include "SoundManager.h"
 
 DemonPuppy::DemonPuppy(Graphics& graphics, Player& player) : Enemy(graphics, player)
 {
@@ -69,4 +70,24 @@ DemonPuppy::DemonPuppy(Graphics& graphics, Player& player) : Enemy(graphics, pla
 	m_health.SetToMaxValue();
 
 	m_movementSpeed = 5.0f;
+}
+
+void DemonPuppy::PlaySightSound()
+{
+	SoundManager::Play(SoundType::PUPPY_SIGHT);
+}
+
+void DemonPuppy::PlayAttackSound()
+{
+	SoundManager::Play(SoundType::PUPPY_ATTACK);
+}
+
+void DemonPuppy::PlayInjuredSound()
+{
+	SoundManager::Play(SoundType::PUPPY_INJURED);
+}
+
+void DemonPuppy::PlayDeathSound()
+{
+	SoundManager::Play(SoundType::PUPPY_DEATH);
 }
