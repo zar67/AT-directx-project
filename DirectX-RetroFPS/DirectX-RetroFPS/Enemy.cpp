@@ -34,6 +34,11 @@ Enemy::Enemy(Graphics& graphics, Player& player)
 
 void Enemy::Draw(Graphics& graphics)
 {
+	if (!IsActive())
+	{
+		return;
+	}
+
 	m_pVertexBuffer->Update(graphics, m_vertices);
 
 	Drawable::Draw(graphics);
@@ -41,9 +46,16 @@ void Enemy::Draw(Graphics& graphics)
 
 void Enemy::Update(float deltaTime)
 {
+	m_seesPlayer = (m_pPlayer->GetTransform().Position - m_transform.Position).GetMagnitude() < m_playerLookDistance;
+
 	RotateToPlayer();
 	UpdateFacingDirection();
 	
+	if (m_seesPlayer && m_movementSpeed > 0 && m_currentState != EnemyState::DEATH && m_currentState != EnemyState::HURT)
+	{
+		MoveToPlayer(deltaTime);
+	}
+
 	m_animationMap[m_currentState][m_currentDirection].Update(deltaTime, m_textureCoords);
 	for (int i = 0; i < 4; i++)
 	{
@@ -54,6 +66,12 @@ void Enemy::Update(float deltaTime)
 		m_animationMap[m_currentState][m_currentDirection].Completed())
 	{
 		SetActive(false);
+	}
+
+	if (m_currentState == EnemyState::ATTACKING &&
+		m_animationMap[m_currentState][m_currentDirection].Completed())
+	{
+		m_currentState = EnemyState::IDLE;
 	}
 
 	if (m_currentState == EnemyState::HURT)
@@ -73,13 +91,15 @@ void Enemy::OnShot(DrawableBase* shooter, float damage, Vector shotContactPositi
 	{
 		m_health.Decrease(damage);
 
-		m_currentState = EnemyState::HURT;
-		m_hurtTimer = 0;
-
 		if (m_health.IsZero())
 		{
 			m_currentState = EnemyState::DEATH;
 			m_animationMap[m_currentState][m_currentDirection].Reset();
+		}
+		else
+		{
+			m_currentState = EnemyState::HURT;
+			m_hurtTimer = 0;
 		}
 	}
 }
@@ -90,6 +110,7 @@ void Enemy::OnCollision(CollisionUtilities::ColliderCollision collision, Drawabl
 	if (player != nullptr)
 	{
 		player->HandleDamaged(10.0f);
+		m_currentState = EnemyState::ATTACKING;
 	}
 }
 
@@ -162,6 +183,8 @@ void Enemy::UpdateFacingDirection()
 	Vector toCameraVector = cameraTransform.Position - m_transform.Position;
 	toCameraVector.Y = 0;
 
+	m_lookVector = m_seesPlayer ? toCameraVector.GetNormalized() : m_lookVector;
+
 	float dotProduct = Vector::DotProduct(m_lookVector, toCameraVector);
 	float angle = acos(dotProduct / (m_lookVector.GetMagnitude() * toCameraVector.GetMagnitude()));
 
@@ -179,4 +202,14 @@ void Enemy::UpdateFacingDirection()
 		m_currentDirection = (FaceDirection)directionIndex;
 		m_animationMap[m_currentState][m_currentDirection].Reset(previousAnimation.GetCurrentSpriteIndex(), previousAnimation.GetCurrentAnimationTimer());
 	}
+}
+
+void Enemy::MoveToPlayer(float deltaTime)
+{
+	Vector movement = (m_pPlayer->GetTransform().Position - m_transform.Position).GetNormalized();
+	movement.Y = 0;
+	movement *= m_movementSpeed * deltaTime;
+
+	m_transform.ApplyTranslationOnAxes(movement);
+	m_collider.IncreaseVelocity(movement);
 }

@@ -26,9 +26,6 @@ void Screen::Draw(Graphics& graphics)
 {
 	for (auto& element : m_elements)
 	{
-		if (element->IsActive())
-		{
-			element->Draw(graphics);
-		}
+		element->Draw(graphics);
 	}
 }

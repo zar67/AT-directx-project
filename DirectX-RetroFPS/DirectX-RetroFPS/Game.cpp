@@ -56,6 +56,7 @@ void Game::Update(float deltaTime)
 				if (m_levelManager.IsLastLevel())
 				{
 					m_UIManager.GoToScreen(ScreenType::MAIN_MENU);
+					m_levelManager.LoadLevel(m_window.GetGraphics(), m_player, 0);
 				}
 				else
 				{

@@ -56,12 +56,19 @@ void Window::ShowCursor()
 {
 	m_isCursorEnabled = true;
 	while (::ShowCursor(TRUE) < 0);
+
+	ClipCursor(nullptr);
 }
 
 void Window::HideCursor()
 {
 	m_isCursorEnabled = false;
 	while (::ShowCursor(FALSE) >= 0);
+
+	RECT rect;
+	GetClientRect(m_window, &rect);
+	MapWindowPoints(m_window, nullptr, reinterpret_cast<POINT*>(&rect), 2);
+	ClipCursor(&rect);
 }
 
 LRESULT Window::HandleMessageSetup(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam)
@@ -161,23 +168,23 @@ void Window::InitialiseWindow()
 	AdjustWindowRect(&windowRect, WS_OVERLAPPEDWINDOW, FALSE);
 
 	// Create the Window
-	HWND window = CreateWindowEx(
+	m_window = CreateWindowEx(
 		0, m_windowClassName, m_windowTitle, WS_OVERLAPPEDWINDOW,
 		windowRect.left, windowRect.top, windowRect.right - windowRect.left, windowRect.bottom - windowRect.top,
 		nullptr, nullptr, m_instance, this
 	);
 
-	if (!window) // If the window hasn't been created properly, don't continue and show an error.
+	if (!m_window) // If the window hasn't been created properly, don't continue and show an error.
 	{
 		ErrorLogger::Log(GetLastError(), "InitialiseWindow Failed");
 		PostQuitMessage(0);
 	}
 
 	// Show the Window
-	ShowWindow(window, SW_SHOW);
+	ShowWindow(m_window, SW_SHOW);
 
 	// Initialise the graphics.
-	m_pGraphics = std::make_unique<Graphics>(window);
+	m_pGraphics = std::make_unique<Graphics>(m_window);
 
 	m_pInput = std::make_unique<Input>();
 }

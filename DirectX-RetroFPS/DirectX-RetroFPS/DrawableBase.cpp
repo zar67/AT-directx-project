@@ -2,6 +2,11 @@
 
 void DrawableBase::Draw(Graphics& graphics)
 {
+	if (!m_isActive)
+	{
+		return;
+	}
+
 	for (auto& b : m_bindables)
 	{
 		b->Bind(graphics);

@@ -44,14 +44,14 @@ DemonPuppy::DemonPuppy(Graphics& graphics, Player& player) : Enemy(graphics, pla
 			{Enemy::FaceDirection::FORWARDS_RIGHT, Animation(m_pSpriteSheet, { 71, 79, 87, 95 }, 5)}
 		}},
 		{Enemy::EnemyState::HURT, {
-			{Enemy::FaceDirection::FORWARDS, Animation(m_pSpriteSheet, { 96 }, 5)},
-			{Enemy::FaceDirection::FORWARDS_LEFT, Animation(m_pSpriteSheet, { 97 }, 5)},
-			{Enemy::FaceDirection::LEFT, Animation(m_pSpriteSheet, { 98 }, 5)},
-			{Enemy::FaceDirection::BACKWARDS_LEFT, Animation(m_pSpriteSheet, { 99 }, 5)},
-			{Enemy::FaceDirection::BACKWARDS, Animation(m_pSpriteSheet, { 100 }, 5)},
-			{Enemy::FaceDirection::BACKWARDS_RIGHT, Animation(m_pSpriteSheet, { 101 }, 5)},
-			{Enemy::FaceDirection::RIGHT, Animation(m_pSpriteSheet, { 102 }, 5)},
-			{Enemy::FaceDirection::FORWARDS_RIGHT, Animation(m_pSpriteSheet, { 103 }, 5)}
+			{Enemy::FaceDirection::FORWARDS, Animation(m_pSpriteSheet, { 32, 40, 48, 56 }, 5)},
+			{Enemy::FaceDirection::FORWARDS_LEFT, Animation(m_pSpriteSheet, { 33, 41, 49, 57 }, 5)},
+			{Enemy::FaceDirection::LEFT, Animation(m_pSpriteSheet, { 34, 42, 50, 58 }, 5)},
+			{Enemy::FaceDirection::BACKWARDS_LEFT, Animation(m_pSpriteSheet, { 35, 43, 51, 59 }, 5)},
+			{Enemy::FaceDirection::BACKWARDS, Animation(m_pSpriteSheet, { 36, 44, 52, 60 }, 5)},
+			{Enemy::FaceDirection::BACKWARDS_RIGHT, Animation(m_pSpriteSheet, { 37, 45, 53, 61 }, 5)},
+			{Enemy::FaceDirection::RIGHT, Animation(m_pSpriteSheet, { 38, 46, 54, 62 }, 5)},
+			{Enemy::FaceDirection::FORWARDS_RIGHT, Animation(m_pSpriteSheet, { 39, 47, 55, 63 }, 5)}
 		}},
 		{Enemy::EnemyState::DEATH, {
 			{Enemy::FaceDirection::FORWARDS, Animation(m_pSpriteSheet, { 96, 104, 112, 120 }, 5)},
@@ -67,4 +67,6 @@ DemonPuppy::DemonPuppy(Graphics& graphics, Player& player) : Enemy(graphics, pla
 
 	m_health.SetMaxValue(200.0f);
 	m_health.SetToMaxValue();
+
+	m_movementSpeed = 5.0f;
 }

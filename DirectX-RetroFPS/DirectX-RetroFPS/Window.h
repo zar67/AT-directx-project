@@ -38,6 +38,7 @@ private:
 	std::unique_ptr<Graphics> m_pGraphics;
 	std::unique_ptr<Input> m_pInput;
 
+	HWND m_window;
 	WCHAR m_windowClassName[MAX_WINDOW_NAME_STRING];
 	WCHAR m_windowTitle[MAX_WINDOW_NAME_STRING];
 	HICON m_icon;
