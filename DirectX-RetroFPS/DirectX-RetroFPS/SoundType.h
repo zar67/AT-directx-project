@@ -2,6 +2,7 @@
 
 enum class SoundType
 {
+	MUSIC,
 	LEVEL_COMPLETE,
 	PLAYER_INJURED,
 	PLAYER_DEATH,

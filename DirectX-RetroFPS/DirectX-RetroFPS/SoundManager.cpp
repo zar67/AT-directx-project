@@ -9,6 +9,7 @@ void SoundManager::Initialise()
 	m_loopedSoundsMap.clear();
 
 	// Initialise Sounds
+	LoadSoundFile(SoundType::MUSIC, "Assets\\Sound\\music.wav");
 	LoadSoundFile(SoundType::LEVEL_COMPLETE, "Assets\\Sound\\level_complete.wav");
 	LoadSoundFile(SoundType::PLAYER_INJURED, "Assets\\Sound\\player_injured.wav");
 	LoadSoundFile(SoundType::PLAYER_DEATH, "Assets\\Sound\\player_death_one.wav");
