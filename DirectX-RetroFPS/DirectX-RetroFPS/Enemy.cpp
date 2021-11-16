@@ -68,6 +68,12 @@ void Enemy::Update(float deltaTime)
 		SetActive(false);
 	}
 
+	if (m_currentState == EnemyState::ATTACKING &&
+		m_animationMap[m_currentState][m_currentDirection].Completed())
+	{
+		m_currentState = EnemyState::IDLE;
+	}
+
 	if (m_currentState == EnemyState::HURT)
 	{
 		m_hurtTimer += deltaTime;
@@ -104,6 +110,7 @@ void Enemy::OnCollision(CollisionUtilities::ColliderCollision collision, Drawabl
 	if (player != nullptr)
 	{
 		player->HandleDamaged(10.0f);
+		m_currentState = EnemyState::ATTACKING;
 	}
 }
 

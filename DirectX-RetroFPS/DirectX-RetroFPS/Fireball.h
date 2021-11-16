@@ -25,6 +25,9 @@ public:
 	virtual void OnShot(DrawableBase* shooter, float damage, Vector shotContactPosition) override;
 	virtual void OnCollision(CollisionUtilities::ColliderCollision collision, DrawableBase* other);
 
+	void SetStartPosition(Vector position);
+	void SetDirection(Vector direction);
+
 protected:
 	std::vector<TextureCoordinate> m_textureCoords = {
 		{TextureCoordinate::Position::BOTTOM_LEFT, DirectX::XMFLOAT2(0.0f, 0.0f)},
@@ -53,5 +56,5 @@ private:
 
 	Vector m_direction;
 	float m_damage;
-	float m_movementSpeed;
+	float m_movementSpeed = 2.5f;
 };

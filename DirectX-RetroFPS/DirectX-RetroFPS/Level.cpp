@@ -220,6 +220,12 @@ void Level::HandleCollisions(Graphics& graphics)
 				m_pPlayer->GetShooter().RegisterCollision(collision, drawableA);
 			}
 		}
+
+		Demon* pDemon = dynamic_cast<Demon*>(drawableA);
+		if (pDemon != nullptr)
+		{
+			pDemon->HandleFireballCollisions();
+		}
 	}
 
 	for (auto& pickup : m_pickups)

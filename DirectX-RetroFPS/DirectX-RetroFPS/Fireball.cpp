@@ -8,6 +8,8 @@
 #include "Sampler.h"
 #include "BlendState.h"
 
+#include <iostream>
+
 Fireball::Fireball(Graphics* graphics, Player* player, float damage)
 {
 	if (!IsStaticInitialized())
@@ -21,7 +23,7 @@ Fireball::Fireball(Graphics* graphics, Player* player, float damage)
 	m_pVertexBuffer = vertexBuffer.get();
 	AddBindable(std::move(vertexBuffer));
 
-	std::unique_ptr<SpriteSheet> spriteSheet = std::make_unique<SpriteSheet>(*graphics, "Assets\\Characters\\doom_demon.png", 32, 5);
+	std::unique_ptr<SpriteSheet> spriteSheet = std::make_unique<SpriteSheet>(*graphics, "Assets\\Characters\\fireball.png", 1, 1);
 	m_pSpriteSheet = spriteSheet.get();
 	AddBindable(std::move(spriteSheet));
 
@@ -33,11 +35,12 @@ Fireball::Fireball(Graphics* graphics, Player* player, float damage)
 
 	AddBindable(std::make_unique<TransformConstantBuffer>(*graphics, *this));
 
+	m_pIndexBuffer = GetBindableOfType<IndexBuffer>();
+
 	m_pGraphics = graphics;
 	m_pPlayer = player;
-	m_damage = damage;
 
-	m_pIndexBuffer = GetBindableOfType<IndexBuffer>();
+	m_damage = damage;
 }
 
 void Fireball::Draw(Graphics& graphics)
@@ -69,9 +72,18 @@ void Fireball::OnCollision(CollisionUtilities::ColliderCollision collision, Draw
 	if (player != nullptr)
 	{
 		player->GetHealth().Decrease(m_damage);
+		SetActive(false);
 	}
+}
 
-	SetActive(false);
+void Fireball::SetStartPosition(Vector position)
+{
+	m_transform.Position = position;
+}
+
+void Fireball::SetDirection(Vector direction)
+{
+	m_direction = direction.GetNormalized();
 }
 
 void Fireball::InitialiseStatic(Graphics& graphics)
@@ -119,7 +131,7 @@ void Fireball::InitialiseCollider()
 
 void Fireball::RotateToPlayer()
 {
-	Vector forwardVector = Vector(0.0f, 0.0f, 1.0f);
+	Vector forwardVector = Vector(0.0f, 0.0f, -1.0f);
 	Transform& cameraTransform = m_pPlayer->GetTransform();
 
 	Vector toCameraVector = cameraTransform.Position - m_transform.Position;

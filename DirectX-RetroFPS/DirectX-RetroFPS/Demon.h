@@ -11,6 +11,8 @@ public:
 	void Draw(Graphics& graphics);
 	void Update(float deltaTime) override;
 
+	void HandleFireballCollisions();
+
 private:
 	float m_shootDelay = 3.0f;
 	float m_shootTimer = 0;
