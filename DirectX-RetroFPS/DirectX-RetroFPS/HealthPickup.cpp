@@ -1,4 +1,5 @@
 #include "HealthPickup.h"
+#include "SoundManager.h"
 
 HealthPickup::HealthPickup(Graphics& graphics, Player& player) : Pickup(graphics, player)
 {
@@ -17,6 +18,7 @@ void HealthPickup::OnCollision(CollisionUtilities::ColliderCollision collision, 
 		if (player->GetHealth().GetCurrentValue() != player->GetHealth().GetMaxValue())
 		{
 			player->GetHealth().Increase(m_healAmount);
+			SoundManager::GetInstance().Play(SoundType::ITEM_PICKUP);
 			SetActive(false);
 		}
 	}

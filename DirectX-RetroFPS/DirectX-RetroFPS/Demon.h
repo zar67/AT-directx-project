@@ -15,6 +15,11 @@ public:
 	void HandleFireballCollisions(DrawableBase* drawable);
 	void HandlePlayerFireballCollision();
 
+	virtual void PlaySightSound() override;
+	virtual void PlayAttackSound() override;
+	virtual void PlayInjuredSound() override;
+	virtual void PlayDeathSound() override;
+
 private:
 	float m_shootDelay = 3.0f;
 	float m_shootTimer = 0;

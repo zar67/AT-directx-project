@@ -1,4 +1,5 @@
 #include "ArmorPickup.h"
+#include "SoundManager.h"
 
 ArmorPickup::ArmorPickup(Graphics& graphics, Player& player) : Pickup(graphics, player)
 {
@@ -17,6 +18,7 @@ void ArmorPickup::OnCollision(CollisionUtilities::ColliderCollision collision, D
 		if (player->GetArmor().GetCurrentValue() != player->GetArmor().GetMaxValue())
 		{
 			player->GetArmor().Increase(m_armorAmount);
+			SoundManager::GetInstance().Play(SoundType::ITEM_PICKUP);
 			SetActive(false);
 		}
 	}

@@ -1,4 +1,5 @@
 #include "Zombie.h"
+#include "SoundManager.h"
 
 Zombie::Zombie(Graphics& graphics, Player& player) : Enemy(graphics, player)
 {
@@ -69,4 +70,24 @@ Zombie::Zombie(Graphics& graphics, Player& player) : Enemy(graphics, player)
 	m_health.SetToMaxValue();
 
 	m_movementSpeed = 2.5f;
+}
+
+void Zombie::PlaySightSound()
+{
+	SoundManager::GetInstance().Play(SoundType::ZOMBIE_SIGHT);
+}
+
+void Zombie::PlayAttackSound()
+{
+	SoundManager::GetInstance().Play(SoundType::ZOMBIE_ATTACK);
+}
+
+void Zombie::PlayInjuredSound()
+{
+	SoundManager::GetInstance().Play(SoundType::ZOMBIE_INJURED);
+}
+
+void Zombie::PlayDeathSound()
+{
+	SoundManager::GetInstance().Play(SoundType::ZOMBIE_DEATH);
 }

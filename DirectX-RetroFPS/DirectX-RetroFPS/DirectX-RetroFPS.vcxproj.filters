@@ -136,6 +136,12 @@
     <Filter Include="Source\Header Files\Game\Weapons">
       <UniqueIdentifier>{d10e9270-6388-4931-9fcc-fe3a9453ac67}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Header Files\Sound">
+      <UniqueIdentifier>{03f26181-120b-4048-8596-9c034d0a0813}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Source Files\Sound">
+      <UniqueIdentifier>{35f46074-415b-45ce-913f-518b62ef8977}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -320,6 +326,9 @@
     </ClCompile>
     <ClCompile Include="Fireball.cpp">
       <Filter>Source\Source Files\Game\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>Source\Source Files\Sound</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -625,6 +634,15 @@
     </ClInclude>
     <ClInclude Include="Fireball.h">
       <Filter>Source\Header Files\Game\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundManager.h">
+      <Filter>Source\Header Files\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundType.h">
+      <Filter>Source\Header Files\Sound</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

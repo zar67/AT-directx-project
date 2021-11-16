@@ -46,7 +46,13 @@ void Enemy::Draw(Graphics& graphics)
 
 void Enemy::Update(float deltaTime)
 {
+	bool previousSeenPlayer = m_seesPlayer;
 	m_seesPlayer = (m_pPlayer->GetTransform().Position - m_transform.Position).GetMagnitude() < m_playerLookDistance;
+
+	if (m_seesPlayer && !previousSeenPlayer)
+	{
+		PlaySightSound();
+	}
 
 	RotateToPlayer();
 	UpdateFacingDirection();
@@ -94,11 +100,13 @@ void Enemy::OnShot(DrawableBase* shooter, float damage, Vector shotContactPositi
 		if (m_health.IsZero())
 		{
 			m_currentState = EnemyState::DEATH;
+			PlayDeathSound();
 			m_animationMap[m_currentState][m_currentDirection].Reset();
 		}
 		else
 		{
 			m_currentState = EnemyState::HURT;
+			PlayInjuredSound();
 			m_hurtTimer = 0;
 		}
 	}
@@ -110,6 +118,7 @@ void Enemy::OnCollision(CollisionUtilities::ColliderCollision collision, Drawabl
 	if (player != nullptr)
 	{
 		player->HandleDamaged(10.0f);
+		PlayAttackSound();
 		m_currentState = EnemyState::ATTACKING;
 	}
 }

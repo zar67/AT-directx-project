@@ -1,6 +1,7 @@
 #include "KeyPickup.h"
 
 #include "TextureBindable.h"
+#include "SoundManager.h"
 
 KeyPickup::KeyPickup(Graphics& graphics, Player& player) : Pickup(graphics, player)
 {
@@ -17,6 +18,7 @@ void KeyPickup::OnCollision(CollisionUtilities::ColliderCollision collision, Dra
 	if (player != nullptr)
 	{
 		player->HasKey(true);
+		SoundManager::GetInstance().Play(SoundType::ITEM_PICKUP);
 		SetActive(false);
 	}
 }
