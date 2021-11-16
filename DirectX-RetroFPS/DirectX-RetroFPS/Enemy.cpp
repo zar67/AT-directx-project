@@ -34,6 +34,11 @@ Enemy::Enemy(Graphics& graphics, Player& player)
 
 void Enemy::Draw(Graphics& graphics)
 {
+	if (!IsActive())
+	{
+		return;
+	}
+
 	m_pVertexBuffer->Update(graphics, m_vertices);
 
 	Drawable::Draw(graphics);
@@ -61,6 +66,12 @@ void Enemy::Update(float deltaTime)
 		m_animationMap[m_currentState][m_currentDirection].Completed())
 	{
 		SetActive(false);
+	}
+
+	if (m_currentState == EnemyState::ATTACKING &&
+		m_animationMap[m_currentState][m_currentDirection].Completed())
+	{
+		m_currentState = EnemyState::IDLE;
 	}
 
 	if (m_currentState == EnemyState::HURT)
@@ -99,6 +110,7 @@ void Enemy::OnCollision(CollisionUtilities::ColliderCollision collision, Drawabl
 	if (player != nullptr)
 	{
 		player->HandleDamaged(10.0f);
+		m_currentState = EnemyState::ATTACKING;
 	}
 }
 

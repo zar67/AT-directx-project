@@ -46,6 +46,21 @@ struct Transform
 			DirectX::XMMatrixTranslation(Position.X, Position.Y, Position.Z);
 	}
 
+	Vector TransformPoint(Vector point)
+	{
+		DirectX::XMFLOAT3 translation = DirectX::XMFLOAT3(point.X, point.Y, point.Z);
+
+		DirectX::XMStoreFloat3(
+			&translation,
+			DirectX::XMVector3Transform(
+				DirectX::XMLoadFloat3(&translation),
+				DirectX::XMMatrixRotationRollPitchYaw(Rotation.X, Rotation.Y, Rotation.Z)
+			)
+		);
+
+		return Vector(translation);
+	}
+
 	Vector ApplyTranslation(float x, float y, float z)
 	{
 		DirectX::XMFLOAT3 translation = DirectX::XMFLOAT3(x, y, z);
@@ -55,7 +70,8 @@ struct Transform
 			DirectX::XMVector3Transform(
 				DirectX::XMLoadFloat3(&translation),
 				DirectX::XMMatrixRotationRollPitchYaw(Rotation.X, Rotation.Y, Rotation.Z)
-			));
+			)
+		);
 
 		if (!ConstrainXPosition)
 		{
