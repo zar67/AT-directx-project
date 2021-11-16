@@ -10,6 +10,7 @@ Game::Game() :
 	m_UIManager(m_window.GetGraphics())
 {
 	m_window.GetGraphics().GetCamera()->SetTargetTransform(m_player.GetTransform());
+	SoundManager::Initialise();
 }
 
 int Game::Run()

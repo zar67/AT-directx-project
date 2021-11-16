@@ -10,8 +10,7 @@
 class SoundManager
 {
 public:
-	SoundManager();
-	~SoundManager();
+	static void Initialise();
 
 	static void LoadSoundFile(SoundType type, std::string filename);
 	static void Play(SoundType type, bool loop = false);

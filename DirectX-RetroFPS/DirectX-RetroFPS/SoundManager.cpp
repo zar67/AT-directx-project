@@ -1,7 +1,7 @@
 #include "SoundManager.h"
 #include "StringConversion.h"
 
-SoundManager::SoundManager()
+void SoundManager::Initialise()
 {
 	m_audioEngine = std::make_unique<DirectX::AudioEngine>();
 
@@ -38,14 +38,6 @@ SoundManager::SoundManager()
 	LoadSoundFile(SoundType::PUPPY_DEATH, "Assets\\Sound\\puppy_death.wav");
 }
 
-SoundManager::~SoundManager()
-{
-	if (m_audioEngine)
-	{
-		m_audioEngine->Suspend();
-	}
-}
-
 void SoundManager::LoadSoundFile(SoundType type, std::string filename)
 {
 	std::unique_ptr<DirectX::SoundEffect> soundEffect = std::make_unique<DirectX::SoundEffect>(
@@ -74,13 +66,12 @@ void SoundManager::Play(SoundType type, bool loop)
 
 void SoundManager::Stop(SoundType type, bool immediate)
 {
-	for (auto& mapVector : m_loopedSoundsMap)
+	for (auto& instance : m_loopedSoundsMap[type])
 	{
-		for (auto& instance : mapVector.second)
-		{
-			instance->Stop(immediate);
-		}
+		instance->Stop(immediate);
 	}
+
+	m_loopedSoundsMap[type] = {};
 }
 
 void SoundManager::Update()

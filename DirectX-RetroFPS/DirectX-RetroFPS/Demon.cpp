@@ -106,7 +106,7 @@ void Demon::Update(float deltaTime)
 				m_pGraphics,
 				m_pPlayer,
 				10.0f
-				);
+			);
 
 			newFireball->GetTransform().ApplyScalar(0.2f, 0.2f, 0.2f);
 			newFireball->SetStartPosition(starterPosition);
