@@ -224,31 +224,26 @@ void Player::UpdateShooting(float deltaTime)
 	if (m_pInput->GetKeyboard().IsKeyDown('1'))
 	{
 		m_shooter.SetWeapon(m_weapons[WeaponType::FIST].get());
-		SoundManager::GetInstance().Stop(SoundType::CHAINSAW_IDLE, true);
 	}
 	else if (m_pInput->GetKeyboard().IsKeyDown('2'))
 	{
 		m_shooter.SetWeapon(m_weapons[WeaponType::CHAINSAW].get());
-		SoundManager::GetInstance().Play(SoundType::CHAINSAW_IDLE, true);
+		SoundManager::GetInstance().Play(SoundType::CHAINSAW_IDLE);
 	}
 	else if (m_pInput->GetKeyboard().IsKeyDown('3'))
 	{
 		m_shooter.SetWeapon(m_weapons[WeaponType::PISTOL].get());
-		SoundManager::GetInstance().Stop(SoundType::CHAINSAW_IDLE, true);
 	}
 	else if (m_pInput->GetKeyboard().IsKeyDown('4'))
 	{
 		m_shooter.SetWeapon(m_weapons[WeaponType::RIFLE].get());
-		SoundManager::GetInstance().Stop(SoundType::CHAINSAW_IDLE, true);
 	}
 	else if (m_pInput->GetKeyboard().IsKeyDown('5'))
 	{
 		m_shooter.SetWeapon(m_weapons[WeaponType::SHOTGUN].get());
-		SoundManager::GetInstance().Stop(SoundType::CHAINSAW_IDLE, true);
 	}
 	else if (m_pInput->GetKeyboard().IsKeyDown('6'))
 	{
 		m_shooter.SetWeapon(m_weapons[WeaponType::CANNON].get());
-		SoundManager::GetInstance().Stop(SoundType::CHAINSAW_IDLE, true);
 	}
 }
