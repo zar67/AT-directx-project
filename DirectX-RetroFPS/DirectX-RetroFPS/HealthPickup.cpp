@@ -18,7 +18,7 @@ void HealthPickup::OnCollision(CollisionUtilities::ColliderCollision collision, 
 		if (player->GetHealth().GetCurrentValue() != player->GetHealth().GetMaxValue())
 		{
 			player->GetHealth().Increase(m_healAmount);
-			SoundManager::Play(SoundType::ITEM_PICKUP);
+			SoundManager::GetInstance().Play(SoundType::ITEM_PICKUP);
 			SetActive(false);
 		}
 	}

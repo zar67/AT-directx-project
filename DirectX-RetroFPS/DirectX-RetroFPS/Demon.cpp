@@ -112,7 +112,7 @@ void Demon::Update(float deltaTime)
 			newFireball->SetStartPosition(starterPosition);
 			newFireball->SetDirection(m_pPlayer->GetTransform().Position - starterPosition);
 
-			SoundManager::Play(SoundType::DEMON_ATTACK);
+			SoundManager::GetInstance().Play(SoundType::DEMON_ATTACK);
 			m_fireballs.push_back(std::move(newFireball));
 		}
 	}
@@ -193,20 +193,20 @@ void Demon::HandlePlayerFireballCollision()
 
 void Demon::PlaySightSound()
 {
-	SoundManager::Play(SoundType::DEMON_SIGHT);
+	SoundManager::GetInstance().Play(SoundType::DEMON_SIGHT);
 }
 
 void Demon::PlayAttackSound()
 {
-	SoundManager::Play(SoundType::DEMON_ATTACK);
+	SoundManager::GetInstance().Play(SoundType::DEMON_ATTACK);
 }
 
 void Demon::PlayInjuredSound()
 {
-	SoundManager::Play(SoundType::DEMON_INJURED);
+	SoundManager::GetInstance().Play(SoundType::DEMON_INJURED);
 }
 
 void Demon::PlayDeathSound()
 {
-	SoundManager::Play(SoundType::DEMON_DEATH);
+	SoundManager::GetInstance().Play(SoundType::DEMON_DEATH);
 }

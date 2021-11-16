@@ -21,7 +21,7 @@ void BulletPickup::OnCollision(CollisionUtilities::ColliderCollision collision, 
 		if (player->GetWeaponOfType(m_weaponType) != nullptr)
 		{
 			player->GetWeaponOfType(m_weaponType)->AddBullets(m_bulletAmount);
-			SoundManager::Play(SoundType::BULLET_PICKUP);
+			SoundManager::GetInstance().Play(SoundType::BULLET_PICKUP);
 			SetActive(false);
 		}
 	}

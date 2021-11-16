@@ -18,7 +18,7 @@ void ArmorPickup::OnCollision(CollisionUtilities::ColliderCollision collision, D
 		if (player->GetArmor().GetCurrentValue() != player->GetArmor().GetMaxValue())
 		{
 			player->GetArmor().Increase(m_armorAmount);
-			SoundManager::Play(SoundType::ITEM_PICKUP);
+			SoundManager::GetInstance().Play(SoundType::ITEM_PICKUP);
 			SetActive(false);
 		}
 	}

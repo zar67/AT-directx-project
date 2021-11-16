@@ -10,7 +10,7 @@ Game::Game() :
 	m_UIManager(m_window.GetGraphics())
 {
 	m_window.GetGraphics().GetCamera()->SetTargetTransform(m_player.GetTransform());
-	SoundManager::Initialise();
+	SoundManager::GetInstance().Initialise();
 }
 
 int Game::Run()
@@ -41,7 +41,7 @@ void Game::Init()
 void Game::Update(float deltaTime)
 {
 	HandleInput();
-	SoundManager::Update();
+	SoundManager::GetInstance().Update();
 
 	if (m_UIManager.GetCurrentScreenID() == ScreenType::GAME_HUD)
 	{
@@ -56,7 +56,7 @@ void Game::Update(float deltaTime)
 			
 			if (m_levelManager.IsLevelComplete(m_window.GetGraphics(), m_player))
 			{
-				SoundManager::Play(SoundType::LEVEL_COMPLETE);
+				SoundManager::GetInstance().Play(SoundType::LEVEL_COMPLETE);
 				if (m_levelManager.IsLastLevel())
 				{
 					m_UIManager.GoToScreen(ScreenType::MAIN_MENU);
@@ -104,7 +104,7 @@ void Game::HandleInput()
 
 			m_isPaused = !m_isPaused;
 
-			SoundManager::Pause(m_isPaused);
+			SoundManager::GetInstance().Pause(m_isPaused);
 		}
 
 		keyboardEvent = m_window.GetInput().GetKeyboard().ReadKey();

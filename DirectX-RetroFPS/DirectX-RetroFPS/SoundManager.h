@@ -10,19 +10,25 @@
 class SoundManager
 {
 public:
-	static void Initialise();
+	static SoundManager& GetInstance()
+	{
+		static SoundManager instance;
+		return instance;
+	}
 
-	static void LoadSoundFile(SoundType type, std::string filename);
-	static void Play(SoundType type, bool loop = false);
-	static void Stop(SoundType type, bool immediate = false);
+	void Initialise();
 
-	static void Update();
-	static void Pause(bool paused);
+	void LoadSoundFile(SoundType type, std::string filename);
+	void Play(SoundType type, bool loop = false);
+	void Stop(SoundType type, bool immediate = false);
+
+	void Update();
+	void Pause(bool paused);
 
 private:
-	static void ResetAudio();
+	void ResetAudio();
 
-	static std::unique_ptr<DirectX::AudioEngine> m_audioEngine;
-	static std::map<SoundType, std::vector<std::unique_ptr<DirectX::SoundEffect>>> m_soundsMap;
-	static std::map<SoundType, std::vector<std::unique_ptr<DirectX::SoundEffectInstance>>> m_loopedSoundsMap;
+	std::unique_ptr<DirectX::AudioEngine> m_audioEngine;
+	std::map<SoundType, std::vector<std::unique_ptr<DirectX::SoundEffect>>> m_soundsMap;
+	std::map<SoundType, std::vector<std::unique_ptr<DirectX::SoundEffectInstance>>> m_loopedSoundsMap;
 };

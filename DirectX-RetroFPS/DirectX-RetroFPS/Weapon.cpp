@@ -57,32 +57,32 @@ void Weapon::Fired()
 	{
 		case WeaponType::FIST:
 		{
-			SoundManager::Play(SoundType::FIST_FIRE);
+			SoundManager::GetInstance().Play(SoundType::FIST_FIRE);
 			break;
 		}
 		case WeaponType::CHAINSAW:
 		{
-			SoundManager::Play(SoundType::CHAINSAW_FIRE);
+			SoundManager::GetInstance().Play(SoundType::CHAINSAW_FIRE);
 			break;
 		}
 		case WeaponType::PISTOL:
 		{
-			SoundManager::Play(SoundType::PISTOL_FIRE);
+			SoundManager::GetInstance().Play(SoundType::PISTOL_FIRE);
 			break;
 		}
 		case WeaponType::RIFLE:
 		{
-			SoundManager::Play(SoundType::RIFLE_FIRE);
+			SoundManager::GetInstance().Play(SoundType::RIFLE_FIRE);
 			break;
 		}
 		case WeaponType::SHOTGUN:
 		{
-			SoundManager::Play(SoundType::SHOTGUN_FIRE);
+			SoundManager::GetInstance().Play(SoundType::SHOTGUN_FIRE);
 			break;
 		}
 		case WeaponType::CANNON:
 		{
-			SoundManager::Play(SoundType::CANNON_FIRE);
+			SoundManager::GetInstance().Play(SoundType::CANNON_FIRE);
 			break;
 		}
 	}

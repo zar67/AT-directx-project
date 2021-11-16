@@ -74,20 +74,20 @@ DemonPuppy::DemonPuppy(Graphics& graphics, Player& player) : Enemy(graphics, pla
 
 void DemonPuppy::PlaySightSound()
 {
-	SoundManager::Play(SoundType::PUPPY_SIGHT);
+	SoundManager::GetInstance().Play(SoundType::PUPPY_SIGHT);
 }
 
 void DemonPuppy::PlayAttackSound()
 {
-	SoundManager::Play(SoundType::PUPPY_ATTACK);
+	SoundManager::GetInstance().Play(SoundType::PUPPY_ATTACK);
 }
 
 void DemonPuppy::PlayInjuredSound()
 {
-	SoundManager::Play(SoundType::PUPPY_INJURED);
+	SoundManager::GetInstance().Play(SoundType::PUPPY_INJURED);
 }
 
 void DemonPuppy::PlayDeathSound()
 {
-	SoundManager::Play(SoundType::PUPPY_DEATH);
+	SoundManager::GetInstance().Play(SoundType::PUPPY_DEATH);
 }

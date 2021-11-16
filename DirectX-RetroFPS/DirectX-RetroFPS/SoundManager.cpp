@@ -5,8 +5,8 @@ void SoundManager::Initialise()
 {
 	m_audioEngine = std::make_unique<DirectX::AudioEngine>();
 
-	m_soundsMap = {};
-	m_loopedSoundsMap = {};
+	m_soundsMap.clear();
+	m_loopedSoundsMap.clear();
 
 	// Initialise Sounds
 	LoadSoundFile(SoundType::LEVEL_COMPLETE, "Assets\\Sound\\level_complete.wav");
@@ -71,7 +71,7 @@ void SoundManager::Stop(SoundType type, bool immediate)
 		instance->Stop(immediate);
 	}
 
-	m_loopedSoundsMap[type] = {};
+	m_loopedSoundsMap[type].clear();
 }
 
 void SoundManager::Update()

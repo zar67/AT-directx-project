@@ -74,20 +74,20 @@ Zombie::Zombie(Graphics& graphics, Player& player) : Enemy(graphics, player)
 
 void Zombie::PlaySightSound()
 {
-	SoundManager::Play(SoundType::ZOMBIE_SIGHT);
+	SoundManager::GetInstance().Play(SoundType::ZOMBIE_SIGHT);
 }
 
 void Zombie::PlayAttackSound()
 {
-	SoundManager::Play(SoundType::ZOMBIE_ATTACK);
+	SoundManager::GetInstance().Play(SoundType::ZOMBIE_ATTACK);
 }
 
 void Zombie::PlayInjuredSound()
 {
-	SoundManager::Play(SoundType::ZOMBIE_INJURED);
+	SoundManager::GetInstance().Play(SoundType::ZOMBIE_INJURED);
 }
 
 void Zombie::PlayDeathSound()
 {
-	SoundManager::Play(SoundType::ZOMBIE_DEATH);
+	SoundManager::GetInstance().Play(SoundType::ZOMBIE_DEATH);
 }

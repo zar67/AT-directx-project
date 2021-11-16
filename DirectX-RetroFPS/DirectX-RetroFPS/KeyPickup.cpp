@@ -18,7 +18,7 @@ void KeyPickup::OnCollision(CollisionUtilities::ColliderCollision collision, Dra
 	if (player != nullptr)
 	{
 		player->HasKey(true);
-		SoundManager::Play(SoundType::ITEM_PICKUP);
+		SoundManager::GetInstance().Play(SoundType::ITEM_PICKUP);
 		SetActive(false);
 	}
 }
