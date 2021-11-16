@@ -72,8 +72,9 @@ void Fireball::OnCollision(CollisionUtilities::ColliderCollision collision, Draw
 	if (player != nullptr)
 	{
 		player->GetHealth().Decrease(m_damage);
-		SetActive(false);
 	}
+
+	SetActive(false);
 }
 
 void Fireball::SetStartPosition(Vector position)

@@ -10,8 +10,10 @@ public:
 
 	void Draw(Graphics& graphics);
 	void Update(float deltaTime) override;
+	virtual void OnShot(DrawableBase* shooter, float damage, Vector shotContactPosition) override;
 
-	void HandleFireballCollisions();
+	void HandleFireballCollisions(DrawableBase* drawable);
+	void HandlePlayerFireballCollision();
 
 private:
 	float m_shootDelay = 3.0f;

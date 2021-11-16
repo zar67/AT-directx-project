@@ -88,25 +88,31 @@ void Demon::Update(float deltaTime)
 
 	m_shootTimer += deltaTime;
 
-	if (m_seesPlayer && m_shootTimer >= m_shootDelay && m_currentState != EnemyState::ATTACKING)
+	if (m_seesPlayer)
 	{
-		m_shootTimer = 0;
-		//m_currentState = EnemyState::ATTACKING;
-		//m_animationMap[m_currentState][m_currentDirection].Reset();
+		if (m_shootTimer + 0.75f >= m_shootDelay && m_currentState != EnemyState::ATTACKING)
+		{
+			m_currentState = EnemyState::ATTACKING;
+			m_animationMap[m_currentState][m_currentDirection].Reset();
+		}
 
-		Vector starterPosition = m_transform.Position + m_transform.TransformPoint(Vector(-0.5f, 1.0f, 0.0f));
+		if (m_shootTimer >= m_shootDelay)
+		{
+			m_shootTimer = 0;
+			Vector starterPosition = m_transform.Position + m_transform.TransformPoint(Vector(-0.5f, 1.0f, 0.0f));
 
-		std::unique_ptr<Fireball> newFireball = std::make_unique<Fireball>(
-			m_pGraphics, 
-			m_pPlayer, 
-			10.0f
-		);
+			std::unique_ptr<Fireball> newFireball = std::make_unique<Fireball>(
+				m_pGraphics,
+				m_pPlayer,
+				10.0f
+				);
 
-		newFireball->GetTransform().ApplyScalar(0.2f, 0.2f, 0.2f);
-		newFireball->SetStartPosition(starterPosition);
-		newFireball->SetDirection(m_pPlayer->GetTransform().Position - starterPosition);
+			newFireball->GetTransform().ApplyScalar(0.2f, 0.2f, 0.2f);
+			newFireball->SetStartPosition(starterPosition);
+			newFireball->SetDirection(m_pPlayer->GetTransform().Position - starterPosition);
 
-		m_fireballs.push_back(std::move(newFireball));
+			m_fireballs.push_back(std::move(newFireball));
+		}
 	}
 	
 	if (m_currentState == EnemyState::ATTACKING)
@@ -118,7 +124,7 @@ void Demon::Update(float deltaTime)
 		}
 	}
 
-	for (int i = m_fireballs.size() - 1; i > 0; i--)
+	for (int i = m_fireballs.size() - 1; i >= 0; i--)
 	{
 		if (m_fireballs[i]->IsActive())
 		{
@@ -131,7 +137,33 @@ void Demon::Update(float deltaTime)
 	}
 }
 
-void Demon::HandleFireballCollisions()
+void Demon::OnShot(DrawableBase* shooter, float damage, Vector shotContactPosition)
+{
+	Enemy::OnShot(shooter, damage, shotContactPosition);
+
+	if (m_health.IsZero())
+	{
+		m_fireballs.clear();
+	}
+}
+
+void Demon::HandleFireballCollisions(DrawableBase* drawable)
+{
+	for (auto& fireball : m_fireballs)
+	{
+		if (CollisionUtilities::IsCollisionPossible(drawable->GetCollider(), fireball->GetCollider()))
+		{
+			CollisionUtilities::ColliderCollision collision = CollisionUtilities::IsColliding(drawable->GetCollider(), fireball->GetCollider());
+			if (collision.IsColliding)
+			{
+				fireball->OnCollision(collision, drawable);
+				drawable->OnCollision(collision, fireball.get());
+			}
+		}
+	}
+}
+
+void Demon::HandlePlayerFireballCollision()
 {
 	for (auto& fireball : m_fireballs)
 	{
@@ -142,6 +174,16 @@ void Demon::HandleFireballCollisions()
 			{
 				fireball->OnCollision(collision, m_pPlayer);
 				m_pPlayer->OnCollision(collision, fireball.get());
+			}
+		}
+
+		if (m_pPlayer->GetShooter().IsShooting() &&
+			CollisionUtilities::IsCollisionPossible(m_pPlayer->GetShooter().GetShootRay(), fireball->GetCollider()))
+		{
+			CollisionUtilities::RayCollision collision = CollisionUtilities::IsColliding(m_pPlayer->GetShooter().GetShootRay(), fireball->GetCollider());
+			if (collision.IsColliding)
+			{
+				m_pPlayer->GetShooter().RegisterCollision(collision, fireball.get());
 			}
 		}
 	}

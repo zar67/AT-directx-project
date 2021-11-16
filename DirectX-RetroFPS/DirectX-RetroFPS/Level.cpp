@@ -177,6 +177,12 @@ void Level::HandleCollisions(Graphics& graphics)
 					drawableB->OnCollision(collision, drawableA);
 				}
 			}
+
+			Demon* pDemon = dynamic_cast<Demon*>(drawableB);
+			if (pDemon != nullptr)
+			{
+				pDemon->HandleFireballCollisions(drawableA);
+			}
 		}
 
 		if (CollisionUtilities::IsCollisionPossible(m_pPlayer->GetCollider(), m_pLevelExit->GetCollider()))
@@ -224,7 +230,7 @@ void Level::HandleCollisions(Graphics& graphics)
 		Demon* pDemon = dynamic_cast<Demon*>(drawableA);
 		if (pDemon != nullptr)
 		{
-			pDemon->HandleFireballCollisions();
+			pDemon->HandlePlayerFireballCollision();
 		}
 	}
 
