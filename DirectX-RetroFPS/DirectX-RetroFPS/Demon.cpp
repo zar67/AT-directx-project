@@ -89,12 +89,11 @@ void Demon::Update(float deltaTime)
 
 	m_shootTimer += deltaTime;
 
-	if (m_seesPlayer)
+	if (m_seesPlayer && m_currentState != EnemyState::HURT)
 	{
 		if (m_shootTimer + 0.75f >= m_shootDelay && m_currentState != EnemyState::ATTACKING)
 		{
-			m_currentState = EnemyState::ATTACKING;
-			m_animationMap[m_currentState][m_currentDirection].Reset();
+			ChangeState(EnemyState::ATTACKING);
 		}
 
 		if (m_shootTimer >= m_shootDelay)
@@ -121,8 +120,7 @@ void Demon::Update(float deltaTime)
 	{
 		if (m_animationMap[m_currentState][m_currentDirection].Completed())
 		{
-			m_currentState = EnemyState::IDLE;
-			m_animationMap[m_currentState][m_currentDirection].Reset();
+			ChangeState(EnemyState::IDLE);
 		}
 	}
 

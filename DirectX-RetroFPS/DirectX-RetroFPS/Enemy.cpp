@@ -77,7 +77,7 @@ void Enemy::Update(float deltaTime)
 	if (m_currentState == EnemyState::ATTACKING &&
 		m_animationMap[m_currentState][m_currentDirection].Completed())
 	{
-		m_currentState = EnemyState::IDLE;
+		ChangeState(EnemyState::IDLE);
 	}
 
 	if (m_currentState == EnemyState::HURT)
@@ -85,7 +85,7 @@ void Enemy::Update(float deltaTime)
 		m_hurtTimer += deltaTime;
 		if (m_hurtTimer >= m_hurtDelay)
 		{
-			m_currentState = EnemyState::IDLE;
+			ChangeState(EnemyState::IDLE);
 			m_hurtTimer = 0;
 		}
 	}
@@ -99,13 +99,12 @@ void Enemy::OnShot(DrawableBase* shooter, float damage, Vector shotContactPositi
 
 		if (m_health.IsZero())
 		{
-			m_currentState = EnemyState::DEATH;
+			ChangeState(EnemyState::DEATH);
 			PlayDeathSound();
-			m_animationMap[m_currentState][m_currentDirection].Reset();
 		}
 		else
 		{
-			m_currentState = EnemyState::HURT;
+			ChangeState(EnemyState::HURT);
 			PlayInjuredSound();
 			m_hurtTimer = 0;
 		}
@@ -119,8 +118,22 @@ void Enemy::OnCollision(CollisionUtilities::ColliderCollision collision, Drawabl
 	{
 		player->HandleDamaged(10.0f);
 		PlayAttackSound();
-		m_currentState = EnemyState::ATTACKING;
+		ChangeState(EnemyState::ATTACKING);
 	}
+}
+
+void Enemy::ChangeState(EnemyState state)
+{
+	m_currentState = state;
+	m_animationMap[m_currentState][m_currentDirection].Reset();
+}
+
+void Enemy::ChangeDirection(FaceDirection direction)
+{
+	Animation& previousAnimation = m_animationMap[m_currentState][m_currentDirection];
+
+	m_currentDirection = direction;
+	m_animationMap[m_currentState][m_currentDirection].Reset(previousAnimation.GetCurrentSpriteIndex(), previousAnimation.GetCurrentAnimationTimer());
 }
 
 void Enemy::InitialiseStatic(Graphics& graphics)
@@ -206,10 +219,7 @@ void Enemy::UpdateFacingDirection()
 
 	if ((FaceDirection)directionIndex != m_currentDirection)
 	{
-		Animation& previousAnimation = m_animationMap[m_currentState][m_currentDirection];
-
-		m_currentDirection = (FaceDirection)directionIndex;
-		m_animationMap[m_currentState][m_currentDirection].Reset(previousAnimation.GetCurrentSpriteIndex(), previousAnimation.GetCurrentAnimationTimer());
+		ChangeDirection((FaceDirection)directionIndex);
 	}
 }
 
