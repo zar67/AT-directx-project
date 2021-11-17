@@ -220,6 +220,7 @@ void Enemy::UpdateFacingDirection()
 	}
 
 	int directionIndex = (int)(angle / ( (2 * DirectX::XM_PI) / 8));
+	directionIndex %= 8;
 
 	if ((FaceDirection)directionIndex != m_currentDirection)
 	{
