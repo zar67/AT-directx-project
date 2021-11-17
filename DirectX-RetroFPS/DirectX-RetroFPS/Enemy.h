@@ -53,6 +53,9 @@ public:
 	virtual void PlayInjuredSound() {};
 	virtual void PlayDeathSound() {};
 
+	void ChangeState(EnemyState state);
+	void ChangeDirection(FaceDirection direction);
+
 protected:
 	std::vector<TextureCoordinate> m_textureCoords = {
 		{TextureCoordinate::Position::BOTTOM_LEFT, DirectX::XMFLOAT2(0.0f, 0.0f)},

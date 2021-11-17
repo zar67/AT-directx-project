@@ -11,6 +11,7 @@ Game::Game() :
 {
 	m_window.GetGraphics().GetCamera()->SetTargetTransform(m_player.GetTransform());
 	SoundManager::GetInstance().Initialise();
+	SoundManager::GetInstance().Play(SoundType::MUSIC, true);
 }
 
 int Game::Run()
