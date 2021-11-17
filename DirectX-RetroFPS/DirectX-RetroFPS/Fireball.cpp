@@ -8,8 +8,6 @@
 #include "Sampler.h"
 #include "BlendState.h"
 
-#include <iostream>
-
 Fireball::Fireball(Graphics* graphics, Player* player, float damage)
 {
 	if (!IsStaticInitialized())

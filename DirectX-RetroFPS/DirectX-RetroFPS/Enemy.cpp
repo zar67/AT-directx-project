@@ -126,6 +126,7 @@ void Enemy::ChangeState(EnemyState state)
 {
 	m_currentState = state;
 	m_animationMap[m_currentState][m_currentDirection].Reset();
+	m_animationMap[m_currentState][m_currentDirection].ChangeSprite(m_textureCoords);
 }
 
 void Enemy::ChangeDirection(FaceDirection direction)
@@ -134,6 +135,7 @@ void Enemy::ChangeDirection(FaceDirection direction)
 
 	m_currentDirection = direction;
 	m_animationMap[m_currentState][m_currentDirection].Reset(previousAnimation.GetCurrentSpriteIndex(), previousAnimation.GetCurrentAnimationTimer());
+	m_animationMap[m_currentState][m_currentDirection].ChangeSprite(m_textureCoords);
 }
 
 void Enemy::InitialiseStatic(Graphics& graphics)
@@ -202,13 +204,15 @@ void Enemy::UpdateFacingDirection()
 {
 	Transform& cameraTransform = m_pPlayer->GetTransform();
 
-	Vector toCameraVector = cameraTransform.Position - m_transform.Position;
+	Vector toCameraVector = (cameraTransform.Position - m_transform.Position).GetNormalized();
 	toCameraVector.Y = 0;
 
 	m_lookVector = m_seesPlayer ? toCameraVector.GetNormalized() : m_lookVector;
+	m_lookVector = m_lookVector.GetNormalized();
 
 	float dotProduct = Vector::DotProduct(m_lookVector, toCameraVector);
-	float angle = acos(dotProduct / (m_lookVector.GetMagnitude() * toCameraVector.GetMagnitude()));
+	float cosValue = dotProduct / (m_lookVector.GetMagnitude() * toCameraVector.GetMagnitude());
+	float angle = acos(std::clamp(cosValue, -1.0f, 1.0f));
 
 	if (toCameraVector.X > 0)
 	{
@@ -216,6 +220,7 @@ void Enemy::UpdateFacingDirection()
 	}
 
 	int directionIndex = (int)(angle / ( (2 * DirectX::XM_PI) / 8));
+	directionIndex %= 8;
 
 	if ((FaceDirection)directionIndex != m_currentDirection)
 	{
