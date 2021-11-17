@@ -21,9 +21,9 @@ public:
 	int GetCurrentSpriteIndex();
 	float GetCurrentAnimationTimer();
 
-private:
 	void ChangeSprite(std::vector<TextureCoordinate>& textureCoords);
 
+private:
 	std::vector<int> m_spriteIndexes = {};
 
 	SpriteSheet* m_pSpriteSheet = nullptr;
