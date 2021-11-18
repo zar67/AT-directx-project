@@ -159,28 +159,12 @@ void Player::UpdateMovement(float deltaTime)
 
 void Player::UpdateRotation(float deltaTime)
 {
-	DirectX::XMFLOAT2 windowCenter = DirectX::XMFLOAT2(m_windowWidth / 2, m_windowHeight / 2);
-	DirectX::XMFLOAT2 mousePosition = DirectX::XMFLOAT2(m_pInput->GetMouse().GetXPos(), m_pInput->GetMouse().GetYPos());
-	DirectX::XMFLOAT2 deadZone = DirectX::XMFLOAT2(m_windowWidth / 2 - m_deadZoneSize.x / 2, m_windowHeight / 2 - m_deadZoneSize.y / 2);
-
-	DirectX::XMFLOAT2 mouseDirectionVector = DirectX::XMFLOAT2(mousePosition.x - windowCenter.x, mousePosition.y - windowCenter.y);
-	float mouseDirectionLength = sqrt(pow(mouseDirectionVector.x, 2) + pow(mouseDirectionVector.y, 2));
-	DirectX::XMFLOAT2 normalisedMouseDirection = DirectX::XMFLOAT2(mouseDirectionVector.x / mouseDirectionLength, mouseDirectionVector.y / mouseDirectionLength);
-
-	float normalisedDirectionLengthX = abs(mouseDirectionVector.x / (m_windowWidth / 2));
-	float normalisedDirectionLengthY = abs(mouseDirectionVector.y / (m_windowHeight / 2));
-
-	float horizontalRotation = normalisedMouseDirection.x * normalisedDirectionLengthX * deltaTime * m_rotationSpeed;
-	float verticalRotation = normalisedMouseDirection.y * normalisedDirectionLengthY * deltaTime * m_rotationSpeed;
-
-	if (mousePosition.x >= deadZone.x && mousePosition.x <= deadZone.x + m_deadZoneSize.x &&
-		mousePosition.y >= deadZone.y && mousePosition.y <= deadZone.y + m_deadZoneSize.y)
+	while (const auto delta = m_pInput->GetMouse().ReadRawDelta())
 	{
-		horizontalRotation = 0.0f;
-		verticalRotation = 0.0f;
+		float verticalRotation = delta->X * deltaTime * m_rotationSpeed;
+		float horizontalRotation = delta->Y * deltaTime * m_rotationSpeed;
+		m_transform.ApplyRotation(verticalRotation, horizontalRotation, 0.0f);
 	}
-
-	m_transform.ApplyRotation(verticalRotation, horizontalRotation, 0.0f);
 }
 
 void Player::ClampRotation()
