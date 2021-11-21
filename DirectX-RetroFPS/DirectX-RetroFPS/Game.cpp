@@ -5,7 +5,7 @@
 #include "SoundManager.h"
 
 Game::Game() :
-	m_player(m_window.GetInput(), WINDOW_WIDTH, WINDOW_HEIGHT, 6.0f, 3.0f, DirectX::XMFLOAT2(50, 50)),
+	m_player(m_window.GetInput(), WINDOW_WIDTH, WINDOW_HEIGHT, 6.0f, 0.25f, DirectX::XMFLOAT2(50, 50)),
 	m_levelManager(m_window.GetGraphics(), m_player),
 	m_UIManager(m_window.GetGraphics())
 {

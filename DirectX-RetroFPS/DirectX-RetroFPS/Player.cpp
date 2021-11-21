@@ -163,7 +163,7 @@ void Player::UpdateRotation(float deltaTime)
 	{
 		float verticalRotation = delta->X * deltaTime * m_rotationSpeed;
 		float horizontalRotation = delta->Y * deltaTime * m_rotationSpeed;
-		m_transform.ApplyRotation(verticalRotation, horizontalRotation, 0.0f);
+		m_transform.ApplyRotation(horizontalRotation, verticalRotation, 0.0f);
 	}
 }
 
