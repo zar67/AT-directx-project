@@ -4,6 +4,39 @@ void Mouse::HandleMessages(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam
 {
 	switch (message)
 	{
+		case WM_INPUT:
+		{
+			UINT size;
+			if (GetRawInputData(
+				reinterpret_cast<HRAWINPUT>(lparam),
+				RID_INPUT,
+				nullptr,
+				&size,
+				sizeof(RAWINPUTHEADER)) == -1)
+			{
+				break;
+			}
+
+			m_rawBuffer.resize(size);
+
+			if (GetRawInputData(
+				reinterpret_cast<HRAWINPUT>(lparam),
+				RID_INPUT,
+				m_rawBuffer.data(),
+				&size,
+				sizeof(RAWINPUTHEADER)) != size)
+			{
+				break;
+			}
+
+			auto& ri = reinterpret_cast<const RAWINPUT&>(*m_rawBuffer.data());
+			if (ri.header.dwType == RIM_TYPEMOUSE &&
+				(ri.data.mouse.lLastX != 0 || ri.data.mouse.lLastY != 0))
+			{
+				OnRawDelta(ri.data.mouse.lLastX, ri.data.mouse.lLastY);
+			}
+			break;
+		}
 		case WM_MOUSEMOVE:
 		{
 			POINTS points = MAKEPOINTS(lparam);
@@ -124,6 +157,17 @@ bool Mouse::IsMiddleButtonDown()
 	return m_middleButtonState == MouseEvent::ButtonState::PRESSED || m_middleButtonState == MouseEvent::ButtonState::HELD;
 }
 
+std::optional<Mouse::RawDelta> Mouse::ReadRawDelta()
+{
+	if (m_rawDeltaBuffer.empty())
+	{
+		return std::nullopt;
+	}
+	const RawDelta d = m_rawDeltaBuffer.front();
+	m_rawDeltaBuffer.pop();
+	return d;
+}
+
 MouseEvent Mouse::Read()
 {
 	if (m_eventBuffer.size() > 0u)
@@ -154,6 +198,12 @@ void Mouse::OnMouseMove(int x, int y)
 	m_yPosition = y;
 
 	m_eventBuffer.push(MouseEvent(MouseEvent::EventType::MOVE, m_leftButtonState, m_rightButtonState, m_middleButtonState, m_xPosition, m_yPosition));
+	TrimBuffer();
+}
+
+void Mouse::OnRawDelta(int dx, int dy)
+{
+	m_rawDeltaBuffer.push({ dx,dy });
 	TrimBuffer();
 }
 

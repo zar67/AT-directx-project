@@ -4,11 +4,16 @@
 #include <Windows.h>
 
 #include "MouseEvent.h"
+#include <optional>
 
 class Mouse
 {
 public:
-
+	struct RawDelta
+	{
+		int X;
+		int Y;
+	};
 public:
 	Mouse() = default;
 	Mouse(const Mouse&) = delete;
@@ -30,12 +35,15 @@ public:
 	bool IsRightButtonDown();
 	bool IsMiddleButtonDown();
 
+	std::optional<RawDelta> ReadRawDelta();
+
 	MouseEvent Read();
 	bool IsEventBufferEmpty();
 	void Flush();
 
 private:
 	void OnMouseMove(int x, int y);
+	void OnRawDelta(int dx, int dy);
 
 	void OnLeftPressed(int x, int y);
 	void OnLeftHeld(int x, int y);
@@ -72,4 +80,7 @@ private:
 	int m_wheelDeltaCarry = 0;
 	
 	std::queue<MouseEvent> m_eventBuffer;
+
+	std::queue<RawDelta> m_rawDeltaBuffer;
+	std::vector<BYTE> m_rawBuffer;
 };
