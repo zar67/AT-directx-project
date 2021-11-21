@@ -22,13 +22,9 @@ public:
 
 	enum class FaceDirection {
 		FORWARDS,
-		FORWARDS_LEFT,
 		LEFT,
-		BACKWARDS_LEFT,
 		BACKWARDS,
-		BACKWARDS_RIGHT,
 		RIGHT,
-		FORWARDS_RIGHT
 	};
 
 	enum class EnemyState {

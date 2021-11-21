@@ -339,25 +339,23 @@ void Level::ParseLevelDataCharacter(Graphics& graphics, char character, float xP
 		case '#': // Wall
 		{
 			std::vector<std::string> wallTiles = {
-				"Assets\\Environment\\walltextures0.png",
-				"Assets\\Environment\\walltextures0.png",
-				"Assets\\Environment\\walltextures0.png",
-				"Assets\\Environment\\walltextures0.png",
-				"Assets\\Environment\\walltextures0.png",
-				"Assets\\Environment\\walltextures0.png",
-				"Assets\\Environment\\walltextures0.png",
-				"Assets\\Environment\\walltextures0.png",
-				"Assets\\Environment\\walltextures0.png",
-				"Assets\\Environment\\walltextures0.png",
-				"Assets\\Environment\\walltextures0.png",
-				"Assets\\Environment\\walltextures0.png",
-				"Assets\\Environment\\walltextures0.png",
-				"Assets\\Environment\\walltextures0.png",
-				"Assets\\Environment\\walltextures2.png",
-				"Assets\\Environment\\walltextures3.png",
-				"Assets\\Environment\\walltextures4.png",
-				"Assets\\Environment\\walltextures9.png",
-				"Assets\\Environment\\walltextures10.png",
+				"Assets\\Environment\\wall_01.png",
+				"Assets\\Environment\\wall_02.png",
+				"Assets\\Environment\\wall_03.png",
+				"Assets\\Environment\\wall_04.png",
+				"Assets\\Environment\\wall_01.png",
+				"Assets\\Environment\\wall_02.png",
+				"Assets\\Environment\\wall_03.png",
+				"Assets\\Environment\\wall_04.png",
+				"Assets\\Environment\\wall_01.png",
+				"Assets\\Environment\\wall_02.png",
+				"Assets\\Environment\\wall_03.png",
+				"Assets\\Environment\\wall_04.png",
+				"Assets\\Environment\\wall_01.png",
+				"Assets\\Environment\\wall_02.png",
+				"Assets\\Environment\\wall_03.png",
+				"Assets\\Environment\\wall_04.png",
+				"Assets\\Environment\\wall_05.png",
 			};
 
 			float textureIndex = rand() % wallTiles.size();
@@ -370,7 +368,7 @@ void Level::ParseLevelDataCharacter(Graphics& graphics, char character, float xP
 		}
 		case '+': // Floor / Ceiling
 		{
-			std::unique_ptr<TexturedCube> pCube = std::make_unique<TexturedCube>(graphics, "Assets\\Environment\\floortile3.png");
+			std::unique_ptr<TexturedCube> pCube = std::make_unique<TexturedCube>(graphics, "Assets\\Environment\\ground_tile.png");
 			pCube->GetTransform().ApplyTranslation(xPosition, yPosition, zPosition);
 			pCube->GetTransform().ApplyScalar(UNIT_SIZE, UNIT_SIZE, UNIT_SIZE);
 			m_geometry.emplace_back(std::move(pCube));
@@ -378,7 +376,7 @@ void Level::ParseLevelDataCharacter(Graphics& graphics, char character, float xP
 		}
 		case 'L': // Light
 		{
-			std::unique_ptr<Light> pLight = std::make_unique<Light>(graphics, "Assets\\Environment\\light.png");
+			std::unique_ptr<Light> pLight = std::make_unique<Light>(graphics, "Assets\\Environment\\ground_tile.png");
 			pLight->GetTransform().ApplyTranslation(xPosition, yPosition, zPosition);
 			pLight->GetTransform().ApplyScalar(UNIT_SIZE, UNIT_SIZE, UNIT_SIZE);
 			pLight->GetCollider().SetStatic(true);
@@ -453,22 +451,6 @@ void Level::ParseLevelDataCharacter(Graphics& graphics, char character, float xP
 			pBulletPickup->GetTransform().ApplyTranslation(xPosition, yPosition + UNIT_SIZE / 3, zPosition);
 			pBulletPickup->GetTransform().ApplyScalar(UNIT_SIZE / 2, UNIT_SIZE / 2, UNIT_SIZE / 2);
 			m_pickups.emplace_back(std::move(pBulletPickup));
-			break;
-		}
-		case 'N': // Directional Indicator - North
-		{
-			break;
-		}
-		case 'E': // Directional Indicator - East
-		{
-			break;
-		}
-		case 'S': // Directional Indicator - South
-		{
-			break;
-		}
-		case 'W': // Directional Indicator - West
-		{
 			break;
 		}
 		default:

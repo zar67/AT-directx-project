@@ -644,6 +644,12 @@
     <ClInclude Include="SoundType.h">
       <Filter>Source\Header Files\Sound</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource1.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX-RetroFPS.rc">
@@ -653,6 +659,12 @@
   <ItemGroup>
     <Image Include="Assets\Icons\doom-icon.ico">
       <Filter>Resources\Icons</Filter>
+    </Image>
+    <Image Include="assets\icons\icon1.ico">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Assets\Icons\icon.ico">
+      <Filter>Resources</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>

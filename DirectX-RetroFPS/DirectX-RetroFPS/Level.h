@@ -29,7 +29,7 @@ public:
 
 	const float UNIT_SIZE = 1.0f;
 
-	const DirectX::XMFLOAT3 AMBIENT_COLOUR = {0.14f, 0.14f, 0.14f};
+	const DirectX::XMFLOAT3 AMBIENT_COLOUR = {0.25f, 0.25f, 0.25f};
 
 	const float ATTENUATION_CONSTANT = 1.0f;
 	const float ATTENUATION_LINEAR = 0.045f;

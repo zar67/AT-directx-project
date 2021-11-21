@@ -121,7 +121,7 @@ void LevelExit::InitialiseStatic(Graphics& graphics)
 
 	AddStaticBindable(std::make_unique<BlendState>(graphics, false));
 
-	AddStaticBindable(std::make_unique<TextureBindable>(graphics, "Assets\\Environment\\door_thin3.png"));
+	AddStaticBindable(std::make_unique<TextureBindable>(graphics, "Assets\\Environment\\exit_door.png"));
 }
 
 void LevelExit::InitialiseCollider()
