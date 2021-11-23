@@ -24,8 +24,8 @@ GameHUDScreen::GameHUDScreen(Graphics& graphics)
 
 	AddElement(std::move(crosshair), graphics.GetCamera());
 
-	std::unique_ptr<AnimatedImageElement> hudCharacter = std::make_unique<AnimatedImageElement>(graphics, "Assets\\UI\\doom_hud_character.png", 5, 1);
-	hudCharacter->SetOffset(Vector(-0.54f, -3.375f, 4.0f));
+	std::unique_ptr<AnimatedImageElement> hudCharacter = std::make_unique<AnimatedImageElement>(graphics, "Assets\\UI\\character_hud.png", 5, 1);
+	hudCharacter->SetOffset(Vector(-0.025f, -3.2f, 4.0f));
 	hudCharacter->GetTransform().ApplyScalar(0.55f, 0.55f, 1.0f);
 	hudCharacter->ChangeSprite(0);
 	m_pCharacterDisplay = hudCharacter.get();
