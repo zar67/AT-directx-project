@@ -263,6 +263,8 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Icons\doom-icon.ico" />
+    <Image Include="Assets\Icons\icon.ico" />
+    <Image Include="assets\icons\icon1.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
