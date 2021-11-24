@@ -159,7 +159,6 @@
     <ClInclude Include="GameOverScreen.h" />
     <ClInclude Include="KeyPickup.h" />
     <ClInclude Include="LevelExit.h" />
-    <ClInclude Include="resource1.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="SoundType.h" />
     <ClInclude Include="Stat.h" />
