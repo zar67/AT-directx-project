@@ -7,7 +7,7 @@ MainMenuScreen::MainMenuScreen(Graphics& graphics)
 {
 	m_screenType = ScreenType::MAIN_MENU;
 
-	std::unique_ptr<TextElement> titleElement = std::make_unique<TextElement>(graphics, "Assets\\Fonts\\doom_font.spritefont");
+	std::unique_ptr<TextElement> titleElement = std::make_unique<TextElement>(graphics, "Assets\\Fonts\\amazDooM.spritefont");
 	titleElement->GetTransform().ApplyTranslation(Vector(150.0f, 150.0f, 3.0f));
 	titleElement->GetTransform().ApplyScalar(2.0f, 2.0f, 1.0f);
 	titleElement->SetText("Calamity");
