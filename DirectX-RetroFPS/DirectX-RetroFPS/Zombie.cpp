@@ -57,11 +57,6 @@ void Zombie::PlaySightSound()
 	SoundManager::GetInstance().Play(SoundType::ZOMBIE_SIGHT);
 }
 
-void Zombie::PlayAttackSound()
-{
-	SoundManager::GetInstance().Play(SoundType::ZOMBIE_ATTACK);
-}
-
 void Zombie::PlayInjuredSound()
 {
 	SoundManager::GetInstance().Play(SoundType::ZOMBIE_INJURED);

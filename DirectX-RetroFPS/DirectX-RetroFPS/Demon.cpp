@@ -173,11 +173,6 @@ void Demon::PlaySightSound()
 	SoundManager::GetInstance().Play(SoundType::DEMON_SIGHT);
 }
 
-void Demon::PlayAttackSound()
-{
-	SoundManager::GetInstance().Play(SoundType::DEMON_ATTACK);
-}
-
 void Demon::PlayInjuredSound()
 {
 	SoundManager::GetInstance().Play(SoundType::DEMON_INJURED);

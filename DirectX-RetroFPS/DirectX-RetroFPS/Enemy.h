@@ -45,7 +45,6 @@ public:
 	virtual void OnCollision(CollisionUtilities::ColliderCollision collision, DrawableBase* other);
 
 	virtual void PlaySightSound() {};
-	virtual void PlayAttackSound() {};
 	virtual void PlayInjuredSound() {};
 	virtual void PlayDeathSound() {};
 
@@ -96,4 +95,7 @@ private:
 
 	float m_hurtTimer = 0;
 	float m_hurtDelay = 0.15f;
+
+	float m_attackTimer = 0;
+	float m_attackDelay = 0.15f;
 };

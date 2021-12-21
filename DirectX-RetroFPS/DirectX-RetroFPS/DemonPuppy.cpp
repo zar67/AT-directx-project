@@ -57,11 +57,6 @@ void DemonPuppy::PlaySightSound()
 	SoundManager::GetInstance().Play(SoundType::PUPPY_SIGHT);
 }
 
-void DemonPuppy::PlayAttackSound()
-{
-	SoundManager::GetInstance().Play(SoundType::PUPPY_ATTACK);
-}
-
 void DemonPuppy::PlayInjuredSound()
 {
 	SoundManager::GetInstance().Play(SoundType::PUPPY_INJURED);

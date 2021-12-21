@@ -24,7 +24,6 @@ void SoundManager::Initialise()
 	LoadSoundFile(SoundType::SHOTGUN_FIRE, "Assets\\Sound\\shotgun_fire.wav");
 	LoadSoundFile(SoundType::CANNON_FIRE, "Assets\\Sound\\cannon_fire.wav");
 	LoadSoundFile(SoundType::ZOMBIE_SIGHT, "Assets\\Sound\\zombie_sight.wav");
-	LoadSoundFile(SoundType::ZOMBIE_ATTACK, "Assets\\Sound\\zombie_attack.wav");
 	LoadSoundFile(SoundType::ZOMBIE_INJURED, "Assets\\Sound\\zombie_injured.wav");
 	LoadSoundFile(SoundType::ZOMBIE_DEATH, "Assets\\Sound\\zombie_death_one.wav");
 	LoadSoundFile(SoundType::ZOMBIE_DEATH, "Assets\\Sound\\zombie_death_two.wav");
@@ -34,7 +33,6 @@ void SoundManager::Initialise()
 	LoadSoundFile(SoundType::DEMON_INJURED, "Assets\\Sound\\demon_injured.wav");
 	LoadSoundFile(SoundType::DEMON_DEATH, "Assets\\Sound\\demon_death.wav");
 	LoadSoundFile(SoundType::PUPPY_SIGHT, "Assets\\Sound\\puppy_sight.wav");
-	LoadSoundFile(SoundType::PUPPY_ATTACK, "Assets\\Sound\\puppy_attack.wav");
 	LoadSoundFile(SoundType::PUPPY_INJURED, "Assets\\Sound\\puppy_injured.wav");
 	LoadSoundFile(SoundType::PUPPY_DEATH, "Assets\\Sound\\puppy_death.wav");
 }
@@ -73,6 +71,11 @@ void SoundManager::Stop(SoundType type, bool immediate)
 	}
 
 	m_loopedSoundsMap[type].clear();
+}
+
+bool SoundManager::IsPlaying(SoundType type)
+{
+	return false;
 }
 
 void SoundManager::Update()

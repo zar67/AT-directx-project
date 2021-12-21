@@ -22,6 +22,8 @@ public:
 	void Play(SoundType type, bool loop = false);
 	void Stop(SoundType type, bool immediate = false);
 
+	bool IsPlaying(SoundType type);
+
 	void Update();
 	void Pause(bool paused);
 

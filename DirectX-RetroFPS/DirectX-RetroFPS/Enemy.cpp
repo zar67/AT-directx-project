@@ -80,6 +80,8 @@ void Enemy::Update(float deltaTime)
 		ChangeState(EnemyState::IDLE);
 	}
 
+	m_attackTimer += deltaTime;
+
 	if (m_currentState == EnemyState::HURT)
 	{
 		m_hurtTimer += deltaTime;
@@ -114,11 +116,11 @@ void Enemy::OnShot(DrawableBase* shooter, float damage, Vector shotContactPositi
 void Enemy::OnCollision(CollisionUtilities::ColliderCollision collision, DrawableBase* other)
 {
 	Player* player = dynamic_cast<Player*>(other);
-	if (player != nullptr)
+	if (player != nullptr && m_attackTimer >= m_attackDelay)
 	{
 		player->HandleDamaged(10.0f);
-		PlayAttackSound();
 		ChangeState(EnemyState::ATTACKING);
+		m_attackTimer = 0;
 	}
 }
 
