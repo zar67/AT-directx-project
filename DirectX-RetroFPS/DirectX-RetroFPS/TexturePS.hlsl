@@ -1,4 +1,4 @@
-#define MAX_SCENE_LIGHTS 4
+#define MAX_SCENE_LIGHTS 8
 
 struct PS_INPUT
 {
@@ -23,8 +23,8 @@ cbuffer LIGHT_BUFFER : register(b0)
 
     float AttenuationLinear;
     float AttenuationQuadratic;
+    float NumLights;
     float paddingOne;
-    float paddingTwo;
 
     DiffuseData DiffuseLighting[MAX_SCENE_LIGHTS];
 }
@@ -39,7 +39,9 @@ float4 main(PS_INPUT input) : SV_TARGET
     
     // Calculate Diffuse Lighting
     float3 diffuseLight = AmbientColour;
-    for (int i = 0; i < MAX_SCENE_LIGHTS; i++)
+    float iMax = min(MAX_SCENE_LIGHTS, NumLights);
+    
+    for (int i = 0; i < iMax; i++)
     {
         float3 vectorToLight = DiffuseLighting[i].Position - input.WorldPosition;
         float distanceToLight = length(vectorToLight);

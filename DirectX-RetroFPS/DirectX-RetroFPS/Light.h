@@ -4,7 +4,7 @@
 class Light : public Drawable<Light>
 {
 public:
-	const static int MAX_SCENE_LIGHTS = 4;
+	const static int MAX_SCENE_LIGHTS = 8;
 
 	struct DiffuseData
 	{
@@ -20,8 +20,8 @@ public:
 
 		float AttenuationLinear;
 		float AttenuationQuadratic;
+		float NumLights;
 		float paddingOne;
-		float paddingTwo;
 
 		DiffuseData DiffuseLighting[MAX_SCENE_LIGHTS];
 	};

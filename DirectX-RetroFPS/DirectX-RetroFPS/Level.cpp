@@ -376,7 +376,7 @@ void Level::ParseLevelDataCharacter(Graphics& graphics, char character, float xP
 		}
 		case 'L': // Light
 		{
-			std::unique_ptr<Light> pLight = std::make_unique<Light>(graphics, "Assets\\Environment\\ground_tile.png");
+			std::unique_ptr<Light> pLight = std::make_unique<Light>(graphics, "Assets\\Environment\\light_tile.png");
 			pLight->GetTransform().ApplyTranslation(xPosition, yPosition, zPosition);
 			pLight->GetTransform().ApplyScalar(UNIT_SIZE, UNIT_SIZE, UNIT_SIZE);
 			pLight->GetCollider().SetStatic(true);
@@ -512,7 +512,14 @@ void Level::BindLighting(Graphics& graphics)
 		}
 	}
 
-	for (int i = 0; i < Light::MAX_SCENE_LIGHTS; i++)
+	float maxLights = Light::MAX_SCENE_LIGHTS;
+	if (m_lights.size() < Light::MAX_SCENE_LIGHTS)
+	{
+		maxLights = m_lights.size();
+	}
+	lightBufferData.NumLights = maxLights;
+
+	for (int i = 0; i < maxLights; i++)
 	{
 		lightBufferData.DiffuseLighting[i] = m_lights[excludedIndexes[i]]->GetBufferData();
 	}
