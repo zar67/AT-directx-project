@@ -1,0 +1,693 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{facfb809-3691-44ce-9ecb-d96b19f8dc25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source\Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source\Header Files\Graphics">
+      <UniqueIdentifier>{25bfce5a-8216-4275-adaa-2bc83612c979}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Source Files\Graphics">
+      <UniqueIdentifier>{e6ff5a43-1f54-4ee5-b0f8-663d4c2d9a65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Icons">
+      <UniqueIdentifier>{ea87e77d-ed62-443e-8447-21241fa735cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Shaders">
+      <UniqueIdentifier>{bf7d5adc-4d3a-40ef-bd3c-376e8964f82b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Header Files\Graphics\Bindable">
+      <UniqueIdentifier>{829b9ace-e24c-4eda-9479-5a8ca0ec2bc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Source Files\Graphics\Bindable">
+      <UniqueIdentifier>{e017076b-2dba-463a-b469-52f513ebdd05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Header Files\Graphics\Drawable">
+      <UniqueIdentifier>{a4f7f927-06bf-4d0c-8aab-3e1359b23e17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Source Files\Graphics\Drawable">
+      <UniqueIdentifier>{ba6f0f9e-97b7-47bd-915d-61548e45d1e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Source Files\Graphics\Bindable\ConstantBuffers">
+      <UniqueIdentifier>{7f42942d-bb22-4cf5-afa2-6e4da621e176}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Header Files\Graphics\Bindable\ConstantBuffers">
+      <UniqueIdentifier>{86dee250-73f7-440f-adcf-c804fae7eeea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Source Files\Utilities">
+      <UniqueIdentifier>{9977189e-c232-4265-9d16-0c30fca1ca2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Source Files\Utilities\ErrorLogging">
+      <UniqueIdentifier>{f52a003d-770a-4043-9393-0919751e4cad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Header Files\Utilities">
+      <UniqueIdentifier>{be8f7544-ef9f-43ef-985b-18524ecd8501}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Header Files\Utilities\ErrorLogging">
+      <UniqueIdentifier>{3bf04ef9-e7ae-4646-94a4-087c0cfe71a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Source Files\Input">
+      <UniqueIdentifier>{3d9edf75-96bc-49ec-9cfd-e79ddb1f7ca3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Header Files\Input">
+      <UniqueIdentifier>{327bc9ce-fdaa-4c85-b67d-6d1976e27a87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Header Files\Graphics\Lighting">
+      <UniqueIdentifier>{70978364-1b50-4f71-8f07-16670d43482a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Source Files\Graphics\Lighting">
+      <UniqueIdentifier>{14a1edb9-b14c-4654-ad87-f7ab0f7cc2c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Header Files\Game">
+      <UniqueIdentifier>{fa3b9cec-9b91-4bfc-b479-33946eecf1af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Source Files\Game">
+      <UniqueIdentifier>{32ee0d34-e316-4089-8282-4ff8a1a08932}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Header Files\Game\Levels">
+      <UniqueIdentifier>{93aad8a7-6573-4541-9c9c-4c894e9237a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Source Files\Game\Levels">
+      <UniqueIdentifier>{3957b822-53f4-4e01-b169-e0a5fe4f2791}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Source Files\Game\Enemies">
+      <UniqueIdentifier>{52dd6b62-82a1-46e1-81b1-e998880050e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Header Files\Game\Enemies">
+      <UniqueIdentifier>{64ee3b9b-91de-4bfc-81df-23693d5c6b07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Header Files\Animations">
+      <UniqueIdentifier>{1344859d-e770-4fc2-9ef1-edc610fa7ca6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Source Files\Animations">
+      <UniqueIdentifier>{230b3bf4-807f-491e-8165-3124aa57081a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Header Files\Physics">
+      <UniqueIdentifier>{fe49009c-2d72-401f-9bea-677e7b672c14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Source Files\Physics">
+      <UniqueIdentifier>{97e90b9d-f09c-40a8-9ccd-186406ef85c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Header Files\Game\Components">
+      <UniqueIdentifier>{2dbacfd3-97f0-49b4-ab97-52fdf95982de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Source Files\Game\Components">
+      <UniqueIdentifier>{c7da0f20-2802-4551-9103-20894de2ef5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Header Files\Game\Pickup">
+      <UniqueIdentifier>{3820db50-0043-462e-be85-23c50896a951}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Source Files\Game\Pickups">
+      <UniqueIdentifier>{89e2b4a7-bfa3-44a5-a92b-fa50c049ea91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Header Files\Game\UI">
+      <UniqueIdentifier>{9c340866-84e3-430f-8aee-708542f98835}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Source Files\Game\UI">
+      <UniqueIdentifier>{af674558-0b76-4e8a-b363-9b13f7ef0067}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Header Files\Game\UI\Elements">
+      <UniqueIdentifier>{778f2a16-8cfc-4927-8c1d-f1292516fb3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Source Files\Game\UI\Elements">
+      <UniqueIdentifier>{fdfee130-37f8-4718-a3d6-51cdd69d3a46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Source Files\Game\UI\Screens">
+      <UniqueIdentifier>{2ac553f4-e610-4914-88fa-84a7d951431a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Header Files\Game\UI\Screens">
+      <UniqueIdentifier>{65059d59-2fe4-4bde-bcdc-1edaab166800}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Source Files\Game\Weapons">
+      <UniqueIdentifier>{9ff104d8-b014-422f-8015-37db969bd7b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Header Files\Game\Weapons">
+      <UniqueIdentifier>{d10e9270-6388-4931-9fcc-fe3a9453ac67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Header Files\Sound">
+      <UniqueIdentifier>{03f26181-120b-4048-8596-9c034d0a0813}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Source Files\Sound">
+      <UniqueIdentifier>{35f46074-415b-45ce-913f-518b62ef8977}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="WinMain.cpp">
+      <Filter>Source\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ErrorLogger.cpp">
+      <Filter>Source\Source Files\Utilities\ErrorLogging</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics.cpp">
+      <Filter>Source\Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Bindable.cpp">
+      <Filter>Source\Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="InputLayout.cpp">
+      <Filter>Source\Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="PixelShader.cpp">
+      <Filter>Source\Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexShader.cpp">
+      <Filter>Source\Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="IndexBuffer.cpp">
+      <Filter>Source\Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawableBase.cpp">
+      <Filter>Source\Source Files\Graphics\Drawable</Filter>
+    </ClCompile>
+    <ClCompile Include="TexturedCube.cpp">
+      <Filter>Source\Source Files\Graphics\Drawable</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformConstantBuffer.cpp">
+      <Filter>Source\Source Files\Graphics\Bindable\ConstantBuffers</Filter>
+    </ClCompile>
+    <ClCompile Include="Sampler.cpp">
+      <Filter>Source\Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="StringConversion.cpp">
+      <Filter>Source\Source Files\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Source\Source Files\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureBindable.cpp">
+      <Filter>Source\Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="Topology.cpp">
+      <Filter>Source\Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="RasterizerState.cpp">
+      <Filter>Source\Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source\Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>Source\Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Source\Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyboardEvent.cpp">
+      <Filter>Source\Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Keyboard.cpp">
+      <Filter>Source\Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>Source\Source Files\Graphics\Lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="ColouredCube.cpp">
+      <Filter>Source\Source Files\Graphics\Drawable</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source\Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelManager.cpp">
+      <Filter>Source\Source Files\Game\Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>Source\Source Files\Game\Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseEvent.cpp">
+      <Filter>Source\Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Mouse.cpp">
+      <Filter>Source\Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="BlendState.cpp">
+      <Filter>Source\Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source\Source Files\Game\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteSheet.cpp">
+      <Filter>Source\Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Source\Source Files\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionUtilities.cpp">
+      <Filter>Source\Source Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="OBBCollider.cpp">
+      <Filter>Source\Source Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector.cpp">
+      <Filter>Source\Source Files\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Demon.cpp">
+      <Filter>Source\Source Files\Game\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Zombie.cpp">
+      <Filter>Source\Source Files\Game\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="DemonPuppy.cpp">
+      <Filter>Source\Source Files\Game\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source\Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Shooter.cpp">
+      <Filter>Source\Source Files\Game\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Stat.cpp">
+      <Filter>Source\Source Files\Game\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Pickup.cpp">
+      <Filter>Source\Source Files\Game\Pickups</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthPickup.cpp">
+      <Filter>Source\Source Files\Game\Pickups</Filter>
+    </ClCompile>
+    <ClCompile Include="UIElement.cpp">
+      <Filter>Source\Source Files\Game\UI\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageElement.cpp">
+      <Filter>Source\Source Files\Game\UI\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="UIManager.cpp">
+      <Filter>Source\Source Files\Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen.cpp">
+      <Filter>Source\Source Files\Game\UI\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuScreen.cpp">
+      <Filter>Source\Source Files\Game\UI\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="GameHUDScreen.cpp">
+      <Filter>Source\Source Files\Game\UI\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOverScreen.cpp">
+      <Filter>Source\Source Files\Game\UI\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonElement.cpp">
+      <Filter>Source\Source Files\Game\UI\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimatedImageElement.cpp">
+      <Filter>Source\Source Files\Game\UI\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="ArmorPickup.cpp">
+      <Filter>Source\Source Files\Game\Pickups</Filter>
+    </ClCompile>
+    <ClCompile Include="TextElement.cpp">
+      <Filter>Source\Source Files\Game\UI\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="TextBindable.cpp">
+      <Filter>Source\Source Files\Graphics\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelExit.cpp">
+      <Filter>Source\Source Files\Game\Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyPickup.cpp">
+      <Filter>Source\Source Files\Game\Pickups</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapon.cpp">
+      <Filter>Source\Source Files\Game\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletPickup.cpp">
+      <Filter>Source\Source Files\Game\Pickups</Filter>
+    </ClCompile>
+    <ClCompile Include="Fireball.cpp">
+      <Filter>Source\Source Files\Game\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>Source\Source Files\Sound</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ErrorLogger.h">
+      <Filter>Source\Header Files\Utilities\ErrorLogging</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics.h">
+      <Filter>Source\Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Bindable.h">
+      <Filter>Source\Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="InputLayout.h">
+      <Filter>Source\Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="PixelShader.h">
+      <Filter>Source\Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexShader.h">
+      <Filter>Source\Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="IndexBuffer.h">
+      <Filter>Source\Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexBuffer.h">
+      <Filter>Source\Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawableBase.h">
+      <Filter>Source\Header Files\Graphics\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="TexturedCube.h">
+      <Filter>Source\Header Files\Graphics\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawable.h">
+      <Filter>Source\Header Files\Graphics\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexConstantBuffer.h">
+      <Filter>Source\Header Files\Graphics\Bindable\ConstantBuffers</Filter>
+    </ClInclude>
+    <ClInclude Include="PixelConstantBuffer.h">
+      <Filter>Source\Header Files\Graphics\Bindable\ConstantBuffers</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformConstantBuffer.h">
+      <Filter>Source\Header Files\Graphics\Bindable\ConstantBuffers</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Source\Header Files\Graphics\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sampler.h">
+      <Filter>Source\Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Source\Header Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="StringConversion.h">
+      <Filter>Source\Header Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureBindable.h">
+      <Filter>Source\Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Topology.h">
+      <Filter>Source\Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="RasterizerState.h">
+      <Filter>Source\Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Source\Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>Source\Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Source\Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardEvent.h">
+      <Filter>Source\Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Keyboard.h">
+      <Filter>Source\Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>Source\Header Files\Graphics\Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ColouredCube.h">
+      <Filter>Source\Header Files\Graphics\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Source\Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelManager.h">
+      <Filter>Source\Header Files\Game\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>Source\Header Files\Game\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseEvent.h">
+      <Filter>Source\Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Mouse.h">
+      <Filter>Source\Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BlendState.h">
+      <Filter>Source\Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Source\Header Files\Game\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteSheet.h">
+      <Filter>Source\Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Source\Header Files\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionUtilities.h">
+      <Filter>Source\Header Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="OBBCollider.h">
+      <Filter>Source\Header Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector.h">
+      <Filter>Source\Header Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Demon.h">
+      <Filter>Source\Header Files\Game\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureCoordinate.h">
+      <Filter>Source\Header Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Zombie.h">
+      <Filter>Source\Header Files\Game\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="DemonPuppy.h">
+      <Filter>Source\Header Files\Game\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ray.h">
+      <Filter>Source\Header Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Source\Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Shooter.h">
+      <Filter>Source\Header Files\Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Stat.h">
+      <Filter>Source\Header Files\Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Pickup.h">
+      <Filter>Source\Header Files\Game\Pickup</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthPickup.h">
+      <Filter>Source\Header Files\Game\Pickup</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UIElement.h">
+      <Filter>Source\Header Files\Game\UI\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="UIManager.h">
+      <Filter>Source\Header Files\Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageElement.h">
+      <Filter>Source\Header Files\Game\UI\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen.h">
+      <Filter>Source\Header Files\Game\UI\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuScreen.h">
+      <Filter>Source\Header Files\Game\UI\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameHUDScreen.h">
+      <Filter>Source\Header Files\Game\UI\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOverScreen.h">
+      <Filter>Source\Header Files\Game\UI\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonElement.h">
+      <Filter>Source\Header Files\Game\UI\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatedImageElement.h">
+      <Filter>Source\Header Files\Game\UI\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="ArmorPickup.h">
+      <Filter>Source\Header Files\Game\Pickup</Filter>
+    </ClInclude>
+    <ClInclude Include="TextElement.h">
+      <Filter>Source\Header Files\Game\UI\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="TextBindable.h">
+      <Filter>Source\Header Files\Graphics\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelExit.h">
+      <Filter>Source\Header Files\Game\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyPickup.h">
+      <Filter>Source\Header Files\Game\Pickup</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponType.h">
+      <Filter>Source\Header Files\Game\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapon.h">
+      <Filter>Source\Header Files\Game\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenType.h">
+      <Filter>Source\Header Files\Game\UI\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletPickup.h">
+      <Filter>Source\Header Files\Game\Pickup</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Fireball.h">
+      <Filter>Source\Header Files\Game\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundManager.h">
+      <Filter>Source\Header Files\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundType.h">
+      <Filter>Source\Header Files\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DirectX-RetroFPS.rc">
+      <Filter>Resources</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\Icons\doom-icon.ico">
+      <Filter>Resources\Icons</Filter>
+    </Image>
+    <Image Include="assets\icons\icon1.ico">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Assets\Icons\icon.ico">
+      <Filter>Resources</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="TexturePS.hlsl">
+      <Filter>Resources\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="TextureVS.hlsl">
+      <Filter>Resources\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="ColourPS.hlsl">
+      <Filter>Resources\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="ColourVS.hlsl">
+      <Filter>Resources\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="UnlitTextureVS.hlsl">
+      <Filter>Resources\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="UnlitTexturePS.hlsl">
+      <Filter>Resources\Shaders</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>
